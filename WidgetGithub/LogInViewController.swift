@@ -12,7 +12,7 @@ import SafariServices
 import Alamofire
 
 class LogInViewController: UIViewController {
-
+    
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
@@ -20,6 +20,8 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var welcomeTextLabel: UILabel!
     @IBOutlet weak var signInButtonOutlet: UIButton!
     
+    let clientID:String = "99961c715dc314b74401"
+    let clientSecret:String = "7032c8432bd3a41e303a1c607d8643758316ca50"
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -30,7 +32,7 @@ class LogInViewController: UIViewController {
         self.signInButtonOutlet.layer.cornerRadius = 5
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -39,13 +41,13 @@ class LogInViewController: UIViewController {
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
- 
+    
     @IBAction func githubMarkButtonAction(_ sender: UIButton) {
         self.openSafariViewOf(url: "https://github.com")
     }
     
     @IBAction func signInButtonAction(_ sender: UIButton) {
-        self.signInGithub()
+        self.openSafariViewOf(url: "https://github.com/login")
     }
     
     @IBAction func createAnAccountButtonAction(_ sender: UIButton) {
@@ -62,29 +64,44 @@ class LogInViewController: UIViewController {
     }
     
     //Github OAuth SignIn
-    func signInGithub() {
-//        var credential = GitHubAuthProvider.credential(withToken: "884fd950baf8ed6f9f645e50e268d474eaed95e8")
-        guard let rootDomain:URL = URL(string: "https://github.com/login/oauth/authorize") else {return}
-        Alamofire.request(rootDomain, method: .get, parameters: nil, headers: nil).responseJSON { [unowned self] (response) in
+    func redirectToRequestGitHubIdentify() {
+        guard let realDomain:URL = URL(string: "https://github.com/login/oauth/authorize") else {return}
+        let parameters:Parameters = ["state":""]
+        Alamofire.request(realDomain, method: .get, parameters: parameters, headers: nil).responseString { (response) in
             switch response.result {
             case .success(let value):
                 print("///Alamofire.request - response: ", value)
-            
+                
             case .failure(let error):
                 print("///Alamofire.request - error: ", error)
             }
             
         }
-    
-        
     }
+    
+    
+    func signInGithub() {
+        //        var credential = GitHubAuthProvider.credential(withToken: "884fd950baf8ed6f9f645e50e268d474eaed95e8")
+        guard let rootDomain:URL = URL(string: "https://github.com/login/oauth/access_token") else {return}
+        let code:String = ""
+        let parameters:Parameters = ["client_id":clientID, "client_secret":clientID, "code":code]
+        Alamofire.request(rootDomain, method: .post, parameters: parameters, headers: nil).responseString { (response) in
+            switch response.result {
+            case .success(let value):
+                print("///Alamofire.request - response: ", value)
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+                
+            }
+        }
+    }
+    
 }
 
 extension LogInViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.redirectToRequestGitHubIdentify()
+        self.signInGithub()
         self.dismiss(animated: true, completion: nil)
     }
 }
-
-
-
