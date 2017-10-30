@@ -11,6 +11,9 @@ import FirebaseAuth
 import SafariServices
 import Alamofire
 
+private let clientID:String = "99961c715dc314b74401"
+private let clientSecret:String = "7032c8432bd3a41e303a1c607d8643758316ca50"
+
 class LogInViewController: UIViewController {
     
     /********************************************/
@@ -19,9 +22,11 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var githubMarkButtonOutlet: UIButton!
     @IBOutlet weak var welcomeTextLabel: UILabel!
     @IBOutlet weak var signInButtonOutlet: UIButton!
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     
-    let clientID:String = "99961c715dc314b74401"
-    let clientSecret:String = "7032c8432bd3a41e303a1c607d8643758316ca50"
+    private let loginURL = URL(string: "http://github.com/login/oauth/authorize?client_id=\(clientID)&scope=user+repo+notifications")!
+    private let callbackURLScheme = "https://widgetgithub.firebaseapp.com/__/auth/handler"
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -47,7 +52,8 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func signInButtonAction(_ sender: UIButton) {
-        self.openSafariViewOf(url: "https://github.com/login")
+//        self.openSafariViewOf(url: "https://github.com/login")
+        
     }
     
     @IBAction func createAnAccountButtonAction(_ sender: UIButton) {

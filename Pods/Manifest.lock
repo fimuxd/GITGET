@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (4.5.1)
+  - Apollo (0.6.5):
+    - Apollo/Core (= 0.6.5)
+  - Apollo/Core (0.6.5)
   - Firebase/Auth (4.2.0):
     - Firebase/Core
     - FirebaseAuth (= 4.2.0)
@@ -37,6 +40,11 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.12)
+  - IGListKit (3.1.1):
+    - IGListKit/Default (= 3.1.1)
+  - IGListKit/Default (3.1.1):
+    - IGListKit/Diffing
+  - IGListKit/Diffing (3.1.1)
   - leveldb-library (1.18.3)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -46,12 +54,15 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
+  - Apollo
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - IGListKit (~> 3.1)
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  Apollo: 575496b1fbdb27a47c0e62a48340da2bd1dc67d7
   Firebase: 9548cae14d69718add12d75a5b312893f7ef89c7
   FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
   FirebaseAuth: 22f8a5170f31d1f111141950590f071f35df3229
@@ -60,9 +71,10 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: a4fc702b5a026f7322964376047f1a3f1f7cc6ff
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  IGListKit: cb97f405ae43e59fe1da74271e19427ec20d3c07
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
 
-PODFILE CHECKSUM: daa96c0d6292830253fbafa1ab922ecd5331724e
+PODFILE CHECKSUM: 3ea037fe22a95724eec7e78e598ccf886e00a8d3
 
 COCOAPODS: 1.3.1

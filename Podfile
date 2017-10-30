@@ -10,5 +10,9 @@ pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Alamofire', '~> 4.5'
+pod 'IGListKit', '~> 3.1'
+pod "Apollo"
+
+
 
 end
