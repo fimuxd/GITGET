@@ -13,6 +13,7 @@ import Alamofire
 
 private let clientID:String = "99961c715dc314b74401"
 private let clientSecret:String = "7032c8432bd3a41e303a1c607d8643758316ca50"
+private let callbackURLScheme = "https://widgetgithub.firebaseapp.com/__/auth/handler"
 
 class LogInViewController: UIViewController {
     
@@ -25,8 +26,8 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    private let loginURL = URL(string: "http://github.com/login/oauth/authorize?client_id=\(clientID)&scope=user+repo+notifications")!
-    private let callbackURLScheme = "https://widgetgithub.firebaseapp.com/__/auth/handler"
+    private let oAuthLoginURL = URL(string: "https://github.com/login/oauth/authorize?client_id=\(clientID)&redirect_uri=\(callbackURLScheme)")
+    private let requestLogInURL = URL(string: "https://github.com/login")
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -52,8 +53,8 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func signInButtonAction(_ sender: UIButton) {
-//        self.openSafariViewOf(url: "https://github.com/login")
-        
+        self.openSafariViewOf(url: "https://github.com/login")
+        redirectToRequestGitHubIdentify()
     }
     
     @IBAction func createAnAccountButtonAction(_ sender: UIButton) {
@@ -71,9 +72,8 @@ class LogInViewController: UIViewController {
     
     //Github OAuth SignIn
     func redirectToRequestGitHubIdentify() {
-        guard let realDomain:URL = URL(string: "https://github.com/login/oauth/authorize") else {return}
-        let parameters:Parameters = ["state":""]
-        Alamofire.request(realDomain, method: .get, parameters: parameters, headers: nil).responseString { (response) in
+        guard let realDomain:URL = oAuthLoginURL else {return}
+        Alamofire.request(realDomain, method: .get, headers: nil).responseString { (response) in
             switch response.result {
             case .success(let value):
                 print("///Alamofire.request - response: ", value)
@@ -88,8 +88,7 @@ class LogInViewController: UIViewController {
     
     func signInGithub() {
         //        var credential = GitHubAuthProvider.credential(withToken: "884fd950baf8ed6f9f645e50e268d474eaed95e8")
-        guard let rootDomain:URL = URL(string: "https://github.com/login/oauth/access_token") else {return}
-        let code:String = ""
+        guard let rootDomain:URL = requestLogInURL else {return}
         let parameters:Parameters = ["client_id":clientID, "client_secret":clientID, "code":code]
         Alamofire.request(rootDomain, method: .post, parameters: parameters, headers: nil).responseString { (response) in
             switch response.result {
