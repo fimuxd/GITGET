@@ -53,8 +53,8 @@ class LogInViewController: UIViewController {
     }
     
     @IBAction func signInButtonAction(_ sender: UIButton) {
-        self.openSafariViewOf(url: "https://github.com/login")
-        redirectToRequestGitHubIdentify()
+//        self.openSafariViewOf(url: "https://github.com/login")
+        signInGithub()
     }
     
     @IBAction func createAnAccountButtonAction(_ sender: UIButton) {
@@ -88,9 +88,14 @@ class LogInViewController: UIViewController {
     
     func signInGithub() {
         //        var credential = GitHubAuthProvider.credential(withToken: "884fd950baf8ed6f9f645e50e268d474eaed95e8")
-        guard let rootDomain:URL = requestLogInURL else {return}
-        let parameters:Parameters = ["client_id":clientID, "client_secret":clientID, "code":code]
-        Alamofire.request(rootDomain, method: .post, parameters: parameters, headers: nil).responseString { (response) in
+        guard let rootDomain:URL = URL(string: "https://github.com/settings/connections/applications/\(clientID)") else {return}
+        let headers = [
+            "authorization": "Basic ZmltdXhkQGdtYWlsLmNvbTpIMzNzb28wOSE1",
+            "cache-control": "no-cache",
+            "postman-token": "7d212748-ae10-a1ed-ccc3-c82975eecc5f"
+        ]
+        
+        Alamofire.request(rootDomain, method: .get, parameters: nil, headers: headers).responseString { (response) in
             switch response.result {
             case .success(let value):
                 print("///Alamofire.request - response: ", value)
