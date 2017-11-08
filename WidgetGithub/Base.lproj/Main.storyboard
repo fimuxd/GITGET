@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,71 +19,70 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urs-0S-DN6">
-                                <rect key="frame" x="149.5" y="134" width="76" height="76"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urs-0S-DN6">
+                                <rect key="frame" x="171.5" y="190" width="32" height="32"/>
                                 <state key="normal" image="GitHub-Mark_Black"/>
                                 <connections>
                                     <action selector="githubMarkButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rj1-4p-svD"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome to WidgetGitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLH-IZ-rnN">
-                                <rect key="frame" x="71.5" y="210" width="232.5" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to WidgetGitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLH-IZ-rnN">
+                                <rect key="frame" x="71" y="242" width="233" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
-                                <rect key="frame" x="18.5" y="369" width="337.5" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
+                                <rect key="frame" x="19" y="369" width="337.5" height="34"/>
                                 <color key="backgroundColor" red="0.19999769330024719" green="0.19999843835830688" blue="0.20000004768371582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" red="0.97646147009999995" green="0.97646445039999996" blue="0.97647100689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="    Sign in to GitHub    "/>
                                 <connections>
-                                    <action selector="signInButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GBY-Ee-spi"/>
+                                    <segue destination="m02-hB-Uz2" kind="show" id="jBM-Vk-EjD"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You need to have a GitHub account to use the WidgetGitHub." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
-                                <rect key="frame" x="27" y="418" width="321" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have a GitHub account to use the WidgetGitHub." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
+                                <rect key="frame" x="19" y="418" width="337.5" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="New to GitHub?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-Go-ux5">
-                                <rect key="frame" x="104.5" y="434" width="83" height="14"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-54-tgV">
-                                <rect key="frame" x="192.5" y="428" width="100" height="26"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-54-tgV">
+                                <rect key="frame" x="187.5" y="428" width="100" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <state key="normal" title="Create an account."/>
                                 <connections>
                                     <action selector="createAnAccountButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wE0-8V-gJw"/>
                                 </connections>
                             </button>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ReD-VF-Dfc">
-                                <rect key="frame" x="0.0" y="10" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to GitHub?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-Go-ux5">
+                                <rect key="frame" x="99.5" y="434" width="83" height="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.97646147012710571" green="0.97646445035934448" blue="0.97647100687026978" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="ReD-VF-Dfc" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="bKz-CT-az7"/>
-                            <constraint firstItem="ReD-VF-Dfc" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="jHQ-23-WFM"/>
-                            <constraint firstItem="ReD-VF-Dfc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="qXe-7z-S1V"/>
-                            <constraint firstItem="ReD-VF-Dfc" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="xkK-0s-d0a"/>
+                            <constraint firstItem="urs-0S-DN6" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Fb-bV-Blh"/>
+                            <constraint firstItem="TLH-IZ-rnN" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="8hc-D2-mja"/>
+                            <constraint firstItem="JGS-54-tgV" firstAttribute="top" secondItem="g0R-Yb-emA" secondAttribute="bottom" constant="-4" id="B0b-8T-dIq"/>
+                            <constraint firstItem="g0R-Yb-emA" firstAttribute="top" secondItem="Vbi-Vd-LDq" secondAttribute="bottom" constant="15" id="Ery-9a-0c0"/>
+                            <constraint firstItem="Vbi-Vd-LDq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="LhN-mM-PDq"/>
+                            <constraint firstItem="TLH-IZ-rnN" firstAttribute="top" secondItem="urs-0S-DN6" secondAttribute="bottom" constant="20" id="SdN-h2-2oY"/>
+                            <constraint firstItem="JGS-54-tgV" firstAttribute="leading" secondItem="bKB-Go-ux5" secondAttribute="trailing" constant="5" id="Uii-qW-sfv"/>
+                            <constraint firstItem="urs-0S-DN6" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="3/5" id="b04-to-Cmo"/>
+                            <constraint firstItem="g0R-Yb-emA" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ddE-vu-qvi"/>
+                            <constraint firstItem="bKB-Go-ux5" firstAttribute="centerY" secondItem="JGS-54-tgV" secondAttribute="centerY" id="ha0-7U-iUt"/>
+                            <constraint firstItem="JGS-54-tgV" firstAttribute="leading" secondItem="urs-0S-DN6" secondAttribute="leading" constant="16" id="puk-v8-gmE"/>
+                            <constraint firstItem="g0R-Yb-emA" firstAttribute="width" secondItem="Vbi-Vd-LDq" secondAttribute="width" id="wI9-dO-OgY"/>
+                            <constraint firstItem="Vbi-Vd-LDq" firstAttribute="top" secondItem="TLH-IZ-rnN" secondAttribute="bottom" constant="103" id="xgJ-7R-KpO"/>
+                            <constraint firstItem="Vbi-Vd-LDq" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="9/10" id="yXC-gM-nH8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="authorizationWebView" destination="ReD-VF-Dfc" id="0Up-Um-wmh"/>
                         <outlet property="githubMarkButtonOutlet" destination="urs-0S-DN6" id="X1E-BA-SSu"/>
                         <outlet property="signInButtonOutlet" destination="Vbi-Vd-LDq" id="u7C-00-cRE"/>
                         <outlet property="welcomeTextLabel" destination="TLH-IZ-rnN" id="Fhg-dC-aMA"/>
@@ -91,6 +91,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
+        </scene>
+        <!--Auth Web View Controller-->
+        <scene sceneID="ElQ-v4-s9e">
+            <objects>
+                <viewController id="m02-hB-Uz2" customClass="OAuthWebViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hx9-Xa-KN6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTL-EB-NnV">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="m02-hB-Uz2" id="bHl-QF-cmZ"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="mTL-EB-NnV" firstAttribute="centerY" secondItem="O5f-Gy-MET" secondAttribute="centerY" id="4L7-0l-In1"/>
+                            <constraint firstItem="mTL-EB-NnV" firstAttribute="leading" secondItem="O5f-Gy-MET" secondAttribute="leading" id="L00-qm-LZR"/>
+                            <constraint firstItem="O5f-Gy-MET" firstAttribute="trailing" secondItem="mTL-EB-NnV" secondAttribute="trailing" id="XDf-x0-Dyc"/>
+                            <constraint firstItem="mTL-EB-NnV" firstAttribute="top" secondItem="O5f-Gy-MET" secondAttribute="top" id="fgx-nC-dDh"/>
+                            <constraint firstItem="mTL-EB-NnV" firstAttribute="centerX" secondItem="O5f-Gy-MET" secondAttribute="centerX" id="gdA-AT-WAP"/>
+                            <constraint firstItem="O5f-Gy-MET" firstAttribute="bottom" secondItem="mTL-EB-NnV" secondAttribute="bottom" id="kuQ-QT-UkA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="O5f-Gy-MET"/>
+                    </view>
+                    <connections>
+                        <outlet property="authorizationWebView" destination="mTL-EB-NnV" id="UaB-XF-MM8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tnN-9K-aAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="788" y="34"/>
         </scene>
     </scenes>
     <resources>
