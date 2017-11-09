@@ -28,12 +28,8 @@ class LogInViewController: UIViewController {
         
         self.signInButtonOutlet.layer.cornerRadius = 5
         
-        guard let currentUserURL:URL = URL(string:"https://api.github.com/user") else {return}
-        Alamofire.request(currentUserURL, method: .get).responseString { (response) in
-            print(response.value)
-        }
-        
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,6 +59,7 @@ class LogInViewController: UIViewController {
         safariViewController.delegate = self
         self.present(safariViewController, animated: true, completion: nil)
     }
+
 }
 
 extension LogInViewController:SFSafariViewControllerDelegate {

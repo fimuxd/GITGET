@@ -55,7 +55,11 @@ class OAuthWebViewController: UIViewController {
             switch response.result {
             case .success(let value):
                 print("///Alamofire.request - response: ", value)
-                self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
+                if Auth.auth().currentUser != nil {
+                    self.dismiss(animated: true, completion: nil)
+                }else{
+                    self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
+                }
             case .failure(let error):
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 print("///Alamofire.request - error: ", error)

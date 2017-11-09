@@ -18,15 +18,28 @@ class SettingViewController: UIViewController {
     /********************************************/
     @IBOutlet weak var welcomeTextLabel: UILabel!
     
+    let currentUser:User? = Auth.auth().currentUser
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.welcomeTextLabel.text = "\(currentUser) 반갑습니다."
         
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if currentUser == nil {
+            print("여기")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+            self.present(logInViewController, animated: false, completion: nil)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
