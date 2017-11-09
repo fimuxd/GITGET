@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 import SafariServices
 import Alamofire
 
@@ -112,13 +113,19 @@ extension OAuthWebViewController: UIWebViewDelegate {
                             return print("///Firebase Auth Error: \(error.localizedDescription)")
                         }
                         
-                        self.performSegue(withIdentifier: "toSettingViewController", sender: self)
+                        guard let realCurrentUser = Auth.auth().currentUser else {return}
+                        Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(["email":"\(realCurrentUser.email)",
+                            "accessToken":"\(access_Token)"])
                         
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+                        self.present(settingViewController, animated: true, completion: nil)
                     })
                     
                 case .failure(let error):
                     print("///Alamofire.request - error: ", error)
                 }
+//                self.dismiss(animated: true, completion: nil)
             }
         }
         return true
