@@ -25,7 +25,6 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.welcomeTextLabel.text = "\(currentUser) 반갑습니다."
         
     }
 
@@ -49,5 +48,20 @@ class SettingViewController: UIViewController {
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
+    
+    @IBAction func signOutButtonAction(_ sender: UIButton) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+            self.present(logInViewController, animated: false, completion: nil)
+            
+        }catch let signOutError as Error {
+            print("Error signing out: %@", signOutError)
+        }
+        
+    }
     
 }

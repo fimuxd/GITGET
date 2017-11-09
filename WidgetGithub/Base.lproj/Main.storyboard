@@ -142,12 +142,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWm-LU-VCR">
+                                <rect key="frame" x="299" y="40" width="56" height="30"/>
+                                <state key="normal" title="SignOut"/>
+                                <connections>
+                                    <action selector="signOutButtonAction:" destination="wy3-E4-Bnw" eventType="touchUpInside" id="XNh-97-tJ3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eAU-kR-ImK" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="4zX-qs-w4R"/>
+                            <constraint firstItem="aWO-I9-D8X" firstAttribute="trailing" secondItem="uWm-LU-VCR" secondAttribute="trailing" constant="20" id="9rn-OJ-Z53"/>
                             <constraint firstItem="eAU-kR-ImK" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" id="P6t-SV-V53"/>
                             <constraint firstItem="eAU-kR-ImK" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" id="SJD-Q0-PZk"/>
+                            <constraint firstItem="uWm-LU-VCR" firstAttribute="top" secondItem="aWO-I9-D8X" secondAttribute="top" constant="20" id="Spa-Mu-Dnn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aWO-I9-D8X"/>
                     </view>

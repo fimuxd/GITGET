@@ -65,10 +65,8 @@ class OAuthWebViewController: UIViewController {
                 print("///Alamofire.request - error: ", error)
             }
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
         }
     }
-    
 }
 
 
