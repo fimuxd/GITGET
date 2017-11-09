@@ -7,13 +7,24 @@
 //
 
 import UIKit
+import FirebaseAuth
+import SafariServices
+import Alamofire
 
 class SettingViewController: UIViewController {
 
+    /********************************************/
+    //MARK:-      Variation | IBOutlet          //
+    /********************************************/
+    @IBOutlet weak var welcomeTextLabel: UILabel!
+    
+    /********************************************/
+    //MARK:-            LifeCycle               //
+    /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +33,8 @@ class SettingViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    /********************************************/
+    //MARK:-       Methods | IBAction           //
+    /********************************************/
+    
 }

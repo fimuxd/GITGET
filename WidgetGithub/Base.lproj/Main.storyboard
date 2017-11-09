@@ -39,6 +39,7 @@
                                 <color key="tintColor" red="0.97646147009999995" green="0.97646445039999996" blue="0.97647100689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="    Sign in to GitHub    "/>
                                 <connections>
+                                    <action selector="signInButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XNE-ov-HZv"/>
                                     <segue destination="m02-hB-Uz2" kind="show" id="jBM-Vk-EjD"/>
                                 </connections>
                             </button>
@@ -121,11 +122,43 @@
                     </view>
                     <connections>
                         <outlet property="authorizationWebView" destination="mTL-EB-NnV" id="UaB-XF-MM8"/>
+                        <segue destination="wy3-E4-Bnw" kind="show" identifier="toSettingViewController" id="R10-rG-ljb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tnN-9K-aAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="788" y="34"/>
+            <point key="canvasLocation" x="775" y="34"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="VLX-Zk-oZ4">
+            <objects>
+                <viewController id="wy3-E4-Bnw" customClass="SettingViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BXK-DH-mLc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAU-kR-ImK">
+                                <rect key="frame" x="1" y="329" width="375" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="4zX-qs-w4R"/>
+                            <constraint firstItem="eAU-kR-ImK" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" id="P6t-SV-V53"/>
+                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" id="SJD-Q0-PZk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="aWO-I9-D8X"/>
+                    </view>
+                    <connections>
+                        <outlet property="welcomeTextLabel" destination="eAU-kR-ImK" id="2PV-kB-SYT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heD-Ty-q5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1516" y="34"/>
         </scene>
     </scenes>
     <resources>

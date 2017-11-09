@@ -19,6 +19,7 @@ class OAuthWebViewController: UIViewController {
     private let clientID:String = "99961c715dc314b74401"
     private let clientSecret:String = "7032c8432bd3a41e303a1c607d8643758316ca50"
     private let callbackURL = "https://widgetgithub.firebaseapp.com/__/auth/handler"
+    
     private var accessToken:String?
     
     @IBOutlet weak var authorizationWebView: UIWebView!
@@ -28,14 +29,14 @@ class OAuthWebViewController: UIViewController {
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.signInGithub()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
+        
     }
     
     
@@ -47,6 +48,7 @@ class OAuthWebViewController: UIViewController {
         let parameters:Parameters = ["client_id":clientID,
                                      "client_secret":clientSecret,
                                      "redirect_uri":callbackURL,
+                                     "scope":"repo user",
                                      "allow_signup":"false"]
         
         Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { (response) in
@@ -55,11 +57,14 @@ class OAuthWebViewController: UIViewController {
                 print("///Alamofire.request - response: ", value)
                 self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
             case .failure(let error):
+                self.navigationController?.dismiss(animated: true, completion: nil)
                 print("///Alamofire.request - error: ", error)
             }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
         }
     }
-
+    
 }
 
 
@@ -72,21 +77,21 @@ extension OAuthWebViewController: UIWebViewDelegate {
             self.present(safariViewController, animated: true)
             return false
         }
-        guard let realURL = request.url else {
-            return true
-        }
         
+        guard let realURL = request.url else {return true}
+        
+        //MARK:- CallbackURL(Firebase) 로 연결되었을 때 - code 추출
         if String(describing: request).contains(callbackURL) {
-            guard let callbackUrlWithCode:String = request.url?.absoluteString,
-                let queryItemsForCode = URLComponents(string:callbackUrlWithCode)?.queryItems,
+            let callbackUrlWithCode:String = realURL.absoluteString
+            guard let queryItemsForCode = URLComponents(string:callbackUrlWithCode)?.queryItems,
                 let code = queryItemsForCode.filter({$0.name == "code"}).first?.value,
                 let redirectURLToGetAccessToken:URL = URL(string: "https://github.com/login/oauth/access_token") else {return true}
-            
             let parameters:Parameters = ["client_id":clientID,
                                          "client_secret":clientSecret,
                                          "code":code,
                                          "redirect_uri":callbackURL]
             
+            //MARK:- 받은 code를 access_token 형태로 받기 위해 POST
             Alamofire.request(redirectURLToGetAccessToken, method: .post, parameters: parameters).responseString { (response) in
                 switch response.result {
                 case .success(let value):
@@ -96,14 +101,17 @@ extension OAuthWebViewController: UIWebViewDelegate {
                     guard let queryItemsForAccessToken = URLComponents(string:responseUrl)?.queryItems,
                         let access_Token = queryItemsForAccessToken.filter({$0.name == "access_token"}).first?.value else {return}
                     
-                    self.accessToken = access_Token
+                    UserDefaults.standard.set(access_Token, forKey: "AccessToken")
                     
-                    //Firebase 연동
+                    //MARK:- Firebase 연동
                     let credential = GitHubAuthProvider.credential(withToken: access_Token)
                     Auth.auth().signIn(with: credential, completion: { (user, error) in
                         if let error = error {
-                            return
+                            return print("///Firebase Auth Error: \(error.localizedDescription)")
                         }
+                        
+                        self.performSegue(withIdentifier: "toSettingViewController", sender: self)
+                        
                     })
                     
                 case .failure(let error):

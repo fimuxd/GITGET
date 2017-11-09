@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 import SafariServices
+import Alamofire
 
 class LogInViewController: UIViewController {
     
@@ -25,6 +27,12 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         
         self.signInButtonOutlet.layer.cornerRadius = 5
+        
+        guard let currentUserURL:URL = URL(string:"https://api.github.com/user") else {return}
+        Alamofire.request(currentUserURL, method: .get).responseString { (response) in
+            print(response.value)
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,6 +46,10 @@ class LogInViewController: UIViewController {
     
     @IBAction func githubMarkButtonAction(_ sender: UIButton) {
         self.openSafariViewOf(url: "https://github.com")
+    }
+    
+    @IBAction func signInButtonAction(_ sender: UIButton) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
     
     @IBAction func createAnAccountButtonAction(_ sender: UIButton) {
