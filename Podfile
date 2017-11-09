@@ -11,4 +11,6 @@ pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Alamofire', '~> 4.5'
 
+pod 'SwiftyJSON'
+
 end
