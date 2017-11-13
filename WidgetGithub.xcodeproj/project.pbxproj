@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A238E751FB928970063C30A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A238E741FB928970063C30A /* NotificationCenter.framework */; };
+		6A238E781FB928970063C30A /* GitGetTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A238E771FB928970063C30A /* GitGetTodayViewController.swift */; };
+		6A238E7B1FB928970063C30A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A238E791FB928970063C30A /* MainInterface.storyboard */; };
+		6A238E7F1FB928970063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E731FB928970063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
 		6AD30F651FB3725400D9C251 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F641FB3725400D9C251 /* SettingViewController.swift */; };
@@ -18,7 +22,36 @@
 		7E7145AEC5430C29F650F136 /* Pods_WidgetGithub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA937493D91A289632C8CB /* Pods_WidgetGithub.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6A238E7D1FB928970063C30A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6AFA4AE91F9EDBDF00000759 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A238E721FB928970063C30A;
+			remoteInfo = GitGetTodayExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6A238E831FB928970063C30A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6A238E7F1FB928970063C30A /* GitGetTodayExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		6A238E731FB928970063C30A /* GitGetTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GitGetTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A238E741FB928970063C30A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		6A238E771FB928970063C30A /* GitGetTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGetTodayViewController.swift; sourceTree = "<group>"; };
+		6A238E7A1FB928970063C30A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		6A238E7C1FB928970063C30A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
 		6AD30F641FB3725400D9C251 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +68,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6A238E701FB928970063C30A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A238E751FB928970063C30A /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AFA4AEE1F9EDBDF00000759 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -55,10 +96,21 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6A238E761FB928970063C30A /* GitGetTodayExtension */ = {
+			isa = PBXGroup;
+			children = (
+				6A238E771FB928970063C30A /* GitGetTodayViewController.swift */,
+				6A238E791FB928970063C30A /* MainInterface.storyboard */,
+				6A238E7C1FB928970063C30A /* Info.plist */,
+			);
+			path = GitGetTodayExtension;
+			sourceTree = "<group>";
+		};
 		6AFA4AE81F9EDBDF00000759 = {
 			isa = PBXGroup;
 			children = (
 				6AFA4AF31F9EDBDF00000759 /* WidgetGithub */,
+				6A238E761FB928970063C30A /* GitGetTodayExtension */,
 				6AFA4AF21F9EDBDF00000759 /* Products */,
 				46A70ABF555CC149A30B11BC /* Pods */,
 				75834077143F1622C7606A5A /* Frameworks */,
@@ -69,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				6AFA4AF11F9EDBDF00000759 /* WidgetGithub.app */,
+				6A238E731FB928970063C30A /* GitGetTodayExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				D0AA937493D91A289632C8CB /* Pods_WidgetGithub.framework */,
+				6A238E741FB928970063C30A /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,6 +154,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6A238E721FB928970063C30A /* GitGetTodayExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A238E821FB928970063C30A /* Build configuration list for PBXNativeTarget "GitGetTodayExtension" */;
+			buildPhases = (
+				6A238E6F1FB928970063C30A /* Sources */,
+				6A238E701FB928970063C30A /* Frameworks */,
+				6A238E711FB928970063C30A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GitGetTodayExtension;
+			productName = GitGetTodayExtension;
+			productReference = 6A238E731FB928970063C30A /* GitGetTodayExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		6AFA4AF01F9EDBDF00000759 /* WidgetGithub */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AFA4B031F9EDBDF00000759 /* Build configuration list for PBXNativeTarget "WidgetGithub" */;
@@ -110,10 +181,12 @@
 				6AFA4AEF1F9EDBDF00000759 /* Resources */,
 				96E58F7568C76E2F49CC06A8 /* [CP] Embed Pods Frameworks */,
 				1B3809AC2D84CD21B4CB3D24 /* [CP] Copy Pods Resources */,
+				6A238E831FB928970063C30A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				6A238E7E1FB928970063C30A /* PBXTargetDependency */,
 			);
 			name = WidgetGithub;
 			productName = WidgetGithub;
@@ -126,10 +199,14 @@
 		6AFA4AE91F9EDBDF00000759 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Bo-Young PARK";
 				TargetAttributes = {
+					6A238E721FB928970063C30A = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
 					6AFA4AF01F9EDBDF00000759 = {
 						CreatedOnToolsVersion = 9.0.1;
 						ProvisioningStyle = Automatic;
@@ -150,11 +227,20 @@
 			projectRoot = "";
 			targets = (
 				6AFA4AF01F9EDBDF00000759 /* WidgetGithub */,
+				6A238E721FB928970063C30A /* GitGetTodayExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6A238E711FB928970063C30A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A238E7B1FB928970063C30A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AFA4AEF1F9EDBDF00000759 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,6 +319,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6A238E6F1FB928970063C30A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A238E781FB928970063C30A /* GitGetTodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6AFA4AED1F9EDBDF00000759 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -246,7 +340,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6A238E7E1FB928970063C30A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A238E721FB928970063C30A /* GitGetTodayExtension */;
+			targetProxy = 6A238E7D1FB928970063C30A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		6A238E791FB928970063C30A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A238E7A1FB928970063C30A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		6AFA4AF81F9EDBDF00000759 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -266,6 +376,38 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6A238E801FB928970063C30A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2DHMJ6Z3L3;
+				INFOPLIST_FILE = GitGetTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.fimuxd.WidgetGithub.GitGetTodayExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6A238E811FB928970063C30A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2DHMJ6Z3L3;
+				INFOPLIST_FILE = GitGetTodayExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.fimuxd.WidgetGithub.GitGetTodayExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		6AFA4B011F9EDBDF00000759 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -377,6 +519,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C7D1E9AA91FE17ED75A665F4 /* Pods-WidgetGithub.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2DHMJ6Z3L3;
@@ -394,6 +537,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D530A7551BBBB0F5D296CA1 /* Pods-WidgetGithub.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2DHMJ6Z3L3;
@@ -410,6 +554,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6A238E821FB928970063C30A /* Build configuration list for PBXNativeTarget "GitGetTodayExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A238E801FB928970063C30A /* Debug */,
+				6A238E811FB928970063C30A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6AFA4AEC1F9EDBDF00000759 /* Build configuration list for PBXProject "WidgetGithub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
