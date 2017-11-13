@@ -52,14 +52,18 @@ class OAuthWebViewController: UIViewController {
                                      "scope":"repo user",
                                      "allow_signup":"false"]
         
-        Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { (response) in
+        Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { [unowned self] (response) in
             switch response.result {
             case .success(let value):
                 print("///Alamofire.request - response: ", value)
                 if Auth.auth().currentUser != nil {
                     self.dismiss(animated: true, completion: nil)
                 }else{
+                    //만약 기존의 OAuth를 통해 로그인했던 사용자라면,
+                    
+                    //WidgetGitHub을 통해 처음 가입하는 사용자
                     self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
+                    
                 }
             case .failure(let error):
                 self.navigationController?.dismiss(animated: true, completion: nil)
@@ -95,7 +99,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
                                          "redirect_uri":callbackURL]
             
             //MARK:- 받은 code를 access_token 형태로 받기 위해 POST
-            Alamofire.request(redirectURLToGetAccessToken, method: .post, parameters: parameters).responseString { (response) in
+            Alamofire.request(redirectURLToGetAccessToken, method: .post, parameters: parameters).responseString { [unowned self] (response) in
                 switch response.result {
                 case .success(let value):
                     print("///Alamofire.request - response: ", value)
@@ -108,7 +112,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
                     
                     //MARK:- Firebase 연동
                     let credential = GitHubAuthProvider.credential(withToken: access_Token)
-                    Auth.auth().signIn(with: credential, completion: { (user, error) in
+                    Auth.auth().signIn(with: credential, completion: { [unowned self] (user, error) in
                         if let error = error {
                             return print("///Firebase Auth Error: \(error.localizedDescription)")
                         }

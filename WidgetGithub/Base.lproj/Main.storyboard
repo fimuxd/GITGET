@@ -137,7 +137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAU-kR-ImK">
-                                <rect key="frame" x="0.0" y="329" width="375" height="30"/>
+                                <rect key="frame" x="10" y="88" width="375" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -149,18 +149,27 @@
                                     <action selector="signOutButtonAction:" destination="wy3-E4-Bnw" eventType="touchUpInside" id="XNh-97-tJ3"/>
                                 </connections>
                             </button>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61W-7V-mdU">
+                                <rect key="frame" x="0.0" y="126" width="375" height="541"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="4zX-qs-w4R"/>
+                            <constraint firstItem="61W-7V-mdU" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" id="1Qe-Ia-Ooh"/>
+                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" constant="10" id="4zX-qs-w4R"/>
                             <constraint firstItem="aWO-I9-D8X" firstAttribute="trailing" secondItem="uWm-LU-VCR" secondAttribute="trailing" constant="20" id="9rn-OJ-Z53"/>
+                            <constraint firstItem="aWO-I9-D8X" firstAttribute="bottom" secondItem="61W-7V-mdU" secondAttribute="bottom" id="IX6-Q6-PSI"/>
                             <constraint firstItem="eAU-kR-ImK" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" id="P6t-SV-V53"/>
-                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" id="SJD-Q0-PZk"/>
+                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" multiplier="1.2/4" id="SJD-Q0-PZk"/>
                             <constraint firstItem="uWm-LU-VCR" firstAttribute="top" secondItem="aWO-I9-D8X" secondAttribute="top" constant="20" id="Spa-Mu-Dnn"/>
+                            <constraint firstItem="61W-7V-mdU" firstAttribute="top" secondItem="eAU-kR-ImK" secondAttribute="bottom" constant="8" id="ZPf-15-R1p"/>
+                            <constraint firstItem="61W-7V-mdU" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="cxU-u1-sre"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aWO-I9-D8X"/>
                     </view>
                     <connections>
+                        <outlet property="userContributionsWebView" destination="61W-7V-mdU" id="PhS-1E-4K4"/>
                         <outlet property="welcomeTextLabel" destination="eAU-kR-ImK" id="2PV-kB-SYT"/>
                     </connections>
                 </viewController>

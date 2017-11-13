@@ -19,16 +19,17 @@ class SettingViewController: UIViewController {
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
     @IBOutlet weak var welcomeTextLabel: UILabel!
+    @IBOutlet weak var userContributionsWebView: UIWebView!
     
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
+    
     
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.getGitHubUserInfo()
         
         
@@ -43,6 +44,7 @@ class SettingViewController: UIViewController {
             let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
             self.present(logInViewController, animated: false, completion: nil)
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,7 +85,7 @@ class SettingViewController: UIViewController {
             let getAuthenticatedUserUrl:URL = URL(string:"https://api.github.com/user"),
         let realCurrentUser = self.currentUser else {return}
         let headers:HTTPHeaders = ["authorization":"Bearer \(realAccessToken)"]
-        Alamofire.request(getAuthenticatedUserUrl, method: .get, headers: headers).responseJSON { (response) in
+        Alamofire.request(getAuthenticatedUserUrl, method: .get, headers: headers).responseJSON { [unowned self] (response) in
             guard let data:Data = response.data else {return}
             let userInfoJson:JSON = JSON(data:data)
             let gitHubID = userInfoJson["login"].stringValue
@@ -98,9 +100,11 @@ class SettingViewController: UIViewController {
                             "accessToken":realAccessToken]
             
             Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
+            
+            self.gitHubID = gitHubID
         }
         
-        Alamofire.request("https://api.github.com/user/emails", method: .get, headers: headers).responseJSON { (response) in
+        Alamofire.request("https://api.github.com/user/emails", method: .get, headers: headers).responseJSON { [unowned self] (response) in
             guard let data:Data = response.data else {return}
             let userEmailsJson:JSON = JSON(data:data)
             let primaryEmail = userEmailsJson[0]["email"].stringValue
@@ -108,6 +112,24 @@ class SettingViewController: UIViewController {
             Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
         }
         }
+    
+    var gitHubID:String?{
+        didSet{
+            guard let realGitHubID = gitHubID else {return}
+            self.welcomeTextLabel.text = ("\(realGitHubID)님 반갑습니다!")
+            
+            guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(realGitHubID)/contributions") else {return}
+            Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
+                switch response.result {
+                case .success(let value):
+                    
+                    self.userContributionsWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
+                case .failure(let error):
+                    print("///Alamofire.request - error: ", error)
+                }
+            }
+        }
+    }
     
     func openSafariViewOf(url:String) {
         guard let realURL = URL(string:url) else {return}
