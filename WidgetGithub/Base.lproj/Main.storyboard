@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wy3-E4-Bnw">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,24 +16,24 @@
             <objects>
                 <viewController storyboardIdentifier="LogInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LogInViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="urs-0S-DN6">
-                                <rect key="frame" x="171.5" y="190" width="32" height="32"/>
+                                <rect key="frame" x="187" y="206.66666666666666" width="40" height="40"/>
                                 <state key="normal" image="GitHub-Mark_Black"/>
                                 <connections>
                                     <action selector="githubMarkButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rj1-4p-svD"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to WidgetGitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLH-IZ-rnN">
-                                <rect key="frame" x="71" y="242" width="233" height="24"/>
+                                <rect key="frame" x="90.666666666666686" y="266.66666666666669" width="233" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
-                                <rect key="frame" x="19" y="369" width="337.5" height="34"/>
+                                <rect key="frame" x="20.666666666666657" y="393.66666666666669" width="372.66666666666674" height="34"/>
                                 <color key="backgroundColor" red="0.19999769330024719" green="0.19999843835830688" blue="0.20000004768371582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" red="0.97646147009999995" green="0.97646445039999996" blue="0.97647100689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -44,13 +44,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have a GitHub account to use the WidgetGitHub." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
-                                <rect key="frame" x="19" y="418" width="337.5" height="14"/>
+                                <rect key="frame" x="20.666666666666657" y="442.66666666666669" width="372.66666666666674" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-54-tgV">
-                                <rect key="frame" x="187.5" y="428" width="100" height="26"/>
+                                <rect key="frame" x="203" y="452.66666666666669" width="100" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <state key="normal" title="Create an account."/>
                                 <connections>
@@ -58,7 +58,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to GitHub?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-Go-ux5">
-                                <rect key="frame" x="99.5" y="434" width="83" height="14"/>
+                                <rect key="frame" x="115" y="458.66666666666669" width="83" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -98,11 +98,11 @@
             <objects>
                 <viewController storyboardIdentifier="OAuthWebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m02-hB-Uz2" customClass="OAuthWebViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hx9-Xa-KN6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTL-EB-NnV">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="m02-hB-Uz2" id="bHl-QF-cmZ"/>
@@ -133,24 +133,24 @@
             <objects>
                 <viewController storyboardIdentifier="SettingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wy3-E4-Bnw" customClass="SettingViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BXK-DH-mLc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAU-kR-ImK">
-                                <rect key="frame" x="10" y="88" width="375" height="30"/>
+                                <rect key="frame" x="10" y="98.333333333333329" width="414" height="29.999999999999986"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWm-LU-VCR">
-                                <rect key="frame" x="299" y="40" width="56" height="30"/>
+                                <rect key="frame" x="338" y="40" width="56" height="30"/>
                                 <state key="normal" title="SignOut"/>
                                 <connections>
                                     <action selector="signOutButtonAction:" destination="wy3-E4-Bnw" eventType="touchUpInside" id="XNh-97-tJ3"/>
                                 </connections>
                             </button>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61W-7V-mdU">
-                                <rect key="frame" x="0.0" y="126" width="375" height="541"/>
+                                <rect key="frame" x="0.0" y="136.33333333333331" width="414" height="599.66666666666674"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
@@ -179,6 +179,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GitHub-Mark_Black" width="32" height="32"/>
+        <image name="GitHub-Mark_Black" width="40" height="40"/>
     </resources>
 </document>
