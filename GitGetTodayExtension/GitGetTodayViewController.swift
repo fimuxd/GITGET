@@ -15,7 +15,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
     var contributionCollectionView: UICollectionView!
-    let sectionInsets = UIEdgeInsets(top: 20, left: 13, bottom: 10, right: 3)
+    let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 0)
     let itemsPerRow:CGFloat = 7
     let leftSpace:CGFloat = 13
     let rightSpace:CGFloat = 3
@@ -23,6 +23,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     let numberOfDaysPerWeek:CGFloat = 7
     let minimumSpaceBetweenItems:CGFloat = 3
     let paddingSpace:CGFloat = 10
+    
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -57,7 +58,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -70,42 +70,74 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let expendedContentHeight:CGFloat = self.sectionInsets.top + self.sectionInsets.bottom + (widthPerItem * self.numberOfDaysPerWeek) + (minimumSpaceBetweenItems * (self.numberOfDaysPerWeek - 1)) + self.paddingSpace
         
         if activeDisplayMode == .compact {
+            //TODO:- 일주일치의 Contributions이 나오도록 할 것
             self.preferredContentSize = CGSize(width: 0, height: 110)
         }else{
             self.preferredContentSize = CGSize(width: 0, height: expendedContentHeight)
         }
     }
     
+    //현재 Local 시간을 UTC 기준으로 변환하여 요일수로 반환하기
+    //GitHub: Contributions are timestamped according to Coordinated Universal Time (UTC) rather than your local time zone.
+    //참고: https://help.github.com/articles/why-are-my-contributions-not-showing-up-on-my-profile/
+    func getUTCWeekdayFromLocalTime() -> Int {
+        let date:Date = Date()
+        let dateFormatter:DateFormatter = DateFormatter()
+        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
+            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday else {return 0}
+        
+        return utcWeekDay
+    }
 }
+
 
 extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 182
+        switch getUTCWeekdayFromLocalTime() {
+        case 1: //일(Sunday)
+            return 176
+        case 2: //월(Monday)
+            return 177
+        case 3: //화(Tuesday)
+            return 178
+        case 4: //수(Wednesday)
+            return 179
+        case 5: //목(Thursday)
+            return 180
+        case 6: //금(Friday)
+            return 181
+        case 7: //토(Saturday)
+            return 182
+        default:
+            print("///ERROR: 날짜 계산이 잘못되었습니다.")
+            return 182
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
-        
         cell.layer.cornerRadius = 1
-        cell.backgroundColor = .blue
+        cell.backgroundColor = UIColor(hex: "EBEDF0")
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-////        let leftSpace:CGFloat = 13
-////        let rightSpace:CGFloat = 3
-////        let numberOfWeeks:CGFloat = 26
-////        let minimumSpaceBetweenItems:CGFloat = 3
-////
-////        let availableWidth = (view.frame.width - leftSpace - rightSpace - ((numberOfWeeks-1) * minimumSpaceBetweenItems))
-////        let widthPerItem = availableWidth/numberOfWeeks
-////
-////        return CGSize(width: widthPerItem, height: widthPerItem)
-//        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-//        let availableWidth = view.frame.width - paddingSpace
-//        let widthPerItem = availableWidth / itemsPerRow
-//
-//        return CGSize(width: widthPerItem, height: widthPerItem)
-//    }
+    
+}
+
+extension UIColor {
+    convenience init(hex: String) {
+        let scanner = Scanner(string: hex)
+        scanner.scanLocation = 0
+        
+        var rgbValue:UInt64 = 0
+        
+        scanner.scanHexInt64(&rgbValue)
+        
+        let red = (rgbValue & 0xff0000) >> 16
+        let green = (rgbValue & 0xff00) >> 8
+        let blue = rgbValue & 0xff
+        
+        self.init(red:CGFloat(red)/0xff, green:CGFloat(green)/0xff, blue:CGFloat(blue)/0xff, alpha:1)
+    }
 }
