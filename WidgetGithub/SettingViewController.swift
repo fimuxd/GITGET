@@ -31,27 +31,31 @@ class SettingViewController: UIViewController {
             
             userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
             userDefaults.synchronize()
-            
-            print("위젯 셋팅에서 컬러코드 디드셋 되었음. 유저디폴트(App Groups)완료 \(userDefaults.array(forKey: "ContributionsDatas")![0])")
         }
     }
     
+    var dateArray:[String]?{
+        didSet{
+            guard let realDateArray = dateArray,
+                let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults") else {return}
+            userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
+            userDefaults.synchronize()
+        }
+    }
     
+
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getGitHubUserInfo()
-        
-        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         if currentUser == nil {
-            print("여기")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
             self.present(logInViewController, animated: false, completion: nil)
@@ -141,15 +145,21 @@ class SettingViewController: UIViewController {
                     do {
                         let htmlValue = value
                         guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return} //parse html_rect
-                        var tempArray:[String] = []
-                        
-                        //color code 만 추출하기
+                        var tempColorCodeArray:[String] = []
+                        var tempDateArray:[String] = []
+                        //color code 추출하기
                         for element:Element in elements.array() {
                             guard let hexColorCode:String = try? element.attr("fill") else {return}
-                            tempArray.append(hexColorCode)
+                            tempColorCodeArray.append(hexColorCode)
                         }
+                        self.hexColorCodesArray = tempColorCodeArray
                         
-                        self.hexColorCodesArray = tempArray
+                        //date 추출하기
+                        for element:Element in elements.array() {
+                            guard let date:String = try? element.attr("data-date") else {return}
+                            tempDateArray.append(date)
+                        }
+                        self.dateArray = tempDateArray
                     
                     }catch Exception.Error(let type, let result){
                         print(result)

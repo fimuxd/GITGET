@@ -27,7 +27,6 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         
         self.signInButtonOutlet.layer.cornerRadius = 5
-        
     }
     
     
