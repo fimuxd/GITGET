@@ -50,6 +50,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         view.addSubview(self.contributionCollectionView)
     }
     
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         let frame = view.frame
@@ -119,6 +120,30 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
         cell.layer.cornerRadius = 1
         cell.backgroundColor = UIColor(hex: "EBEDF0")
+        
+        let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
+        userDefaults?.synchronize()
+        
+        if let realHexColorCodes:[String] = userDefaults?.array(forKey: "ContributionsDatas") as? [String] {
+        switch getUTCWeekdayFromLocalTime() {
+        case 1: //일(Sunday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 186])
+        case 2: //월(Monday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 187])
+        case 3: //화(Tuesday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 188])
+        case 4: //수(Wednesday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+        case 5: //목(Thursday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 190])
+        case 6: //금(Friday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 191])
+        case 7: //토(Saturday)
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 192])
+        default:
+            cell.backgroundColor = UIColor(hex: "EBEDF0")
+        }
+        }
         return cell
     }
     
@@ -127,7 +152,13 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
 
 extension UIColor {
     convenience init(hex: String) {
-        let scanner = Scanner(string: hex)
+        var hexNumber:String = hex
+        
+        if hex.contains("#") {
+            hexNumber.remove(at: hexNumber.index(of: "#")!)
+        }
+        
+        let scanner = Scanner(string: hexNumber)
         scanner.scanLocation = 0
         
         var rgbValue:UInt64 = 0

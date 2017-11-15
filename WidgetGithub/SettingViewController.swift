@@ -12,6 +12,7 @@ import FirebaseDatabase
 import SafariServices
 import Alamofire
 import SwiftyJSON
+import SwiftSoup
 
 class SettingViewController: UIViewController {
 
@@ -23,6 +24,17 @@ class SettingViewController: UIViewController {
     
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
+    var hexColorCodesArray:[String]?{
+        didSet{
+            guard let realHexColorCodes = hexColorCodesArray,
+                let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults") else {return}
+            
+            userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
+            userDefaults.synchronize()
+            
+            print("위젯 셋팅에서 컬러코드 디드셋 되었음. 유저디폴트(App Groups)완료 \(userDefaults.array(forKey: "ContributionsDatas")![0])")
+        }
+    }
     
     
     /********************************************/
@@ -101,6 +113,7 @@ class SettingViewController: UIViewController {
             
             Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
             
+            UserDefaults.standard.setValue(gitHubID, forKey: "CurruntGitHubID")
             self.gitHubID = gitHubID
         }
         
@@ -122,8 +135,27 @@ class SettingViewController: UIViewController {
             Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
                 switch response.result {
                 case .success(let value):
-                    
                     self.userContributionsWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
+                   
+                    //https://github.com/users/\(username)/contributions 링크를 통해 가져온 HTML 내용 중, 필요한 정보만 추출하기
+                    do {
+                        let htmlValue = value
+                        guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return} //parse html_rect
+                        var tempArray:[String] = []
+                        
+                        //color code 만 추출하기
+                        for element:Element in elements.array() {
+                            guard let hexColorCode:String = try? element.attr("fill") else {return}
+                            tempArray.append(hexColorCode)
+                        }
+                        
+                        self.hexColorCodesArray = tempArray
+                    
+                    }catch Exception.Error(let type, let result){
+                        print(result)
+                    }catch{
+                        print("error")
+                    }
                 case .failure(let error):
                     print("///Alamofire.request - error: ", error)
                 }
