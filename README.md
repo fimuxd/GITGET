@@ -17,7 +17,8 @@
 ***GITGET - 우리 GitHub, 푸르게 푸르게***
 
 ## Concept
-![이미지](/Users/B.Park/Desktop/Screen Shot 2017-11-16 at 9.42.53 PM.png)
+
+![이미지](https://github.com/fimuxd/WidgetGithub/blob/master/Reference/simulator_20171116.png?raw=true)
 
 - GITGET(이하 `깃젯`)은 2017년 5월, `Swift`로 코딩을 처음 접한 뒤 지금까지 배운 내용을 토대로 시도하는 첫 번째 `iOS 전용` Application 입니다.
 - GitHub profile 페이지의 `contributions`를 `iPhone`의 `widget`상에 띄워서 볼 수 있게 하였습니다.
