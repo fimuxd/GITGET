@@ -18,29 +18,29 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var expandedMondayLabel: UILabel!
     @IBOutlet weak var expandedWednesdayLabel: UILabel!
     @IBOutlet weak var expandedFridayLabel: UILabel!
-    
-    @IBOutlet weak var firstPreviousMonthLabel: UILabel!
-    @IBOutlet weak var secondPreviousMonthLabel: UILabel!
-    @IBOutlet weak var thirdPreviousMonthLabel: UILabel!
-    @IBOutlet weak var fourthPreviousMonthLabel: UILabel!
-    @IBOutlet weak var fifthPreviousMonthLabel: UILabel!
-    
+
     //UILabel_.compact
     @IBOutlet weak var compactUserStatusLabel: UILabel!
     
     //CollectionView Attributes
     var contributionCollectionView: UICollectionView!
-    let sectionInsets = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 0)
+    let sectionInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
     let itemsPerRow:CGFloat = 7
-    let leftSpace:CGFloat = 13
+    let leftSpace:CGFloat = 20
     let rightSpace:CGFloat = 3
     let numberOfWeeks:CGFloat = 26
     let numberOfDaysPerWeek:CGFloat = 7
     let minimumSpaceBetweenItems:CGFloat = 3
-    let paddingSpace:CGFloat = 10
+    let paddingSpace:CGFloat = 8
     
     //MonthTextLabel Attributes
+    var firstPreviousMonthLabel: UILabel!
+    var secondPreviousMonthLabel: UILabel!
+    var thirdPreviousMonthLabel: UILabel!
+    var fourthPreviousMonthLabel: UILabel!
+    var fifthPreviousMonthLabel: UILabel!
     var xPositionForMonthLabels:[CGFloat] = []
+    
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -48,40 +48,77 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        UserDefaults.standard.set(true, forKey: "isExpanded")
         
-        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = self.sectionInsets
-        layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 2
-        layout.minimumInteritemSpacing = 2
+        //CollectionView
+        let collectionViewLayout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.sectionInset = self.sectionInsets
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.minimumLineSpacing = 2
+        collectionViewLayout.minimumInteritemSpacing = 2
         
-        let availableWidth = (view.frame.width - self.leftSpace - self.rightSpace - ((self.numberOfWeeks-1) * self.minimumSpaceBetweenItems))
+        let availableWidth = (self.view.frame.width - self.leftSpace - self.rightSpace - ((self.numberOfWeeks-1) * self.minimumSpaceBetweenItems))
         let widthPerItem = availableWidth/self.numberOfWeeks
-        layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
+        collectionViewLayout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
         
-        self.contributionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.contributionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         self.contributionCollectionView.dataSource = self
         self.contributionCollectionView.delegate = self
         self.contributionCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "contributions")
         self.contributionCollectionView.backgroundColor = .clear
-        view.addSubview(self.contributionCollectionView)
+        self.view.addSubview(self.contributionCollectionView)
         
+        //MonthLabels
+        self.firstPreviousMonthLabel = UILabel(frame: .zero)
+        self.secondPreviousMonthLabel = UILabel(frame: .zero)
+        self.thirdPreviousMonthLabel = UILabel(frame: .zero)
+        self.fourthPreviousMonthLabel = UILabel(frame: .zero)
+        self.fifthPreviousMonthLabel = UILabel(frame: .zero)
+        
+        self.firstPreviousMonthLabel.textColor = UIColor(hex: "767676")
+        self.secondPreviousMonthLabel.textColor = UIColor(hex: "767676")
+        self.thirdPreviousMonthLabel.textColor = UIColor(hex: "767676")
+        self.fourthPreviousMonthLabel.textColor = UIColor(hex: "767676")
+        self.fifthPreviousMonthLabel.textColor = UIColor(hex: "767676")
+        
+        self.firstPreviousMonthLabel.font = UIFont(name: self.firstPreviousMonthLabel.font.fontName, size: 13)
+        self.secondPreviousMonthLabel.font = UIFont(name: self.secondPreviousMonthLabel.font.fontName, size: 13)
+        self.thirdPreviousMonthLabel.font = UIFont(name: self.thirdPreviousMonthLabel.font.fontName, size: 13)
+        self.fourthPreviousMonthLabel.font = UIFont(name: self.fourthPreviousMonthLabel.font.fontName, size: 13)
+        self.fifthPreviousMonthLabel.font = UIFont(name: self.fifthPreviousMonthLabel.font.fontName, size: 13)
+        
+        self.view.addSubview(self.firstPreviousMonthLabel)
+        self.view.addSubview(self.secondPreviousMonthLabel)
+        self.view.addSubview(self.thirdPreviousMonthLabel)
+        self.view.addSubview(self.fourthPreviousMonthLabel)
+        self.view.addSubview(self.fifthPreviousMonthLabel)
         self.getMonthTextForLabel()
+        self.setCompactMode()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        DispatchQueue.global(qos: .default).async {
-            let frame = self.view.frame
-            self.contributionCollectionView.frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.height)
-            DispatchQueue.main.async {
-                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 2, width: 24, height: 16)
-                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 2, width: 24, height: 16)
-                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 2, width: 24, height: 16)
-                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 2, width: 24, height: 16)
-                self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 2, width: 24, height: 16)
+        if UserDefaults.standard.bool(forKey: "isExpanded") == true {
+            let superViewFrame = self.view.frame
+            let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
+            
+            if self.xPositionForMonthLabels.count == 5 {
+                self.xPositionForMonthLabels.sorted()
+                self.firstPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
+                self.secondPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
+                self.thirdPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
+                self.fourthPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
+                if self.xPositionForMonthLabels[0] > 10 {
+                    self.fifthPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
+                }else{
+                    self.fifthPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x - 50, y: 3, width: 24, height: 16)
+                }
             }
+            self.contributionCollectionView.frame = collectionViewFrame
+            self.setExpandedMode()
         }
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -95,9 +132,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             //MARK:- .compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
-            self.setCompactMode(maxSize: maxSize)
+            self.setCompactMode()
+            self.preferredContentSize = maxSize //110px
+            UserDefaults.standard.set(false, forKey: "isExpanded")
         }else{
             self.setExpandedMode()
+            //.expanded
+            let expandedAvailableWidth = (view.frame.width - self.leftSpace - self.rightSpace - ((self.numberOfWeeks-1) * self.minimumSpaceBetweenItems))
+            let expandedWidthPerItem = expandedAvailableWidth/self.numberOfWeeks
+            let expandedContentHeight:CGFloat = self.sectionInsets.top + self.sectionInsets.bottom + 20 + (expandedWidthPerItem * self.numberOfDaysPerWeek) + (minimumSpaceBetweenItems * (self.numberOfDaysPerWeek - 1)) + self.paddingSpace
+            self.preferredContentSize = CGSize(width: 0, height: expandedContentHeight)
+            UserDefaults.standard.set(true, forKey: "isExpanded")
         }
     }
     
@@ -211,18 +256,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }else{
             utcMonthString = "\(utcMonth-numberOf)"
         }
-        let previousDateString:String = "\(utcYear)-\(utcMonthString)-15"
+        let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
         
         let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
         userDefaults?.synchronize()
         
         guard let realDateArray:[String] = userDefaults?.array(forKey: "ContributionsDates") as? [String],
             let indexPath = realDateArray.index(of: previousDateString) else {return 0}
-    
         return indexPath
     }
     
-    func setCompactMode(maxSize:CGSize) {
+    func setCompactMode() {
         self.contributionCollectionView.isHidden = true
         self.expandedMondayLabel.isHidden = true
         self.expandedWednesdayLabel.isHidden = true
@@ -232,16 +276,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.thirdPreviousMonthLabel.isHidden = true
         self.fourthPreviousMonthLabel.isHidden = true
         self.fifthPreviousMonthLabel.isHidden = true
-        
         self.compactUserStatusLabel.isHidden = false
-        self.preferredContentSize = maxSize //110px
     }
     
     func setExpandedMode() {
-        //.expanded
-        let expandedAvailableWidth = (view.frame.width - self.leftSpace - self.rightSpace - ((self.numberOfWeeks-1) * self.minimumSpaceBetweenItems))
-        let expandedWidthPerItem = expandedAvailableWidth/self.numberOfWeeks
-        let expandedContentHeight:CGFloat = self.sectionInsets.top + self.sectionInsets.bottom + (expandedWidthPerItem * self.numberOfDaysPerWeek) + (minimumSpaceBetweenItems * (self.numberOfDaysPerWeek - 1)) + self.paddingSpace
         
         self.expandedMondayLabel.isHidden = false
         self.expandedWednesdayLabel.isHidden = false
@@ -253,8 +291,20 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.fifthPreviousMonthLabel.isHidden = false
         self.compactUserStatusLabel.isHidden = true
         self.contributionCollectionView.isHidden = false
-        
-        self.preferredContentSize = CGSize(width: 0, height: expandedContentHeight)
+    }
+    
+    //Widget을 터치하면 GitGet App 이 열리도록 설정
+    @IBAction func toOpenGitGetApp(_ sender: UITapGestureRecognizer) {
+        openApp(sender)
+    }
+    
+    func openApp(_ sender:AnyObject) {
+        let myAppUrl = URL(string: "main-screen://")!
+        extensionContext?.open(myAppUrl, completionHandler: { (success) in
+            if (!success) {
+                print("///ERROR: failed to open app from Today Extension")
+            }
+        })
     }
 }
 
@@ -286,79 +336,94 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
         cell.layer.cornerRadius = 1
-        cell.backgroundColor = UIColor(hex: "EBEDF0")
         
         let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
         userDefaults?.synchronize()
         
+        
         if let realHexColorCodes:[String] = userDefaults?.array(forKey: "ContributionsDatas") as? [String] {
-            switch getUTCWeekdayFromLocalTime() {
-            case 1: //일(Sunday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 186])
-                
-                for index in 1...5 {
-                    if indexPath.row + 189 == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
+            
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+            
+            for index in 1...5 {
+                if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+                    let xPosition:CGFloat = cell.frame.origin.x
+                    self.xPositionForMonthLabels.append(xPosition + 23)
+                    cell.backgroundColor = .black
+                    print("여기:\(xPositionForMonthLabels) ")
                 }
-            case 2: //월(Monday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 187])
-                
-                for index in 1...5 {
-                    if indexPath.row + 189 == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
-                }
-            case 3: //화(Tuesday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 188])
-                
-                for index in 1...5 {
-                    if indexPath.row + 189 == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
-                }
-            case 4: //수(Wednesday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
-                
-                for index in 1...5 {
-                    if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.midX
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
-                }
-            case 5: //목(Thursday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 190])
-                
-                for index in 1...5 {
-                    if indexPath.row + 189 == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
-                }
-            case 6: //금(Friday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 191])
-                
-                for index in 1...5 {
-                    if indexPath.row + 189 == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.midX
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
-                }
-            case 7: //토(Saturday)
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 192])
-                
-                for index in 1...5 {
-                    if indexPath.row + 189 == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
-                    }
-                }
-            default:
-                cell.backgroundColor = UIColor(hex: "EBEDF0")
             }
+            /* 요일별로 값이 달라지지 않는 것 같아 일시적으로 Switch문 삭제함. 일주일 정도 테스트 해볼 예정임
+             switch getUTCWeekdayFromLocalTime() {
+             case 1: //일(Sunday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 192) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.origin.x
+             self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
+             }
+             }
+             case 2: //월(Monday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 191) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.origin.x
+             self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
+             }
+             }
+             case 3: //화(Tuesday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.origin.x
+             self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
+             }
+             }
+             case 4: //수(Wednesday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.midX
+             self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
+             }
+             }
+             case 5: //목(Thursday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.origin.x
+             self.xPositionForMonthLabels.append(xPosition + self.sectionInsets.left)
+             print("여기여기\(xPositionForMonthLabels)\n\(index):\(self.findIndexPathForFirstOfPreviousMonth(numberOf: index))")
+             }
+             
+             }
+             case 6: //금(Friday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 187) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.midX
+             self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
+             }
+             }
+             case 7: //토(Saturday)
+             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
+             
+             for index in 1...5 {
+             if (indexPath.row + 186) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+             let xPosition:CGFloat = cell.frame.origin.x
+             self.xPositionForMonthLabels.append(xPosition - self.sectionInsets.left - self.leftSpace - self.paddingSpace)
+             }
+             }
+             default:
+             cell.backgroundColor = UIColor(hex: "EBEDF0")
+             }
+             */
         }
         
         return cell
