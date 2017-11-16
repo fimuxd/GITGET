@@ -24,7 +24,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //CollectionView Attributes
     var contributionCollectionView: UICollectionView!
-    let sectionInsets = UIEdgeInsets(top: 3, left: 3, bottom: 3, right: 3)
+    let sectionInsets = UIEdgeInsets(top: 3, left: 3, bottom: 6, right: 3)
     let itemsPerRow:CGFloat = 7
     let leftSpace:CGFloat = 20
     let rightSpace:CGFloat = 3
@@ -93,29 +93,33 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.view.addSubview(self.fourthPreviousMonthLabel)
         self.view.addSubview(self.fifthPreviousMonthLabel)
         self.getMonthTextForLabel()
-        self.setCompactMode()
+//        self.setCompactMode()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+
         if UserDefaults.standard.bool(forKey: "isExpanded") == true {
             let superViewFrame = self.view.frame
             let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
             
             if self.xPositionForMonthLabels.count == 5 {
                 self.xPositionForMonthLabels.sorted()
-                self.firstPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
-                self.secondPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
-                self.thirdPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
-                self.fourthPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
+                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
+                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
+                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
+                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
                 if self.xPositionForMonthLabels[0] > 10 {
-                    self.fifthPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x + self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
+                    self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
                 }else{
-                    self.fifthPreviousMonthLabel.frame = CGRect(x: collectionViewFrame.origin.x - 50, y: 3, width: 24, height: 16)
+                    self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
                 }
             }
             self.contributionCollectionView.frame = collectionViewFrame
+            
+            if self.firstPreviousMonthLabel.isHidden == true {
             self.setExpandedMode()
+            }
         }
         
         

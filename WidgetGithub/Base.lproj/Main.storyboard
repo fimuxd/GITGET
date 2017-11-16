@@ -6,10 +6,18 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="AvenirNext.ttc">
+            <string>AvenirNext-Bold</string>
+            <string>AvenirNext-Regular</string>
+            <string>AvenirNext-UltraLightItalic</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Log In View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -26,15 +34,15 @@
                                     <action selector="githubMarkButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rj1-4p-svD"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to WidgetGitHub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLH-IZ-rnN">
-                                <rect key="frame" x="90.666666666666686" y="266.66666666666669" width="233" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to GITGET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLH-IZ-rnN">
+                                <rect key="frame" x="119.33333333333333" y="266.66666666666669" width="175.66666666666669" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
                                 <rect key="frame" x="20.666666666666657" y="393.66666666666669" width="372.66666666666674" height="34"/>
-                                <color key="backgroundColor" red="0.19999769330024719" green="0.19999843835830688" blue="0.20000004768371582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.13725490200000001" green="0.60392156860000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" red="0.97646147009999995" green="0.97646445039999996" blue="0.97647100689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="    Sign in to GitHub    "/>
@@ -43,7 +51,7 @@
                                     <segue destination="m02-hB-Uz2" kind="show" id="jBM-Vk-EjD"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have a GitHub account to use the WidgetGitHub." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have a GitHub account to use the GITGET." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
                                 <rect key="frame" x="20.666666666666657" y="442.66666666666669" width="372.66666666666674" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
@@ -136,49 +144,125 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eAU-kR-ImK">
-                                <rect key="frame" x="10" y="98.333333333333329" width="414" height="29.999999999999986"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uk8-gY-QLu">
+                                <rect key="frame" x="74" y="228" width="99.333333333333314" height="223.66666666666663"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today Contributions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvx-ph-41U">
+                                        <rect key="frame" x="0.0" y="194.66666666666669" width="99.333333333333329" height="11"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.13725490200000001" green="0.60392156860000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Bvx-ph-41U" secondAttribute="bottom" constant="18" id="5me-qV-0KV"/>
+                                    <constraint firstItem="Bvx-ph-41U" firstAttribute="width" secondItem="Uk8-gY-QLu" secondAttribute="width" id="Reb-kR-wne"/>
+                                    <constraint firstItem="Bvx-ph-41U" firstAttribute="centerX" secondItem="Uk8-gY-QLu" secondAttribute="centerX" id="Rkc-nD-vRa"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i6T-Wf-BJW">
+                                <rect key="frame" x="0.0" y="-20" width="248.33333333333334" height="248.33333333333334"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="i6T-Wf-BJW" secondAttribute="height" multiplier="1:1" id="UWu-fW-Ivl"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bo-Young Park" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEQ-9V-c3E">
+                                <rect key="frame" x="10.333333333333343" y="248.33333333333337" width="393.33333333333326" height="44"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="32"/>
+                                <color key="textColor" red="0.15694883465766907" green="0.15669789910316467" blue="0.16470703482627869" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p92-mc-I73">
+                                <rect key="frame" x="10.333333333333336" y="295.33333333333331" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="p92-mc-I73" secondAttribute="height" multiplier="1:1" id="DX8-C1-pV9"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seoul" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0B3-zh-i3P">
+                                <rect key="frame" x="40.333333333333329" y="297" width="41.333333333333329" height="22"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                <color key="textColor" red="0.92177754640579224" green="0.9291607141494751" blue="0.94117873907089233" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Life is a game. Play it :)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilY-Zk-HrG">
+                                <rect key="frame" x="10.333333333333343" y="325.33333333333331" width="393.33333333333326" height="22"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-UltraLightItalic" family="Avenir Next" pointSize="16"/>
+                                <color key="textColor" red="0.79803484678268433" green="0.89102798700332642" blue="0.58425790071487427" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cA-Zn-vRI">
+                                <rect key="frame" x="103" y="391.66666666666669" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uWm-LU-VCR">
-                                <rect key="frame" x="338" y="40" width="56" height="30"/>
-                                <state key="normal" title="SignOut"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4lv-Du-re6">
+                                <rect key="frame" x="180" y="645.66666666666663" width="54.666666666666657" height="54.666666666666629"/>
+                                <color key="backgroundColor" red="0.79803484680000003" green="0.89102798699999997" blue="0.58425790070000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4lv-Du-re6" secondAttribute="height" multiplier="1:1" id="Of0-IW-1z6"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usb-gw-ecK">
+                                <rect key="frame" x="194" y="668" width="27.333333333333343" height="9"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="usb-gw-ecK" secondAttribute="height" multiplier="79:26" id="v4Q-Ei-H92"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Menu"/>
                                 <connections>
-                                    <action selector="signOutButtonAction:" destination="wy3-E4-Bnw" eventType="touchUpInside" id="XNh-97-tJ3"/>
+                                    <action selector="menuButtonAction:" destination="wy3-E4-Bnw" eventType="touchUpInside" id="06u-4M-2ge"/>
                                 </connections>
                             </button>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61W-7V-mdU">
-                                <rect key="frame" x="0.0" y="136.33333333333331" width="414" height="599.66666666666674"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.98038297891616821" green="0.98038595914840698" blue="0.98039251565933228" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="61W-7V-mdU" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" id="1Qe-Ia-Ooh"/>
-                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" constant="10" id="4zX-qs-w4R"/>
-                            <constraint firstItem="aWO-I9-D8X" firstAttribute="trailing" secondItem="uWm-LU-VCR" secondAttribute="trailing" constant="20" id="9rn-OJ-Z53"/>
-                            <constraint firstItem="aWO-I9-D8X" firstAttribute="bottom" secondItem="61W-7V-mdU" secondAttribute="bottom" id="IX6-Q6-PSI"/>
-                            <constraint firstItem="eAU-kR-ImK" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" id="P6t-SV-V53"/>
-                            <constraint firstItem="eAU-kR-ImK" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" multiplier="1.2/4" id="SJD-Q0-PZk"/>
-                            <constraint firstItem="uWm-LU-VCR" firstAttribute="top" secondItem="aWO-I9-D8X" secondAttribute="top" constant="20" id="Spa-Mu-Dnn"/>
-                            <constraint firstItem="61W-7V-mdU" firstAttribute="top" secondItem="eAU-kR-ImK" secondAttribute="bottom" constant="8" id="ZPf-15-R1p"/>
-                            <constraint firstItem="61W-7V-mdU" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="cxU-u1-sre"/>
+                            <constraint firstItem="4lv-Du-re6" firstAttribute="centerY" secondItem="usb-gw-ecK" secondAttribute="centerY" id="3cX-NL-PWg"/>
+                            <constraint firstItem="i6T-Wf-BJW" firstAttribute="leading" secondItem="aWO-I9-D8X" secondAttribute="leading" id="5vR-TJ-1YD"/>
+                            <constraint firstItem="0cA-Zn-vRI" firstAttribute="centerX" secondItem="Uk8-gY-QLu" secondAttribute="centerX" id="6TI-nX-gIu"/>
+                            <constraint firstItem="Uk8-gY-QLu" firstAttribute="centerX" secondItem="i6T-Wf-BJW" secondAttribute="centerX" id="7pp-uU-5ko"/>
+                            <constraint firstItem="4lv-Du-re6" firstAttribute="width" secondItem="usb-gw-ecK" secondAttribute="width" multiplier="2" id="8ME-0m-ftZ"/>
+                            <constraint firstItem="0B3-zh-i3P" firstAttribute="leading" secondItem="p92-mc-I73" secondAttribute="trailing" constant="5" id="CeK-ao-PQ9"/>
+                            <constraint firstItem="usb-gw-ecK" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="HeG-OI-Qm5"/>
+                            <constraint firstItem="ilY-Zk-HrG" firstAttribute="leading" secondItem="p92-mc-I73" secondAttribute="leading" id="Quf-hE-Gi6"/>
+                            <constraint firstItem="Uk8-gY-QLu" firstAttribute="height" secondItem="i6T-Wf-BJW" secondAttribute="height" multiplier="0.9" id="RXI-mP-2fN"/>
+                            <constraint firstItem="Uk8-gY-QLu" firstAttribute="width" secondItem="i6T-Wf-BJW" secondAttribute="width" multiplier="1/2.5" id="T59-4K-iYR"/>
+                            <constraint firstItem="p92-mc-I73" firstAttribute="width" secondItem="i6T-Wf-BJW" secondAttribute="width" multiplier="1/10" id="UOz-ms-gAg"/>
+                            <constraint firstItem="aWO-I9-D8X" firstAttribute="bottom" secondItem="usb-gw-ecK" secondAttribute="bottom" constant="59" id="UiZ-UY-2Un"/>
+                            <constraint firstItem="Uk8-gY-QLu" firstAttribute="top" secondItem="i6T-Wf-BJW" secondAttribute="bottom" id="W3U-Zz-lSR"/>
+                            <constraint firstItem="i6T-Wf-BJW" firstAttribute="top" secondItem="BXK-DH-mLc" secondAttribute="top" constant="-20" id="XXR-Ul-KYa"/>
+                            <constraint firstItem="ilY-Zk-HrG" firstAttribute="trailing" secondItem="qEQ-9V-c3E" secondAttribute="trailing" id="eo6-o2-DaX"/>
+                            <constraint firstItem="i6T-Wf-BJW" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" multiplier="0.6" id="gCh-bG-tDW"/>
+                            <constraint firstItem="0B3-zh-i3P" firstAttribute="centerY" secondItem="p92-mc-I73" secondAttribute="centerY" id="ihJ-cc-1SA"/>
+                            <constraint firstItem="p92-mc-I73" firstAttribute="top" secondItem="qEQ-9V-c3E" secondAttribute="bottom" constant="3" id="j85-vd-NVG"/>
+                            <constraint firstItem="p92-mc-I73" firstAttribute="leading" secondItem="qEQ-9V-c3E" secondAttribute="leading" id="lMc-E0-Lg0"/>
+                            <constraint firstItem="4lv-Du-re6" firstAttribute="centerX" secondItem="usb-gw-ecK" secondAttribute="centerX" id="md4-aE-1VT"/>
+                            <constraint firstItem="qEQ-9V-c3E" firstAttribute="top" secondItem="i6T-Wf-BJW" secondAttribute="bottom" constant="19.999999999999972" id="muJ-Lk-vnG"/>
+                            <constraint firstItem="qEQ-9V-c3E" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" multiplier="0.95" id="nu1-g3-wXG"/>
+                            <constraint firstItem="ilY-Zk-HrG" firstAttribute="top" secondItem="p92-mc-I73" secondAttribute="bottom" constant="5" id="oki-KL-gDi"/>
+                            <constraint firstItem="Bvx-ph-41U" firstAttribute="top" secondItem="0cA-Zn-vRI" secondAttribute="bottom" constant="10" id="raH-Lt-KcE"/>
+                            <constraint firstItem="usb-gw-ecK" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" multiplier="1/15" id="u6r-tj-SlC"/>
+                            <constraint firstItem="qEQ-9V-c3E" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="yML-To-VIO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aWO-I9-D8X"/>
                     </view>
                     <connections>
-                        <outlet property="userContributionsWebView" destination="61W-7V-mdU" id="PhS-1E-4K4"/>
-                        <outlet property="welcomeTextLabel" destination="eAU-kR-ImK" id="2PV-kB-SYT"/>
+                        <outlet property="buttonBackgroundView" destination="4lv-Du-re6" id="FHd-2F-cN5"/>
+                        <outlet property="todayContributionsCountLabel" destination="0cA-Zn-vRI" id="bD0-S9-BZO"/>
+                        <outlet property="userBioTextLabel" destination="ilY-Zk-HrG" id="dj2-nW-Obu"/>
+                        <outlet property="userLocationTextLabel" destination="0B3-zh-i3P" id="hmn-wK-nJB"/>
+                        <outlet property="userNameTextLabel" destination="qEQ-9V-c3E" id="RiL-iZ-H1o"/>
+                        <outlet property="userProfileImageView" destination="i6T-Wf-BJW" id="5pP-Gf-SXz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heD-Ty-q5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1015" y="238"/>
+            <point key="canvasLocation" x="-1015.9420289855074" y="237.22826086956525"/>
         </scene>
     </scenes>
     <resources>
         <image name="GitHub-Mark_Black" width="40" height="40"/>
+        <image name="Menu" width="183" height="78"/>
     </resources>
+    <color key="tintColor" red="0.13725490196078433" green="0.60392156862745094" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -19,9 +19,13 @@ class SettingViewController: UIViewController {
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
-    @IBOutlet weak var welcomeTextLabel: UILabel!
-    @IBOutlet weak var userContributionsWebView: UIWebView!
-    
+    @IBOutlet weak var userProfileImageView: UIImageView!
+    @IBOutlet weak var userNameTextLabel: UILabel!
+    @IBOutlet weak var userLocationTextLabel: UILabel!
+    @IBOutlet weak var userBioTextLabel: UILabel!
+    @IBOutlet weak var todayContributionsCountLabel: UILabel!
+    @IBOutlet weak var buttonBackgroundView: UIView!
+
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
     var hexColorCodesArray:[String]?{
@@ -73,28 +77,28 @@ class SettingViewController: UIViewController {
     //MARK:-       Methods | IBAction           //
     /********************************************/
     
-    @IBAction func signOutButtonAction(_ sender: UIButton) {
-        self.signOutAction()
+    @IBAction func menuButtonAction(_ sender: UIButton) {
     }
     
-    func signOutAction() {
-        //Firebase SignOut
-        let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-            self.present(logInViewController, animated: false, completion: nil)
-            
-        }catch let signOutError as Error {
-            print("Error signing out: %@", signOutError)
-        }
-        
-        //TODO:- GitHub API SignOut _ 이거 어케 함. 잉이잉
-        self.openSafariViewOf(url: "https://github.com/logout")
-        
-    }
+    // 로그아웃 필요 없을 수 있으므로 일단 보류
+//    func signOutAction() {
+//        //Firebase SignOut
+//        let firebaseAuth = Auth.auth()
+//        do {
+//            try firebaseAuth.signOut()
+//
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+//            self.present(logInViewController, animated: false, completion: nil)
+//
+//        }catch let signOutError as Error {
+//            print("Error signing out: %@", signOutError)
+//        }
+//
+//        //TODO:- GitHub API SignOut _ 이거 어케 함. 잉이잉
+//        self.openSafariViewOf(url: "https://github.com/logout")
+//
+//    }
     
     func getGitHubUserInfo() {
         guard let realAccessToken = self.accessToken,
@@ -133,14 +137,11 @@ class SettingViewController: UIViewController {
     var gitHubID:String?{
         didSet{
             guard let realGitHubID = gitHubID else {return}
-            self.welcomeTextLabel.text = ("\(realGitHubID)님 반갑습니다!")
             
             guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(realGitHubID)/contributions") else {return}
             Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
                 switch response.result {
                 case .success(let value):
-                    self.userContributionsWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
-                   
                     //https://github.com/users/\(username)/contributions 링크를 통해 가져온 HTML 내용 중, 필요한 정보만 추출하기
                     do {
                         let htmlValue = value
