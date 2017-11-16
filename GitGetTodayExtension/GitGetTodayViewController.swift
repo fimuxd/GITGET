@@ -353,7 +353,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                 if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
                     let xPosition:CGFloat = cell.frame.origin.x
                     self.xPositionForMonthLabels.append(xPosition + 23)
-                    cell.backgroundColor = .black
                     print("여기:\(xPositionForMonthLabels) ")
                 }
             }
