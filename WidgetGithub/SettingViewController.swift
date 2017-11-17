@@ -174,12 +174,31 @@ class SettingViewController: UIViewController {
             }
         }
         
+        let signOut:UIAlertAction = UIAlertAction(title: "SignOut", style: .default) { (action) in
+            //Firebase SignOut
+            let firebaseAuth = Auth.auth()
+            do {
+                try firebaseAuth.signOut()
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+                self.present(logInViewController, animated: false, completion: nil)
+                
+            }catch let signOutError as Error {
+                print("Error signing out: %@", signOutError)
+            }
+            
+            //TODO:- GitHub API SignOut _ 이거 어케 함. 잉이잉
+//            self.openSafariViewOf(url: "https://github.com/logout")
+        }
+        
         //취소
         let cancel:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alert.addAction(rateGitGet)
         alert.addAction(openGitHubProfilePage)
         alert.addAction(sendEmailToDeveloper)
+        alert.addAction(signOut)
         alert.addAction(cancel)
         
         self.present(alert, animated: true, completion: nil)
@@ -191,31 +210,10 @@ class SettingViewController: UIViewController {
         
         mailComposerVC.setToRecipients([emailAddress])
         mailComposerVC.setSubject("[GITGET] Feedback for GITGET")
-        mailComposerVC.setMessageBody("thanks for your feedback. please write your advise here\n=====\niOS Version: \(systemVersion)\nApp Version: \(appVersion)\n=====", isHTML: false)
+        mailComposerVC.setMessageBody("\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: \(systemVersion)\nApp Version: \(appVersion)\n=====", isHTML: false)
         
         return mailComposerVC
     }
-
-    
-    // 로그아웃 필요 없을 수 있으므로 일단 보류
-    //    func signOutAction() {
-    //        //Firebase SignOut
-    //        let firebaseAuth = Auth.auth()
-    //        do {
-    //            try firebaseAuth.signOut()
-    //
-    //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //            let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-    //            self.present(logInViewController, animated: false, completion: nil)
-    //
-    //        }catch let signOutError as Error {
-    //            print("Error signing out: %@", signOutError)
-    //        }
-    //
-    //        //TODO:- GitHub API SignOut _ 이거 어케 함. 잉이잉
-    //        self.openSafariViewOf(url: "https://github.com/logout")
-    //
-    //    }
     
     func getGitHubUserInfo() {
         guard let realAccessToken = self.accessToken,
