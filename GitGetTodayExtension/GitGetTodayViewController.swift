@@ -18,7 +18,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var expandedMondayLabel: UILabel!
     @IBOutlet weak var expandedWednesdayLabel: UILabel!
     @IBOutlet weak var expandedFridayLabel: UILabel!
-
+    
     //UILabel_.compact
     @IBOutlet weak var compactUserStatusLabel: UILabel!
     
@@ -93,12 +93,38 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.view.addSubview(self.fourthPreviousMonthLabel)
         self.view.addSubview(self.fifthPreviousMonthLabel)
         self.getMonthTextForLabel()
-//        self.setCompactMode()
+        //        self.setCompactMode()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
+        if UserDefaults.standard.bool(forKey: "isExpanded") == true {
+            let superViewFrame = self.view.frame
+            let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
+            
+//            if self.xPositionForMonthLabels.count == 5 {
+//                self.xPositionForMonthLabels.sorted()
+//                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
+//                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
+//                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
+//                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
+//                if self.xPositionForMonthLabels[0] > 10 {
+//                    self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
+//                }else{
+//                    self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
+//                }
+//            }
+            self.contributionCollectionView.frame = collectionViewFrame
+            
+//            if self.firstPreviousMonthLabel.isHidden == true {
+//                self.setExpandedMode()
+//            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("뷰윌어피어")
         if UserDefaults.standard.bool(forKey: "isExpanded") == true {
             let superViewFrame = self.view.frame
             let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
@@ -115,15 +141,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
                 }
             }
-            self.contributionCollectionView.frame = collectionViewFrame
-            
-            if self.firstPreviousMonthLabel.isHidden == true {
-            self.setExpandedMode()
-            }
         }
         
-        
     }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -304,7 +325,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func setExpandedMode() {
-        
         self.expandedMondayLabel.isHidden = false
         self.expandedWednesdayLabel.isHidden = false
         self.expandedFridayLabel.isHidden = false
@@ -318,14 +338,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
-//    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-//      completionHandler(.newData)
-//    }
-    
-    func updateGithubData() {
-        
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+        let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
+        guard let contributionDatas = userDefaults?.object(forKey: "ContributionsDatas"),
+            let contributionDates = userDefaults?.object(forKey: "ContributionsDates") else {return}
+        completionHandler(NCUpdateResult.newData)
     }
-
 }
 
 
@@ -373,12 +391,10 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                 }
             }
         }
-        
         return cell
     }
-    
-    
 }
+
 
 extension UIColor {
     convenience init(hex: String) {
