@@ -118,6 +118,17 @@ class SettingViewController: UIViewController {
         super.viewDidLoad()
         self.getGitHubUserInfo()
         
+        buttonBackgroundView.layer.cornerRadius = 22
+        buttonBackgroundView.layer.shadowOpacity = 0.2
+        buttonBackgroundView.layer.shadowRadius = 1
+        buttonBackgroundView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        
+        userProfileImageView.layer.cornerRadius = 10
+        userProfileImageView.layer.shadowRadius = 1
+        userProfileImageView.layer.shadowOpacity = 0.2
+        userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        userProfileImageView.clipsToBounds = false
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
