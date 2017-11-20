@@ -188,8 +188,13 @@ class SettingViewController: UIViewController {
                 print("Error signing out: %@", signOutError)
             }
             
-            //TODO:- GitHub API SignOut _ 이거 어케 함. 잉이잉
-//            self.openSafariViewOf(url: "https://github.com/logout")
+            //TODO:- GitHub API SignOut
+            let sessionManager = Alamofire.SessionManager.default
+            sessionManager.session.reset {
+                print("세션리셋")
+                UserDefaults.standard.setValue(nil, forKey: "AccessToken")
+            }
+            
         }
         
         //취소
@@ -236,7 +241,9 @@ class SettingViewController: UIViewController {
                             "location":location,
                             "email":email,
                             "profileURL":profileUrlString,
-                            "bio":bio]
+                            "bio":bio,
+                            "accessToken":realAccessToken,
+                            "userUID":realCurrentUser.uid]
             
             //가져온 정보를 Firebase에 저장
             Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
@@ -291,3 +298,5 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
+

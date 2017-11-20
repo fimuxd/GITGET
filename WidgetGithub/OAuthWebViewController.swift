@@ -12,6 +12,8 @@ import FirebaseDatabase
 import SafariServices
 import Alamofire
 
+
+
 class OAuthWebViewController: UIViewController {
     
     /********************************************/
@@ -30,9 +32,7 @@ class OAuthWebViewController: UIViewController {
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.signInGithub()
-        
+        signInGithub()
     }
     
     override func didReceiveMemoryWarning() {
@@ -44,6 +44,7 @@ class OAuthWebViewController: UIViewController {
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
+    
     func signInGithub() {
         guard let redirectURLToRequestGitHubIdentity:URL = URL(string: "https://github.com/login/oauth/authorize") else {return}
         let parameters:Parameters = ["client_id":clientID,
@@ -55,21 +56,16 @@ class OAuthWebViewController: UIViewController {
         Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { [unowned self] (response) in
             switch response.result {
             case .success(let value):
-                print("///Alamofire.request - response: ", value)
                 if Auth.auth().currentUser != nil {
                     self.dismiss(animated: true, completion: nil)
                 }else{
-                    //만약 기존의 OAuth를 통해 로그인했던 사용자라면,
-                    
-                    //WidgetGitHub을 통해 처음 가입하는 사용자
                     self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
-                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             case .failure(let error):
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 print("///Alamofire.request - error: ", error)
             }
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
 }
@@ -78,17 +74,23 @@ class OAuthWebViewController: UIViewController {
 extension OAuthWebViewController: UIWebViewDelegate {
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         if navigationType == UIWebViewNavigationType.linkClicked{
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             guard let realURL = request.url else {return true}
             let safariViewController = SFSafariViewController(url: realURL)
             safariViewController.delegate = self
-            self.present(safariViewController, animated: true)
+            self.present(safariViewController, animated: true, completion: {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            })
             return false
         }
         
-        guard let realURL = request.url else {return true}
+        guard let realURL = request.url else {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            return true}
         
         //MARK:- CallbackURL(Firebase) 로 연결되었을 때 - code 추출
         if String(describing: request).contains(callbackURL) {
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let callbackUrlWithCode:String = realURL.absoluteString
             guard let queryItemsForCode = URLComponents(string:callbackUrlWithCode)?.queryItems,
                 let code = queryItemsForCode.filter({$0.name == "code"}).first?.value,
@@ -102,12 +104,11 @@ extension OAuthWebViewController: UIWebViewDelegate {
             Alamofire.request(redirectURLToGetAccessToken, method: .post, parameters: parameters).responseString { [unowned self] (response) in
                 switch response.result {
                 case .success(let value):
-                    print("///Alamofire.request - response: ", value)
-                    
                     let responseUrl:String = "https://github.com?\(value)"
                     guard let queryItemsForAccessToken = URLComponents(string:responseUrl)?.queryItems,
                         let access_Token = queryItemsForAccessToken.filter({$0.name == "access_token"}).first?.value else {return}
                     
+                    //생성된 토큰을 UserDefault에 저장
                     UserDefaults.standard.set(access_Token, forKey: "AccessToken")
                     
                     //MARK:- Firebase 연동
@@ -123,19 +124,25 @@ extension OAuthWebViewController: UIWebViewDelegate {
                         
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
-                        self.present(settingViewController, animated: true, completion: nil)
+                        self.present(settingViewController, animated: true, completion: {
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        })
+                        
+                        //받아온 userUID를 UserDefault에 저장
+                        UserDefaults.standard.setValue(realCurrentUser.uid, forKey: "UserUID")
                     })
                     
                 case .failure(let error):
                     print("///Alamofire.request - error: ", error)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
-//                self.dismiss(animated: true, completion: nil)
             }
         }
         return true
     }
 }
-
+ 
+    
 extension OAuthWebViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.dismiss(animated: true, completion: nil)

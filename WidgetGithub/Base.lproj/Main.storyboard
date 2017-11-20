@@ -41,24 +41,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
-                                <rect key="frame" x="20.666666666666657" y="393.66666666666669" width="372.66666666666674" height="34"/>
+                                <rect key="frame" x="20.666666666666657" y="340.66666666666669" width="372.66666666666674" height="34"/>
                                 <color key="backgroundColor" red="0.13725490200000001" green="0.60392156860000001" blue="0.23137254900000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="tintColor" red="0.97646147009999995" green="0.97646445039999996" blue="0.97647100689999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="    Sign in to GitHub    "/>
                                 <connections>
                                     <action selector="signInButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XNE-ov-HZv"/>
-                                    <segue destination="m02-hB-Uz2" kind="show" id="jBM-Vk-EjD"/>
+                                    <segue destination="m02-hB-Uz2" kind="show" id="usm-3U-VCk"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have a GitHub account to use the GITGET." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
-                                <rect key="frame" x="20.666666666666657" y="442.66666666666669" width="372.66666666666674" height="14"/>
+                                <rect key="frame" x="20.666666666666657" y="443" width="372.66666666666674" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-54-tgV">
-                                <rect key="frame" x="203" y="452.66666666666669" width="100" height="26"/>
+                                <rect key="frame" x="203" y="453" width="100" height="26"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <state key="normal" title="Create an account."/>
                                 <connections>
@@ -66,7 +66,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to GitHub?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-Go-ux5">
-                                <rect key="frame" x="115" y="458.66666666666669" width="83" height="14"/>
+                                <rect key="frame" x="115" y="459" width="83" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -77,8 +77,8 @@
                             <constraint firstItem="urs-0S-DN6" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3Fb-bV-Blh"/>
                             <constraint firstItem="TLH-IZ-rnN" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="8hc-D2-mja"/>
                             <constraint firstItem="JGS-54-tgV" firstAttribute="top" secondItem="g0R-Yb-emA" secondAttribute="bottom" constant="-4" id="B0b-8T-dIq"/>
-                            <constraint firstItem="g0R-Yb-emA" firstAttribute="top" secondItem="Vbi-Vd-LDq" secondAttribute="bottom" constant="15" id="Ery-9a-0c0"/>
                             <constraint firstItem="Vbi-Vd-LDq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="LhN-mM-PDq"/>
+                            <constraint firstItem="g0R-Yb-emA" firstAttribute="top" secondItem="Vbi-Vd-LDq" secondAttribute="bottom" constant="68.333333333333314" id="O0v-E5-NY7"/>
                             <constraint firstItem="TLH-IZ-rnN" firstAttribute="top" secondItem="urs-0S-DN6" secondAttribute="bottom" constant="20" id="SdN-h2-2oY"/>
                             <constraint firstItem="JGS-54-tgV" firstAttribute="leading" secondItem="bKB-Go-ux5" secondAttribute="trailing" constant="5" id="Uii-qW-sfv"/>
                             <constraint firstItem="urs-0S-DN6" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="3/5" id="b04-to-Cmo"/>
@@ -86,7 +86,7 @@
                             <constraint firstItem="bKB-Go-ux5" firstAttribute="centerY" secondItem="JGS-54-tgV" secondAttribute="centerY" id="ha0-7U-iUt"/>
                             <constraint firstItem="JGS-54-tgV" firstAttribute="leading" secondItem="urs-0S-DN6" secondAttribute="leading" constant="16" id="puk-v8-gmE"/>
                             <constraint firstItem="g0R-Yb-emA" firstAttribute="width" secondItem="Vbi-Vd-LDq" secondAttribute="width" id="wI9-dO-OgY"/>
-                            <constraint firstItem="Vbi-Vd-LDq" firstAttribute="top" secondItem="TLH-IZ-rnN" secondAttribute="bottom" constant="103" id="xgJ-7R-KpO"/>
+                            <constraint firstItem="Vbi-Vd-LDq" firstAttribute="top" secondItem="TLH-IZ-rnN" secondAttribute="bottom" constant="50" id="xgJ-7R-KpO"/>
                             <constraint firstItem="Vbi-Vd-LDq" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="9/10" id="yXC-gM-nH8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

@@ -20,12 +20,12 @@ class LogInViewController: UIViewController {
     @IBOutlet weak var welcomeTextLabel: UILabel!
     @IBOutlet weak var signInButtonOutlet: UIButton!
     
+    
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.signInButtonOutlet.layer.cornerRadius = 5
     }
     
@@ -63,6 +63,8 @@ class LogInViewController: UIViewController {
 
 extension LogInViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        
+        //TODO:- Safari에서 'Done' 버튼을 눌렀을 때 SettingVC이 번쩍거리며 보였다가 사라지는 문제 해결
         self.dismiss(animated: true, completion: nil)
     }
 }
