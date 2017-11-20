@@ -227,6 +227,10 @@
                                 <rect key="frame" x="189" y="360" width="37" height="37"/>
                                 <color key="color" red="0.1464431286" green="0.6551985145" blue="0.29857048390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wMm-co-lgI">
+                                <rect key="frame" x="360.33333333333331" y="63.333333333333336" width="22.333333333333314" height="24.333333333333336"/>
+                                <color key="color" red="0.1464431286" green="0.6551985145" blue="0.29857048390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.98038297891616821" green="0.98038595914840698" blue="0.98039251565933228" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -237,10 +241,14 @@
                             <constraint firstItem="ilY-Zk-HrG" firstAttribute="top" secondItem="p92-mc-I73" secondAttribute="bottom" constant="8" id="6El-Jb-hrO"/>
                             <constraint firstItem="Bvx-ph-41U" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="AmC-yX-tIK"/>
                             <constraint firstItem="8kk-TL-SVg" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" id="B3o-VR-u8z"/>
+                            <constraint firstItem="wMm-co-lgI" firstAttribute="centerX" secondItem="uvs-ac-8yK" secondAttribute="centerX" id="Bad-hF-AZo"/>
+                            <constraint firstItem="wMm-co-lgI" firstAttribute="height" secondItem="uvs-ac-8yK" secondAttribute="height" id="L4l-oL-bo5"/>
+                            <constraint firstItem="wMm-co-lgI" firstAttribute="width" secondItem="uvs-ac-8yK" secondAttribute="width" id="QWy-aY-ga4"/>
                             <constraint firstItem="Bvx-ph-41U" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" multiplier="0.2" id="TAM-u6-1ew"/>
                             <constraint firstItem="i6T-Wf-BJW" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="TDi-y6-aOH"/>
                             <constraint firstItem="aWO-I9-D8X" firstAttribute="trailing" secondItem="4lv-Du-re6" secondAttribute="trailing" constant="20" id="Ttb-NM-DpO"/>
                             <constraint firstItem="uvs-ac-8yK" firstAttribute="centerY" secondItem="Bvx-ph-41U" secondAttribute="centerY" id="Uvf-lc-S85"/>
+                            <constraint firstItem="wMm-co-lgI" firstAttribute="centerY" secondItem="uvs-ac-8yK" secondAttribute="centerY" id="Vb6-7k-Snx"/>
                             <constraint firstItem="i6T-Wf-BJW" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" multiplier="0.8" id="WOR-jw-RdA"/>
                             <constraint firstItem="0B3-zh-i3P" firstAttribute="leading" secondItem="p92-mc-I73" secondAttribute="trailing" constant="4" id="atW-Pw-WnG"/>
                             <constraint firstItem="uvs-ac-8yK" firstAttribute="centerX" secondItem="usb-gw-ecK" secondAttribute="centerX" id="df4-D7-vbr"/>
@@ -257,9 +265,11 @@
                         <viewLayoutGuide key="safeArea" id="aWO-I9-D8X"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="8kk-TL-SVg" id="Gm6-wX-VWA"/>
                         <outlet property="buttonBackgroundView" destination="4lv-Du-re6" id="FHd-2F-cN5"/>
                         <outlet property="locationLogoImageView" destination="p92-mc-I73" id="dBM-ID-6bS"/>
+                        <outlet property="mainActivityIndicator" destination="8kk-TL-SVg" id="G8n-Cf-Jhc"/>
+                        <outlet property="refreshActivityIndicator" destination="wMm-co-lgI" id="6SZ-GV-HIS"/>
+                        <outlet property="refreshDataButtonOutlet" destination="uvs-ac-8yK" id="FED-9j-B6D"/>
                         <outlet property="todayContributionsCountLabel" destination="0cA-Zn-vRI" id="bD0-S9-BZO"/>
                         <outlet property="userBioTextLabel" destination="ilY-Zk-HrG" id="dj2-nW-Obu"/>
                         <outlet property="userLocationTextLabel" destination="0B3-zh-i3P" id="hmn-wK-nJB"/>

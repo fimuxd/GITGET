@@ -29,6 +29,10 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var userBioTextLabel: UILabel!
     @IBOutlet weak var todayContributionsCountLabel: UILabel!
     @IBOutlet weak var buttonBackgroundView: UIView!
+    @IBOutlet weak var locationLogoImageView: UIImageView!
+    @IBOutlet weak var mainActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var refreshDataButtonOutlet: UIButton!
     
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
@@ -59,54 +63,16 @@ class SettingViewController: UIViewController {
             
             self.todayContributionsCountLabel.text = realDataCountArray.last!
             Database.database().reference().child("UserInfo").child("\(realCurrentUserUID)").child("todayContributions").setValue(realDataCountArray.last!)
+            self.mainActivityIndicator.stopAnimating()
+            self.refreshActivityIndicator.stopAnimating()
+            self.refreshDataButtonOutlet.isHidden = false
         }
     }
     
     var gitHubID:String?{
         didSet{
             guard let realGitHubID = gitHubID else {return}
-            
-            guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(realGitHubID)/contributions") else {return}
-            Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
-                switch response.result {
-                case .success(let value):
-                    //https://github.com/users/\(username)/contributions 링크를 통해 가져온 HTML 내용 중, 필요한 정보만 추출하기
-                    do {
-                        let htmlValue = value
-                        guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return} //parse html_rect
-                        var tempColorCodeArray:[String] = []
-                        var tempDateArray:[String] = []
-                        var tempDataCountArray:[String] = []
-                        //color code 추출하기
-                        for element:Element in elements.array() {
-                            guard let hexColorCode:String = try? element.attr("fill") else {return}
-                            tempColorCodeArray.append(hexColorCode)
-                        }
-                        self.hexColorCodesArray = tempColorCodeArray
-                        
-                        //date(날짜) 추출하기
-                        for element:Element in elements.array() {
-                            guard let date:String = try? element.attr("data-date") else {return}
-                            tempDateArray.append(date)
-                        }
-                        self.dateArray = tempDateArray
-                        
-                        //data-count(contribution 수) 추출하기
-                        for element:Element in elements.array() {
-                            guard let dataCount:String = try? element.attr("data-count") else {return}
-                            tempDataCountArray.append(dataCount)
-                        }
-                        self.dataCountArray = tempDataCountArray
-                        
-                    }catch Exception.Error(let type, let result){
-                        print(result)
-                    }catch{
-                        print("error")
-                    }
-                case .failure(let error):
-                    print("///Alamofire.request - error: ", error)
-                }
-            }
+            self.updateContributionDatasOf(gitHubID: realGitHubID)
         }
     }
     
@@ -129,6 +95,7 @@ class SettingViewController: UIViewController {
         userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
         userProfileImageView.clipsToBounds = false
         
+        self.refreshActivityIndicator.stopAnimating()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -155,6 +122,14 @@ class SettingViewController: UIViewController {
     @IBAction func menuButtonAction(_ sender: UIButton) {
         self.openMenuButtonActionSheet()
     }
+    
+    @IBAction func refreshDataButtonAction(_ sender: UIButton) {
+        self.refreshDataButtonOutlet.isHidden = true
+        self.refreshActivityIndicator.startAnimating()
+        guard let gitHubID:String = UserDefaults.standard.object(forKey: "GitHubID") as? String else {return}
+        self.updateContributionDatasOf(gitHubID: gitHubID)
+    }
+    
     
     func openMenuButtonActionSheet() {
         let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -202,7 +177,6 @@ class SettingViewController: UIViewController {
             //TODO:- GitHub API SignOut
             let sessionManager = Alamofire.SessionManager.default
             sessionManager.session.reset {
-                print("세션리셋")
                 UserDefaults.standard.setValue(nil, forKey: "AccessToken")
             }
             
@@ -265,6 +239,7 @@ class SettingViewController: UIViewController {
             //       개인: https://github.com/users{/username}/contributions
             //       단체: 개인사이트 같은 별도 뷰는 없음. 비슷한 형태는, https://github.com{/organization_name}{/repository_name}/graphs/contributors
             self.gitHubID = gitHubID
+            UserDefaults.standard.setValue(gitHubID, forKey: "GitHubID")
             
             //가져온 정보를 UI에 뿌리기
             //profile_URL
@@ -273,8 +248,17 @@ class SettingViewController: UIViewController {
                 let profileImage:UIImage = UIImage(data: imageData) else {return}
             
             self.userProfileImageView.image = profileImage
+            
+            if name == "" {
+                self.userNameTextLabel.text = gitHubID
+            }
             self.userNameTextLabel.text = name
+            
+            if location == "" {
+                self.locationLogoImageView.isHidden = true
+            }
             self.userLocationTextLabel.text = location
+            
             self.userBioTextLabel.text = bio
         }
         
@@ -285,6 +269,50 @@ class SettingViewController: UIViewController {
             let primaryEmail = userEmailsJson[0]["email"].stringValue
             print("여기여기여기: \(primaryEmail)")
             Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
+        }
+    }
+    
+    func updateContributionDatasOf(gitHubID:String) {
+        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
+        Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
+            switch response.result {
+            case .success(let value):
+                //https://github.com/users/\(username)/contributions 링크를 통해 가져온 HTML 내용 중, 필요한 정보만 추출하기
+                do {
+                    let htmlValue = value
+                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return} //parse html_rect
+                    var tempColorCodeArray:[String] = []
+                    var tempDateArray:[String] = []
+                    var tempDataCountArray:[String] = []
+                    //color code 추출하기
+                    for element:Element in elements.array() {
+                        guard let hexColorCode:String = try? element.attr("fill") else {return}
+                        tempColorCodeArray.append(hexColorCode)
+                    }
+                    self.hexColorCodesArray = tempColorCodeArray
+                    
+                    //date(날짜) 추출하기
+                    for element:Element in elements.array() {
+                        guard let date:String = try? element.attr("data-date") else {return}
+                        tempDateArray.append(date)
+                    }
+                    self.dateArray = tempDateArray
+                    
+                    //data-count(contribution 수) 추출하기
+                    for element:Element in elements.array() {
+                        guard let dataCount:String = try? element.attr("data-count") else {return}
+                        tempDataCountArray.append(dataCount)
+                    }
+                    self.dataCountArray = tempDataCountArray
+                    
+                }catch Exception.Error(let type, let result){
+                    print(result)
+                }catch{
+                    print("error")
+                }
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+            }
         }
     }
     
