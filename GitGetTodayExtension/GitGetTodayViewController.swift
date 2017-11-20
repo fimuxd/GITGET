@@ -182,6 +182,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.setCompactMode()
             self.preferredContentSize = maxSize //110px
             UserDefaults.standard.set(false, forKey: "isExpanded")
+
+            guard let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults"),
+                let todayContributions:String = userDefaults.object(forKey: "TodayContributions") as? String else {return}
+            userDefaults.synchronize()
+            self.compactUserStatusLabel.text! = "Cheer up! \(todayContributions) contributions today!"
         }else{
             self.setExpandedMode()
             //.expanded
@@ -190,6 +195,23 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             let expandedContentHeight:CGFloat = self.sectionInsets.top + self.sectionInsets.bottom + 20 + (expandedWidthPerItem * self.numberOfDaysPerWeek) + (minimumSpaceBetweenItems * (self.numberOfDaysPerWeek - 1)) + self.paddingSpace
             self.preferredContentSize = CGSize(width: 0, height: expandedContentHeight)
             UserDefaults.standard.set(true, forKey: "isExpanded")
+            
+            //monthLable 위치
+            let superViewFrame = self.view.frame
+            let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
+            
+            if self.xPositionForMonthLabels.count == 5 {
+                self.xPositionForMonthLabels.sorted()
+                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
+                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
+                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
+                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
+                if self.xPositionForMonthLabels[0] > 10 {
+                    self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
+                }else{
+                    self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
+                }
+            }
         }
     }
     
