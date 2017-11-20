@@ -1,4 +1,4 @@
-# GITGET
+# GITGET <img src = "https://github.com/fimuxd/WidgetGithub/blob/master/WidgetGithub/Assets.xcassets/AppIcon.appiconset/Icon-83.5@2x.png?raw=true" width = 40 align = right>
 
 > **첫 번째 개인 Project**
 
