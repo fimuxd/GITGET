@@ -59,10 +59,15 @@ class SettingViewController: UIViewController {
     var dataCountArray:[String]?{
         didSet{
             guard let realDataCountArray = dataCountArray,
-                let realCurrentUserUID = Auth.auth().currentUser?.uid else {return}
+                let realCurrentUserUID = Auth.auth().currentUser?.uid,
+                let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults") else {return}
             
             self.todayContributionsCountLabel.text = realDataCountArray.last!
             Database.database().reference().child("UserInfo").child("\(realCurrentUserUID)").child("todayContributions").setValue(realDataCountArray.last!)
+            
+            userDefaults.setValue(realDataCountArray.last!, forKey: "TodayContributions")
+            userDefaults.synchronize()
+            
             self.mainActivityIndicator.stopAnimating()
             self.refreshActivityIndicator.stopAnimating()
             self.refreshDataButtonOutlet.isHidden = false

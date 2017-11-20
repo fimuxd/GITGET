@@ -41,6 +41,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var fifthPreviousMonthLabel: UILabel!
     var xPositionForMonthLabels:[CGFloat] = []
     
+    //ActivityIndicator
+    @IBOutlet weak var updateDataActivityIndicator: UIActivityIndicatorView!
+    
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -49,6 +52,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         UserDefaults.standard.set(true, forKey: "isExpanded")
+        self.updateDataActivityIndicator.stopAnimating() //TODO:- 일단은 멈춰놓음. 핸들링 할 방법 강구하기
         
         //CollectionView
         let collectionViewLayout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -93,7 +97,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.view.addSubview(self.fourthPreviousMonthLabel)
         self.view.addSubview(self.fifthPreviousMonthLabel)
         self.getMonthTextForLabel()
-        //        self.setCompactMode()
     }
     
     override func viewWillLayoutSubviews() {
@@ -124,7 +127,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("뷰윌어피어")
         if UserDefaults.standard.bool(forKey: "isExpanded") == true {
             let superViewFrame = self.view.frame
             let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
@@ -286,7 +288,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
     
-    func findIndexPathForFirstOfPreviousMonth(numberOf:Int) -> Int {
+    func findIndexPathForFirstOf(previousMonthNumber:Int) -> Int {
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
         guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
@@ -294,12 +296,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             let utcMonth = dateFormatter.calendar.dateComponents(in: timeZone, from: date).month else {return 0}
         
         var utcMonthString:String = ""
-        if utcMonth - numberOf == 1 {
+        if utcMonth - previousMonthNumber == 1 {
             utcMonthString = "12"
-        }else if utcMonth - numberOf < 10 {
-            utcMonthString = "0\(utcMonth-numberOf)"
+        }else if utcMonth - previousMonthNumber < 10 {
+            utcMonthString = "0\(utcMonth - previousMonthNumber)"
         }else{
-            utcMonthString = "\(utcMonth-numberOf)"
+            utcMonthString = "\(utcMonth - previousMonthNumber)"
         }
         let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
         
@@ -340,8 +342,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
-        guard let contributionDatas = userDefaults?.object(forKey: "ContributionsDatas"),
-            let contributionDates = userDefaults?.object(forKey: "ContributionsDates") else {return}
+        guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
+            let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
+            let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
+        
+        if UserDefaults.standard.bool(forKey: "isExpanded") == false {
+            self.compactUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
+        }
+            
         completionHandler(NCUpdateResult.newData)
     }
 }
@@ -381,13 +389,13 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         
         if let realHexColorCodes:[String] = userDefaults?.array(forKey: "ContributionsDatas") as? [String] {
             
+            
             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
             
             for index in 1...5 {
-                if (indexPath.row + 189) == self.findIndexPathForFirstOfPreviousMonth(numberOf: index) {
+                if (indexPath.row + 189) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
                     let xPosition:CGFloat = cell.frame.origin.x
                     self.xPositionForMonthLabels.append(xPosition + 23)
-                    print("여기:\(xPositionForMonthLabels) ")
                 }
             }
         }

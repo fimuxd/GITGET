@@ -37,12 +37,15 @@
                                 <color key="textColor" red="0.46274042129516602" green="0.46274197101593018" blue="0.46274524927139282" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekC-n6-aMY">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating Contributions..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekC-n6-aMY">
                                 <rect key="frame" x="20.5" y="367.5" width="373" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="MQ5-2t-IR1">
+                                <rect key="frame" x="197" y="368" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="tintColor" red="0.92156862745098034" green="0.92941176470588238" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <gestureRecognizers/>
@@ -53,7 +56,9 @@
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="9ev-rk-bM6"/>
                             <constraint firstItem="tbH-e0-6AQ" firstAttribute="top" secondItem="QZh-ar-lJl" secondAttribute="bottom" constant="13" id="IK3-4E-JdY"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.9" id="VDs-YS-hOf"/>
+                            <constraint firstItem="MQ5-2t-IR1" firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="WKf-Zb-DDr"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" id="eLp-IX-N0b"/>
+                            <constraint firstItem="MQ5-2t-IR1" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" id="gJQ-Va-H9y"/>
                             <constraint firstItem="cek-eh-hnp" firstAttribute="centerX" secondItem="tbH-e0-6AQ" secondAttribute="centerX" id="mC1-LZ-bFk"/>
                             <constraint firstItem="tbH-e0-6AQ" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="4" id="njA-Bx-m7V"/>
                         </constraints>
@@ -70,6 +75,7 @@
                         <outlet property="expandedFridayLabel" destination="cek-eh-hnp" id="ojD-cX-gSq"/>
                         <outlet property="expandedMondayLabel" destination="QZh-ar-lJl" id="XRE-zj-nBy"/>
                         <outlet property="expandedWednesdayLabel" destination="tbH-e0-6AQ" id="Xhr-yD-pJg"/>
+                        <outlet property="updateDataActivityIndicator" destination="MQ5-2t-IR1" id="MfG-Jo-Ud4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
