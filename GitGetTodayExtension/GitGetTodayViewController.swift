@@ -318,9 +318,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
-    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        <#code#>
-    }
+//    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+//      completionHandler(.newData)
+//    }
     
     func updateGithubData() {
         
