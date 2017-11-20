@@ -127,12 +127,32 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
+    
+    //Widget을 터치하면 GitGet App 이 열리도록 설정
+    @IBAction func toOpenGitGetApp(_ sender: UITapGestureRecognizer) {
+        openApp(sender)
+    }
+    
+    func openApp(_ sender:AnyObject) {
+        let myAppUrl = URL(string: "main-screen://")!
+        extensionContext?.open(myAppUrl, completionHandler: { (success) in
+            if (!success) {
+                print("///ERROR: failed to open app from Today Extension")
+            }
+        })
+    }
+    
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             //MARK:- .compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
@@ -297,19 +317,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.contributionCollectionView.isHidden = false
     }
     
-    //Widget을 터치하면 GitGet App 이 열리도록 설정
-    @IBAction func toOpenGitGetApp(_ sender: UITapGestureRecognizer) {
-        openApp(sender)
+    //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+        <#code#>
     }
     
-    func openApp(_ sender:AnyObject) {
-        let myAppUrl = URL(string: "main-screen://")!
-        extensionContext?.open(myAppUrl, completionHandler: { (success) in
-            if (!success) {
-                print("///ERROR: failed to open app from Today Extension")
-            }
-        })
+    func updateGithubData() {
+        
     }
+
 }
 
 
