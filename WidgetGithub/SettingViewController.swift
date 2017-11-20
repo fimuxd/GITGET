@@ -254,12 +254,15 @@ class SettingViewController: UIViewController {
             
             self.userProfileImageView.image = profileImage
             
-            if name == "" {
+            if name != "" {
+                self.userNameTextLabel.text = name
+            }else{
                 self.userNameTextLabel.text = gitHubID
             }
-            self.userNameTextLabel.text = name
             
-            if location == "" {
+            if location != "" {
+                self.locationLogoImageView.isHidden = false
+            }else{
                 self.locationLogoImageView.isHidden = true
             }
             self.userLocationTextLabel.text = location
@@ -272,7 +275,6 @@ class SettingViewController: UIViewController {
             guard let data:Data = response.data else {return}
             let userEmailsJson:JSON = JSON(data:data)
             let primaryEmail = userEmailsJson[0]["email"].stringValue
-            print("여기여기여기: \(primaryEmail)")
             Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
         }
     }
