@@ -16,7 +16,6 @@ class LogInViewController: UIViewController {
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
-    @IBOutlet weak var githubMarkButtonOutlet: UIButton!
     @IBOutlet weak var welcomeTextLabel: UILabel!
     @IBOutlet weak var signInButtonOutlet: UIButton!
     
@@ -38,10 +37,6 @@ class LogInViewController: UIViewController {
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
-    
-    @IBAction func githubMarkButtonAction(_ sender: UIButton) {
-        self.openSafariViewOf(url: "https://github.com")
-    }
     
     @IBAction func signInButtonAction(_ sender: UIButton) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
