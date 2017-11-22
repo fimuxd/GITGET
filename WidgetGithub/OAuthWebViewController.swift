@@ -50,7 +50,7 @@ class OAuthWebViewController: UIViewController {
         let parameters:Parameters = ["client_id":clientID,
                                      "client_secret":clientSecret,
                                      "redirect_uri":callbackURL,
-                                     "scope":"repo user",
+                                     "scope":"user",
                                      "allow_signup":"false"]
         
         Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { [unowned self] (response) in
