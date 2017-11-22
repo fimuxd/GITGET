@@ -40,7 +40,7 @@ class SettingViewController: UIViewController {
     var hexColorCodesArray:[String]?{
         didSet{
             guard let realHexColorCodes = hexColorCodesArray,
-                let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults") else {return}
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             
             userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
             userDefaults.synchronize()
@@ -50,7 +50,7 @@ class SettingViewController: UIViewController {
     var dateArray:[String]?{
         didSet{
             guard let realDateArray = dateArray,
-                let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults") else {return}
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
             userDefaults.synchronize()
         }
@@ -60,7 +60,7 @@ class SettingViewController: UIViewController {
         didSet{
             guard let realDataCountArray = dataCountArray,
                 let realCurrentUserUID = Auth.auth().currentUser?.uid,
-                let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults") else {return}
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             
             self.todayContributionsCountLabel.text = realDataCountArray.last!
             Database.database().reference().child("UserInfo").child("\(realCurrentUserUID)").child("todayContributions").setValue(realDataCountArray.last!)
@@ -144,28 +144,19 @@ class SettingViewController: UIViewController {
             SKStoreReviewController.requestReview()
         }
         
-        //GitHub 프로필 열기 (SFSafari)
-        let openGitHubProfilePage:UIAlertAction = UIAlertAction(title: "Open Your GitHub Profile", style: .default) { (action) in
-            Database.database().reference().child("UserInfo").child("\(self.currentUser!.uid)").child("gitHubID").observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                let currentUserName:String = snapshot.value as! String
-                print(currentUserName)
-                self.openSafariViewOf(url: "https://github.com/\(currentUserName)")
-            })
-        }
-        
         //개발자에게 메일보내기
         let sendEmailToDeveloper:UIAlertAction = UIAlertAction(title: "Send email to GITGET", style: .default) { (aciton) in
             let userSystemVersion = UIDevice.current.systemVersion
             let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             
-            let mailComposeViewController = self.configuredMailComposeViewController(emailAddress: "fimuxd@gmail.com", systemVersion: userSystemVersion, appVersion: userAppVersion!)
+            let mailComposeViewController = self.configuredMailComposeViewController(emailAddress: "iosdeveloperkr@gmail.com", systemVersion: userSystemVersion, appVersion: userAppVersion!)
             
             if MFMailComposeViewController.canSendMail() {
                 self.present(mailComposeViewController, animated: true, completion: nil)
             }
         }
         
-        let signOut:UIAlertAction = UIAlertAction(title: "SignOut", style: .default) { (action) in
+        let signOut:UIAlertAction = UIAlertAction(title: "Signout", style: .default) { (action) in
             //Firebase SignOut
             let firebaseAuth = Auth.auth()
             do {
@@ -191,7 +182,6 @@ class SettingViewController: UIViewController {
         let cancel:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alert.addAction(rateGitGet)
-        alert.addAction(openGitHubProfilePage)
         alert.addAction(sendEmailToDeveloper)
         alert.addAction(signOut)
         alert.addAction(cancel)

@@ -183,7 +183,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.preferredContentSize = maxSize //110px
             UserDefaults.standard.set(false, forKey: "isExpanded")
 
-            guard let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults"),
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
                 let todayContributions:String = userDefaults.object(forKey: "TodayContributions") as? String else {return}
             userDefaults.synchronize()
             self.compactUserStatusLabel.text! = "Cheer up! \(todayContributions) contributions today!"
@@ -327,7 +327,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
         let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
         
-        let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
+        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         userDefaults?.synchronize()
         
         guard let realDateArray:[String] = userDefaults?.array(forKey: "ContributionsDates") as? [String],
@@ -363,7 +363,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
+        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
             let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
             let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
@@ -405,7 +405,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
         cell.layer.cornerRadius = 1
         
-        let userDefaults = UserDefaults(suiteName: "group.fimuxd.TodayExtensionSharingDefaults")
+        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         userDefaults?.synchronize()
         
         
