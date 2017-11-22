@@ -30,13 +30,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to GITGET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLH-IZ-rnN">
-                                <rect key="frame" x="119" y="173" width="176" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
                                 <rect key="frame" x="62" y="351.33333333333331" width="290" height="53.333333333333314"/>
                                 <color key="backgroundColor" red="0.19999769330024719" green="0.19999843835830688" blue="0.20000004768371582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -57,54 +51,42 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGS-54-tgV">
-                                <rect key="frame" x="211.66666666666663" y="683.33333333333337" width="100" height="26"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <state key="normal" title="Create an account."/>
-                                <connections>
-                                    <action selector="createAnAccountButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wE0-8V-gJw"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New to GitHub?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKB-Go-ux5">
-                                <rect key="frame" x="123.66666666666669" y="689.33333333333337" width="83" height="14"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GitGetLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yO7-un-1jQ">
-                                <rect key="frame" x="177.66666666666666" y="66" width="59" height="59"/>
+                                <rect key="frame" x="186" y="217" width="42.333333333333343" height="42"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="yO7-un-1jQ" secondAttribute="height" multiplier="1:1" id="Ekp-Y6-9a6"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WelcomeText" translatesAutoresizingMaskIntoConstraints="NO" id="Td4-Ay-GkK">
+                                <rect key="frame" x="120.66666666666669" y="299" width="174" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Td4-Ay-GkK" secondAttribute="height" multiplier="5382:1300" id="F3F-Rd-nrJ"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.97646147012710571" green="0.97646445035934448" blue="0.97647100687026978" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="TLH-IZ-rnN" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="8hc-D2-mja"/>
-                            <constraint firstItem="JGS-54-tgV" firstAttribute="top" secondItem="g0R-Yb-emA" secondAttribute="bottom" constant="-4" id="B0b-8T-dIq"/>
+                            <constraint firstItem="Td4-Ay-GkK" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9if-OS-bcs"/>
                             <constraint firstItem="Vbi-Vd-LDq" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Bdw-H6-0Kb"/>
+                            <constraint firstItem="Td4-Ay-GkK" firstAttribute="top" secondItem="yO7-un-1jQ" secondAttribute="bottom" constant="40" id="COZ-84-9gZ"/>
+                            <constraint firstItem="Vbi-Vd-LDq" firstAttribute="top" secondItem="Td4-Ay-GkK" secondAttribute="bottom" constant="10" id="HXb-2S-79Z"/>
+                            <constraint firstItem="Td4-Ay-GkK" firstAttribute="height" secondItem="yO7-un-1jQ" secondAttribute="height" id="Ld7-yl-1v0"/>
                             <constraint firstItem="yO7-un-1jQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NLi-ai-osD"/>
-                            <constraint firstItem="TLH-IZ-rnN" firstAttribute="top" secondItem="yO7-un-1jQ" secondAttribute="bottom" constant="47.333333333333371" id="OuZ-vW-mWw"/>
-                            <constraint firstItem="bKB-Go-ux5" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" constant="-42" id="QLO-tP-7NW"/>
-                            <constraint firstItem="JGS-54-tgV" firstAttribute="leading" secondItem="bKB-Go-ux5" secondAttribute="trailing" constant="5" id="Uii-qW-sfv"/>
-                            <constraint firstItem="yO7-un-1jQ" firstAttribute="width" secondItem="TLH-IZ-rnN" secondAttribute="width" multiplier="1/3" id="Zqy-4c-c0I"/>
                             <constraint firstItem="g0R-Yb-emA" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.8" id="ajY-7Z-qEf"/>
-                            <constraint firstItem="yO7-un-1jQ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1/4" constant="1" id="dVk-17-Ugs"/>
                             <constraint firstItem="g0R-Yb-emA" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ddE-vu-qvi"/>
-                            <constraint firstItem="bKB-Go-ux5" firstAttribute="centerY" secondItem="JGS-54-tgV" secondAttribute="centerY" id="ha0-7U-iUt"/>
                             <constraint firstItem="Vbi-Vd-LDq" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lCO-QV-NZh"/>
+                            <constraint firstItem="Td4-Ay-GkK" firstAttribute="width" secondItem="Vbi-Vd-LDq" secondAttribute="width" multiplier="0.6" id="pDh-Gk-8c6"/>
                             <constraint firstItem="Vbi-Vd-LDq" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="sIQ-PG-YVJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="signInButtonOutlet" destination="Vbi-Vd-LDq" id="u7C-00-cRE"/>
-                        <outlet property="welcomeTextLabel" destination="TLH-IZ-rnN" id="Fhg-dC-aMA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-319" y="238"/>
+            <point key="canvasLocation" x="-320.28985507246381" y="237.22826086956525"/>
         </scene>
         <!--Auth Web View Controller-->
         <scene sceneID="ElQ-v4-s9e">
@@ -174,6 +156,7 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usb-gw-ecK">
                                         <rect key="frame" x="0.0" y="0.0" width="45" height="45"/>
                                         <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
+                                        <color key="tintColor" red="0.49019607843137253" green="0.6588235294117647" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" image="Group"/>
                                         <connections>
                                             <action selector="menuButtonAction:" destination="wy3-E4-Bnw" eventType="touchUpInside" id="06u-4M-2ge"/>
@@ -288,6 +271,7 @@
         <image name="GitGetLogo" width="29" height="29"/>
         <image name="GitHub-Mark_White" width="40" height="40"/>
         <image name="Group" width="20" height="20"/>
+        <image name="WelcomeText" width="1794" height="433"/>
         <image name="loca" width="27" height="35"/>
         <image name="refresh" width="171" height="182"/>
     </resources>
