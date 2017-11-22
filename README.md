@@ -36,7 +36,7 @@
 
 ## Contact Me
 - 📱 +82 10.3316.1609
-- 📧 fimuxd@gmail.com
+- 📧 iosdeveloperkr@gmail.com
 
 ***
 ***Life is a game. Play it :)***
