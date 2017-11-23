@@ -19,6 +19,7 @@
 		6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
+		79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AFA4B001F9EDBDF00000759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADFD0E33736AB7E8F919E8D0 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
+		B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				6A238E741FB928970063C30A /* NotificationCenter.framework */,
+				B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
