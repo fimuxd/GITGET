@@ -28,7 +28,7 @@
         <!--Log In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="LogInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LogInViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LogInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LogInViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +94,7 @@
         <!--Auth Web View Controller-->
         <scene sceneID="ElQ-v4-s9e">
             <objects>
-                <viewController storyboardIdentifier="OAuthWebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m02-hB-Uz2" customClass="OAuthWebViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OAuthWebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m02-hB-Uz2" customClass="OAuthWebViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hx9-Xa-KN6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,7 +129,7 @@
         <!--Setting View Controller-->
         <scene sceneID="VLX-Zk-oZ4">
             <objects>
-                <viewController storyboardIdentifier="SettingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wy3-E4-Bnw" customClass="SettingViewController" customModule="WidgetGithub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wy3-E4-Bnw" customClass="SettingViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BXK-DH-mLc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,7 +267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heD-Ty-q5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1016.8" y="237.03148425787109"/>
+            <point key="canvasLocation" x="-977" y="933"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LUQ-Bs-dti">

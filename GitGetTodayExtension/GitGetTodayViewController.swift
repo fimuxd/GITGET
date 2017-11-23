@@ -114,7 +114,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.expandedUserStatusLabel.text = "Unable into Load"
         }
     }
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -379,6 +378,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         }
         return cell
     }
+    
 }
 
 
