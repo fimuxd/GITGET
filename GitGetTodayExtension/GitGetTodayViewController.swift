@@ -15,134 +15,103 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
     //UILabel_.expanded
-    @IBOutlet weak var expandedMondayLabel: UILabel!
-    @IBOutlet weak var expandedWednesdayLabel: UILabel!
-    @IBOutlet weak var expandedFridayLabel: UILabel!
+    @IBOutlet weak var mondayLabel: UILabel!
+    @IBOutlet weak var wednesdayLabel: UILabel!
+    @IBOutlet weak var fridayLabel: UILabel!
     
-    //UILabel_.compact
-    @IBOutlet weak var compactUserStatusLabel: UILabel!
+    //UILabel_.expanded
+    @IBOutlet weak var expandedUserStatusLabel: UILabel!
     
-    //CollectionView Attributes
-    var contributionCollectionView: UICollectionView!
-    let sectionInsets = UIEdgeInsets(top: 3, left: 3, bottom: 6, right: 3)
-    let itemsPerRow:CGFloat = 7
-    let leftSpace:CGFloat = 20
-    let rightSpace:CGFloat = 3
-    let numberOfWeeks:CGFloat = 26
-    let numberOfDaysPerWeek:CGFloat = 7
-    let minimumSpaceBetweenItems:CGFloat = 3
-    let paddingSpace:CGFloat = 8
+    //MonthTextLabel
+    @IBOutlet weak var currentMonthLabel: UILabel!
+    @IBOutlet weak var firstPreviousMonthLabel: UILabel!
+    @IBOutlet weak var secondPreviousMonthLabel: UILabel!
+    @IBOutlet weak var thirdPreviousMonthLabel: UILabel!
+    @IBOutlet weak var fourthPreviousMonthLabel: UILabel!
+    @IBOutlet weak var fifthPreviousMonthLabel: UILabel!
+    @IBOutlet weak var sixthPreviousMonthLabel: UILabel!
     
-    //MonthTextLabel Attributes
-    var firstPreviousMonthLabel: UILabel!
-    var secondPreviousMonthLabel: UILabel!
-    var thirdPreviousMonthLabel: UILabel!
-    var fourthPreviousMonthLabel: UILabel!
-    var fifthPreviousMonthLabel: UILabel!
+    //MonthTextLabelAttribute
+    @IBOutlet weak var currentMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var firstMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var secondMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var thirdMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var fourthMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var fifthMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sixthMonthLabelLeadingConstraint: NSLayoutConstraint!
+    
     var xPositionForMonthLabels:[CGFloat] = []
     
-    //ActivityIndicator
-    @IBOutlet weak var updateDataActivityIndicator: UIActivityIndicatorView!
-    
+    //collectionView
+    @IBOutlet weak var contributionCollectionView: UICollectionView!
     
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-        UserDefaults.standard.set(true, forKey: "isExpanded")
-        self.updateDataActivityIndicator.stopAnimating() //TODO:- 일단은 멈춰놓음. 핸들링 할 방법 강구하기
         
-        //CollectionView
-        let collectionViewLayout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionViewLayout.sectionInset = self.sectionInsets
-        collectionViewLayout.scrollDirection = .horizontal
-        collectionViewLayout.minimumLineSpacing = 2
-        collectionViewLayout.minimumInteritemSpacing = 2
-        
-        let availableWidth = (self.view.frame.width - self.leftSpace - self.rightSpace - ((self.numberOfWeeks-1) * self.minimumSpaceBetweenItems))
-        let widthPerItem = availableWidth/self.numberOfWeeks
-        collectionViewLayout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
-        
-        self.contributionCollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        self.contributionCollectionView.dataSource = self
-        self.contributionCollectionView.delegate = self
-        self.contributionCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "contributions")
+        extensionContext?.widgetLargestAvailableDisplayMode = .compact
         self.contributionCollectionView.backgroundColor = .clear
-        self.view.addSubview(self.contributionCollectionView)
-        
-        //MonthLabels
-        self.firstPreviousMonthLabel = UILabel(frame: .zero)
-        self.secondPreviousMonthLabel = UILabel(frame: .zero)
-        self.thirdPreviousMonthLabel = UILabel(frame: .zero)
-        self.fourthPreviousMonthLabel = UILabel(frame: .zero)
-        self.fifthPreviousMonthLabel = UILabel(frame: .zero)
-        
-        self.firstPreviousMonthLabel.textColor = UIColor(hex: "767676")
-        self.secondPreviousMonthLabel.textColor = UIColor(hex: "767676")
-        self.thirdPreviousMonthLabel.textColor = UIColor(hex: "767676")
-        self.fourthPreviousMonthLabel.textColor = UIColor(hex: "767676")
-        self.fifthPreviousMonthLabel.textColor = UIColor(hex: "767676")
-        
-        self.firstPreviousMonthLabel.font = UIFont(name: self.firstPreviousMonthLabel.font.fontName, size: 13)
-        self.secondPreviousMonthLabel.font = UIFont(name: self.secondPreviousMonthLabel.font.fontName, size: 13)
-        self.thirdPreviousMonthLabel.font = UIFont(name: self.thirdPreviousMonthLabel.font.fontName, size: 13)
-        self.fourthPreviousMonthLabel.font = UIFont(name: self.fourthPreviousMonthLabel.font.fontName, size: 13)
-        self.fifthPreviousMonthLabel.font = UIFont(name: self.fifthPreviousMonthLabel.font.fontName, size: 13)
-        
-        self.view.addSubview(self.firstPreviousMonthLabel)
-        self.view.addSubview(self.secondPreviousMonthLabel)
-        self.view.addSubview(self.thirdPreviousMonthLabel)
-        self.view.addSubview(self.fourthPreviousMonthLabel)
-        self.view.addSubview(self.fifthPreviousMonthLabel)
         self.getMonthTextForLabel()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if UserDefaults.standard.bool(forKey: "isExpanded") == true {
-            let superViewFrame = self.view.frame
-            let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
-            
-//            if self.xPositionForMonthLabels.count == 5 {
-//                self.xPositionForMonthLabels.sorted()
-//                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
-//                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
-//                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
-//                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
-//                if self.xPositionForMonthLabels[0] > 10 {
-//                    self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
-//                }else{
-//                    self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
-//                }
-//            }
-            self.contributionCollectionView.frame = collectionViewFrame
-            
-//            if self.firstPreviousMonthLabel.isHidden == true {
-//                self.setExpandedMode()
-//            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if UserDefaults.standard.bool(forKey: "isExpanded") == true {
-            let superViewFrame = self.view.frame
-            let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
-            
-            if self.xPositionForMonthLabels.count == 5 {
-                self.xPositionForMonthLabels.sorted()
-                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
-                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
-                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
-                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
-                if self.xPositionForMonthLabels[0] > 10 {
-                    self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
-                }else{
-                    self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
-                }
+        
+        let screenWidth:CGFloat = self.view.frame.width
+        switch screenWidth {
+        case 398.0: //iPhone Plus
+            if self.xPositionForMonthLabels[5] < 351 {
+                self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[6]
+            }else{
+                self.currentMonthLabel.isHidden = true
             }
+            self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[5]
+            self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
+            self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
+            self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
+            self.fifthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
+            if self.xPositionForMonthLabels[0] > 12 {
+                self.sixthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
+            }else{
+                self.sixthPreviousMonthLabel.isHidden = true
+            }
+        case 359.0: //iPhone 6,7,8,X
+            if self.xPositionForMonthLabels[5] < 311 {
+                self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[5]
+            }else{
+                self.currentMonthLabel.isHidden = true
+            }
+            self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
+            self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
+            self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
+            self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
+            if self.xPositionForMonthLabels[0] > 12 {
+                self.fifthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
+            }else{
+                self.fifthPreviousMonthLabel.isHidden = true
+            }
+            self.sixthPreviousMonthLabel.isHidden = true
+        case 304.0: //iPhone 4,5,SE
+            print(self.xPositionForMonthLabels)
+            if self.xPositionForMonthLabels[4] < 270 {
+                self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
+            }else{
+                self.currentMonthLabel.isHidden = true
+            }
+            self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
+            self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
+            self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
+            if self.xPositionForMonthLabels[0] > 12 {
+                self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
+            }else{
+                self.fourthPreviousMonthLabel.isHidden = true
+            }
+            self.fifthPreviousMonthLabel.isHidden = true
+            self.sixthPreviousMonthLabel.isHidden = true
+        default:
+            self.expandedUserStatusLabel.text = "Unable into Load"
         }
         
     }
@@ -150,6 +119,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -178,40 +148,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
-            //MARK:- .compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
-            self.setCompactMode()
-            self.preferredContentSize = maxSize //110px
-            UserDefaults.standard.set(false, forKey: "isExpanded")
-
+            self.preferredContentSize = maxSize //.compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
+            self.expandedUserStatusLabel.isHidden = true
+        }else{
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
                 let todayContributions:String = userDefaults.object(forKey: "TodayContributions") as? String else {return}
             userDefaults.synchronize()
-            self.compactUserStatusLabel.text! = "Cheer up! \(todayContributions) contributions today!"
-        }else{
-            self.setExpandedMode()
-            //.expanded
-            let expandedAvailableWidth = (view.frame.width - self.leftSpace - self.rightSpace - ((self.numberOfWeeks-1) * self.minimumSpaceBetweenItems))
-            let expandedWidthPerItem = expandedAvailableWidth/self.numberOfWeeks
-            let expandedContentHeight:CGFloat = self.sectionInsets.top + self.sectionInsets.bottom + 20 + (expandedWidthPerItem * self.numberOfDaysPerWeek) + (minimumSpaceBetweenItems * (self.numberOfDaysPerWeek - 1)) + self.paddingSpace
-            self.preferredContentSize = CGSize(width: 0, height: expandedContentHeight)
-            UserDefaults.standard.set(true, forKey: "isExpanded")
+            self.expandedUserStatusLabel.text! = "Cheer up! \(todayContributions) contributions today!"
+            self.expandedUserStatusLabel.isHidden = false
             
-            //monthLable 위치
-            let superViewFrame = self.view.frame
-            let collectionViewFrame = CGRect(x: superViewFrame.origin.x + 20, y: superViewFrame.origin.y + 20, width: superViewFrame.size.width - 20, height: superViewFrame.size.height - 20)
-            
-            if self.xPositionForMonthLabels.count == 5 {
-                self.xPositionForMonthLabels.sorted()
-                self.firstPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[4], y: 3, width: 24, height: 16)
-                self.secondPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[3], y: 3, width: 24, height: 16)
-                self.thirdPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[2], y: 3, width: 24, height: 16)
-                self.fourthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[1], y: 3, width: 24, height: 16)
-                if self.xPositionForMonthLabels[0] > 10 {
-                    self.fifthPreviousMonthLabel.frame = CGRect(x: self.xPositionForMonthLabels[0], y: 3, width: 24, height: 16)
-                }else{
-                    self.fifthPreviousMonthLabel.frame = CGRect(x: -50, y: 3, width: 24, height: 16)
-                }
-            }
+            self.preferredContentSize = CGSize(width: 0, height: 220)
         }
     }
     
@@ -235,77 +181,101 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         switch utcMonth {
         case 1:
+            self.currentMonthLabel.text = "Jan"
             self.firstPreviousMonthLabel.text = "Dec"
             self.secondPreviousMonthLabel.text = "Nov"
             self.thirdPreviousMonthLabel.text = "Oct"
             self.fourthPreviousMonthLabel.text = "Sep"
             self.fifthPreviousMonthLabel.text = "Aug"
+            self.sixthPreviousMonthLabel.text = "Jul"
         case 2:
+            self.currentMonthLabel.text = "Feb"
             self.firstPreviousMonthLabel.text = "Jan"
             self.secondPreviousMonthLabel.text = "Dec"
             self.thirdPreviousMonthLabel.text = "Nov"
             self.fourthPreviousMonthLabel.text = "Oct"
             self.fifthPreviousMonthLabel.text = "Sep"
+            self.sixthPreviousMonthLabel.text = "Aug"
         case 3:
+            self.currentMonthLabel.text = "Mar"
             self.firstPreviousMonthLabel.text = "Feb"
             self.secondPreviousMonthLabel.text = "Jan"
             self.thirdPreviousMonthLabel.text = "Dec"
             self.fourthPreviousMonthLabel.text = "Nov"
             self.fifthPreviousMonthLabel.text = "Oct"
+            self.sixthPreviousMonthLabel.text = "Sep"
         case 4:
+            self.currentMonthLabel.text = "Apr"
             self.firstPreviousMonthLabel.text = "Mar"
             self.secondPreviousMonthLabel.text = "Feb"
             self.thirdPreviousMonthLabel.text = "Jan"
             self.fourthPreviousMonthLabel.text = "Dec"
             self.fifthPreviousMonthLabel.text = "Nov"
+            self.sixthPreviousMonthLabel.text = "Oct"
         case 5:
+            self.currentMonthLabel.text = "May"
             self.firstPreviousMonthLabel.text = "Apr"
             self.secondPreviousMonthLabel.text = "Mar"
             self.thirdPreviousMonthLabel.text = "Feb"
             self.fourthPreviousMonthLabel.text = "Jan"
             self.fifthPreviousMonthLabel.text = "Dec"
+            self.sixthPreviousMonthLabel.text = "Nov"
         case 6:
+            self.currentMonthLabel.text = "Jun"
             self.firstPreviousMonthLabel.text = "May"
             self.secondPreviousMonthLabel.text = "Apr"
             self.thirdPreviousMonthLabel.text = "Mar"
             self.fourthPreviousMonthLabel.text = "Feb"
             self.fifthPreviousMonthLabel.text = "Jan"
+            self.sixthPreviousMonthLabel.text = "Dec"
         case 7:
+            self.currentMonthLabel.text = "Jul"
             self.firstPreviousMonthLabel.text = "Jun"
             self.secondPreviousMonthLabel.text = "May"
             self.thirdPreviousMonthLabel.text = "Apr"
             self.fourthPreviousMonthLabel.text = "Mar"
             self.fifthPreviousMonthLabel.text = "Feb"
+            self.sixthPreviousMonthLabel.text = "Jan"
         case 8:
+            self.currentMonthLabel.text = "Aug"
             self.firstPreviousMonthLabel.text = "Jul"
             self.secondPreviousMonthLabel.text = "Jun"
             self.thirdPreviousMonthLabel.text = "May"
             self.fourthPreviousMonthLabel.text = "Apr"
             self.fifthPreviousMonthLabel.text = "Mar"
+            self.sixthPreviousMonthLabel.text = "Feb"
         case 9:
+            self.currentMonthLabel.text = "Sep"
             self.firstPreviousMonthLabel.text = "Aug"
             self.secondPreviousMonthLabel.text = "Jul"
             self.thirdPreviousMonthLabel.text = "Jun"
             self.fourthPreviousMonthLabel.text = "May"
             self.fifthPreviousMonthLabel.text = "Apr"
+            self.sixthPreviousMonthLabel.text = "Mar"
         case 10:
+            self.currentMonthLabel.text = "Oct"
             self.firstPreviousMonthLabel.text = "Sep"
             self.secondPreviousMonthLabel.text = "Aug"
             self.thirdPreviousMonthLabel.text = "Jul"
             self.fourthPreviousMonthLabel.text = "Jun"
             self.fifthPreviousMonthLabel.text = "May"
+            self.sixthPreviousMonthLabel.text = "Apr"
         case 11:
+            self.currentMonthLabel.text = "Nov"
             self.firstPreviousMonthLabel.text = "Oct"
             self.secondPreviousMonthLabel.text = "Sep"
             self.thirdPreviousMonthLabel.text = "Aug"
             self.fourthPreviousMonthLabel.text = "Jul"
             self.fifthPreviousMonthLabel.text = "Jun"
+            self.sixthPreviousMonthLabel.text = "Mar"
         case 12:
+            self.currentMonthLabel.text = "Dec"
             self.firstPreviousMonthLabel.text = "Nov"
             self.secondPreviousMonthLabel.text = "Oct"
             self.thirdPreviousMonthLabel.text = "Sep"
             self.fourthPreviousMonthLabel.text = "Aug"
             self.fifthPreviousMonthLabel.text = "Jul"
+            self.sixthPreviousMonthLabel.text = "Jun"
         default: break
         }
     }
@@ -316,8 +286,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
             let utcYear = dateFormatter.calendar.dateComponents(in: timeZone, from: date).year,
             let utcMonth = dateFormatter.calendar.dateComponents(in: timeZone, from: date).month else {return 0}
-        
         var utcMonthString:String = ""
+        
         if utcMonth - previousMonthNumber == 1 {
             utcMonthString = "12"
         }else if utcMonth - previousMonthNumber < 10 {
@@ -325,6 +295,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }else{
             utcMonthString = "\(utcMonth - previousMonthNumber)"
         }
+        
         let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
         
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
@@ -335,32 +306,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return indexPath
     }
     
-    func setCompactMode() {
-        self.contributionCollectionView.isHidden = true
-        self.expandedMondayLabel.isHidden = true
-        self.expandedWednesdayLabel.isHidden = true
-        self.expandedFridayLabel.isHidden = true
-        self.firstPreviousMonthLabel.isHidden = true
-        self.secondPreviousMonthLabel.isHidden = true
-        self.thirdPreviousMonthLabel.isHidden = true
-        self.fourthPreviousMonthLabel.isHidden = true
-        self.fifthPreviousMonthLabel.isHidden = true
-        self.compactUserStatusLabel.isHidden = false
-    }
-    
-    func setExpandedMode() {
-        self.expandedMondayLabel.isHidden = false
-        self.expandedWednesdayLabel.isHidden = false
-        self.expandedFridayLabel.isHidden = false
-        self.firstPreviousMonthLabel.isHidden = false
-        self.secondPreviousMonthLabel.isHidden = false
-        self.thirdPreviousMonthLabel.isHidden = false
-        self.fourthPreviousMonthLabel.isHidden = false
-        self.fifthPreviousMonthLabel.isHidden = false
-        self.compactUserStatusLabel.isHidden = true
-        self.contributionCollectionView.isHidden = false
-    }
-    
     //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
@@ -368,57 +313,76 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
             let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
         
-        if UserDefaults.standard.bool(forKey: "isExpanded") == false {
-            self.compactUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
-        }
+        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
             
         completionHandler(NCUpdateResult.newData)
     }
+    
 }
 
 
 extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch getUTCWeekdayFromLocalTime() {
-        case 1: //일(Sunday)
-            return 176
-        case 2: //월(Monday)
-            return 177
-        case 3: //화(Tuesday)
-            return 178
-        case 4: //수(Wednesday)
-            return 179
-        case 5: //목(Thursday)
-            return 180
-        case 6: //금(Friday)
-            return 181
-        case 7: //토(Saturday)
-            return 182
+        let screenSize:CGFloat = self.view.frame.width
+
+        switch screenSize {
+        case 398.0: //iPhone Plus
+            return 224 + getUTCWeekdayFromLocalTime()
+        case 359.0: //iPhone, X
+            return 203 + getUTCWeekdayFromLocalTime()
+        case 304.0: //iPhone SE, 4
+//            return 168  + getUTCWeekdayFromLocalTime()
+            return 1
         default:
-            print("///ERROR: 날짜 계산이 잘못되었습니다.")
-            return 182
+            self.fridayLabel.text = "Unable to Load"
+            return 0
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
-        cell.layer.cornerRadius = 1
         
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         userDefaults?.synchronize()
         
-        
         if let realHexColorCodes:[String] = userDefaults?.array(forKey: "ContributionsDatas") as? [String] {
             
-            
-            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
-            
-            for index in 1...5 {
-                if (indexPath.row + 189) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                    let xPosition:CGFloat = cell.frame.origin.x
-                    self.xPositionForMonthLabels.append(xPosition + 23)
+            let screenSize:CGFloat = self.view.frame.width
+            switch screenSize {
+            case 398.0: //iPhone Plus
+                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 140])
+                for index in 0...6 {
+                    if (indexPath.row + 140) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
+                        let xPosition:CGFloat = cell.frame.origin.x
+                        self.xPositionForMonthLabels.append(xPosition)
+                        
+                        cell.backgroundColor = .black
+                    }
                 }
+            case 359.0: //iPhone, X
+                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 161])
+                for index in 0...5 {
+                    if (indexPath.row + 161) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
+                        let xPosition:CGFloat = cell.frame.origin.x
+                        self.xPositionForMonthLabels.append(xPosition)
+                        
+                        cell.backgroundColor = .black
+                    }
+                }
+            case 304.0: //iPhone SE, 4
+                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 196])
+                for index in 0...4 {
+                    if (indexPath.row + 196) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
+                        let xPosition:CGFloat = cell.frame.origin.x
+                        self.xPositionForMonthLabels.append(xPosition)
+                        print(self.xPositionForMonthLabels)
+                        cell.backgroundColor = .black
+                    }
+                }
+            default:
+                self.fridayLabel.text = "Unable to Load"
             }
         }
         return cell
