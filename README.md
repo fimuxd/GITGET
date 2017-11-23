@@ -18,7 +18,7 @@
 
 ## Concept
 
-![이미지](https://github.com/fimuxd/WidgetGithub/blob/master/Reference/simulator_20171116.png?raw=true)
+![이미지](https://github.com/fimuxd/GITGET/blob/master/Reference/simulator_20171123.png?raw=true)
 
 - GITGET(이하 `깃젯`)은 2017년 5월, `Swift`로 코딩을 처음 접한 뒤 지금까지 배운 내용을 토대로 시도하는 첫 번째 `iOS 전용` Application 입니다.
 - GitHub profile 페이지의 `contributions`를 `iPhone`의 `widget`상에 띄워서 볼 수 있게 하였습니다.
