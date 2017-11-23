@@ -94,8 +94,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
             self.sixthPreviousMonthLabel.isHidden = true
         case 304.0: //iPhone 4,5,SE
-            print(self.xPositionForMonthLabels)
-            if self.xPositionForMonthLabels[4] < 270 {
+            
+            if self.xPositionForMonthLabels[4] < 251 {
                 self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
             }else{
                 self.currentMonthLabel.isHidden = true
@@ -113,7 +113,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         default:
             self.expandedUserStatusLabel.text = "Unable into Load"
         }
-        
     }
 
     
@@ -306,15 +305,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return indexPath
     }
     
-    //Widget이 LayoutSubview 될 때마다 Noti: 날려서 새로운 commit 이 있는지 확인할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
             let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
             let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
         
-        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
-            
+//        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
+        
         completionHandler(NCUpdateResult.newData)
     }
     
@@ -332,8 +330,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         case 359.0: //iPhone, X
             return 203 + getUTCWeekdayFromLocalTime()
         case 304.0: //iPhone SE, 4
-//            return 168  + getUTCWeekdayFromLocalTime()
-            return 1
+            return 168  + getUTCWeekdayFromLocalTime()
         default:
             self.fridayLabel.text = "Unable to Load"
             return 0
@@ -357,8 +354,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                     if (indexPath.row + 140) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
                         let xPosition:CGFloat = cell.frame.origin.x
                         self.xPositionForMonthLabels.append(xPosition)
-                        
-                        cell.backgroundColor = .black
                     }
                 }
             case 359.0: //iPhone, X
@@ -367,8 +362,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                     if (indexPath.row + 161) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
                         let xPosition:CGFloat = cell.frame.origin.x
                         self.xPositionForMonthLabels.append(xPosition)
-                        
-                        cell.backgroundColor = .black
                     }
                 }
             case 304.0: //iPhone SE, 4
@@ -378,7 +371,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                         let xPosition:CGFloat = cell.frame.origin.x
                         self.xPositionForMonthLabels.append(xPosition)
                         print(self.xPositionForMonthLabels)
-                        cell.backgroundColor = .black
                     }
                 }
             default:
