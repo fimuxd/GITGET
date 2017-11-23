@@ -1,6 +1,0 @@
-framework module Pods_WidgetGithub {
-  umbrella header "Pods-WidgetGithub-umbrella.h"
-
-  export *
-  module * { export * }
-}

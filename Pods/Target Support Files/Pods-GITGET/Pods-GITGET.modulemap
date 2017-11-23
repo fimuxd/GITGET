@@ -1,0 +1,6 @@
+framework module Pods_GITGET {
+  umbrella header "Pods-GITGET-umbrella.h"
+
+  export *
+  module * { export * }
+}

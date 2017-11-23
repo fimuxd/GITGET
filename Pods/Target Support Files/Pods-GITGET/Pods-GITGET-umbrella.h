@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_WidgetGithubVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_WidgetGithubVersionString[];
+FOUNDATION_EXPORT double Pods_GITGETVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_GITGETVersionString[];
 

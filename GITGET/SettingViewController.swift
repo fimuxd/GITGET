@@ -105,8 +105,6 @@ class SettingViewController: UIViewController {
         
         self.refreshActivityIndicator.stopAnimating()
         }
-        
-        print("뷰디드로드 :\(self.currentUser?.uid)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -117,7 +115,6 @@ class SettingViewController: UIViewController {
             self.present(navigationController, animated: false, completion: nil)
         }
         
-        print("뷰디드어피어 :\(self.currentUser?.uid)")
     }
     
     override func didReceiveMemoryWarning() {
