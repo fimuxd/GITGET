@@ -62,7 +62,8 @@ class SettingViewController: UIViewController {
                 let realCurrentUserUID = Auth.auth().currentUser?.uid,
                 let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             
-            self.todayContributionsCountLabel.text = realDataCountArray.last!
+            guard let todayContribution = realDataCountArray.last else {return}
+            self.todayContributionsCountLabel.text = todayContribution
             Database.database().reference().child("UserInfo").child("\(realCurrentUserUID)").child("todayContributions").setValue(realDataCountArray.last!)
             
             userDefaults.setValue(realDataCountArray.last!, forKey: "TodayContributions")
@@ -87,6 +88,8 @@ class SettingViewController: UIViewController {
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if currentUser != nil {
         self.getGitHubUserInfo()
         
         buttonBackgroundView.layer.cornerRadius = 22
@@ -101,17 +104,20 @@ class SettingViewController: UIViewController {
         userProfileImageView.clipsToBounds = false
         
         self.refreshActivityIndicator.stopAnimating()
+        }
+        
+        print("뷰디드로드 :\(self.currentUser?.uid)")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
         
         if currentUser == nil {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-            self.present(logInViewController, animated: false, completion: nil)
+            let navigationController:UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+            self.present(navigationController, animated: false, completion: nil)
         }
         
+        print("뷰디드어피어 :\(self.currentUser?.uid)")
     }
     
     override func didReceiveMemoryWarning() {
