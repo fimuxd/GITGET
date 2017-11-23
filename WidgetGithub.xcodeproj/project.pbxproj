@@ -12,13 +12,13 @@
 		6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */; };
 		6A238EAA1FB9F5F10063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
+		6AA997911FC66CE5002DFC1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
 		6AD30F651FB3725400D9C251 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F641FB3725400D9C251 /* SettingViewController.swift */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
-		6AFA4B071FA0B73600000759 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4B061FA0B73600000759 /* GoogleService-Info.plist */; };
 		7E7145AEC5430C29F650F136 /* Pods_WidgetGithub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0AA937493D91A289632C8CB /* Pods_WidgetGithub.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +55,7 @@
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* WidgetGithub.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetGithub.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
+		6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
 		6AD30F641FB3725400D9C251 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		6AFA4AF11F9EDBDF00000759 /* WidgetGithub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WidgetGithub.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +64,6 @@
 		6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AFA4B001F9EDBDF00000759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6AFA4B061FA0B73600000759 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6D530A7551BBBB0F5D296CA1 /* Pods-WidgetGithub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WidgetGithub.release.xcconfig"; path = "Pods/Target Support Files/Pods-WidgetGithub/Pods-WidgetGithub.release.xcconfig"; sourceTree = "<group>"; };
 		C7D1E9AA91FE17ED75A665F4 /* Pods-WidgetGithub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WidgetGithub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WidgetGithub/Pods-WidgetGithub.debug.xcconfig"; sourceTree = "<group>"; };
 		D0AA937493D91A289632C8CB /* Pods_WidgetGithub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WidgetGithub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +141,7 @@
 				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
 				6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */,
 				6AFA4B001F9EDBDF00000759 /* Info.plist */,
-				6AFA4B061FA0B73600000759 /* GoogleService-Info.plist */,
+				6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */,
 			);
 			path = WidgetGithub;
 			sourceTree = "<group>";
@@ -261,8 +261,8 @@
 			files = (
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
-				6AFA4B071FA0B73600000759 /* GoogleService-Info.plist in Resources */,
 				6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */,
+				6AA997911FC66CE5002DFC1E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

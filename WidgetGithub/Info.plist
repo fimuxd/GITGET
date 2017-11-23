@@ -24,7 +24,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>kr.fimuxd.widgetgitapp</string>
+			<string>kr.devfimuxd.gitget</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>main-screen</string>

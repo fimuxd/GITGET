@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>19858314062-ks8rmfresot9f63c9prestjr63do4v2i.apps.googleusercontent.com</string>
+	<string>19858314062-jefu1ucjusecf9tuavukl941dkrch25q.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.19858314062-ks8rmfresot9f63c9prestjr63do4v2i</string>
+	<string>com.googleusercontent.apps.19858314062-jefu1ucjusecf9tuavukl941dkrch25q</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBU6yk9tAtQ94xWj3jmJcjv8ItDKzf_H_M</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,23 +17,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>kr.fimuxd.widgetgitapp</string>
+	<string>kr.devfimuxd.gitget</string>
 	<key>PROJECT_ID</key>
 	<string>widgetgithub</string>
 	<key>STORAGE_BUCKET</key>
 	<string>widgetgithub.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:19858314062:ios:d0494917cc220a8e</string>
+	<string>1:19858314062:ios:5e30fb6fc984e359</string>
 	<key>DATABASE_URL</key>
 	<string>https://widgetgithub.firebaseio.com</string>
 </dict>
