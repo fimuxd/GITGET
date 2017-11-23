@@ -261,7 +261,7 @@ class SettingViewController: UIViewController {
         }
         
         //이메일은 .get 주소가 달라서 별도로 수집
-        Alamofire.request("https://api.github.com/user/emails", method: .get, headers: headers).responseJSON { [unowned self] (response) in
+        Alamofire.request("https://api.github.com/user/emails", method: .get, headers: headers).responseJSON {(response) in
             guard let data:Data = response.data else {return}
             let userEmailsJson:JSON = JSON(data:data)
             let primaryEmail = userEmailsJson[0]["email"].stringValue
@@ -303,7 +303,7 @@ class SettingViewController: UIViewController {
                     self.dataCountArray = tempDataCountArray
                     
                 }catch Exception.Error(let type, let result){
-                    print(result)
+                    print(result, type)
                 }catch{
                     print("error")
                 }
