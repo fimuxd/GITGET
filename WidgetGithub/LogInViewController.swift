@@ -16,7 +16,6 @@ class LogInViewController: UIViewController {
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
-    @IBOutlet weak var welcomeTextLabel: UILabel!
     @IBOutlet weak var signInButtonOutlet: UIButton!
     
     
@@ -41,25 +40,6 @@ class LogInViewController: UIViewController {
     @IBAction func signInButtonAction(_ sender: UIButton) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
-    
-    @IBAction func createAnAccountButtonAction(_ sender: UIButton) {
-        self.openSafariViewOf(url: "https://github.com/join?source=header-home")
-    }
-    
-    //SFSafari를 이용
-    func openSafariViewOf(url:String) {
-        guard let realURL = URL(string:url) else {return}
-        let safariViewController = SFSafariViewController(url: realURL)
-        safariViewController.delegate = self
-        self.present(safariViewController, animated: true, completion: nil)
-    }
 
 }
 
-extension LogInViewController:SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        
-        //TODO:- Safari에서 'Done' 버튼을 눌렀을 때 SettingVC이 번쩍거리며 보였다가 사라지는 문제 해결
-        self.dismiss(animated: true, completion: nil)
-    }
-}
