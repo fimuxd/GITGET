@@ -12,5 +12,6 @@ pod 'Firebase/Database'
 pod 'Alamofire', '~> 4.5'
 pod 'SwiftyJSON'
 pod "SwiftSoup"
+pod 'Kingfisher'
 
 end

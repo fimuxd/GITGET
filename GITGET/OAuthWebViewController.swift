@@ -1,6 +1,6 @@
 //
 //  OAuthWebViewController.swift
-//  WidgetGithub
+//  GITGET
 //
 //  Created by Bo-Young PARK on 9/11/2017.
 //  Copyright © 2017 Bo-Young PARK. All rights reserved.
@@ -129,8 +129,8 @@ extension OAuthWebViewController: UIWebViewDelegate {
                             "accessToken":"\(access_Token)"])
                         
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
-                        self.present(settingViewController, animated: true, completion: {
+                        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+                        self.present(tabBarController, animated: true, completion: {
                             UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         })
                         
