@@ -1,6 +1,6 @@
 //
-//  SettingViewController.swift
-//  WidgetGithub
+//  MyFieldViewController.swift
+//  GITGET
 //
 //  Created by Bo-Young PARK on 9/11/2017.
 //  Copyright © 2017 Bo-Young PARK. All rights reserved.
@@ -18,7 +18,7 @@ import Alamofire
 import SwiftyJSON
 import SwiftSoup
 
-class SettingViewController: UIViewController {
+class MyFieldViewController: UIViewController {
     
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
@@ -89,22 +89,22 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if currentUser != nil {
-        self.getGitHubUserInfo()
-        
-        buttonBackgroundView.layer.cornerRadius = 22
-        buttonBackgroundView.layer.shadowOpacity = 0.2
-        buttonBackgroundView.layer.shadowRadius = 1
-        buttonBackgroundView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        userProfileImageView.layer.cornerRadius = 10
-        userProfileImageView.layer.shadowRadius = 1
-        userProfileImageView.layer.shadowOpacity = 0.2
-        userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        userProfileImageView.clipsToBounds = false
-        
-        self.refreshActivityIndicator.stopAnimating()
+        if currentUser?.uid != nil {
+            self.getGitHubUserInfo()
         }
+            buttonBackgroundView.layer.cornerRadius = 22
+            buttonBackgroundView.layer.shadowOpacity = 0.2
+            buttonBackgroundView.layer.shadowRadius = 1
+            buttonBackgroundView.layer.shadowOffset = CGSize(width: 1, height: 1)
+            
+            userProfileImageView.layer.cornerRadius = 10
+            userProfileImageView.layer.shadowRadius = 1
+            userProfileImageView.layer.shadowOpacity = 0.2
+            userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
+            userProfileImageView.clipsToBounds = false
+            
+            self.refreshActivityIndicator.stopAnimating()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -229,7 +229,8 @@ class SettingViewController: UIViewController {
                             "userUID":realCurrentUser.uid]
             
             //가져온 정보를 Firebase에 저장
-            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
+            //TODO: - 여기서 간헐적으로 뻑나는데 로그인 과정 개선할 것
+//            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
             
             //GitHubID를 받아서 해당 유저의 Contributions를 수집하도록 함
             //TODO:- 추후에 로그인 계정이 User인지 Corp(Team) 인지 구별하여 별도 처리하도록 함.
@@ -268,7 +269,9 @@ class SettingViewController: UIViewController {
             guard let data:Data = response.data else {return}
             let userEmailsJson:JSON = JSON(data:data)
             let primaryEmail = userEmailsJson[0]["email"].stringValue
-            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
+            
+             //TODO: - 여기서 간헐적으로 뻑나는데 로그인 과정 개선할 것
+//            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
         }
     }
     
@@ -325,17 +328,18 @@ class SettingViewController: UIViewController {
     
 }
 
-extension SettingViewController:SFSafariViewControllerDelegate {
+extension MyFieldViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-extension SettingViewController: MFMailComposeViewControllerDelegate {
+extension MyFieldViewController: MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
 
 
