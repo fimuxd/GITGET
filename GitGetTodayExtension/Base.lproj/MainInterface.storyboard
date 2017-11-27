@@ -85,6 +85,9 @@
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Dx8-1u-ax0">
+                                <rect key="frame" x="177" y="65" width="20" height="20"/>
+                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="c0A-u1-PzN">
                                 <rect key="frame" x="13" y="15" width="356" height="88"/>
                                 <constraints>
@@ -131,10 +134,12 @@
                             <constraint firstItem="QgR-Ps-tgl" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="PII-m0-leQ"/>
                             <constraint firstItem="3gO-i1-qMO" firstAttribute="centerY" secondItem="auZ-tE-WGi" secondAttribute="centerY" id="RD7-gj-vWr"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="TVx-uF-juB"/>
+                            <constraint firstItem="Dx8-1u-ax0" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" id="UqO-2O-bgU"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.9" id="VDs-YS-hOf"/>
                             <constraint firstItem="EpG-97-KZ7" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="ZZ1-us-diI"/>
                             <constraint firstItem="EpG-97-KZ7" firstAttribute="centerY" secondItem="auZ-tE-WGi" secondAttribute="centerY" id="a9P-Pj-5GA"/>
                             <constraint firstItem="c0A-u1-PzN" firstAttribute="top" secondItem="auZ-tE-WGi" secondAttribute="bottom" constant="1" id="j6h-Ue-eTE"/>
+                            <constraint firstItem="Dx8-1u-ax0" firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="jcg-zc-1jS"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="top" secondItem="c0A-u1-PzN" secondAttribute="bottom" constant="8" id="jzD-dU-L6A"/>
                             <constraint firstItem="3gO-i1-qMO" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="kyZ-NJ-7Ks"/>
                             <constraint firstItem="cek-eh-hnp" firstAttribute="centerX" secondItem="tbH-e0-6AQ" secondAttribute="centerX" id="mC1-LZ-bFk"/>
@@ -154,6 +159,7 @@
                         <outlet property="contributionCollectionView" destination="c0A-u1-PzN" id="5eW-cN-5aw"/>
                         <outlet property="currentMonthLabel" destination="EpG-97-KZ7" id="SE7-EU-mPW"/>
                         <outlet property="currentMonthLabelLeadingConstraint" destination="ZZ1-us-diI" id="g0W-bs-ZIT"/>
+                        <outlet property="dataActivityIndicator" destination="Dx8-1u-ax0" id="zuF-AO-zwb"/>
                         <outlet property="expandedUserStatusLabel" destination="ekC-n6-aMY" id="YmH-YD-otx"/>
                         <outlet property="fifthMonthLabelLeadingConstraint" destination="PII-m0-leQ" id="BOe-qu-Iwt"/>
                         <outlet property="fifthPreviousMonthLabel" destination="QgR-Ps-tgl" id="X6E-kc-vd5"/>

@@ -22,6 +22,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //UILabel_.expanded
     @IBOutlet weak var expandedUserStatusLabel: UILabel!
     
+    //UILabel_.Status
+    
     //MonthTextLabel
     @IBOutlet weak var currentMonthLabel: UILabel!
     @IBOutlet weak var firstPreviousMonthLabel: UILabel!
@@ -40,10 +42,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var fifthMonthLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var sixthMonthLabelLeadingConstraint: NSLayoutConstraint!
     
-    var xPositionForMonthLabels:[CGFloat] = []
-    
     //collectionView
     @IBOutlet weak var contributionCollectionView: UICollectionView!
+    
+    //indicator
+    @IBOutlet weak var dataActivityIndicator: UIActivityIndicatorView!
+    
+    var xPositionForMonthLabels:[CGFloat] = []
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -134,7 +139,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //Widget을 터치하면 GitGet App 이 열리도록 설정
     @IBAction func toOpenGitGetApp(_ sender: UITapGestureRecognizer) {
-        openApp(sender)
+//        openApp(sender)
+        
+        
     }
     
     func openApp(_ sender:AnyObject) {
