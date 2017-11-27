@@ -83,17 +83,21 @@ extension SearchViewController:UISearchBarDelegate {
                                                        "bio":bio]
                         
                         self.userInfoResults.append(tempDic)
+                        print(resultJson)
                     })
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    print(self.userInfoResults)
                     self.resultTableView.reloadData()
                     self.activityIndicator.stopAnimating()
                     self.resultTableView.isHidden = false
                 }
             }
         }
+        
         searchBar.resignFirstResponder()
+        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

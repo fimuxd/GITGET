@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseAuth
 import SafariServices
 import Alamofire
 
@@ -26,7 +26,7 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         
         self.signInButtonOutlet.layer.cornerRadius = 5
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

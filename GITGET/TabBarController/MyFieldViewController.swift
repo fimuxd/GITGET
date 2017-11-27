@@ -17,7 +17,6 @@ import FirebaseDatabase
 import Alamofire
 import SwiftyJSON
 import SwiftSoup
-import Kingfisher
 
 class MyFieldViewController: UIViewController {
     
@@ -42,6 +41,7 @@ class MyFieldViewController: UIViewController {
         didSet{
             guard let realHexColorCodes = hexColorCodesArray,
                 let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            
             userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
             userDefaults.synchronize()
         }
@@ -64,6 +64,8 @@ class MyFieldViewController: UIViewController {
             
             guard let todayContribution = realDataCountArray.last else {return}
             self.todayContributionsCountLabel.text = todayContribution
+            Database.database().reference().child("UserInfo").child("\(realCurrentUserUID)").child("todayContributions").setValue(realDataCountArray.last!)
+            
             userDefaults.setValue(realDataCountArray.last!, forKey: "TodayContributions")
             userDefaults.synchronize()
             
@@ -87,31 +89,21 @@ class MyFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let realCurrentUserUid:String = self.currentUser?.uid else {return}
-        Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value) { [unowned self] (snapshot) in
-            if let observeValue:[String:Any] = snapshot.value as? [String : Any] {
-                Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                    let observeValue:JSON = JSON.init(snapshot.value)
-                    let gitHubID:String = observeValue["gitHubID"].stringValue
-                    self.updateUserInfo(for: gitHubID)
-                })
-            }else{
-                self.getGitHubUserInfoForNewbie()
-            }
+        if currentUser?.uid != nil {
+            self.getGitHubUserInfo()
         }
-        
-        self.buttonBackgroundView.layer.cornerRadius = 22
-        self.buttonBackgroundView.layer.shadowOpacity = 0.2
-        self.buttonBackgroundView.layer.shadowRadius = 1
-        self.buttonBackgroundView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        
-        self.userProfileImageView.layer.cornerRadius = 10
-        self.userProfileImageView.layer.shadowRadius = 1
-        self.userProfileImageView.layer.shadowOpacity = 0.2
-        self.userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
-        self.userProfileImageView.clipsToBounds = false
-        
-        self.refreshActivityIndicator.stopAnimating()
+            buttonBackgroundView.layer.cornerRadius = 22
+            buttonBackgroundView.layer.shadowOpacity = 0.2
+            buttonBackgroundView.layer.shadowRadius = 1
+            buttonBackgroundView.layer.shadowOffset = CGSize(width: 1, height: 1)
+            
+            userProfileImageView.layer.cornerRadius = 10
+            userProfileImageView.layer.shadowRadius = 1
+            userProfileImageView.layer.shadowOpacity = 0.2
+            userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
+            userProfileImageView.clipsToBounds = false
+            
+            self.refreshActivityIndicator.stopAnimating()
         
     }
     
@@ -156,7 +148,7 @@ class MyFieldViewController: UIViewController {
         }
         
         //개발자에게 메일보내기
-        let sendEmailToDeveloper:UIAlertAction = UIAlertAction(title: "Send email to GITGET", style: .default) { [unowned self] (aciton) in
+        let sendEmailToDeveloper:UIAlertAction = UIAlertAction(title: "Send email to GITGET", style: .default) { (aciton) in
             let userSystemVersion = UIDevice.current.systemVersion
             let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             
@@ -167,7 +159,7 @@ class MyFieldViewController: UIViewController {
             }
         }
         
-        let signOut:UIAlertAction = UIAlertAction(title: "Signout", style: .default) { [unowned self] (action) in
+        let signOut:UIAlertAction = UIAlertAction(title: "Signout", style: .default) { (action) in
             //Firebase SignOut
             let firebaseAuth = Auth.auth()
             do {
@@ -181,10 +173,9 @@ class MyFieldViewController: UIViewController {
                 print("Error signing out: %@", signOutError)
             }
             
-            //GitHub SignOut
+            //TODO:- GitHub API SignOut
             let sessionManager = Alamofire.SessionManager.default
             sessionManager.session.reset {
-                UserDefaults.standard.setValue(nil, forKey: "GithubID")
                 UserDefaults.standard.setValue(nil, forKey: "AccessToken")
             }
             
@@ -212,8 +203,7 @@ class MyFieldViewController: UIViewController {
         return mailComposerVC
     }
     
-    //최초 가입시 한번만 실행
-    func getGitHubUserInfoForNewbie() {
+    func getGitHubUserInfo() {
         guard let realAccessToken = self.accessToken,
             let getAuthenticatedUserUrl:URL = URL(string:"https://api.github.com/user"),
             let realCurrentUser = self.currentUser else {return}
@@ -223,60 +213,66 @@ class MyFieldViewController: UIViewController {
             guard let data:Data = response.data else {return}
             let userInfoJson:JSON = JSON(data:data)
             let gitHubID = userInfoJson["login"].stringValue
+            let name = userInfoJson["name"].stringValue
+            let location = userInfoJson["location"].stringValue
+            let email = userInfoJson["email"].stringValue
+            let profileUrlString = userInfoJson["avatar_url"].stringValue
+            let bio = userInfoJson["bio"].stringValue
             
-            let userInfo = ["gitHubID":gitHubID]
+            let userInfo = ["gitHubID":gitHubID,
+                            "name":name,
+                            "location":location,
+                            "email":email,
+                            "profileURL":profileUrlString,
+                            "bio":bio,
+                            "accessToken":realAccessToken,
+                            "userUID":realCurrentUser.uid]
             
             //가져온 정보를 Firebase에 저장
-            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
+            //TODO: - 여기서 간헐적으로 뻑나는데 로그인 과정 개선할 것
+//            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
             
             //GitHubID를 받아서 해당 유저의 Contributions를 수집하도록 함
             //TODO:- 추후에 로그인 계정이 User인지 Corp(Team) 인지 구별하여 별도 처리하도록 함.
             //       이유는, Contributions 가져오는 주소가 다른 것으로 알고 있음. (
             //       개인: https://github.com/users{/username}/contributions
             //       단체: 개인사이트 같은 별도 뷰는 없음. 비슷한 형태는, https://github.com{/organization_name}{/repository_name}/graphs/contributors
-            
             self.gitHubID = gitHubID
             UserDefaults.standard.setValue(gitHubID, forKey: "GitHubID")
             
-            self.refreshActivityIndicator.stopAnimating()
-        }
-    }
-    
-    func updateUserInfo(for githubID:String) {
-        self.gitHubID = githubID
-        
-        guard let getUserDataURL:URL = URL(string:"https://api.github.com/users/\(githubID)") else {return}
-        Alamofire.request(getUserDataURL, method: .get).responseJSON { [unowned self] (response) in
-            guard let data:Data = response.data else {return}
-            let userInfoJson:JSON = JSON(data:data)
-            let profileUrlString:String = userInfoJson["avatar_url"].stringValue
-            let location:String = userInfoJson["location"].stringValue
-            let bio:String = userInfoJson["bio"].stringValue
-            let name:String = userInfoJson["name"].stringValue
+            //가져온 정보를 UI에 뿌리기
+            //profile_URL
+            guard let profileUrl:URL = URL(string: profileUrlString),
+                let imageData:Data = try? Data.init(contentsOf: profileUrl),
+                let profileImage:UIImage = UIImage(data: imageData) else {return}
             
-            print("가져온 값 > \(userInfoJson)\n profileURL:\(profileUrlString)\n 장소:\(location)\n 주절:\(bio)\n 이름:\(name)")
-            self.userProfileImageView.kf.setImage(with: URL(string:profileUrlString))
+            self.userProfileImageView.image = profileImage
             
-            if location != "" || location != nil {
+            if name != "" {
+                self.userNameTextLabel.text = name
+            }else{
+                self.userNameTextLabel.text = gitHubID
+            }
+            
+            if location != "" {
                 self.locationLogoImageView.isHidden = false
             }else{
                 self.locationLogoImageView.isHidden = true
             }
-            
             self.userLocationTextLabel.text = location
             
             self.userBioTextLabel.text = bio
-            
-            if name != "" || name != nil{
-                self.userNameTextLabel.text = githubID
-            }else{
-                self.userNameTextLabel.text = name
-            }
-            
-            self.mainActivityIndicator.stopAnimating()
-            self.refreshActivityIndicator.stopAnimating()
         }
         
+        //이메일은 .get 주소가 달라서 별도로 수집
+        Alamofire.request("https://api.github.com/user/emails", method: .get, headers: headers).responseJSON {(response) in
+            guard let data:Data = response.data else {return}
+            let userEmailsJson:JSON = JSON(data:data)
+            let primaryEmail = userEmailsJson[0]["email"].stringValue
+            
+             //TODO: - 여기서 간헐적으로 뻑나는데 로그인 과정 개선할 것
+//            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
+        }
     }
     
     func updateContributionDatasOf(gitHubID:String) {
