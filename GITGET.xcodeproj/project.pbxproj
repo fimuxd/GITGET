@@ -129,20 +129,10 @@
 			path = TabBarController;
 			sourceTree = "<group>";
 		};
-		6A7F80FE1FCBE23300052CF3 /* DataCenter */ = {
-			isa = PBXGroup;
-			children = (
-				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
-			);
-			path = DataCenter;
-			sourceTree = "<group>";
-		};
 		6AFA4AE81F9EDBDF00000759 = {
 			isa = PBXGroup;
 			children = (
 				6AFA4AF31F9EDBDF00000759 /* GITGET */,
-				6AFA4B001F9EDBDF00000759 /* Info.plist */,
-				6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */,
 				6A238EA11FB9F5F10063C30A /* GitGetTodayExtension */,
 				6AFA4AF21F9EDBDF00000759 /* Products */,
 				46A70ABF555CC149A30B11BC /* Pods */,
@@ -167,9 +157,11 @@
 				6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */,
 				6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */,
 				6A7F80F31FC7E95000052CF3 /* TabBarController */,
-				6A7F80FE1FCBE23300052CF3 /* DataCenter */,
 				6AFA4AF81F9EDBDF00000759 /* Main.storyboard */,
+				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
 				6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */,
+				6AFA4B001F9EDBDF00000759 /* Info.plist */,
+				6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */,
 			);
 			path = GITGET;
 			sourceTree = "<group>";
