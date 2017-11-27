@@ -52,7 +52,8 @@ class OAuthWebViewController: UIViewController {
     /********************************************/
     
     func signInGithub() {
-        guard let redirectURLToRequestGitHubIdentity:URL = URL(string: "https://github.com/login/oauth/authorize") else {return}
+        guard let redirectURLToRequestGitHubIdentity:URL = URL(string: "https://github.com/login/oauth/authorize") else {print("왜그래")
+            return}
         let parameters:Parameters = ["client_id":clientID,
                                      "client_secret":clientSecret,
                                      "redirect_uri":callbackURL,
