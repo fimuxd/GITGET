@@ -56,7 +56,7 @@ extension SearchViewController:UISearchBarDelegate {
         self.activityIndicator.startAnimating()
         
         guard let realText:String = searchBar.text,
-            let searchUsersURL:URL = URL(string:"https://api.github.com/search/users?q=\(realText)&client_id=99961c715dc314b74401&client_secret=7032c8432bd3a41e303a1c607d8643758316ca50") else {return}
+            let searchUsersURL:URL = URL(string:"https://api.github.com/search/users?q=\(realText)") else {return}
 
         DispatchQueue.global(qos: .userInitiated).async {
             Alamofire.request(searchUsersURL, method: .get).responseJSON {[unowned self] (response) in
@@ -69,7 +69,7 @@ extension SearchViewController:UISearchBarDelegate {
                 }
                 
                 for githubID in self.githubIDSearchResults {
-                    guard let userInfoURL:URL = URL(string:"https://api.github.com/users/\(githubID)&client_id=99961c715dc314b74401&client_secret=7032c8432bd3a41e303a1c607d8643758316ca50") else {print("엉망")
+                    guard let userInfoURL:URL = URL(string:"https://api.github.com/users/\(githubID)") else {print("엉망")
                         return}
                     
                     Alamofire.request(userInfoURL, method: .get).responseJSON(completionHandler: { (response) in
@@ -94,10 +94,9 @@ extension SearchViewController:UISearchBarDelegate {
                     self.resultTableView.isHidden = false
                 }
             }
-            
         }
         
-        
+        searchBar.resignFirstResponder()
         
     }
     
@@ -122,7 +121,7 @@ extension SearchViewController:UISearchBarDelegate {
 }
 
 
-extension SearchViewController:UITableViewDataSource {
+extension SearchViewController:UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.userInfoResults.count
     }
@@ -153,17 +152,13 @@ extension SearchViewController:UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     
 }
 
-extension SearchViewController:UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
-    
-    
-    
-    
-}
