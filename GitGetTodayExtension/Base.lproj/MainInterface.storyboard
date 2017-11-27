@@ -85,6 +85,12 @@
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mB9-QB-L6V">
+                                <rect key="frame" x="-0.5" y="0.0" width="375" height="150"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="c0A-u1-PzN">
                                 <rect key="frame" x="13" y="15" width="356" height="88"/>
                                 <constraints>
@@ -131,14 +137,18 @@
                             <constraint firstItem="QgR-Ps-tgl" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="PII-m0-leQ"/>
                             <constraint firstItem="3gO-i1-qMO" firstAttribute="centerY" secondItem="auZ-tE-WGi" secondAttribute="centerY" id="RD7-gj-vWr"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="TVx-uF-juB"/>
+                            <constraint firstItem="mB9-QB-L6V" firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="Uy6-zq-fZi"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.9" id="VDs-YS-hOf"/>
                             <constraint firstItem="EpG-97-KZ7" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="ZZ1-us-diI"/>
                             <constraint firstItem="EpG-97-KZ7" firstAttribute="centerY" secondItem="auZ-tE-WGi" secondAttribute="centerY" id="a9P-Pj-5GA"/>
+                            <constraint firstItem="mB9-QB-L6V" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" id="cEF-bG-gv9"/>
+                            <constraint firstItem="mB9-QB-L6V" firstAttribute="height" secondItem="S3S-Oj-5AN" secondAttribute="height" id="hO4-lh-9Ef"/>
                             <constraint firstItem="c0A-u1-PzN" firstAttribute="top" secondItem="auZ-tE-WGi" secondAttribute="bottom" constant="1" id="j6h-Ue-eTE"/>
                             <constraint firstItem="ekC-n6-aMY" firstAttribute="top" secondItem="c0A-u1-PzN" secondAttribute="bottom" constant="8" id="jzD-dU-L6A"/>
                             <constraint firstItem="3gO-i1-qMO" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="kyZ-NJ-7Ks"/>
                             <constraint firstItem="cek-eh-hnp" firstAttribute="centerX" secondItem="tbH-e0-6AQ" secondAttribute="centerX" id="mC1-LZ-bFk"/>
                             <constraint firstItem="tbH-e0-6AQ" firstAttribute="leading" secondItem="ssy-KU-ocm" secondAttribute="leading" constant="2" id="njA-Bx-m7V"/>
+                            <constraint firstItem="mB9-QB-L6V" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" id="qCM-vO-8xm"/>
                             <constraint firstItem="soo-w0-pxe" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="rLI-aQ-UNZ"/>
                             <constraint firstItem="tSz-FY-zlS" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="sBu-7k-ZbR"/>
                         </constraints>
@@ -170,6 +180,7 @@
                         <outlet property="thirdMonthLabelLeadingConstraint" destination="OSC-w4-KRa" id="t3U-Ky-bza"/>
                         <outlet property="thirdPreviousMonthLabel" destination="auZ-tE-WGi" id="Mrk-rX-62X"/>
                         <outlet property="wednesdayLabel" destination="tbH-e0-6AQ" id="8iD-Yg-j59"/>
+                        <outlet property="widgetStatusLabel" destination="mB9-QB-L6V" id="rio-qu-8lc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
