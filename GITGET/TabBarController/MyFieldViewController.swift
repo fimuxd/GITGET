@@ -295,7 +295,7 @@ class MyFieldViewController: UIViewController {
             self.userBioTextLabel.text = bio
 
             
-            if name != "" || name != nil{
+            if name != "" || name != nil {
                 self.userNameTextLabel.text = githubID
             }else{
                 self.userNameTextLabel.text = name
