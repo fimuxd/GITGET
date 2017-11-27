@@ -113,6 +113,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         default:
             self.expandedUserStatusLabel.text = "Unable into Load"
         }
+        
+        self.contributionCollectionView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
