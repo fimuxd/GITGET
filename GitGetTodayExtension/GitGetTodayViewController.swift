@@ -40,7 +40,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var fifthMonthLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var sixthMonthLabelLeadingConstraint: NSLayoutConstraint!
     
+    //UILabel_.상태확인바
+    @IBOutlet weak var widgetStatusLabel: UILabel!
+    
+    
     var xPositionForMonthLabels:[CGFloat] = []
+    var isSignedIn:Bool = false
     
     //collectionView
     @IBOutlet weak var contributionCollectionView: UICollectionView!
@@ -52,69 +57,102 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
-        self.contributionCollectionView.backgroundColor = .clear
-        self.getMonthTextForLabel()
+
+        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        userDefaults.synchronize()
+        
+        self.isSignedIn = userDefaults.bool(forKey: "isSigned")
+        
+        if self.isSignedIn == true {
+            self.contributionCollectionView.backgroundColor = .clear
+            self.getMonthTextForLabel()
+        }else{
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)"
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let screenWidth:CGFloat = self.view.frame.width
-        switch screenWidth {
-        case 398.0: //iPhone Plus
-            if self.xPositionForMonthLabels[5] < 351 {
-                self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[6]
-            }else{
-                self.currentMonthLabel.isHidden = true
-            }
-            self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[5]
-            self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
-            self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
-            self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
-            self.fifthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
-            if self.xPositionForMonthLabels[0] > 12 {
-                self.sixthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
-            }else{
+        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        userDefaults.synchronize()
+        
+        self.isSignedIn = userDefaults.bool(forKey: "isSigned")
+        
+        if self.isSignedIn == true {
+            let screenWidth:CGFloat = self.view.frame.width
+            switch screenWidth {
+            case 398.0: //iPhone Plus
+                if self.xPositionForMonthLabels[5] < 351 {
+                    self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[6]
+                }else{
+                    self.currentMonthLabel.isHidden = true
+                }
+                self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[5]
+                self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
+                self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
+                self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
+                self.fifthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
+                if self.xPositionForMonthLabels[0] > 12 {
+                    self.sixthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
+                }else{
+                    self.sixthPreviousMonthLabel.isHidden = true
+                }
+            case 359.0: //iPhone 6,7,8,X
+                if self.xPositionForMonthLabels[5] < 311 {
+                    self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[5]
+                }else{
+                    self.currentMonthLabel.isHidden = true
+                }
+                self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
+                self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
+                self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
+                self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
+                if self.xPositionForMonthLabels[0] > 12 {
+                    self.fifthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
+                }else{
+                    self.fifthPreviousMonthLabel.isHidden = true
+                }
                 self.sixthPreviousMonthLabel.isHidden = true
-            }
-        case 359.0: //iPhone 6,7,8,X
-            if self.xPositionForMonthLabels[5] < 311 {
-                self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[5]
-            }else{
-                self.currentMonthLabel.isHidden = true
-            }
-            self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
-            self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
-            self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
-            self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
-            if self.xPositionForMonthLabels[0] > 12 {
-                self.fifthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
-            }else{
+            case 304.0: //iPhone 4,5,SE
+                
+                if self.xPositionForMonthLabels[4] < 251 {
+                    self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
+                }else{
+                    self.currentMonthLabel.isHidden = true
+                }
+                self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
+                self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
+                self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
+                if self.xPositionForMonthLabels[0] > 12 {
+                    self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
+                }else{
+                    self.fourthPreviousMonthLabel.isHidden = true
+                }
                 self.fifthPreviousMonthLabel.isHidden = true
+                self.sixthPreviousMonthLabel.isHidden = true
+            default:
+                self.expandedUserStatusLabel.text = "Unable into Load"
             }
-            self.sixthPreviousMonthLabel.isHidden = true
-        case 304.0: //iPhone 4,5,SE
             
-            if self.xPositionForMonthLabels[4] < 251 {
-                self.currentMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[4]
-            }else{
-                self.currentMonthLabel.isHidden = true
-            }
-            self.firstMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[3]
-            self.secondMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[2]
-            self.thirdMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[1]
-            if self.xPositionForMonthLabels[0] > 12 {
-                self.fourthMonthLabelLeadingConstraint.constant = self.xPositionForMonthLabels[0]
-            }else{
-                self.fourthPreviousMonthLabel.isHidden = true
-            }
+            self.contributionCollectionView.reloadData()
+
+        }else{
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)"
+            self.contributionCollectionView.isHidden = true
+            self.mondayLabel.isHidden = true
+            self.wednesdayLabel.isHidden = true
+            self.fridayLabel.isHidden = true
+            self.currentMonthLabel.isHidden = true
+            self.firstPreviousMonthLabel.isHidden = true
+            self.secondPreviousMonthLabel.isHidden = true
+            self.thirdPreviousMonthLabel.isHidden = true
+            self.fourthPreviousMonthLabel.isHidden = true
             self.fifthPreviousMonthLabel.isHidden = true
             self.sixthPreviousMonthLabel.isHidden = true
-        default:
-            self.expandedUserStatusLabel.text = "Unable into Load"
         }
-        
-        self.contributionCollectionView.reloadData()
+
     }
     
     override func didReceiveMemoryWarning() {

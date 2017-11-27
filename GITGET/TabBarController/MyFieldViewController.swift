@@ -73,21 +73,22 @@ class MyFieldViewController: UIViewController {
         }
     }
     
-    var gitHubID:String?{
-        didSet{
-            guard let realGitHubID = gitHubID else {return}
-            self.updateContributionDatasOf(gitHubID: realGitHubID)
-        }
-    }
-    
     
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let realCurrentUserUid:String = self.currentUser?.uid else {
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            userDefaults.setValue(false, forKey: "isSigned")
+            userDefaults.synchronize()
+            return}
         
-        guard let realCurrentUserUid:String = self.currentUser?.uid else {return}
+        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        userDefaults.setValue(true, forKey: "isSigned")
+        userDefaults.synchronize()
+        
         Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value) { [unowned self] (snapshot) in
             if let observeValue:[String:Any] = snapshot.value as? [String : Any] {
                 Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
@@ -119,9 +120,17 @@ class MyFieldViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if currentUser == nil {
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            userDefaults.setValue(false, forKey: "isSigned")
+            userDefaults.synchronize()
+            
             let navigationController:UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
             self.present(navigationController, animated: false, completion: nil)
         }
+        
+        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        userDefaults.setValue(true, forKey: "isSigned")
+        userDefaults.synchronize()
         
     }
     
@@ -142,8 +151,14 @@ class MyFieldViewController: UIViewController {
     @IBAction func refreshDataButtonAction(_ sender: UIButton) {
         self.refreshDataButtonOutlet.isHidden = true
         self.refreshActivityIndicator.startAnimating()
-        guard let gitHubID:String = UserDefaults.standard.object(forKey: "GitHubID") as? String else {return}
-        self.updateContributionDatasOf(gitHubID: gitHubID)
+        
+        guard let realCurruntUserUid:String = self.currentUser?.uid else {return}
+        Database.database().reference().child("UserInfo").child(realCurruntUserUid).observeSingleEvent(of: .value) { (snapshot) in
+            guard let observeValue:[String:Any] = snapshot.value as? [String:Any],
+                let gitHubID:String = observeValue["gitHubID"] as? String else {return}
+            
+            self.updateUserInfo(for: gitHubID)
+        }
     }
     
     
@@ -186,6 +201,10 @@ class MyFieldViewController: UIViewController {
             sessionManager.session.reset {
                 UserDefaults.standard.setValue(nil, forKey: "GithubID")
                 UserDefaults.standard.setValue(nil, forKey: "AccessToken")
+                
+                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                userDefaults.setValue(false, forKey: "isSigned")
+                userDefaults.synchronize()
             }
             
         }
@@ -235,26 +254,22 @@ class MyFieldViewController: UIViewController {
             //       개인: https://github.com/users{/username}/contributions
             //       단체: 개인사이트 같은 별도 뷰는 없음. 비슷한 형태는, https://github.com{/organization_name}{/repository_name}/graphs/contributors
             
-            self.gitHubID = gitHubID
-            UserDefaults.standard.setValue(gitHubID, forKey: "GitHubID")
-            
-            self.refreshActivityIndicator.stopAnimating()
+            self.updateUserInfo(for: gitHubID)
         }
     }
     
     func updateUserInfo(for githubID:String) {
-        self.gitHubID = githubID
-        
-        guard let getUserDataURL:URL = URL(string:"https://api.github.com/users/\(githubID)") else {return}
+        guard let getUserDataURL:URL = URL(string:"https://api.github.com/users/\(githubID)") else {print("여기니")
+            return}
         Alamofire.request(getUserDataURL, method: .get).responseJSON { [unowned self] (response) in
-            guard let data:Data = response.data else {return}
+            guard let data:Data = response.data else {print("저기니 \(response.data)")
+                return}
             let userInfoJson:JSON = JSON(data:data)
             let profileUrlString:String = userInfoJson["avatar_url"].stringValue
             let location:String = userInfoJson["location"].stringValue
             let bio:String = userInfoJson["bio"].stringValue
             let name:String = userInfoJson["name"].stringValue
             
-            print("가져온 값 > \(userInfoJson)\n profileURL:\(profileUrlString)\n 장소:\(location)\n 주절:\(bio)\n 이름:\(name)")
             self.userProfileImageView.kf.setImage(with: URL(string:profileUrlString))
             
             if location != "" || location != nil {
@@ -273,8 +288,7 @@ class MyFieldViewController: UIViewController {
                 self.userNameTextLabel.text = name
             }
             
-            self.mainActivityIndicator.stopAnimating()
-            self.refreshActivityIndicator.stopAnimating()
+            self.updateContributionDatasOf(gitHubID: githubID)
         }
         
     }
