@@ -195,8 +195,8 @@
                                 <color key="textColor" red="0.15694883465766907" green="0.15669789910316467" blue="0.16470703482627869" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilY-Zk-HrG">
-                                <rect key="frame" x="204" y="423" width="190" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilY-Zk-HrG">
+                                <rect key="frame" x="41.333333333333343" y="423" width="331.33333333333326" height="19"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Oblique" family="Helvetica" pointSize="16"/>
                                 <color key="textColor" red="0.62488495310000003" green="0.62934046769999996" blue="0.64270701139999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -230,6 +230,7 @@
                             <constraint firstItem="Bvx-ph-41U" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="AmC-yX-tIK"/>
                             <constraint firstItem="8kk-TL-SVg" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" id="B3o-VR-u8z"/>
                             <constraint firstItem="wMm-co-lgI" firstAttribute="centerX" secondItem="uvs-ac-8yK" secondAttribute="centerX" id="Bad-hF-AZo"/>
+                            <constraint firstItem="ilY-Zk-HrG" firstAttribute="centerX" secondItem="aWO-I9-D8X" secondAttribute="centerX" id="H47-SB-Ddz"/>
                             <constraint firstItem="wMm-co-lgI" firstAttribute="height" secondItem="uvs-ac-8yK" secondAttribute="height" id="L4l-oL-bo5"/>
                             <constraint firstItem="wMm-co-lgI" firstAttribute="width" secondItem="uvs-ac-8yK" secondAttribute="width" id="QWy-aY-ga4"/>
                             <constraint firstItem="Bvx-ph-41U" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" multiplier="0.2" id="TAM-u6-1ew"/>
@@ -238,13 +239,12 @@
                             <constraint firstItem="uvs-ac-8yK" firstAttribute="centerY" secondItem="Bvx-ph-41U" secondAttribute="centerY" id="Uvf-lc-S85"/>
                             <constraint firstItem="wMm-co-lgI" firstAttribute="centerY" secondItem="uvs-ac-8yK" secondAttribute="centerY" id="Vb6-7k-Snx"/>
                             <constraint firstItem="i6T-Wf-BJW" firstAttribute="centerY" secondItem="aWO-I9-D8X" secondAttribute="centerY" multiplier="0.8" id="WOR-jw-RdA"/>
+                            <constraint firstItem="ilY-Zk-HrG" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" multiplier="0.8" id="Wxe-89-83O"/>
                             <constraint firstItem="0B3-zh-i3P" firstAttribute="leading" secondItem="p92-mc-I73" secondAttribute="trailing" constant="4" id="atW-Pw-WnG"/>
                             <constraint firstItem="uvs-ac-8yK" firstAttribute="centerX" secondItem="usb-gw-ecK" secondAttribute="centerX" id="df4-D7-vbr"/>
                             <constraint firstItem="0cA-Zn-vRI" firstAttribute="top" secondItem="Bvx-ph-41U" secondAttribute="bottom" constant="8" id="hUG-k9-aca"/>
-                            <constraint firstItem="aWO-I9-D8X" firstAttribute="trailing" secondItem="ilY-Zk-HrG" secondAttribute="trailing" constant="20" id="i0U-vq-1hM"/>
                             <constraint firstItem="i6T-Wf-BJW" firstAttribute="width" secondItem="BXK-DH-mLc" secondAttribute="width" multiplier="0.3" id="jLV-ka-49S"/>
                             <constraint firstItem="qEQ-9V-c3E" firstAttribute="centerX" secondItem="i6T-Wf-BJW" secondAttribute="centerX" id="kbc-q7-ccm"/>
-                            <constraint firstItem="ilY-Zk-HrG" firstAttribute="leading" secondItem="p92-mc-I73" secondAttribute="leading" id="n34-2a-Q51"/>
                             <constraint firstItem="p92-mc-I73" firstAttribute="top" secondItem="qEQ-9V-c3E" secondAttribute="bottom" constant="16" id="szg-D1-vBF"/>
                             <constraint firstItem="aWO-I9-D8X" firstAttribute="bottom" secondItem="4lv-Du-re6" secondAttribute="bottom" constant="40" id="tI2-Sa-JDl"/>
                             <constraint firstItem="qEQ-9V-c3E" firstAttribute="top" secondItem="i6T-Wf-BJW" secondAttribute="bottom" constant="8" id="vr1-rx-Dzs"/>

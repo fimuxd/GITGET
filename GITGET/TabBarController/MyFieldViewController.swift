@@ -64,7 +64,6 @@ class MyFieldViewController: UIViewController {
             
             guard let todayContribution = realDataCountArray.last else {return}
             self.todayContributionsCountLabel.text = todayContribution
-            Database.database().reference().child("UserInfo").child("\(realCurrentUserUID)").child("todayContributions").setValue(realDataCountArray.last!)
             
             userDefaults.setValue(realDataCountArray.last!, forKey: "TodayContributions")
             userDefaults.synchronize()
@@ -232,7 +231,7 @@ class MyFieldViewController: UIViewController {
         return mailComposerVC
     }
     
-    func getGitHubUserInfo() {
+    func getGitHubUserInfoForNewbie() {
         guard let realAccessToken = self.accessToken,
             let getAuthenticatedUserUrl:URL = URL(string:"https://api.github.com/user"),
             let realCurrentUser = self.currentUser else {return}
@@ -242,24 +241,11 @@ class MyFieldViewController: UIViewController {
             guard let data:Data = response.data else {return}
             let userInfoJson:JSON = JSON(data:data)
             let gitHubID = userInfoJson["login"].stringValue
-            let name = userInfoJson["name"].stringValue
-            let location = userInfoJson["location"].stringValue
-            let email = userInfoJson["email"].stringValue
-            let profileUrlString = userInfoJson["avatar_url"].stringValue
-            let bio = userInfoJson["bio"].stringValue
             
-            let userInfo = ["gitHubID":gitHubID,
-                            "name":name,
-                            "location":location,
-                            "email":email,
-                            "profileURL":profileUrlString,
-                            "bio":bio,
-                            "accessToken":realAccessToken,
-                            "userUID":realCurrentUser.uid]
+            let userInfo = ["gitHubID":gitHubID]
             
             //가져온 정보를 Firebase에 저장
-            //TODO: - 여기서 간헐적으로 뻑나는데 로그인 과정 개선할 것
-//            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
+            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
             
             //GitHubID를 받아서 해당 유저의 Contributions를 수집하도록 함
             //TODO:- 추후에 로그인 계정이 User인지 Corp(Team) 인지 구별하여 별도 처리하도록 함.
@@ -305,15 +291,6 @@ class MyFieldViewController: UIViewController {
 
         }
         
-        //이메일은 .get 주소가 달라서 별도로 수집
-        Alamofire.request("https://api.github.com/user/emails", method: .get, headers: headers).responseJSON {(response) in
-            guard let data:Data = response.data else {return}
-            let userEmailsJson:JSON = JSON(data:data)
-            let primaryEmail = userEmailsJson[0]["email"].stringValue
-            
-             //TODO: - 여기서 간헐적으로 뻑나는데 로그인 과정 개선할 것
-//            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").child("email").setValue(primaryEmail)
-        }
     }
     
     func updateContributionDatasOf(gitHubID:String) {

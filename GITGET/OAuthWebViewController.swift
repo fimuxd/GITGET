@@ -126,17 +126,21 @@ extension OAuthWebViewController: UIWebViewDelegate {
                         }
                         
                         guard let realCurrentUser = Auth.auth().currentUser else {return}
-                        Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(["email":"\(realCurrentUser.email)",
-                            "accessToken":"\(access_Token)"])
-                        
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-                        self.present(tabBarController, animated: true, completion: {
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        //기존 가입자라면 Database 덮어쓰기 없이 MyField로 바로 이동
+                        Database.database().reference().queryOrdered(byChild: "UserInfo").queryEqual(toValue: "\(realCurrentUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                            let observeValue = snapshot.value
+                            
+                            if observeValue == nil {
+                                let tempDic:[String:String] = ["email":"\(realCurrentUser.providerData[0].email ?? "")",
+                                    "firebaseUID":"\(realCurrentUser.uid)"]
+                                Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(tempDic)
+                            }
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+                            self.present(tabBarController, animated: true, completion: {
+                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            })
                         })
-                        
-                        //받아온 userUID를 UserDefault에 저장
-                        UserDefaults.standard.setValue(realCurrentUser.uid, forKey: "UserUID")
                     })
                     
                 case .failure(let error):
@@ -148,8 +152,8 @@ extension OAuthWebViewController: UIWebViewDelegate {
         return true
     }
 }
- 
-    
+
+
 extension OAuthWebViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         self.dismiss(animated: true, completion: nil)
