@@ -9,6 +9,10 @@
 import UIKit
 import NotificationCenter
 
+import Alamofire
+import SwiftyJSON
+import SwiftSoup
+
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     /********************************************/
@@ -43,22 +47,66 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //UILabel_.상태확인바
     @IBOutlet weak var widgetStatusLabel: UILabel!
     
-    var xPositionForMonthLabels:[CGFloat] = []
-    var isSignedIn:Bool = false
-    
     //collectionView
     @IBOutlet weak var contributionCollectionView: UICollectionView!
     
     //indicator
     @IBOutlet weak var dataActivityIndicator: UIActivityIndicatorView!
     
+    var xPositionForMonthLabels:[CGFloat] = []
+    var isSignedIn:Bool = false
+    
+    //Contributions 관련 Data 통신 Array
+    
+    var oldHexColorCodesArray = UserDefaults.standard.value(forKey: "HexColorCodes") as? [String]
+    
+    var hexColorCodesArray:[String]? = [] {
+        willSet(oldArray){
+            UserDefaults.standard.set(oldArray, forKey: "HexColorCodes")
+        }
+        didSet(newArray){
+            guard let realHexColorCodes = hexColorCodesArray,
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            
+            userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
+            userDefaults.synchronize()
+            
+            if self.oldHexColorCodesArray! != realHexColorCodes {
+            self.contributionCollectionView.reloadData()
+            }
+        }
+    }
+    
+    var oldDateArray = UserDefaults.standard.value(forKey: "Dates") as? [String]
+    var dateArray:[String]? = [] {
+        willSet(oldArray){
+            UserDefaults.standard.set(oldArray, forKey: "Dates")
+        }
+        didSet(newArray){
+            guard let realDateArray = dateArray,
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            
+            userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
+            userDefaults.synchronize()
+            
+            if self.oldDateArray! != realDateArray {
+                self.contributionCollectionView.reloadData()
+            }
+        }
+    }
+
     
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        print("//TE_awakeFromNib")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
 
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
@@ -72,11 +120,24 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }else{
             self.widgetStatusLabel.text = "Open GITGET to get your contributions :)"
         }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("//TE_viewWillLayoutSubviews")
         
+//        self.getUTCWeekdayFromLocalTime()
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print("//TE_viewDidLayoutSubviews")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print("//TE_viewWillAppear")
         
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
         userDefaults.synchronize()
@@ -155,16 +216,31 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.fifthPreviousMonthLabel.isHidden = true
             self.sixthPreviousMonthLabel.isHidden = true
         }
-
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("//TE_viewDidApear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("//TE_viewWillDisappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("//TE_viewDidDisappear")
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
         NotificationCenter.default.removeObserver(self)
     }
     
     deinit {
+        print("//TE_deinit")
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -173,12 +249,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //MARK:-       Methods | IBAction           //
     /********************************************/
     
-    //Widget을 터치하면 GitGet App 이 열리도록 설정
+    //Widget을 두번 탭하면 GitGet App 이 열리도록 설정
     @IBAction func toOpenGitGetApp(_ sender: UITapGestureRecognizer) {
-//        openApp(sender)
-        
-        
+        openApp(sender)
     }
+    
+    //Widget을 한번 탭하면 GitGet이 새로고침 됨
+    @IBAction func toRefershGitGetApp(_ sender: UITapGestureRecognizer) {
+        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+            let realGitHubID:String = userDefaults.value(forKey: "GitHubID") as? String else {return}
+        userDefaults.synchronize()
+        self.updateContributionDatasOf(gitHubID: realGitHubID)
+    }
+    
     
     func openApp(_ sender:AnyObject) {
         let myAppUrl = URL(string: "main-screen://")!
@@ -187,6 +270,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 print("///ERROR: failed to open app from Today Extension")
             }
         })
+    }
+    
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
+        guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
+            let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
+            let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
+        
+        //        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
+        
+        print("TE_widgetPerformUpdate:\(NCUpdateResult.newData)")
+        
+        completionHandler(NCUpdateResult.newData)
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
@@ -349,17 +445,43 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return indexPath
     }
     
-    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
-        guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
-            let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
-            let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
-        
-//        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
-        
-        completionHandler(NCUpdateResult.newData)
+    //MARK:- 데이터 업데이트
+    func updateContributionDatasOf(gitHubID:String) {
+        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
+        Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
+            switch response.result {
+            case .success(let value):
+                //https://github.com/users/\(username)/contributions 링크를 통해 가져온 HTML 내용 중, 필요한 정보만 추출하기
+                do {
+                    let htmlValue = value
+                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return} //parse html_rect
+                    var tempColorCodeArray:[String] = []
+                    var tempDateArray:[String] = []
+                    //color code 추출하기
+                    for element:Element in elements.array() {
+                        guard let hexColorCode:String = try? element.attr("fill") else {return}
+                        tempColorCodeArray.append(hexColorCode)
+                    }
+                    self.hexColorCodesArray = tempColorCodeArray
+                    
+                    //date(날짜) 추출하기
+                    for element:Element in elements.array() {
+                        guard let date:String = try? element.attr("data-date") else {return}
+                        tempDateArray.append(date)
+                    }
+                    self.dateArray = tempDateArray
+                    
+                }catch Exception.Error(let type, let result){
+                    print(result, type)
+                }catch{
+                    print("error")
+                }
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+            }
+        }
     }
-    
+
 }
 
 
