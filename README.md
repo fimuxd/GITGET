@@ -2,6 +2,8 @@
 
 > **첫 번째 개인 Project**
 
+[<img src = "https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg">](https://itunes.apple.com/us/app/gitget/id1317170245?mt=8) [<img src = "https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store-kr.svg">](https://itunes.apple.com/kr/app/gitget/id1317170245?mt=8)
+
 ## Contents
 * About GITGET
 * Concept
