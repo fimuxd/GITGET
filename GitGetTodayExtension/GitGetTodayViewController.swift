@@ -59,10 +59,10 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //Contributions 관련 Data 통신 Array
     
     var oldHexColorCodesArray = UserDefaults.standard.value(forKey: "HexColorCodes") as? [String]
-    
-    var hexColorCodesArray:[String]? = [] {
+    var hexColorCodesArray:[String]? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String] {
         willSet(oldArray){
             UserDefaults.standard.set(oldArray, forKey: "HexColorCodes")
+            self.dataActivityIndicator.stopAnimating()
         }
         didSet(newArray){
             guard let realHexColorCodes = hexColorCodesArray,
@@ -71,16 +71,22 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
             userDefaults.synchronize()
             
-            if self.oldHexColorCodesArray! != realHexColorCodes {
-            self.contributionCollectionView.reloadData()
+            guard let realOldArray:[String] = oldHexColorCodesArray else {return}
+            if realOldArray != realHexColorCodes {
+                print("색상 업데이트 됨: 예전\(self.oldHexColorCodesArray), 새것\(realHexColorCodes)")
+                self.contributionCollectionView.reloadData()
+            }else{
+                print("색상 새로고침 할 것 없음: 예전\(self.oldHexColorCodesArray), 새것\(realHexColorCodes)")
             }
+            self.dataActivityIndicator.stopAnimating()
         }
     }
     
     var oldDateArray = UserDefaults.standard.value(forKey: "Dates") as? [String]
-    var dateArray:[String]? = [] {
+    var dateArray:[String]? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDates") as? [String] {
         willSet(oldArray){
             UserDefaults.standard.set(oldArray, forKey: "Dates")
+            self.dataActivityIndicator.stopAnimating()
         }
         didSet(newArray){
             guard let realDateArray = dateArray,
@@ -89,12 +95,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
             userDefaults.synchronize()
             
-            if self.oldDateArray! != realDateArray {
+            guard let realOldArray:[String] = oldDateArray else {return}
+            if realOldArray != realDateArray {
+                print("날짜 업데이트 됨: 예전\(self.oldDateArray), 새것\(realDateArray)")
                 self.contributionCollectionView.reloadData()
+            }else{
+                print("날짜 새로고침 할 것 없음: 예전\(self.oldDateArray), 새것\(realDateArray)")
             }
+            self.dataActivityIndicator.stopAnimating()
         }
     }
-
+    
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -108,7 +119,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewDidLoad() {
         super.viewDidLoad()
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
-
+        
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
         userDefaults.synchronize()
         
@@ -118,16 +129,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.contributionCollectionView.backgroundColor = .clear
             self.getMonthTextForLabel()
         }else{
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)"
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\nDouble tap to open \nSingle tap to refresh"
         }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         print("//TE_viewWillLayoutSubviews")
-        
-//        self.getUTCWeekdayFromLocalTime()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -201,9 +209,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
             
             self.contributionCollectionView.reloadData()
-
         }else{
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)"
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  👆🏼👆🏼Double tap to open \n  👆🏼Single tap to refresh"
             self.contributionCollectionView.isHidden = true
             self.mondayLabel.isHidden = true
             self.wednesdayLabel.isHidden = true
@@ -216,6 +223,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.fifthPreviousMonthLabel.isHidden = true
             self.sixthPreviousMonthLabel.isHidden = true
         }
+        self.dataActivityIndicator.stopAnimating()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -256,6 +264,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //Widget을 한번 탭하면 GitGet이 새로고침 됨
     @IBAction func toRefershGitGetApp(_ sender: UITapGestureRecognizer) {
+        self.dataActivityIndicator.startAnimating()
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
             let realGitHubID:String = userDefaults.value(forKey: "GitHubID") as? String else {return}
         userDefaults.synchronize()
@@ -481,7 +490,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
         }
     }
-
+    
 }
 
 
@@ -489,7 +498,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let screenSize:CGFloat = self.view.frame.width
-
+        
         switch screenSize {
         case 398.0: //iPhone Plus
             return 224 + getUTCWeekdayFromLocalTime()
