@@ -17,6 +17,7 @@ import FirebaseDatabase
 import Alamofire
 import SwiftyJSON
 import SwiftSoup
+import Kingfisher
 
 class MyFieldViewController: UIViewController {
     
@@ -168,7 +169,13 @@ class MyFieldViewController: UIViewController {
         
         //In-App 별점
         let rateGitGet:UIAlertAction = UIAlertAction(title: "Rate GITGET", style: .default) { (action) in
-            SKStoreReviewController.requestReview()
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            }else{
+                let rateGitGetUrl = URL(string: "itms-apps://itunes.apple.com/app/id1317170245?action=write-review")
+                UIApplication.shared.open(rateGitGetUrl!, options: [:], completionHandler: nil)
+                UIApplication.shared.canOpenURL(rateGitGetUrl!)
+            }
         }
         
         //개발자에게 메일보내기
@@ -325,6 +332,11 @@ class MyFieldViewController: UIViewController {
                         tempDataCountArray.append(dataCount)
                     }
                     self.dataCountArray = tempDataCountArray
+                    
+                    //가져온 GitHubID를 TodayExtension과 통신
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                    userDefaults.synchronize()
                     
                 }catch Exception.Error(let type, let result){
                     print(result, type)

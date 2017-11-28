@@ -156,6 +156,7 @@
                         <viewLayoutGuide key="safeArea" id="ssy-KU-ocm"/>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="va8-dK-o3A" appends="YES" id="dCC-9u-rHo"/>
+                            <outletCollection property="gestureRecognizers" destination="zlO-lg-Moc" appends="YES" id="xKP-hd-t1o"/>
                         </connections>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -185,9 +186,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="va8-dK-o3A">
+                <tapGestureRecognizer numberOfTapsRequired="2" id="va8-dK-o3A">
                     <connections>
-                        <action selector="toOpenGitGetApp:" destination="M4Y-Lb-cyx" id="J6w-bC-aew"/>
+                        <action selector="toOpenGitGetApp:" destination="M4Y-Lb-cyx" id="Qdr-Hv-sds"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="zlO-lg-Moc">
+                    <connections>
+                        <action selector="toRefershGitGetApp:" destination="M4Y-Lb-cyx" id="mXr-C3-XWi"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
