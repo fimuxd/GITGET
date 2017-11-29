@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "-"; ObjectID = "0B3-zh-i3P"; */
+"0B3-zh-i3P.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "0cA-Zn-vRI"; */
+"0cA-Zn-vRI.text" = "-";
+
+/* Class = "UITabBarItem"; title = "MyField"; ObjectID = "2Tg-B8-Yts"; */
+"2Tg-B8-Yts.title" = "MyField";
+
+/* Class = "UILabel"; text = "Today Contributions"; ObjectID = "Bvx-ph-41U"; */
+"Bvx-ph-41U.text" = "Today Contributions";
+
+/* Class = "UILabel"; text = "Welcome to GITGET"; ObjectID = "CDZ-2P-FwJ"; */
+"CDZ-2P-FwJ.text" = "Welcome to GITGET";
+
+/* Class = "UIButton"; normalTitle = "    Sign in with GitHub"; ObjectID = "Vbi-Vd-LDq"; */
+"Vbi-Vd-LDq.normalTitle" = "    Sign in with GitHub";
+
+/* Class = "UILabel"; text = "You need to have a GitHub account to use the GITGET."; ObjectID = "g0R-Yb-emA"; */
+"g0R-Yb-emA.text" = "You need to have a GitHub account to use the GITGET.";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "ilY-Zk-HrG"; */
+"ilY-Zk-HrG.text" = "-";
+
+/* Class = "UILabel"; text = "-"; ObjectID = "qEQ-9V-c3E"; */
+"qEQ-9V-c3E.text" = "-";

@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GITGET
+
+  Created by Bo-Young PARK on 29/11/2017.
+  Copyright © 2017 Bo-Young PARK. All rights reserved.
+*/
+
+"Rate GITGET" = "깃젯 별점주기";
+"Send email to GITGET" = "깃젯에게 메일 보내기";
+"Signout" = "로그아웃";
+"Cancel" = "취소";
+"\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====" = "피드백 주셔서 감사합니다!\n깃젯에 대한 소중한 의견을 여기에 적어주세요. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====";

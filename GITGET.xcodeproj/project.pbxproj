@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		69BBFA82E9BE9794C1A1A5EE /* Pods_GitGetTodayExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */; };
+		6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */; };
+		6A0F5C4D1FCEEB900081834E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
+		6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
+		6A0F5C5F1FCEF2110081834E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C5A1FCEF1C30081834E /* Info.plist */; };
+		6A0F5C601FCEF21F0081834E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C5D1FCEF1D30081834E /* Info.plist */; };
+		6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C661FCEF6EB0081834E /* Localizable.strings */; };
+		6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C6E1FCEF85F0081834E /* Localizable.strings */; };
+		6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C741FCEFB4B0081834E /* InfoPlist.strings */; };
 		6A238EA01FB9F5F10063C30A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A238E741FB928970063C30A /* NotificationCenter.framework */; };
 		6A238EA31FB9F5F10063C30A /* GitGetTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A238EA21FB9F5F10063C30A /* GitGetTodayViewController.swift */; };
 		6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */; };
@@ -15,7 +23,6 @@
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
-		6AEC44591FCEC2AB0008B609 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AEC44581FCEC2AB0008B609 /* GoogleService-Info.plist */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
@@ -50,23 +57,34 @@
 /* Begin PBXFileReference section */
 		1B507D756291BC85346B89D1 /* Pods-GITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.debug.xcconfig"; sourceTree = "<group>"; };
 		4A110BB59CF060DB1D577D1B /* Pods-GitGetTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6A0F5C551FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		6A0F5C561FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		6A0F5C571FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		6A0F5C591FCEF1C30081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		6A0F5C5B1FCEF1C70081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/Info.plist; sourceTree = "<group>"; };
+		6A0F5C5C1FCEF1D30081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		6A0F5C5E1FCEF1D40081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = ko; path = ko.lproj/Info.plist; sourceTree = "<group>"; };
+		6A0F5C671FCEF7030081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A0F5C681FCEF7060081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A0F5C6D1FCEF85F0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A0F5C6F1FCEF8640081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		6A0F5C731FCEFB4B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6A0F5C751FCEFB4F0081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6A238E741FB928970063C30A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GitGetTodayExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A238EA21FB9F5F10063C30A /* GitGetTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGetTodayViewController.swift; sourceTree = "<group>"; };
 		6A238EA51FB9F5F10063C30A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		6A238EA71FB9F5F10063C30A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
-		6AEC44581FCEC2AB0008B609 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6AFA4AF11F9EDBDF00000759 /* GITGET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GITGET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AFA4AF91F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6AFA4B001F9EDBDF00000759 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7659BF0A3ED16F54209FB052 /* Pods-GitGetTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitGetTodayExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADFD0E33736AB7E8F919E8D0 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,13 +123,32 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		6A0F5C631FCEF6B30081834E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A0F5C5D1FCEF1D30081834E /* Info.plist */,
+				6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */,
+				6A0F5C661FCEF6EB0081834E /* Localizable.strings */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6A0F5C691FCEF83E0081834E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A0F5C5A1FCEF1C30081834E /* Info.plist */,
+				6A0F5C6E1FCEF85F0081834E /* Localizable.strings */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		6A238EA11FB9F5F10063C30A /* GitGetTodayExtension */ = {
 			isa = PBXGroup;
 			children = (
 				6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */,
 				6A238EA21FB9F5F10063C30A /* GitGetTodayViewController.swift */,
 				6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */,
-				6A238EA71FB9F5F10063C30A /* Info.plist */,
+				6A0F5C691FCEF83E0081834E /* Supporting Files */,
 			);
 			path = GitGetTodayExtension;
 			sourceTree = "<group>";
@@ -119,6 +156,7 @@
 		6AFA4AE81F9EDBDF00000759 = {
 			isa = PBXGroup;
 			children = (
+				6A0F5C741FCEFB4B0081834E /* InfoPlist.strings */,
 				6AFA4AF31F9EDBDF00000759 /* GITGET */,
 				6A238EA11FB9F5F10063C30A /* GitGetTodayExtension */,
 				6AFA4AF21F9EDBDF00000759 /* Products */,
@@ -147,8 +185,7 @@
 				6AFA4AF81F9EDBDF00000759 /* Main.storyboard */,
 				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
 				6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */,
-				6AFA4B001F9EDBDF00000759 /* Info.plist */,
-				6AEC44581FCEC2AB0008B609 /* GoogleService-Info.plist */,
+				6A0F5C631FCEF6B30081834E /* Supporting Files */,
 			);
 			path = GITGET;
 			sourceTree = "<group>";
@@ -244,6 +281,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 6AFA4AE81F9EDBDF00000759;
 			productRefGroup = 6AFA4AF21F9EDBDF00000759 /* Products */;
@@ -261,7 +299,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A0F5C4D1FCEEB900081834E /* Main.storyboard in Resources */,
+				6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */,
+				6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */,
 				6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */,
+				6A0F5C5F1FCEF2110081834E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +312,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
-				6AEC44591FCEC2AB0008B609 /* GoogleService-Info.plist in Resources */,
+				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
+				6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */,
+				6A0F5C601FCEF21F0081834E /* Info.plist in Resources */,
+				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 				6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */,
 			);
@@ -410,10 +455,56 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6A0F5C5A1FCEF1C30081834E /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A0F5C591FCEF1C30081834E /* Base */,
+				6A0F5C5B1FCEF1C70081834E /* ko */,
+			);
+			name = Info.plist;
+			sourceTree = "<group>";
+		};
+		6A0F5C5D1FCEF1D30081834E /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A0F5C5C1FCEF1D30081834E /* Base */,
+				6A0F5C5E1FCEF1D40081834E /* ko */,
+			);
+			name = Info.plist;
+			sourceTree = "<group>";
+		};
+		6A0F5C661FCEF6EB0081834E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A0F5C671FCEF7030081834E /* Base */,
+				6A0F5C681FCEF7060081834E /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6A0F5C6E1FCEF85F0081834E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A0F5C6D1FCEF85F0081834E /* ko */,
+				6A0F5C6F1FCEF8640081834E /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6A0F5C741FCEFB4B0081834E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A0F5C731FCEFB4B0081834E /* ko */,
+				6A0F5C751FCEFB4F0081834E /* Base */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6A238EA51FB9F5F10063C30A /* Base */,
+				6A0F5C571FCEEF8B0081834E /* ko */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -422,6 +513,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6AFA4AF91F9EDBDF00000759 /* Base */,
+				6A0F5C551FCEEF8B0081834E /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -430,6 +522,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6AFA4AFE1F9EDBDF00000759 /* Base */,
+				6A0F5C561FCEEF8B0081834E /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -445,7 +538,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
-				INFOPLIST_FILE = GitGetTodayExtension/Info.plist;
+				INFOPLIST_FILE = "GitGetTodayExtension/Supporting Files/Base.lproj/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
@@ -465,7 +558,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
-				INFOPLIST_FILE = GitGetTodayExtension/Info.plist;
+				INFOPLIST_FILE = "GitGetTodayExtension/Supporting Files/Base.lproj/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
@@ -481,6 +574,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -525,6 +619,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -538,6 +633,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -576,6 +672,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -593,7 +690,7 @@
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
-				INFOPLIST_FILE = GITGET/Info.plist;
+				INFOPLIST_FILE = "GITGET/Supporting Files/Base.lproj/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
@@ -612,7 +709,7 @@
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
-				INFOPLIST_FILE = GITGET/Info.plist;
+				INFOPLIST_FILE = "GITGET/Supporting Files/Base.lproj/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;

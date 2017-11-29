@@ -172,7 +172,7 @@ class MyFieldViewController: UIViewController {
         let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         //In-App 별점
-        let rateGitGet:UIAlertAction = UIAlertAction(title: "Rate GITGET", style: .default) { (action) in
+        let rateGitGet:UIAlertAction = UIAlertAction(title: "Rate GITGET".localized, style: .default) { (action) in
             if #available(iOS 10.3, *) {
                 SKStoreReviewController.requestReview()
             }else{
@@ -183,7 +183,7 @@ class MyFieldViewController: UIViewController {
         }
         
         //개발자에게 메일보내기
-        let sendEmailToDeveloper:UIAlertAction = UIAlertAction(title: "Send email to GITGET", style: .default) { (aciton) in
+        let sendEmailToDeveloper:UIAlertAction = UIAlertAction(title: "Send email to GITGET".localized, style: .default) { (aciton) in
             let userSystemVersion = UIDevice.current.systemVersion
             let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
             
@@ -194,21 +194,21 @@ class MyFieldViewController: UIViewController {
             }
         }
         
-        let signOut:UIAlertAction = UIAlertAction(title: "Signout", style: .default) { (action) in
+        let signOut:UIAlertAction = UIAlertAction(title: "Signout".localized, style: .default) { (action) in
             //Firebase SignOut
             let firebaseAuth = Auth.auth()
             do {
                 try firebaseAuth.signOut()
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let logInViewController = storyboard.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
-                self.present(logInViewController, animated: false, completion: nil)
+                let navigationViewController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+                self.present(navigationViewController, animated: false, completion: nil)
                 
             }catch let signOutError as Error {
                 print("Error signing out: %@", signOutError)
             }
             
-            //TODO:- GitHub API SignOut
+            //GitHub API SignOut
             let sessionManager = Alamofire.SessionManager.default
             sessionManager.session.reset {
                 UserDefaults.standard.setValue(nil, forKey: "AccessToken")
@@ -221,7 +221,7 @@ class MyFieldViewController: UIViewController {
         }
         
         //취소
-        let cancel:UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancel:UIAlertAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
         
         alert.addAction(rateGitGet)
         alert.addAction(sendEmailToDeveloper)
@@ -237,7 +237,7 @@ class MyFieldViewController: UIViewController {
         
         mailComposerVC.setToRecipients([emailAddress])
         mailComposerVC.setSubject("[GITGET] Feedback for GITGET")
-        mailComposerVC.setMessageBody("\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: \(systemVersion)\nApp Version: \(appVersion)\n=====", isHTML: false)
+        mailComposerVC.setMessageBody(String(format:NSLocalizedString("\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====", comment: ""),systemVersion,appVersion), isHTML: false)
         
         return mailComposerVC
     }
@@ -385,6 +385,17 @@ extension MyFieldViewController: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 }
+
+extension String {
+    var localized:String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
+    func localizedWithComment(comment:String) -> String {
+        return NSLocalizedString(self, comment: comment)
+    }
+}
+
 
 
 

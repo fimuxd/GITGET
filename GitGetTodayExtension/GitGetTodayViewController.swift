@@ -141,7 +141,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.contributionCollectionView.backgroundColor = .clear
             self.getMonthTextForLabel()
         }else{
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh"
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
         }
     }
     
@@ -226,7 +226,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             
         }else{
             print("//로그아웃상태")
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh"
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
             self.contributionCollectionView.isHidden = true
             self.mondayLabel.isHidden = true
             self.wednesdayLabel.isHidden = true
@@ -598,6 +598,16 @@ extension UIColor {
         let blue = rgbValue & 0xff
         
         self.init(red:CGFloat(red)/0xff, green:CGFloat(green)/0xff, blue:CGFloat(blue)/0xff, alpha:0.9)
+    }
+}
+
+extension String {
+    var localized:String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
+    func localizedWithComment(comment:String) -> String {
+        return NSLocalizedString(self, comment: comment)
     }
 }
 
