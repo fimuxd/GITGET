@@ -14,8 +14,8 @@
 		6A238EAA1FB9F5F10063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
-		6AA997911FC66CE5002DFC1E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
+		6AEC44591FCEC2AB0008B609 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6AEC44581FCEC2AB0008B609 /* GoogleService-Info.plist */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
@@ -59,8 +59,8 @@
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
-		6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
+		6AEC44581FCEC2AB0008B609 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6AFA4AF11F9EDBDF00000759 /* GITGET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GITGET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AFA4AF91F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
 				6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */,
 				6AFA4B001F9EDBDF00000759 /* Info.plist */,
-				6AA997901FC66CE5002DFC1E /* GoogleService-Info.plist */,
+				6AEC44581FCEC2AB0008B609 /* GoogleService-Info.plist */,
 			);
 			path = GITGET;
 			sourceTree = "<group>";
@@ -270,9 +270,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
+				6AEC44591FCEC2AB0008B609 /* GoogleService-Info.plist in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 				6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */,
-				6AA997911FC66CE5002DFC1E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
