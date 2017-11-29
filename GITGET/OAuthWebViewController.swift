@@ -27,11 +27,13 @@ class OAuthWebViewController: UIViewController {
     
     @IBOutlet weak var authorizationWebView: UIWebView!
     
+    
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         signInGithub()
     }
     
