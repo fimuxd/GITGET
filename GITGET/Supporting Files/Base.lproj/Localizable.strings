@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GITGET
+
+  Created by Bo-Young PARK on 29/11/2017.
+  Copyright © 2017 Bo-Young PARK. All rights reserved.
+*/
+
+"Rate GITGET" = "Rate GITGET";
+"Send email to GITGET" = "Send email to GITGET";
+"Signout" = "Signout";
+"Cancel" = "Cancel";
+"\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====" = "\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====";
