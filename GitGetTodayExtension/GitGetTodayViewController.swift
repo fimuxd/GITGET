@@ -68,15 +68,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             guard let realHexColorCodes = hexColorCodesArray,
                 let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             
-            userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
-            userDefaults.synchronize()
+//            userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
+//            userDefaults.synchronize()
             
             guard let realOldArray:[String] = oldHexColorCodesArray else {return}
             if realOldArray != realHexColorCodes {
-                print("색상 업데이트 됨: 예전\(self.oldHexColorCodesArray), 새것\(realHexColorCodes)")
+                print("색상 업데이트 됨: 예전\(self.oldHexColorCodesArray?.count), 새것\(realHexColorCodes.count)")
+                userDefaults.setValue(realOldArray, forKey: "ContributionsDatas")
+                userDefaults.synchronize()
                 self.contributionCollectionView.reloadData()
             }else{
-                print("색상 새로고침 할 것 없음: 예전\(self.oldHexColorCodesArray), 새것\(realHexColorCodes)")
+                print("색상 새로고침 할 것 없음: 예전\(self.oldHexColorCodesArray?.count), 새것\(realHexColorCodes.count)")
             }
             self.dataActivityIndicator.stopAnimating()
         }
@@ -92,15 +94,17 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             guard let realDateArray = dateArray,
                 let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             
-            userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
-            userDefaults.synchronize()
+//            userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
+//            userDefaults.synchronize()
             
             guard let realOldArray:[String] = oldDateArray else {return}
             if realOldArray != realDateArray {
-                print("날짜 업데이트 됨: 예전\(self.oldDateArray), 새것\(realDateArray)")
+                print("날짜 업데이트 됨: 예전\(self.oldDateArray?.count), 새것\(realDateArray.count)")
+                userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
+                userDefaults.synchronize()
                 self.contributionCollectionView.reloadData()
             }else{
-                print("날짜 새로고침 할 것 없음: 예전\(self.oldDateArray), 새것\(realDateArray)")
+                print("날짜 새로고침 할 것 없음: 예전\(self.oldDateArray?.count), 새것\(realDateArray.count)")
             }
             self.dataActivityIndicator.stopAnimating()
         }
@@ -118,6 +122,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("//TE_viewDidLoad")
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
         
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
@@ -129,7 +134,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.contributionCollectionView.backgroundColor = .clear
             self.getMonthTextForLabel()
         }else{
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\nDouble tap to open \nSingle tap to refresh"
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh"
         }
     }
     
@@ -207,10 +212,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             default:
                 self.expandedUserStatusLabel.text = "Unable into Load"
             }
+//            self.contributionCollectionView.reloadData()
             
-            self.contributionCollectionView.reloadData()
+            
         }else{
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  👆🏼👆🏼Double tap to open \n  👆🏼Single tap to refresh"
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh"
             self.contributionCollectionView.isHidden = true
             self.mondayLabel.isHidden = true
             self.wednesdayLabel.isHidden = true
@@ -289,7 +295,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         //        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
         
-        print("TE_widgetPerformUpdate:\(NCUpdateResult.newData)")
+        print("//TE_widgetPerformUpdate:\(NCUpdateResult.newData)")
         
         completionHandler(NCUpdateResult.newData)
     }
@@ -317,6 +323,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let dateFormatter:DateFormatter = DateFormatter()
         guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
             let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday else {return 0}
+        print("현재는 \(utcWeekDay)번째 요일입니다.")
         return utcWeekDay
     }
     
@@ -479,7 +486,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                         tempDateArray.append(date)
                     }
                     self.dateArray = tempDateArray
-                    
+                    print("데이트 통신하나요? \(self.dateArray?.count)")
                 }catch Exception.Error(let type, let result){
                     print(result, type)
                 }catch{
@@ -498,7 +505,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let screenSize:CGFloat = self.view.frame.width
-        
         switch screenSize {
         case 398.0: //iPhone Plus
             return 224 + getUTCWeekdayFromLocalTime()
@@ -510,7 +516,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
             self.fridayLabel.text = "Unable to Load"
             return 0
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -519,8 +524,8 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         userDefaults?.synchronize()
         
-        if let realHexColorCodes:[String] = userDefaults?.array(forKey: "ContributionsDatas") as? [String] {
-            
+//        if let realHexColorCodes:[String] = userDefaults?.array(forKey: "ContributionsDatas") as? [String] {
+        if let realHexColorCodes:[String] = self.hexColorCodesArray {
             let screenSize:CGFloat = self.view.frame.width
             switch screenSize {
             case 398.0: //iPhone Plus
