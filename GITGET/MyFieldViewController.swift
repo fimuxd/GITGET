@@ -91,6 +91,8 @@ class MyFieldViewController: UIViewController {
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
         
+        self.getUTCWeekdayFromLocalTime()
+        
         Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value) { [unowned self] (snapshot) in
             if let observeValue:[String:Any] = snapshot.value as? [String : Any] {
                 Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
@@ -133,6 +135,8 @@ class MyFieldViewController: UIViewController {
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
+        
+        self.getUTCWeekdayFromLocalTime()
         
     }
     
@@ -347,6 +351,17 @@ class MyFieldViewController: UIViewController {
                 print("///Alamofire.request - error: ", error)
             }
         }
+    }
+    
+    func getUTCWeekdayFromLocalTime(){
+        let date:Date = Date()
+        let dateFormatter:DateFormatter = DateFormatter()
+        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
+            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday,
+            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        
+        userDefaults.setValue(utcWeekDay, forKey: "UTCWeekday")
+        userDefaults.synchronize()
     }
     
     func openSafariViewOf(url:String) {

@@ -23,9 +23,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var wednesdayLabel: UILabel!
     @IBOutlet weak var fridayLabel: UILabel!
     
-    //UILabel_.expanded
-    @IBOutlet weak var expandedUserStatusLabel: UILabel!
-    
     //MonthTextLabel
     @IBOutlet weak var currentMonthLabel: UILabel!
     @IBOutlet weak var firstPreviousMonthLabel: UILabel!
@@ -56,29 +53,26 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var xPositionForMonthLabels:[CGFloat] = []
     var isSignedIn:Bool = false
     
-    //Contributions 관련 Data 통신 Array
-    
+    //Contributions 관련 Data 통신
     var oldHexColorCodesArray = UserDefaults.standard.value(forKey: "HexColorCodes") as? [String]
     var hexColorCodesArray:[String]? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String] {
-        willSet(oldArray){
-            UserDefaults.standard.set(oldArray, forKey: "HexColorCodes")
+        willSet(oldValue){
+            UserDefaults.standard.set(oldValue, forKey: "HexColorCodes")
+            print("//hexColorCodesArray(willSet): \(oldValue?.last ?? "값없음")")
             self.dataActivityIndicator.stopAnimating()
         }
-        didSet(newArray){
+        didSet(newValue){
+            print("//hexColorCodesArray(didSet): \(newValue?.last ?? "값없음")")
             guard let realHexColorCodes = hexColorCodesArray,
-                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-            
-//            userDefaults.setValue(realHexColorCodes, forKey: "ContributionsDatas")
-//            userDefaults.synchronize()
-            
-            guard let realOldArray:[String] = oldHexColorCodesArray else {return}
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldArray:[String] = oldHexColorCodesArray else {print("//hex(didset) guard 걸림 >>> \(hexColorCodesArray) \(oldHexColorCodesArray)"); return}
             if realOldArray != realHexColorCodes {
-                print("색상 업데이트 됨: 예전\(self.oldHexColorCodesArray?.count), 새것\(realHexColorCodes.count)")
+                print("//색상 업데이트 됨: 예전\(realOldArray.last ?? "값없음"), 새것\(realHexColorCodes.last ?? "값없음")")
                 userDefaults.setValue(realOldArray, forKey: "ContributionsDatas")
                 userDefaults.synchronize()
                 self.contributionCollectionView.reloadData()
             }else{
-                print("색상 새로고침 할 것 없음: 예전\(self.oldHexColorCodesArray?.count), 새것\(realHexColorCodes.count)")
+                print("//색상 새로고침 할 것 없음: 예전\(realOldArray.last ?? "값없음"), 새것\(realHexColorCodes.last ?? "값없음")")
             }
             self.dataActivityIndicator.stopAnimating()
         }
@@ -86,27 +80,48 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     var oldDateArray = UserDefaults.standard.value(forKey: "Dates") as? [String]
     var dateArray:[String]? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDates") as? [String] {
-        willSet(oldArray){
-            UserDefaults.standard.set(oldArray, forKey: "Dates")
+        willSet(oldValue){
+            print("//dateArray(willSet): \(oldValue?.last ?? "값없음")")
+            UserDefaults.standard.set(oldValue, forKey: "Dates")
             self.dataActivityIndicator.stopAnimating()
         }
-        didSet(newArray){
+        didSet(newValue){
+            print("//dateArray(didSet): \(newValue?.last ?? "값없음")")
             guard let realDateArray = dateArray,
-                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-            
-//            userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
-//            userDefaults.synchronize()
-            
-            guard let realOldArray:[String] = oldDateArray else {return}
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldArray:[String] = oldDateArray else {print("//date(didset) guard 걸림"); return}
             if realOldArray != realDateArray {
-                print("날짜 업데이트 됨: 예전\(self.oldDateArray?.count), 새것\(realDateArray.count)")
+                print("//날짜 업데이트 됨: 예전\(realOldArray.last ?? "값없음"), 새것\(realDateArray.last ?? "값없음")")
                 userDefaults.setValue(realDateArray, forKey: "ContributionsDates")
                 userDefaults.synchronize()
                 self.contributionCollectionView.reloadData()
             }else{
-                print("날짜 새로고침 할 것 없음: 예전\(self.oldDateArray?.count), 새것\(realDateArray.count)")
+                print("//날짜 새로고침 할 것 없음: 예전\(realOldArray.last ?? "값없음"), 새것\(realDateArray.last ?? "값없음")")
             }
             self.dataActivityIndicator.stopAnimating()
+        }
+    }
+    
+    var oldUtcWeekdayNumber = UserDefaults.standard.value(forKey: "UTCWeekday") as? Int
+    var utcWeekdayNumber:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "UTCWeekday") as? Int {
+        willSet(oldValue){
+            print("//utcWeekdayNumber(willSet):\(oldValue)")
+            UserDefaults.standard.set(oldValue, forKey: "UTCWeekday")
+        }
+        didSet(newValue){
+            print("//utcWeekdayNumber(didSet):\(newValue)")
+            guard let realUtcWeekdayNumber = utcWeekdayNumber,
+                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldNumber:Int = oldUtcWeekdayNumber else {print("//utc(didset) guard 걸림"); return}
+            
+            if realOldNumber != realUtcWeekdayNumber {
+                print("//요일 업데이트 됨: 예전\(realOldNumber), 새것\(realUtcWeekdayNumber)")
+                userDefaults.setValue(realUtcWeekdayNumber, forKey: "UTCWeekday")
+                userDefaults.synchronize()
+                self.contributionCollectionView.reloadData()
+            }else{
+                print("//요일 새로고침 할 것 없음: 예전\(realOldNumber), 새것\(realUtcWeekdayNumber)")
+            }
         }
     }
     
@@ -154,10 +169,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
         userDefaults.synchronize()
-        
         self.isSignedIn = userDefaults.bool(forKey: "isSigned")
         
         if self.isSignedIn == true {
+            print("//로그인상태")
+            self.getUTCWeekdayFromLocalTime()
+            
             let screenWidth:CGFloat = self.view.frame.width
             switch screenWidth {
             case 398.0: //iPhone Plus
@@ -210,24 +227,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                 self.fifthPreviousMonthLabel.isHidden = true
                 self.sixthPreviousMonthLabel.isHidden = true
             default:
-                self.expandedUserStatusLabel.text = "Unable into Load"
+                self.widgetStatusLabel.text = "Unable into Load"
             }
 //            self.contributionCollectionView.reloadData()
             
-            
         }else{
-            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh"
-            self.contributionCollectionView.isHidden = true
-            self.mondayLabel.isHidden = true
-            self.wednesdayLabel.isHidden = true
-            self.fridayLabel.isHidden = true
-            self.currentMonthLabel.isHidden = true
-            self.firstPreviousMonthLabel.isHidden = true
-            self.secondPreviousMonthLabel.isHidden = true
-            self.thirdPreviousMonthLabel.isHidden = true
-            self.fourthPreviousMonthLabel.isHidden = true
-            self.fifthPreviousMonthLabel.isHidden = true
-            self.sixthPreviousMonthLabel.isHidden = true
+            print("//로그아웃상태")
+                self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh"
+                self.contributionCollectionView.isHidden = true
+                self.mondayLabel.isHidden = true
+                self.wednesdayLabel.isHidden = true
+                self.fridayLabel.isHidden = true
+                self.currentMonthLabel.isHidden = true
+                self.firstPreviousMonthLabel.isHidden = true
+                self.secondPreviousMonthLabel.isHidden = true
+                self.thirdPreviousMonthLabel.isHidden = true
+                self.fourthPreviousMonthLabel.isHidden = true
+                self.fifthPreviousMonthLabel.isHidden = true
+                self.sixthPreviousMonthLabel.isHidden = true
+            
         }
         self.dataActivityIndicator.stopAnimating()
     }
@@ -277,8 +295,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.updateContributionDatasOf(gitHubID: realGitHubID)
     }
     
-    
     func openApp(_ sender:AnyObject) {
+        self.dataActivityIndicator.stopAnimating()
         let myAppUrl = URL(string: "main-screen://")!
         extensionContext?.open(myAppUrl, completionHandler: { (success) in
             if (!success) {
@@ -287,6 +305,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         })
     }
     
+    /* TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
         guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
@@ -299,17 +318,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         completionHandler(NCUpdateResult.newData)
     }
+    */
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             self.preferredContentSize = maxSize //.compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
-            self.expandedUserStatusLabel.isHidden = true
         }else{
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
                 let todayContributions:String = userDefaults.object(forKey: "TodayContributions") as? String else {return}
             userDefaults.synchronize()
-            self.expandedUserStatusLabel.text! = "Cheer up! \(todayContributions) contributions today!"
-            self.expandedUserStatusLabel.isHidden = false
             
             self.preferredContentSize = CGSize(width: 0, height: 220)
         }
@@ -318,13 +335,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //현재 Local 시간을 UTC 기준으로 변환하여 요일수로 반환하기
     //GitHub: Contributions are timestamped according to Coordinated Universal Time (UTC) rather than your local time zone.
     //참고: https://help.github.com/articles/why-are-my-contributions-not-showing-up-on-my-profile/
-    func getUTCWeekdayFromLocalTime() -> Int {
+    func getUTCWeekdayFromLocalTime(){
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
         guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
-            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday else {return 0}
-        print("현재는 \(utcWeekDay)번째 요일입니다.")
-        return utcWeekDay
+            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday else {return}
+        self.utcWeekdayNumber = utcWeekDay
+        
+        print("//getUTCWeekdayFromLocalTime 함수 실행: 현재는 \(utcWeekDay)번째 요일입니다.")
     }
     
     //TODO:- 이거 완전 미친 하드코딩임. enum을 쓰던 어떻게 해서 개선할 것
@@ -463,6 +481,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //MARK:- 데이터 업데이트
     func updateContributionDatasOf(gitHubID:String) {
+        print("//updateContributionDatasOf 함수 실행")
         guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
             switch response.result {
@@ -505,20 +524,24 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let screenSize:CGFloat = self.view.frame.width
+//        return 229
+        
+        guard let realUtcWeekdayNumber = self.utcWeekdayNumber else {return 0}
         switch screenSize {
         case 398.0: //iPhone Plus
-            return 224 + getUTCWeekdayFromLocalTime()
+            return 224 + realUtcWeekdayNumber
         case 359.0: //iPhone, X
-            return 203 + getUTCWeekdayFromLocalTime()
+            return 203 + realUtcWeekdayNumber
         case 304.0: //iPhone SE, 4
-            return 168  + getUTCWeekdayFromLocalTime()
+            return 168  + realUtcWeekdayNumber
         default:
-            self.fridayLabel.text = "Unable to Load"
+            self.widgetStatusLabel.text = "Unable to Load"
             return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("//셀하나씩 불러오기: 현재\(indexPath.row)번째 셀 불러옴")
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
         
         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")

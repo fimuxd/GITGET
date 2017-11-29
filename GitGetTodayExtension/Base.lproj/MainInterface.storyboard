@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +15,7 @@
             <objects>
                 <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="GitGetTodayExtension" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZh-ar-lJl">
@@ -39,13 +38,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="1" height="1"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Updating Contributions..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ekC-n6-aMY">
-                                <rect key="frame" x="13" y="111" width="337.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                                <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MO5-OM-kPj">
                                 <rect key="frame" x="13" y="2" width="5" height="12"/>
@@ -97,7 +89,7 @@
                                 <size key="shadowOffset" width="1" height="1"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="headTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mB9-QB-L6V">
-                                <rect key="frame" x="-0.5" y="0.0" width="375" height="150"/>
+                                <rect key="frame" x="-0.5" y="0.0" width="375" height="110"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -129,7 +121,7 @@
                                 </connections>
                             </collectionView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="QFg-Oj-9Yi">
-                                <rect key="frame" x="177" y="65" width="20" height="20"/>
+                                <rect key="frame" x="177" y="45" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="tintColor" red="0.92156862745098034" green="0.92941176470588238" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -151,16 +143,13 @@
                             <constraint firstItem="auZ-tE-WGi" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="OSC-w4-KRa"/>
                             <constraint firstItem="QgR-Ps-tgl" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="PII-m0-leQ"/>
                             <constraint firstItem="3gO-i1-qMO" firstAttribute="centerY" secondItem="auZ-tE-WGi" secondAttribute="centerY" id="RD7-gj-vWr"/>
-                            <constraint firstItem="ekC-n6-aMY" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="TVx-uF-juB"/>
                             <constraint firstItem="mB9-QB-L6V" firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="Uy6-zq-fZi"/>
-                            <constraint firstItem="ekC-n6-aMY" firstAttribute="width" secondItem="S3S-Oj-5AN" secondAttribute="width" multiplier="0.9" id="VDs-YS-hOf"/>
                             <constraint firstItem="EpG-97-KZ7" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="ZZ1-us-diI"/>
                             <constraint firstItem="EpG-97-KZ7" firstAttribute="centerY" secondItem="auZ-tE-WGi" secondAttribute="centerY" id="a9P-Pj-5GA"/>
                             <constraint firstItem="mB9-QB-L6V" firstAttribute="centerY" secondItem="ssy-KU-ocm" secondAttribute="centerY" id="cEF-bG-gv9"/>
                             <constraint firstItem="mB9-QB-L6V" firstAttribute="height" secondItem="S3S-Oj-5AN" secondAttribute="height" id="hO4-lh-9Ef"/>
                             <constraint firstItem="c0A-u1-PzN" firstAttribute="top" secondItem="auZ-tE-WGi" secondAttribute="bottom" constant="1" id="j6h-Ue-eTE"/>
                             <constraint firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="jcg-zc-1jS"/>
-                            <constraint firstItem="ekC-n6-aMY" firstAttribute="top" secondItem="c0A-u1-PzN" secondAttribute="bottom" constant="8" id="jzD-dU-L6A"/>
                             <constraint firstItem="QFg-Oj-9Yi" firstAttribute="centerX" secondItem="ssy-KU-ocm" secondAttribute="centerX" id="kMf-ZR-VPG"/>
                             <constraint firstItem="3gO-i1-qMO" firstAttribute="leading" secondItem="c0A-u1-PzN" secondAttribute="leading" id="kyZ-NJ-7Ks"/>
                             <constraint firstItem="cek-eh-hnp" firstAttribute="centerX" secondItem="tbH-e0-6AQ" secondAttribute="centerX" id="mC1-LZ-bFk"/>
@@ -177,13 +166,12 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="375" height="150"/>
+                    <size key="freeformSize" width="375" height="110"/>
                     <connections>
                         <outlet property="contributionCollectionView" destination="c0A-u1-PzN" id="5eW-cN-5aw"/>
                         <outlet property="currentMonthLabel" destination="EpG-97-KZ7" id="SE7-EU-mPW"/>
                         <outlet property="currentMonthLabelLeadingConstraint" destination="ZZ1-us-diI" id="g0W-bs-ZIT"/>
                         <outlet property="dataActivityIndicator" destination="QFg-Oj-9Yi" id="aDl-Ea-nXk"/>
-                        <outlet property="expandedUserStatusLabel" destination="ekC-n6-aMY" id="YmH-YD-otx"/>
                         <outlet property="fifthMonthLabelLeadingConstraint" destination="PII-m0-leQ" id="BOe-qu-Iwt"/>
                         <outlet property="fifthPreviousMonthLabel" destination="QgR-Ps-tgl" id="X6E-kc-vd5"/>
                         <outlet property="firstMonthLabelLeadingConstraint" destination="kyZ-NJ-7Ks" id="ML7-DT-HCU"/>
