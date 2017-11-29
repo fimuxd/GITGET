@@ -26,7 +26,6 @@ class LogInViewController: UIViewController {
         super.viewDidLoad()
         
         self.signInButtonOutlet.layer.cornerRadius = 5
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +46,6 @@ class LogInViewController: UIViewController {
     @IBAction func signInButtonAction(_ sender: UIButton) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
-
+    
 }
 
