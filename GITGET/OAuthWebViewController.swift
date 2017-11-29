@@ -136,8 +136,8 @@ extension OAuthWebViewController: UIWebViewDelegate {
                                 Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(tempDic)
                             }
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let tabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-                            self.present(tabBarController, animated: true, completion: {
+                            let myFieldViewController:MyFieldViewController = storyboard.instantiateViewController(withIdentifier: "MyFieldViewController") as! MyFieldViewController
+                            self.present(myFieldViewController, animated: true, completion: {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             })
                         })

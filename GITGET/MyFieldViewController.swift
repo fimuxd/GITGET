@@ -17,6 +17,7 @@ import FirebaseDatabase
 import Alamofire
 import SwiftyJSON
 import SwiftSoup
+import Kingfisher
 
 class MyFieldViewController: UIViewController {
     
@@ -90,6 +91,8 @@ class MyFieldViewController: UIViewController {
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
         
+        self.getUTCWeekdayFromLocalTime()
+        
         Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value) { [unowned self] (snapshot) in
             if let observeValue:[String:Any] = snapshot.value as? [String : Any] {
                 Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
@@ -133,6 +136,8 @@ class MyFieldViewController: UIViewController {
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
         
+        self.getUTCWeekdayFromLocalTime()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -168,7 +173,13 @@ class MyFieldViewController: UIViewController {
         
         //In-App 별점
         let rateGitGet:UIAlertAction = UIAlertAction(title: "Rate GITGET", style: .default) { (action) in
-            SKStoreReviewController.requestReview()
+            if #available(iOS 10.3, *) {
+                SKStoreReviewController.requestReview()
+            }else{
+                let rateGitGetUrl = URL(string: "itms-apps://itunes.apple.com/app/id1317170245?action=write-review")
+                UIApplication.shared.open(rateGitGetUrl!, options: [:], completionHandler: nil)
+                UIApplication.shared.canOpenURL(rateGitGetUrl!)
+            }
         }
         
         //개발자에게 메일보내기
@@ -326,6 +337,11 @@ class MyFieldViewController: UIViewController {
                     }
                     self.dataCountArray = tempDataCountArray
                     
+                    //가져온 GitHubID를 TodayExtension과 통신
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                    userDefaults.synchronize()
+                    
                 }catch Exception.Error(let type, let result){
                     print(result, type)
                 }catch{
@@ -335,6 +351,17 @@ class MyFieldViewController: UIViewController {
                 print("///Alamofire.request - error: ", error)
             }
         }
+    }
+    
+    func getUTCWeekdayFromLocalTime(){
+        let date:Date = Date()
+        let dateFormatter:DateFormatter = DateFormatter()
+        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
+            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday,
+            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        
+        userDefaults.setValue(utcWeekDay, forKey: "UTCWeekday")
+        userDefaults.synchronize()
     }
     
     func openSafariViewOf(url:String) {
