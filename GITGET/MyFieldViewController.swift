@@ -171,6 +171,13 @@ class MyFieldViewController: UIViewController {
     func openMenuButtonActionSheet() {
         let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
+        //How to use
+        let openTutorial:UIAlertAction = UIAlertAction(title: "Tutorial".localized, style: .default) { (action) in
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let pageViewController:TutorialPageViewController = storyboard.instantiateViewController(withIdentifier: "TutorialPageViewController") as! TutorialPageViewController
+            self.present(pageViewController, animated: true, completion: nil)
+        }
+        
         //In-App 별점
         let rateGitGet:UIAlertAction = UIAlertAction(title: "Rate GITGET".localized, style: .default) { (action) in
             if #available(iOS 10.3, *) {
@@ -202,7 +209,7 @@ class MyFieldViewController: UIViewController {
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let navigationViewController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-                self.present(navigationViewController, animated: false, completion: nil)
+                self.present(navigationViewController, animated: true, completion: nil)
                 
             }catch let signOutError as Error {
                 print("Error signing out: %@", signOutError)
@@ -223,6 +230,7 @@ class MyFieldViewController: UIViewController {
         //취소
         let cancel:UIAlertAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
         
+        alert.addAction(openTutorial)
         alert.addAction(rateGitGet)
         alert.addAction(sendEmailToDeveloper)
         alert.addAction(signOut)
@@ -267,7 +275,7 @@ class MyFieldViewController: UIViewController {
             self.updateUserInfo(for: gitHubID)
         }
     }
-    
+ 
     func updateUserInfo(for githubID:String) {
         guard let getUserDataURL:URL = URL(string:"https://api.github.com/users/\(githubID)") else {print("여기니")
             return}

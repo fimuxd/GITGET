@@ -11,8 +11,6 @@
 		6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */; };
 		6A0F5C4D1FCEEB900081834E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
 		6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
-		6A0F5C5F1FCEF2110081834E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C5A1FCEF1C30081834E /* Info.plist */; };
-		6A0F5C601FCEF21F0081834E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C5D1FCEF1D30081834E /* Info.plist */; };
 		6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C661FCEF6EB0081834E /* Localizable.strings */; };
 		6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C6E1FCEF85F0081834E /* Localizable.strings */; };
 		6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C741FCEFB4B0081834E /* InfoPlist.strings */; };
@@ -22,6 +20,15 @@
 		6A238EAA1FB9F5F10063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
+		6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */; };
+		6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */; };
+		6A8E40721FCFE169008F2DD7 /* AddWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40711FCFE168008F2DD7 /* AddWidgetViewController.swift */; };
+		6A8E40741FCFE173008F2DD7 /* WidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40731FCFE173008F2DD7 /* WidgetViewController.swift */; };
+		6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40751FCFE183008F2DD7 /* SingleTapViewController.swift */; };
+		6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40771FCFE191008F2DD7 /* DoubleTapViewController.swift */; };
+		6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */; };
+		6A8E40861FD03262008F2DD7 /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */; };
+		6A8E40881FD04159008F2DD7 /* GitHubAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
@@ -58,7 +65,6 @@
 		1B507D756291BC85346B89D1 /* Pods-GITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.debug.xcconfig"; sourceTree = "<group>"; };
 		4A110BB59CF060DB1D577D1B /* Pods-GitGetTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6A0F5C551FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		6A0F5C561FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6A0F5C571FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		6A0F5C591FCEF1C30081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
@@ -79,6 +85,16 @@
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
+		6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
+		6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTodayViewController.swift; sourceTree = "<group>"; };
+		6A8E40711FCFE168008F2DD7 /* AddWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWidgetViewController.swift; sourceTree = "<group>"; };
+		6A8E40731FCFE173008F2DD7 /* WidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViewController.swift; sourceTree = "<group>"; };
+		6A8E40751FCFE183008F2DD7 /* SingleTapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTapViewController.swift; sourceTree = "<group>"; };
+		6A8E40771FCFE191008F2DD7 /* DoubleTapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTapViewController.swift; sourceTree = "<group>"; };
+		6A8E407B1FD004CB008F2DD7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
+		6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
+		6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
+		6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIManager.swift; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
 		6AFA4AF11F9EDBDF00000759 /* GITGET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GITGET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +154,7 @@
 			children = (
 				6A0F5C5A1FCEF1C30081834E /* Info.plist */,
 				6A0F5C6E1FCEF85F0081834E /* Localizable.strings */,
+				6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -151,6 +168,38 @@
 				6A0F5C691FCEF83E0081834E /* Supporting Files */,
 			);
 			path = GitGetTodayExtension;
+			sourceTree = "<group>";
+		};
+		6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */ = {
+			isa = PBXGroup;
+			children = (
+				6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */,
+				6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */,
+				6A8E40711FCFE168008F2DD7 /* AddWidgetViewController.swift */,
+				6A8E40731FCFE173008F2DD7 /* WidgetViewController.swift */,
+				6A8E40751FCFE183008F2DD7 /* SingleTapViewController.swift */,
+				6A8E40771FCFE191008F2DD7 /* DoubleTapViewController.swift */,
+			);
+			name = TutorialPageViews;
+			sourceTree = "<group>";
+		};
+		6A8E407C1FD0055D008F2DD7 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */,
+				6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */,
+			);
+			name = SignIn;
+			sourceTree = "<group>";
+		};
+		6A8E407E1FD00589008F2DD7 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
+				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
+				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
+			);
+			name = TabBar;
 			sourceTree = "<group>";
 		};
 		6AFA4AE81F9EDBDF00000759 = {
@@ -179,9 +228,9 @@
 			children = (
 				6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */,
 				6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */,
-				6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */,
-				6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */,
-				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
+				6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */,
+				6A8E407C1FD0055D008F2DD7 /* SignIn */,
+				6A8E407E1FD00589008F2DD7 /* TabBar */,
 				6AFA4AF81F9EDBDF00000759 /* Main.storyboard */,
 				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
 				6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */,
@@ -301,9 +350,9 @@
 			files = (
 				6A0F5C4D1FCEEB900081834E /* Main.storyboard in Resources */,
 				6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */,
+				6A8E40861FD03262008F2DD7 /* OAuthClientDatas.plist in Resources */,
 				6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */,
 				6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */,
-				6A0F5C5F1FCEF2110081834E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,7 +363,6 @@
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
 				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
 				6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */,
-				6A0F5C601FCEF21F0081834E /* Info.plist in Resources */,
 				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 				6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */,
@@ -437,9 +485,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A8E40741FCFE173008F2DD7 /* WidgetViewController.swift in Sources */,
 				6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */,
+				6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */,
+				6A8E40881FD04159008F2DD7 /* GitHubAPIManager.swift in Sources */,
+				6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */,
 				6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */,
 				6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */,
+				6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */,
+				6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */,
+				6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */,
+				6A8E40721FCFE169008F2DD7 /* AddWidgetViewController.swift in Sources */,
 				6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,7 +569,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6AFA4AF91F9EDBDF00000759 /* Base */,
-				6A0F5C551FCEEF8B0081834E /* ko */,
+				6A8E407B1FD004CB008F2DD7 /* ko */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
