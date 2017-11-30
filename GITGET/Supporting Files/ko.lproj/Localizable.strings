@@ -6,6 +6,7 @@
   Copyright © 2017 Bo-Young PARK. All rights reserved.
 */
 
+"Tutorial" = "사용법";
 "Rate GITGET" = "깃젯 별점주기";
 "Send email to GITGET" = "깃젯에게 메일 보내기";
 "Signout" = "로그아웃";
