@@ -280,7 +280,11 @@ class MyFieldViewController: UIViewController {
             let bio:String = userInfoJson["bio"].stringValue
             let name:String = userInfoJson["name"].stringValue
             
-            self.userProfileImageView.kf.setImage(with: URL(string:profileUrlString))
+            self.userProfileImageView.kf.indicatorType = .activity
+            self.userProfileImageView.kf.indicator?.startAnimatingView()
+            self.userProfileImageView.kf.setImage(with: URL(string:profileUrlString), options: [.forceRefresh], completionHandler: { [unowned self] (image, error, cache, url) in
+                self.userProfileImageView.kf.indicator?.stopAnimatingView()
+            })
             
             if location != "" {
                 self.locationLogoImageView.isHidden = false
