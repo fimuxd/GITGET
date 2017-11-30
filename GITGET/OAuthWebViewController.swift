@@ -19,11 +19,6 @@ class OAuthWebViewController: UIViewController {
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
-    private let clientID:String = "99961c715dc314b74401"
-    private let clientSecret:String = "7032c8432bd3a41e303a1c607d8643758316ca50"
-    private let callbackURL = "https://widgetgithub.firebaseapp.com/__/auth/handler"
-    
-    private var accessToken:String?
     
     @IBOutlet weak var authorizationWebView: UIWebView!
     
@@ -34,7 +29,7 @@ class OAuthWebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signInGithub()
+        self.signInGithub()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +51,11 @@ class OAuthWebViewController: UIViewController {
     func signInGithub() {
         guard let redirectURLToRequestGitHubIdentity:URL = URL(string: "https://github.com/login/oauth/authorize") else {print("왜그래")
             return}
+        
+        let oAuthDatas:[String:String] = GitHubAPIManager.sharedInstance.loadOauthDatas()
+        let clientID:String = oAuthDatas["clientID"]!
+        let clientSecret:String = oAuthDatas["clientSecret"]!
+        let callbackURL:String = oAuthDatas["callbackURL"]!
         let parameters:Parameters = ["client_id":clientID,
                                      "client_secret":clientSecret,
                                      "redirect_uri":callbackURL,
@@ -63,6 +63,8 @@ class OAuthWebViewController: UIViewController {
                                      "allow_signup":"false"]
         
         Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { [unowned self] (response) in
+            print("//여기여기여기: \(response.value)")
+            
             switch response.result {
             case .success(let value):
                 if Auth.auth().currentUser != nil {
@@ -98,6 +100,11 @@ extension OAuthWebViewController: UIWebViewDelegate {
             return true}
         
         //MARK:- CallbackURL(Firebase) 로 연결되었을 때 - code 추출
+        let oAuthDatas:[String:String] = GitHubAPIManager.sharedInstance.loadOauthDatas()
+        let clientID:String = oAuthDatas["clientID"]!
+        let clientSecret:String = oAuthDatas["clientSecret"]!
+        let callbackURL:String = oAuthDatas["callbackURL"]!
+        
         if String(describing: request).contains(callbackURL) {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let callbackUrlWithCode:String = realURL.absoluteString
