@@ -9,7 +9,7 @@
 import UIKit
 
 class TutorialPageViewController: UIPageViewController {
-
+    
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
@@ -26,7 +26,7 @@ class TutorialPageViewController: UIPageViewController {
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         dataSource = self
         
         if let firstViewController = orderedViewControllers.first {
@@ -34,7 +34,7 @@ class TutorialPageViewController: UIPageViewController {
         }
         
     }
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -49,7 +49,7 @@ class TutorialPageViewController: UIPageViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
@@ -60,7 +60,7 @@ class TutorialPageViewController: UIPageViewController {
         return viewController
     }
     
-
+    
 }
 
 extension TutorialPageViewController:UIPageViewControllerDataSource {
@@ -70,7 +70,7 @@ extension TutorialPageViewController:UIPageViewControllerDataSource {
         let previousIndex = viewControllerIndex - 1
         
         guard previousIndex >= 0,
-         orderedViewControllers.count > previousIndex else {return nil}
+            orderedViewControllers.count > previousIndex else {return nil}
         
         return orderedViewControllers[previousIndex]
     }
@@ -97,5 +97,5 @@ extension TutorialPageViewController:UIPageViewControllerDataSource {
         
         return firstViewControllerIndex
     }
-
+    
 }
