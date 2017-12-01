@@ -11,4 +11,23 @@
 "Send email to GITGET" = "깃젯에게 메일 보내기";
 "Signout" = "로그아웃";
 "Cancel" = "취소";
+
 "\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====" = "피드백 주셔서 감사합니다!\n깃젯에 대한 소중한 의견을 여기에 적어주세요. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====";
+
+"TutorialOne_en_iPhone" = "TutorialOne_kr_iPhone";
+"TutorialTwo_en_iPhone" = "TutorialTwo_kr_iPhone";
+"TutorialThree_en_iPhone" = "TutorialThree_kr_iPhone";
+"TutorialFour_en_iPhone" = "TutorialFour_kr_iPhone";
+"TutorialFive_en_iPhone" = "TutorialFive_kr_iPhone";
+
+"TutorialOne_en_iPhoneX" = "TutorialOne_kr_iPhoneX";
+"TutorialTwo_en_iPhoneX" = "TutorialTwo_kr_iPhoneX";
+"TutorialThree_en_iPhoneX" = "TutorialThree_kr_iPhoneX";
+"TutorialFour_en_iPhoneX" = "TutorialFour_kr_iPhoneX";
+"TutorialFive_en_iPhoneX" = "TutorialFive_kr_iPhoneX";
+
+"TutorialOne_en_iPhoneSE" = "TutorialOne_kr_iPhoneSE";
+"TutorialTwo_en_iPhoneSE" = "TutorialTwo_kr_iPhoneSE";
+"TutorialThree_en_iPhoneSE" = "TutorialThree_kr_iPhoneSE";
+"TutorialFour_en_iPhoneSE" = "TutorialFour_kr_iPhoneSE";
+"TutorialFive_en_iPhoneSE" = "TutorialFive_kr_iPhoneSE";
