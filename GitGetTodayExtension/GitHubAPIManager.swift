@@ -1,8 +1,8 @@
 //
 //  GitHubAPIManager.swift
-//  GITGET
+//  GitGetTodayExtension
 //
-//  Created by Bo-Young PARK on 30/11/2017.
+//  Created by Bo-Young PARK on 01/12/2017.
 //  Copyright © 2017 Bo-Young PARK. All rights reserved.
 //
 
@@ -24,59 +24,7 @@ class GitHubAPIManager {
         return oAuthDatas
     }
     
-    func isNewbie(_ uid:String?) -> Bool {
-        guard let currentUserUid:String = Auth.auth().currentUser?.uid else {return true}
-        if currentUserUid == uid {
-            return false
-        }else{
-            return true
-        }
-    }
-    
-    //GitHub API를 통해 데이터 불러오기
-    //1. 현재 유저의 GitHubID
-    func getCurrentGitHubID(completionHandler: @escaping (_ gitHubID:String) -> Void) {
-        guard let currentUserUid:String = Auth.auth().currentUser?.uid else {print("//해당 UID에 해당하는 유저가 없습니다."); return}
-        Database.database().reference().child("UserInfo").child("\(currentUserUid)").child("gitHubID").observeSingleEvent(of: .value) { (snapshot) in
-            guard let realGitHubID:String = snapshot.value as? String else {print("//해당 UID에 해당하는 유저가 없습니다."); return}
-            
-            UserDefaults.standard.setValue(realGitHubID, forKey: "GitHubID")
-            completionHandler(realGitHubID)
-        }
-    }
-    
-    //2. 기본 userProfile 데이터
-    func getCurrentUserDatas(completionHandler: @escaping (_ userDatas:[String:String]) -> Void) {
-        self.getCurrentGitHubID { (realID) in
-            guard let getCurrentUserDataUrl:URL = URL(string: "https://api.github.com/users/\(realID)"),
-                let accessToken:String = UserDefaults.standard.value(forKey: "AccessToken") as? String else {return}
-            
-            let parameter:Parameters = ["Authorization":"Bearer \(accessToken)"]
-            Alamofire.request(getCurrentUserDataUrl, method: .get, parameters:parameter).responseJSON(completionHandler: { (response) in
-                guard let data:Data = response.data else {return}
-                let json:JSON = JSON(data:data)
-                
-                let name:String = json["name"].stringValue
-                let email:String = json["email"].stringValue
-                let bio:String = json["bio"].stringValue
-                let url:String = json["blog"].stringValue
-                let company:String = json["company"].stringValue
-                let location:String = json["location"].stringValue
-                let profileImageUrl:String = json["avatar_url"].stringValue
-                
-                let userDatas:[String:String] = ["name":name,
-                                               "email":email,
-                                               "bio":bio,
-                                               "url":url,
-                                               "company":company,
-                                               "location":location,
-                                               "profileImageUrl":profileImageUrl]
-                completionHandler(userDatas)
-            })
-        }
-    }
-    
-    //3. Today Contributions Count
+    //1. Today Contributions Count
     func getTodayContributionsCount(gitHubID:String, completionHandler: @escaping(_ todayContributionsCount: String) -> Void) {
         guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         
@@ -103,7 +51,7 @@ class GitHubAPIManager {
         }
     }
     
-    //4. Contributions HexColorCode Array
+    //2. Contributions HexColorCode Array
     func getContributionsColorCodeArray(gitHubID:String, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
         guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         
@@ -130,7 +78,7 @@ class GitHubAPIManager {
         }
     }
     
-    //5. Contributions Date Array
+    //3. Contributions Date Array
     func getContributionsDateArray(gitHubID:String, completionHandler: @escaping(_ contributionsDateArray: [String]) -> Void) {
         guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         
@@ -158,3 +106,5 @@ class GitHubAPIManager {
     }
     
 }
+
+
