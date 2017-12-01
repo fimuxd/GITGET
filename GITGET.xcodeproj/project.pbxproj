@@ -29,6 +29,8 @@
 		6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */; };
 		6A8E40861FD03262008F2DD7 /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */; };
 		6A8E40881FD04159008F2DD7 /* GitHubAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */; };
+		6A8E408C1FD0D991008F2DD7 /* GitHubAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E408B1FD0D991008F2DD7 /* GitHubAPIManager.swift */; };
+		6A8E40901FD0E892008F2DD7 /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E408F1FD0E892008F2DD7 /* OAuthClientDatas.plist */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF81F9EDBDF00000759 /* Main.storyboard */; };
@@ -95,6 +97,8 @@
 		6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
 		6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIManager.swift; sourceTree = "<group>"; };
+		6A8E408B1FD0D991008F2DD7 /* GitHubAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIManager.swift; sourceTree = "<group>"; };
+		6A8E408F1FD0E892008F2DD7 /* OAuthClientDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
 		6AFA4AF11F9EDBDF00000759 /* GITGET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GITGET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			children = (
 				6A0F5C5D1FCEF1D30081834E /* Info.plist */,
 				6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */,
+				6A8E408F1FD0E892008F2DD7 /* OAuthClientDatas.plist */,
 				6A0F5C661FCEF6EB0081834E /* Localizable.strings */,
 			);
 			path = "Supporting Files";
@@ -164,6 +169,7 @@
 			children = (
 				6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */,
 				6A238EA21FB9F5F10063C30A /* GitGetTodayViewController.swift */,
+				6A8E408B1FD0D991008F2DD7 /* GitHubAPIManager.swift */,
 				6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */,
 				6A0F5C691FCEF83E0081834E /* Supporting Files */,
 			);
@@ -364,6 +370,7 @@
 				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
 				6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */,
 				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
+				6A8E40901FD0E892008F2DD7 /* OAuthClientDatas.plist in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 				6AFA4AFA1F9EDBDF00000759 /* Main.storyboard in Resources */,
 			);
@@ -478,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A238EA31FB9F5F10063C30A /* GitGetTodayViewController.swift in Sources */,
+				6A8E408C1FD0D991008F2DD7 /* GitHubAPIManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

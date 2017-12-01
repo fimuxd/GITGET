@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>clientID</key>
+	<string>99961c715dc314b74401</string>
+	<key>clientSecret</key>
+	<string>7032c8432bd3a41e303a1c607d8643758316ca50</string>
+	<key>callbackURL</key>
+	<string>https://widgetgithub.firebaseapp.com/__/auth/handler</string>
+</dict>
+</plist>
