@@ -70,6 +70,7 @@ class GitHubAPIManager {
                     
                     let contributionsHexColorCodeArray:[String] = tempArray
                     
+                    print("//GitHubAPIManager: \(contributionsHexColorCodeArray)")
                     completionHandler(contributionsHexColorCodeArray)
                 }
             case .failure(let error):
@@ -91,12 +92,13 @@ class GitHubAPIManager {
                     var tempArray:[String] = []
                     
                     for element:Element in elements.array() {
-                        guard let contributionsDate:String = try? element.attr("data-count") else {return}
+                        guard let contributionsDate:String = try? element.attr("data-date") else {return}
                         tempArray.append(contributionsDate)
                     }
                     
                     let contributionsDateArray:[String] = tempArray
                     
+                    print("//GitHubAPIManager: \(contributionsDateArray)")
                     completionHandler(contributionsDateArray)
                 }
             case .failure(let error):

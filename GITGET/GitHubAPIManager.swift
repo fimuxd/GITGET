@@ -122,6 +122,7 @@ class GitHubAPIManager {
                     
                     let contributionsHexColorCodeArray:[String] = tempArray
                     
+                    print("//GitHubAPIManager: \(contributionsHexColorCodeArray)")
                     completionHandler(contributionsHexColorCodeArray)
                 }
             case .failure(let error):
@@ -149,6 +150,7 @@ class GitHubAPIManager {
                     
                     let contributionsDateArray:[String] = tempArray
                     
+                    print("//GitHubAPIManager: \(contributionsDateArray)")
                     completionHandler(contributionsDateArray)
                 }
             case .failure(let error):
