@@ -32,6 +32,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var fourthPreviousMonthLabel: UILabel!
     @IBOutlet weak var fifthPreviousMonthLabel: UILabel!
     @IBOutlet weak var sixthPreviousMonthLabel: UILabel!
+    @IBOutlet weak var seventhPreviousMonthLabel: UILabel!
     
     //MonthTextLabelAttribute
     @IBOutlet weak var currentMonthLabelLeadingConstraint: NSLayoutConstraint!
@@ -41,13 +42,31 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var fourthMonthLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var fifthMonthLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var sixthMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var seventhMonthLabelLeadingConstraint: NSLayoutConstraint!
+    
+    //기기별 콜렉션뷰 출력을 위한 Constraints
+    //For Height
+    @IBOutlet weak var monthLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var monthLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+    //ForWidth
+    @IBOutlet weak var weekdayLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var weekdayLabelWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
+    //요일 라벨
+    @IBOutlet weak var wedToFriSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var wedToMonSpiceConstraint: NSLayoutConstraint!
     
     //UILabel_.상태확인바
     @IBOutlet weak var widgetStatusLabel: UILabel!
     
     //UICollectionView
     @IBOutlet weak var contributionCollectionView: UICollectionView!
-    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
     //UIActivityIndicator
     @IBOutlet weak var dataActivityIndicator: UIActivityIndicatorView!
@@ -56,70 +75,53 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     let isSignedIn:Bool? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "isSigned") as? Bool
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
     
-    //월별 Label 위치 목록 가져옴
-    var xPositionForMonthLabels:[CGFloat] = [] {
+    //MARK:- 월별 Label 위치 목록 가져옴
+    var xPositionForMonthLabels:Set<CGFloat> = [] {
         willSet(newValue){
-            if xPositionForMonthLabels != newValue {
+            if xPositionForMonthLabels.sorted() != newValue.sorted() {
                 self.xPositionForMonthLabels = newValue
-                
-                let screenSize:CGFloat = self.view.frame.width
-                switch screenSize {
-                case 398.0: //iPhone Plus
-                    if newValue.count == 7 {
-                        self.setMonthLabelXPositions(with: newValue)
-                    }
-                case 359.0: //iPhone, X
-                    if newValue.count == 6 {
-                        self.setMonthLabelXPositions(with: newValue)
-                    }
-                case 304.0: //iPhone SE, 4
-                    if newValue.count == 5 {
-                        self.setMonthLabelXPositions(with: newValue)
-                    }
-                default:
-                    self.widgetStatusLabel.text = "Unable to Load"
-                }
+            }else{
+                print("//실행합니다.")
+                self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
             }
         }
     }
     
     //Contributions 관련 Data 통신: 앱 설치 및 로그인 후 최초 1회만 앱을 통해 통신한 값을 띄우고, 이후부터는 위젯이 직접통신하는 구조
-    //색상 코드 목록 가져옴
-    var oldHexColorCodesArray:[String]? = []
+    //MARK:- 색상 코드 목록 가져옴
     var hexColorCodesArray = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String] {
-        didSet(oldValue){
-            self.oldHexColorCodesArray = oldValue
-            self.dataActivityIndicator.stopAnimating()
-        }
         willSet(newValue){
-            guard let realOldHexColorCodesArray = self.oldHexColorCodesArray,
-                let realNewValueArray = newValue else {self.dataActivityIndicator.stopAnimating(); return}
-            if realOldHexColorCodesArray != realNewValueArray {
-                self.hexColorCodesArray = realNewValueArray
-                print("//색상 업데이트 됨: 예전\(realOldHexColorCodesArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldValue = userDefaults.value(forKey: "ContributionsDatas") as? [String],
+                let realNewValue = newValue else {return}
+            
+            if realOldValue != realNewValue {
+                self.hexColorCodesArray = newValue
+                userDefaults.setValue(newValue, forKey: "ContributionsDatas")
+                print("//색상 업데이트 됨: 예전\(hexColorCodesArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
                 self.contributionCollectionView.reloadData()
             }else{
-                print("//색상 새로고침 할 것 없음: 예전\(realOldHexColorCodesArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+                print("//색상 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
                 self.dataActivityIndicator.stopAnimating()
             }
         }
     }
     
-    //날짜목록 가져옴
-    var oldDateArray:[String]? = []
+    //MARK:- 날짜목록 가져옴
     var dateArray = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDates") as? [String] {
-        didSet(oldValue){
-            self.oldDateArray = oldValue
-        }
         willSet(newValue){
-            guard let realOldDateArray = self.oldDateArray,
-                let realNewValueArray = newValue else {return}
-            if realOldDateArray != realNewValueArray {
-                self.dateArray = realNewValueArray
-                print("//날짜 업데이트 됨: 예전\(realOldDateArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldValue = userDefaults.value(forKey: "ContributionsDates") as? [String],
+                let realNewValue = newValue else {return}
+            
+            if realOldValue != realNewValue {
+                self.dateArray = newValue
+                userDefaults.setValue(newValue, forKey: "ContributionsDates")
+                print("//날짜 업데이트 됨: 예전\(dateArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
                 self.contributionCollectionView.reloadData()
             }else{
-                print("//날짜 새로고침 할 것 없음: 예전\(realOldDateArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+                print("//날짜 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
+                self.dataActivityIndicator.stopAnimating()
             }
         }
     }
@@ -141,11 +143,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
         self.contributionCollectionView.backgroundColor = .clear
         self.getMonthTextForLabel()
+        
+        self.contributionCollectionView.isHidden = true
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         print("//TE_viewWillLayoutSubviews")
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -175,6 +180,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.fourthPreviousMonthLabel.isHidden = true
             self.fifthPreviousMonthLabel.isHidden = true
             self.sixthPreviousMonthLabel.isHidden = true
+            self.seventhPreviousMonthLabel.isHidden = true
         }
         self.dataActivityIndicator.stopAnimating()
     }
@@ -221,14 +227,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         })
     }
     
-    //Widget을 한번 탭하면 GitGet이 새로고침 됨
+    //MARK:- Widget을 한번 탭하면 GitGet이 새로고침 됨
     @IBAction func toRefershGitGetApp(_ sender: UITapGestureRecognizer) {
         self.dataActivityIndicator.startAnimating()
         guard let realGitHubID:String = self.currentGitHubID else {return}
         self.updateContributionDatasOf(gitHubID: realGitHubID)
     }
     
-    //위젯의 크기에 따라 표현하고 싶은 내용이 다를 때 사용.
+    //MARK:- 위젯의 크기에 따라 표현하고 싶은 내용이 다를 때 사용. (현재 깃젯은 compact만 지원)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             /* .compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
@@ -238,23 +244,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
              고정된 높이(110px)에서 글자를 크게 조절할 수록 높이가 늘어나고, 작게 조절할 수록 높이는 줄어든다.
              글씨 사이즈별로 위젯 높이는 8가지로 변화한다.
              95, 100, 105, 110, 130, 145, 170, 200
-            */
+             */
             self.preferredContentSize = maxSize
-        }else {
-            self.preferredContentSize = CGSize(width: 0, height: 110)
         }
     }
     
+    //MARK:- 월별 텍스트(Jan~Dec) 가져오기
     func getMonthTextForLabel() {
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
-        let currentMonth = dateFormatter.string(from: date)
         
         dateFormatter.dateFormat = "MMM"
         dateFormatter.locale = Locale(identifier: "en_US") as Locale
         
         var dateArray:[Date] = [date]
-        for count in 1...6 {
+        for count in 1...7 {
             let previousDate:Date = Date(timeInterval: -2592200 * fabs(Double(count)), since: date)
             dateArray.append(previousDate)
         }
@@ -262,6 +266,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var monthStringArray:[String] = dateArray.map { (date) -> String in
             return dateFormatter.string(from: date)
         }
+        
         self.currentMonthLabel.text = monthStringArray[0]
         self.firstPreviousMonthLabel.text = monthStringArray[1]
         self.secondPreviousMonthLabel.text = monthStringArray[2]
@@ -269,71 +274,123 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.fourthPreviousMonthLabel.text = monthStringArray[4]
         self.fifthPreviousMonthLabel.text = monthStringArray[5]
         self.sixthPreviousMonthLabel.text = monthStringArray[6]
+        self.seventhPreviousMonthLabel.text = monthStringArray[7]
     }
     
-    //각 월의 첫 날에 해당하는 셀의 x좌표와, 각 월별Label의 x좌표를 맞추는 함수
+    //MARK:- 각 월의 첫 날에 해당하는 셀의 x좌표와, 각 월별Label의 x좌표를 맞추는 함수
     func setMonthLabelXPositions(with xPositionArray:[CGFloat]) {
-        let screenWidth:CGFloat = self.view.frame.width
-        switch screenWidth {
-        case 398.0: //iPhone Plus
-            if xPositionArray[6] < 351 {
-                self.currentMonthLabelLeadingConstraint.constant = xPositionArray[6]
-            }else{
-                self.currentMonthLabel.isHidden = true
-            }
-            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[5]
-            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[4]
-            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
-            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[2]
-            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[1]
-            if xPositionArray[0] > 12 {
-                self.sixthMonthLabelLeadingConstraint.constant = xPositionArray[0]
-            }else{
+        if xPositionArray.count > 0 && xPositionArray.count < 4 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            
+            DispatchQueue.main.async {
+                self.thirdPreviousMonthLabel.isHidden = true
+                self.fourthPreviousMonthLabel.isHidden = true
+                self.fifthPreviousMonthLabel.isHidden = true
                 self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
             }
-        case 359.0: //iPhone 6,7,8,X
-                if xPositionArray[5] < 311 {
-                    self.currentMonthLabelLeadingConstraint.constant = xPositionArray[5]
-                }else{
-                    self.currentMonthLabel.isHidden = true
+            
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.secondPreviousMonthLabel.isHidden = true
                 }
-                self.firstMonthLabelLeadingConstraint.constant = xPositionArray[4]
-                self.secondMonthLabelLeadingConstraint.constant = xPositionArray[3]
-                self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[2]
-                self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[1]
-                if xPositionArray[0] > 12 {
-                    self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[0]
-                }else{
+            }
+        }else if xPositionArray.count == 4 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            
+            DispatchQueue.main.async {
+                self.fourthPreviousMonthLabel.isHidden = true
+                self.fifthPreviousMonthLabel.isHidden = true
+                self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
+            }
+            
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.thirdPreviousMonthLabel.isHidden = true
+                }
+            }
+        }else if xPositionArray.count == 5 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            DispatchQueue.main.async {
+                self.fifthPreviousMonthLabel.isHidden = true
+                self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
+            }
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.fourthPreviousMonthLabel.isHidden = true
+                }
+            }
+        }else if xPositionArray.count == 6 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[4]
+            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            DispatchQueue.main.async {
+                self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
+            }
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
                     self.fifthPreviousMonthLabel.isHidden = true
                 }
-                self.sixthPreviousMonthLabel.isHidden = true
-        case 304.0: //iPhone 4,5,SE
-            if xPositionArray[4] < 251 {
-                self.currentMonthLabelLeadingConstraint.constant = xPositionArray[4]
-            }else{
-                self.currentMonthLabel.isHidden = true
             }
-            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[3]
+        }else if xPositionArray.count == 7 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
             self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
-            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[1]
-            if xPositionArray[0] > 12 {
-                self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[0]
-            }else{
-                self.fourthPreviousMonthLabel.isHidden = true
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[4]
+            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[5]
+            self.sixthMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            DispatchQueue.main.async {
+                self.seventhPreviousMonthLabel.isHidden = true
             }
-            self.fifthPreviousMonthLabel.isHidden = true
-            self.sixthPreviousMonthLabel.isHidden = true
-        default:
-            self.widgetStatusLabel.text = "Unable into Load"
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.sixthPreviousMonthLabel.isHidden = true
+                }
+            }
+        }else if xPositionArray.count > 7 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[4]
+            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[5]
+            self.sixthMonthLabelLeadingConstraint.constant = xPositionArray[6]
+            self.seventhMonthLabelLeadingConstraint.constant = xPositionArray[7]
+            
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.seventhPreviousMonthLabel.isHidden = true
+                }
+            }
         }
+        
+        if xPositionArray.first! > self.view.frame.width - self.collectionViewTrailingConstraint.constant {
+            self.currentMonthLabel.isHidden = true
+        }
+        
     }
     
-    //GitHubAPIManager를 통해 가져온 dateArray의 index 중, #번째 전월의 첫날에 해당하는 index를 출력하는 함수
+    //MARK:- GitHubAPIManager를 통해 가져온 dateArray의 index 중, #번째 전월의 첫날에 해당하는 index를 출력하는 함수
     func findIndexPathForFirstOf(previousMonthNumber:Int) -> Int {
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
-//        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
-        guard let timeZone:TimeZone = TimeZone.current,
+        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
             let utcYear = dateFormatter.calendar.dateComponents(in: timeZone, from: date).year,
             let utcMonth = dateFormatter.calendar.dateComponents(in: timeZone, from: date).month else {return 0}
         var utcMonthString:String = ""
@@ -353,7 +410,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return indexPath
     }
     
-    //GitHubAPIManager를 통한 데이터 업데이트
+    //MARK:- GitHubAPIManager를 통한 데이터 업데이트
     func updateContributionDatasOf(gitHubID:String) {
         GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID) { (contributionsColorCodeArray) in
             self.hexColorCodesArray = contributionsColorCodeArray
@@ -362,345 +419,140 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         GitHubAPIManager.sharedInstance.getContributionsDateArray(gitHubID: gitHubID) { (contributionsDateArray) in
             self.dateArray = contributionsDateArray
         }
+        
+        if self.xPositionForMonthLabels.count != 0 {
+            self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
+        }
     }
 }
 
 //MARK:- extension_CollectionView Delegate & DataSource
 extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    //셀 개수 출력 & collectionView 높이
+    //MARK:- numberOfItemsInSection: 셀 개수 출력 & collectionView 높이
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let widgetWidth:CGFloat = self.view.frame.width
         let widgetHeight:CGFloat = self.view.frame.height
         
-        guard let realDateArray = self.dateArray else {print("//날짜 값이 들어오지 않았습니다"); return 0}
-        switch widgetWidth {
-        case 398.0: //iPhone Plus
-            if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                self.collectionViewHeightConstraint.constant = 180
-                return realDateArray.count - 266
-            }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                self.collectionViewHeightConstraint.constant = 150.4
-                return realDateArray.count - 245
-            }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                self.collectionViewHeightConstraint.constant = 125
-                return realDateArray.count - 210
-            }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                self.collectionViewHeightConstraint.constant = 110
-                return realDateArray.count - 196
-            }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
-                self.collectionViewHeightConstraint.constant = 100
-                return realDateArray.count - 168
-            }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                self.collectionViewHeightConstraint.constant = 91.4
-                return realDateArray.count - 161
-            }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                self.collectionViewHeightConstraint.constant = 86
-                return realDateArray.count - 126
-            }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
-                self.collectionViewHeightConstraint.constant = 81
-                return realDateArray.count - 119
-            }else{
-                self.collectionViewHeightConstraint.constant = 76
-                return realDateArray.count - 119
+        //높이에 따라 글자 크기 변화
+        if widgetHeight > 144 {
+            for view in self.view.subviews {
+                if view.isKind(of: UILabel.classForCoder()) {
+                    let label = view as? UILabel
+                    label?.font = label?.font.withSize(15)
+                }
+                self.weekdayLabelWidthConstraint.constant = 15
             }
-        case 359.0: //iPhone, X
-            return realDateArray.count - 161
-        case 304.0: //iPhone SE, 4
-            if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                self.collectionViewHeightConstraint.constant = 180
-                return realDateArray.count - 266
-            }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                self.collectionViewHeightConstraint.constant = 150.4
-                return realDateArray.count - 245
-            }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                self.collectionViewHeightConstraint.constant = 125
-                return realDateArray.count - 210
-            }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                self.collectionViewHeightConstraint.constant = 110
-                return realDateArray.count - 196
-            }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
-                self.collectionViewHeightConstraint.constant = 100
-                return realDateArray.count - 168
-            }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                self.collectionViewHeightConstraint.constant = 91.4
-                return realDateArray.count - 217
-            }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                self.collectionViewHeightConstraint.constant = 86
-                return realDateArray.count - 189
-            }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
-                self.collectionViewHeightConstraint.constant = 81
-                return realDateArray.count - 182
-            }else{
-                self.collectionViewHeightConstraint.constant = 76
-                return realDateArray.count - 182
+        }else if widgetHeight > 110 && widgetHeight < 145 {
+            for view in self.view.subviews {
+                if view.isKind(of: UILabel.classForCoder()) {
+                    let label = view as? UILabel
+                    label?.font = label?.font.withSize(12)
+                }
+                self.weekdayLabelWidthConstraint.constant = 13
             }
-        default:
-            self.widgetStatusLabel.text = "Unable to Load"
-            return 0
+        }else if widgetHeight < 111 {
+            for view in self.view.subviews {
+                if view.isKind(of: UILabel.classForCoder()) {
+                    let label = view as? UILabel
+                    label?.font = label?.font.withSize(10)
+                }
+                
+                self.weekdayLabelWidthConstraint.constant = 11
+                
+            }
         }
+        
+        let collectionViewWidth:CGFloat = widgetWidth - self.collectionViewLeadingConstraint.constant - self.collectionViewTrailingConstraint.constant - self.weekdayLabelWidthConstraint.constant - self.weekdayLabelLeadingConstraint.constant
+        let collectionViewHeight:CGFloat = widgetHeight - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - self.monthLabelHeightConstraint.constant - self.monthLabelTopConstraint.constant
+        
+        let cellHeight:CGFloat = (collectionViewHeight - 4 - 9.6) / 7
+        let tempNumberOfWeek:CGFloat = (collectionViewWidth - 4) / cellHeight
+        let numberOfCellSpaces:CGFloat = tempNumberOfWeek.rounded(.up) + 1
+        let totalCellSpace:CGFloat = numberOfCellSpaces * 1.2
+        let numberOfWeek:CGFloat = ((collectionViewWidth - totalCellSpace - 4) / cellHeight).rounded(.down)
+        let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
+        
+        guard let realDateArray = self.dateArray else {
+            self.widgetStatusLabel.text = "Mobile Data is Turned Off for GITGET".localized
+            self.dataActivityIndicator.stopAnimating()
+            return 0}
+        
+        self.collectionViewHeightConstraint.constant = collectionViewHeight
+        self.collectionViewWidthConstraint.constant = collectionViewWidth
+        self.wedToFriSpaceConstraint.constant = cellHeight + 2.4
+        self.wedToMonSpiceConstraint.constant = cellHeight + 2.4
+        
+        DispatchQueue.main.async {
+            self.contributionCollectionView.isHidden = false
+        }
+        
+        return realDateArray.count - markableNumberOfDays
     }
     
+    //MARK:- cellForItemAt: 각 셀의 색상 설정 & 월별 첫날에 해당하는 셀의 xPosition 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
+        
         if let realHexColorCodes:[String] = self.hexColorCodesArray {
             let widgetWidth:CGFloat = self.view.frame.width
             let widgetHeight:CGFloat = self.view.frame.height
-            switch widgetWidth {
-            case 398.0: //iPhone Plus
-                if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 266])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 266) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
+            
+            //높이에 따라 글자 크기 변화
+            if widgetHeight > 144 {
+                for view in self.view.subviews {
+                    if view.isKind(of: UILabel.classForCoder()) {
+                        let label = view as? UILabel
+                        label?.font = label?.font.withSize(15)
                     }
-                }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 245])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 245) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
+                    self.weekdayLabelWidthConstraint.constant = 15
+                }
+            }else if widgetHeight > 110 && widgetHeight < 145 {
+                for view in self.view.subviews {
+                    if view.isKind(of: UILabel.classForCoder()) {
+                        let label = view as? UILabel
+                        label?.font = label?.font.withSize(12)
                     }
-                }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 210])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 210) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 196])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 196) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 119.0 && widgetHeight < 140 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 168])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 168) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 161])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 161) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 126])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 126) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else{
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 119])
-                    
-                    for index in 0...6 {
-                        if (indexPath.row + 119) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
+                    self.weekdayLabelWidthConstraint.constant = 12
+                }
+            }else if widgetHeight < 111 {
+                for view in self.view.subviews {
+                    if view.isKind(of: UILabel.classForCoder()) {
+                        let label = view as? UILabel
+                        label?.font = label?.font.withSize(10)
                     }
                 }
-            case 359.0: //iPhone, X
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 161])
-                
-                for index in 0...5 {
-                    if (indexPath.row + 161) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition)
-                    }
+            }
+            
+            let collectionViewWidth:CGFloat = widgetWidth - self.collectionViewLeadingConstraint.constant - self.collectionViewTrailingConstraint.constant - self.weekdayLabelWidthConstraint.constant - self.weekdayLabelLeadingConstraint.constant
+            let collectionViewHeight:CGFloat = widgetHeight - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - self.monthLabelHeightConstraint.constant - self.monthLabelTopConstraint.constant
+            
+            let cellHeight:CGFloat = (collectionViewHeight - 4 - 9.6) / 7
+            let tempNumberOfWeek:CGFloat = (collectionViewWidth - 4) / cellHeight
+            let numberOfCellSpaces:CGFloat = tempNumberOfWeek.rounded(.up) + 1
+            let totalCellSpace:CGFloat = numberOfCellSpaces * 1.2
+            let numberOfWeek:CGFloat = ((collectionViewWidth - totalCellSpace - 4) / cellHeight).rounded(.down)
+            let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
+            
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + markableNumberOfDays])
+            
+            for index in 0...7 {
+                if (indexPath.row + markableNumberOfDays) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
+                    let xPosition:CGFloat = cell.frame.origin.x
+                    self.xPositionForMonthLabels.insert(xPosition)
                 }
-            case 304.0: //iPhone SE, 4
-                if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 266])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 266) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 245])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 245) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 210])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 210) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 196])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 196) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 119.0 && widgetHeight < 140 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 217])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 217) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 217])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 217) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 189])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 189) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }else{
-                    cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 182])
-                    
-                    for index in 0...4 {
-                        if (indexPath.row + 182) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                            let xPosition:CGFloat = cell.frame.origin.x
-                            self.xPositionForMonthLabels.append(xPosition)
-                        }
-                    }
-                }
-            default:
-                self.widgetStatusLabel.text = "Unable to Load"
             }
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widgetWidth:CGFloat = self.view.frame.width
         let widgetHeight:CGFloat = self.view.frame.height
+        let collectionViewHeight:CGFloat = widgetHeight - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - self.monthLabelHeightConstraint.constant - self.monthLabelTopConstraint.constant
         
-        if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-            return CGSize(width: 24.0, height: 24.0)
-        }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-            return CGSize(width: 19.5, height: 19.5)
-        }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-            return CGSize(width: 15.1, height: 15.1)
-        }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-            return CGSize(width: 13.6, height: 13.6)
-        }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
-            return CGSize(width: 11.8, height: 11.8)
-        }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-            return CGSize(width: 11.4, height: 11.4)
-        }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-            return CGSize(width: 9.5, height: 9.5)
-        }else{
-            return CGSize(width: 9.2, height: 9.2)
-        }
+        let cellHeight:CGFloat = (collectionViewHeight - 4 - 9.6) / 7
         
-        /*
-        switch widgetWidth { //접속한 기기의 종류에 따라 스위치
-        case 398.0: //iPhone Plus
-            if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                return CGSize(width: 24.0, height: 24.0)
-            }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                return CGSize(width: 19.5, height: 19.5)
-            }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                return CGSize(width: 15.1, height: 15.1)
-            }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                return CGSize(width: 13.6, height: 13.6)
-            }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
-                return CGSize(width: 11.8, height: 11.8)
-            }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                return CGSize(width: 11.4, height: 11.4)
-            }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                return CGSize(width: 9.5, height: 9.5)
-            }else{
-                return CGSize(width: 9.2, height: 9.2)
-            }
-        case 359.0: //iPhone 6,7,8,X
-            if widgetHeight > 178.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                return CGSize(width: 12.0, height: 12.0)
-            }else if widgetHeight > 177.0 && widgetHeight < 178.0 {
-                return CGSize(width: 11.5, height: 11.5)
-            }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                return CGSize(width: 11.0, height: 11.0)
-            }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                return CGSize(width: 10.5, height: 10.5)
-            }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                return CGSize(width: 10.0, height: 10.0)
-            }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
-                return CGSize(width: 9.5, height: 9.5)
-            }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                return CGSize(width: 9.0, height: 9.0)
-            }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                return CGSize(width: 8.5, height: 8.5)
-            }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
-                return CGSize(width: 8.0, height: 8.0)
-            }else{
-                return CGSize(width: 7.5, height: 7.5)
-            }
-        case 304.0: //iPhone SE
-            if widgetHeight > 178.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
-                return CGSize(width: 12.0, height: 12.0)
-            }else if widgetHeight > 177.0 && widgetHeight < 178.0 {
-                return CGSize(width: 11.5, height: 11.5)
-            }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
-                return CGSize(width: 11.0, height: 11.0)
-            }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
-                return CGSize(width: 10.5, height: 10.5)
-            }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
-                return CGSize(width: 10.0, height: 10.0)
-            }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
-                return CGSize(width: 9.5, height: 9.5)
-            }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
-                return CGSize(width: 9.0, height: 9.0)
-            }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
-                return CGSize(width: 8.5, height: 8.5)
-            }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
-                return CGSize(width: 8.0, height: 8.0)
-            }else{
-                return CGSize(width: 7.5, height: 7.5)
-            }
-        default:
-            return CGSize(width: 0, height: 0)
-        }
-         */
+        return CGSize(width: cellHeight, height: cellHeight)
     }
     
     //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들
@@ -837,6 +689,106 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
      }
      */
     
+    
+    /* Delete: 콜렉션뷰를 이해하고 조작하는 것이 힘들었다. 일일히 다 시뮬레이터 해가면서 계산했는데 당연히 컴퓨팅이 정확하다.
+     switch widgetWidth { //접속한 기기의 종류에 따라 스위치
+     case 398.0: //iPhone Plus
+     if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 24.0, height: 24.0)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 19.5, height: 19.5)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 15.1, height: 15.1)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 13.6, height: 13.6)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 11.8, height: 11.8)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 11.4, height: 11.4)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else{
+     return CGSize(width: 9.2, height: 9.2)
+     }
+     case 359.0: //iPhone 6,7,8,X
+     if widgetHeight > 178.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 12.0, height: 12.0)
+     }else if widgetHeight > 177.0 && widgetHeight < 178.0 {
+     return CGSize(width: 11.5, height: 11.5)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 11.0, height: 11.0)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 10.5, height: 10.5)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 10.0, height: 10.0)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 9.0, height: 9.0)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 8.5, height: 8.5)
+     }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
+     return CGSize(width: 8.0, height: 8.0)
+     }else{
+     return CGSize(width: 7.5, height: 7.5)
+     }
+     case 304.0: //iPhone SE
+     if widgetHeight > 178.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 12.0, height: 12.0)
+     }else if widgetHeight > 177.0 && widgetHeight < 178.0 {
+     return CGSize(width: 11.5, height: 11.5)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 11.0, height: 11.0)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 10.5, height: 10.5)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 10.0, height: 10.0)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 9.0, height: 9.0)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 8.5, height: 8.5)
+     }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
+     return CGSize(width: 8.0, height: 8.0)
+     }else{
+     return CGSize(width: 7.5, height: 7.5)
+     }
+     default:
+     return CGSize(width: 0, height: 0)
+     }
+     */
+    
+    /* Delete: 콜렉션뷰를 이해하고 조작하는 것이 힘들었다. 일일히 다 시뮬레이터 해가면서 계산했는데 당연히 컴퓨팅이 정확하다.
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+     let widgetWidth:CGFloat = self.view.frame.width
+     let widgetHeight:CGFloat = self.view.frame.height
+     
+     if widgetWidth == 359.0 {
+     let cellHeight:CGFloat = (widgetHeight - self.monthLabelHeightConstraint.constant - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - 4 - 9.6) / 7
+     return CGSize(width: cellHeight, height: cellHeight)
+     }else{
+     if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 24.0, height: 24.0)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 19.5, height: 19.5)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 15.1, height: 15.1)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 13.6, height: 13.6)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 11.8, height: 11.8)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 11.4, height: 11.4)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else{
+     return CGSize(width: 9.2, height: 9.2)
+     }
+     }
+     }
+     */
+    
 }
 
 //MARK:- extension_색상 hexcode 를 입력하면 해당 색으로 출력
@@ -871,6 +823,13 @@ extension String {
     
     func localizedWithComment(comment:String) -> String {
         return NSLocalizedString(self, comment: comment)
+    }
+}
+
+//MARK: Bold Text 여부 확인하는 목적
+extension UIFont {
+    var isBold:Bool {
+        return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
 }
 
