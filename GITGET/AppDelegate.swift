@@ -26,11 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.tintColor = UIColor(red: 0.137, green: 0.604, blue: 0.231, alpha: 1)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let myFieldViewController:MyFieldViewController = storyboard.instantiateViewController(withIdentifier: "MyFieldViewController") as! MyFieldViewController
+        let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
 
         if let currentUserUid:String? = Auth.auth().currentUser?.uid {
-            self.window?.rootViewController = myFieldViewController
+            self.window?.rootViewController = tabBarController
             self.window?.makeKeyAndVisible()
         }else{
             self.window?.rootViewController = navigationController
