@@ -7,14 +7,26 @@
 //
 
 import UIKit
+import Alamofire
+import Kingfisher
 
 class SettingTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.register(UINib.init(nibName: "ProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "profileCell")
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: "detailCell")
+        awakeFromNib()
+        
+        tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
@@ -39,15 +51,57 @@ class SettingTableViewController: UITableViewController {
         }
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "My GitHub Account"
+        case 1:
+            return "About GITGET"
+        case 2:
+            return "Signout"
+        default:
+            return ""
+        }
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let profileCell:ProfileTableViewCell = tableView.dequeueReusableCell(withIdentifier: "profileCell") as! ProfileTableViewCell
+        let detailCell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "detailCell") as! UITableViewCell
+        
+        switch indexPath.section {
+        case 0: //My GitHub Account
+            GitHubAPIManager.sharedInstance.getCurrentUserDatas(completionHandler: { (userData) in
+                guard let profileUrlString = userData["profileImageUrl"],
+                    let name = userData["name"] else {return}
+                profileCell.profileImageView.kf.setImage(with: URL(string:profileUrlString), completionHandler: { (image, error, cache, url) in
+                    DispatchQueue.main.async {
+                        profileCell.titleLabel.text = name
+                        profileCell.setNeedsLayout()
+                    }
+                })
+            })
+            return profileCell
+            
+        case 1:
+            let titleList:[String] = ["Tutorial", "Rate GITGET", "Send email to GITGET"]
+            detailCell.textLabel?.text = titleList[indexPath.row]
+    
+            return detailCell
+        case 2:
+            detailCell.textLabel?.text = "Signout"
+            detailCell.textLabel?.textColor = .red
+            return detailCell
+        default:
+            return detailCell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 {
+            return 80
+        }
+        return 44
+    }
 
     /*
     // Override to support conditional editing of the table view.
