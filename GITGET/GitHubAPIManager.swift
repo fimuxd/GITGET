@@ -86,14 +86,14 @@ class GitHubAPIManager {
                 do{
                     let htmlValue = value
                     guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return}
-                    var tempContributionsArray:[String] = []
+                    var tempArray:[String] = []
                     
                     for element:Element in elements.array() {
                         guard let dataCount:String = try? element.attr("data-count") else {return}
-                        tempContributionsArray.append(dataCount)
+                        tempArray.append(dataCount)
                     }
                     
-                    guard let todayContributionsCount:String = tempContributionsArray.last else {return}
+                    guard let todayContributionsCount:String = tempArray.last else {return}
                     
                     completionHandler(todayContributionsCount)
                 }
@@ -105,7 +105,56 @@ class GitHubAPIManager {
     
     //4. Contributions HexColorCode Array
     func getContributionsColorCodeArray(gitHubID:String, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
+        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         
+        Alamofire.request(getContributionsUrl, method: .get).responseString {(response) in
+            switch response.result {
+            case .success(let value):
+                do{
+                    let htmlValue = value
+                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return}
+                    var tempArray:[String] = []
+                    
+                    for element:Element in elements.array() {
+                        guard let contributionsHexColorCode:String = try? element.attr("fill") else {return}
+                        tempArray.append(contributionsHexColorCode)
+                    }
+                    
+                    let contributionsHexColorCodeArray:[String] = tempArray
+                    
+                    completionHandler(contributionsHexColorCodeArray)
+                }
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+            }
+        }
+    }
+    
+    //5. Contributions Date Array
+    func getContributionsDateArray(gitHubID:String, completionHandler: @escaping(_ contributionsDateArray: [String]) -> Void) {
+        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
+        
+        Alamofire.request(getContributionsUrl, method: .get).responseString {(response) in
+            switch response.result {
+            case .success(let value):
+                do{
+                    let htmlValue = value
+                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return}
+                    var tempArray:[String] = []
+                    
+                    for element:Element in elements.array() {
+                        guard let contributionsDate:String = try? element.attr("data-count") else {return}
+                        tempArray.append(contributionsDate)
+                    }
+                    
+                    let contributionsDateArray:[String] = tempArray
+
+                    completionHandler(contributionsDateArray)
+                }
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+            }
+        }
     }
     
 }

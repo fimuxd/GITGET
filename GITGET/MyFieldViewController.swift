@@ -368,11 +368,13 @@ class MyFieldViewController: UIViewController {
     func getUTCWeekdayFromLocalTime(){
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
-        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
-            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday,
+//        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
+        let timeZone:TimeZone = TimeZone.autoupdatingCurrent
+
+        guard let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday,
             let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-        
         userDefaults.setValue(utcWeekDay, forKey: "UTCWeekday")
+        
         userDefaults.synchronize()
     }
     

@@ -11,6 +11,9 @@
 /* Class = "UITabBarItem"; title = "MyField"; ObjectID = "2Tg-B8-Yts"; */
 "2Tg-B8-Yts.title" = "MyField";
 
+/* Class = "UILabel"; text = "Tips💡Tap once to refresh your contributions. And double tap to open GITGET app."; ObjectID = "A4h-oE-NhH"; */
+"A4h-oE-NhH.text" = "팁💡 새로고침 하려면 탭 한번, 깃젯 앱으로 가려면 더블 탭!";
+
 /* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "BeA-dj-LQK"; */
 "BeA-dj-LQK.normalTitle" = "건너뛰기";
 
@@ -18,16 +21,25 @@
 "Bvx-ph-41U.text" = "Today Contributions";
 
 /* Class = "UILabel"; text = "Welcome to GITGET"; ObjectID = "CDZ-2P-FwJ"; */
-"CDZ-2P-FwJ.text" = "Welcome to GITGET";
+"CDZ-2P-FwJ.text" = "반가워요! 깃젯입니다 :)";
+
+/* Class = "UILabel"; text = "Yay! Keep in touch with your GitHub contributions anytime, anywhere!"; ObjectID = "Hiu-e5-NNx"; */
+"Hiu-e5-NNx.text" = "와! 이제 언제 어디서든 나의 GitHub contributions 를 확인할 수 있어요!";
 
 /* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "PHB-no-see"; */
 "PHB-no-see.normalTitle" = "건너뛰기";
 
 /* Class = "UIButton"; normalTitle = "    Sign in with GitHub"; ObjectID = "Vbi-Vd-LDq"; */
-"Vbi-Vd-LDq.normalTitle" = "    Sign in with GitHub";
+"Vbi-Vd-LDq.normalTitle" = "    GitHub으로 로그인";
+
+/* Class = "UILabel"; text = "cherry-pick GITGET and arrange it to top. ;) "; ObjectID = "Wjz-4G-Lj8"; */
+"Wjz-4G-Lj8.text" = "GITGET을 추가하고 위젯 목록의 가장 상단에 놓으세요 ;) ";
+
+/* Class = "UILabel"; text = "Scroll all the way to the bottom and tap Edit."; ObjectID = "ccg-hE-Bis"; */
+"ccg-hE-Bis.text" = "아래 끝까지 스크롤하시면 편집이 있어요.";
 
 /* Class = "UILabel"; text = "You need to have a GitHub account to use the GITGET."; ObjectID = "g0R-Yb-emA"; */
-"g0R-Yb-emA.text" = "You need to have a GitHub account to use the GITGET.";
+"g0R-Yb-emA.text" = "GITGET을 사용하시려면 GitHub 계정이 필요합니다.";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "ilY-Zk-HrG"; */
 "ilY-Zk-HrG.text" = "-";
@@ -35,8 +47,14 @@
 /* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "jE1-Rw-WOg"; */
 "jE1-Rw-WOg.normalTitle" = "건너뛰기";
 
+/* Class = "UILabel"; text = "Swipe to the right while home screen to reveal your widgets."; ObjectID = "jIr-99-9lu"; */
+"jIr-99-9lu.text" = "홈에서 오른쪽으로 화면이 전환될 때까지 스와이프 하세요.";
+
 /* Class = "UIButton"; normalTitle = "Skip"; ObjectID = "kzs-tI-fnv"; */
 "kzs-tI-fnv.normalTitle" = "건너뛰기";
 
 /* Class = "UILabel"; text = "-"; ObjectID = "qEQ-9V-c3E"; */
 "qEQ-9V-c3E.text" = "-";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "tug-Ms-V23"; */
+"tug-Ms-V23.title" = "Item";
