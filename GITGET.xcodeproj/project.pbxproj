@@ -18,8 +18,8 @@
 		6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */; };
 		6A238EAA1FB9F5F10063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
-		6A303B231FD4420100C5C278 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A303B211FD4420100C5C278 /* ProfileTableViewCell.swift */; };
-		6A303B241FD4420100C5C278 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A303B221FD4420100C5C278 /* ProfileTableViewCell.xib */; };
+		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
+		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
 		6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */; };
 		6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */; };
@@ -85,8 +85,8 @@
 		6A238EA21FB9F5F10063C30A /* GitGetTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGetTodayViewController.swift; sourceTree = "<group>"; };
 		6A238EA51FB9F5F10063C30A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		6A303B211FD4420100C5C278 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
-		6A303B221FD4420100C5C278 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
+		6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAccountSettingTableViewController.swift; sourceTree = "<group>"; };
+		6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
@@ -206,8 +206,8 @@
 			children = (
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
-				6A303B211FD4420100C5C278 /* ProfileTableViewCell.swift */,
-				6A303B221FD4420100C5C278 /* ProfileTableViewCell.xib */,
+				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
+				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
 				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
 			);
 			name = TabBar;
@@ -239,9 +239,9 @@
 			children = (
 				6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */,
 				6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */,
-				6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */,
 				6A8E407C1FD0055D008F2DD7 /* SignIn */,
 				6A8E407E1FD00589008F2DD7 /* TabBar */,
+				6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */,
 				6A8E40971FD1820F008F2DD7 /* Main.storyboard */,
 				6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */,
 				6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */,
@@ -375,7 +375,6 @@
 				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
 				6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */,
 				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
-				6A303B241FD4420100C5C278 /* ProfileTableViewCell.xib in Resources */,
 				6A8E40901FD0E892008F2DD7 /* OAuthClientDatas.plist in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 			);
@@ -507,7 +506,8 @@
 				6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */,
 				6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */,
 				6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */,
-				6A303B231FD4420100C5C278 /* ProfileTableViewCell.swift in Sources */,
+				6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */,
+				6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */,
 				6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */,
 				6A8E40721FCFE169008F2DD7 /* AddWidgetViewController.swift in Sources */,
 				6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */,
