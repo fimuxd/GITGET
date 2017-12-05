@@ -36,7 +36,7 @@
 ## Update
 - v1.0.1: 1차 App Store release (2017.11.28)
 - v1.1.0: 위젯을 한번 탭하면 새로고침, 두번 탭하면 앱이 열리는 기능 추가. 위젯이 직접 통신
-- 2차 Update (2017.12 예정)
+- v2.0.0: 대대적 UI 및 데이터 통신 수정. `UITabBarController`, `UINavigationController` 추가
 
 ## Contact Me
 - 📱 +82 10.3316.1609
