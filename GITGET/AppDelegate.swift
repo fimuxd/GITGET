@@ -26,16 +26,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.tintColor = UIColor(red: 0.137, green: 0.604, blue: 0.231, alpha: 1)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let myFieldViewController:MyFieldViewController = storyboard.instantiateViewController(withIdentifier: "MyFieldViewController") as! MyFieldViewController
+        let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-
+        
         if let currentUserUid:String? = Auth.auth().currentUser?.uid {
-            self.window?.rootViewController = myFieldViewController
+            self.window?.rootViewController = tabBarController
             self.window?.makeKeyAndVisible()
         }else{
             self.window?.rootViewController = navigationController
             self.window?.makeKeyAndVisible()
         }
+        
+        /*
+        GitHubAPIManager.sharedInstance.isFirstLogInForUpdate { (bool) in
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            self.window?.tintColor = UIColor(red: 0.137, green: 0.604, blue: 0.231, alpha: 1)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+            let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+            
+            if bool == false && UserDefaults.standard.value(forKey: "isFirstLogInForUpdate") as? Bool == false {
+                self.window?.rootViewController = tabBarController
+                self.window?.makeKeyAndVisible()
+            }else{
+                //Firebase SignOut
+                let firebaseAuth = Auth.auth()
+                do {
+                    try firebaseAuth.signOut()
+                    
+                }catch let signOutError as Error {
+                    print("Error signing out: %@", signOutError)
+                }
+                
+                //GitHub API SignOut
+                let sessionManager = Alamofire.SessionManager.default
+                sessionManager.session.reset {
+                    UserDefaults.standard.setValue(nil, forKey: "AccessToken")
+                    
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(false, forKey: "isSigned")
+                    userDefaults.setValue(nil, forKey: "GitHubID")
+                    userDefaults.synchronize()
+                }
+                
+                self.window?.rootViewController = navigationController
+                self.window?.makeKeyAndVisible()
+            }
+        }
+         */
         
         return true
     }

@@ -67,6 +67,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //UICollectionView
     @IBOutlet weak var contributionCollectionView: UICollectionView!
+    var collectionViewSectionInset:UIEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+    let minimumCellSpacing:CGFloat = 1.2
     
     //UIActivityIndicator
     @IBOutlet weak var dataActivityIndicator: UIActivityIndicatorView!
@@ -94,7 +96,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
                 let realOldValue = userDefaults.value(forKey: "ContributionsDatas") as? [String],
                 let realNewValue = newValue else {return}
-            
+            userDefaults.synchronize()
             if realOldValue != realNewValue {
                 self.hexColorCodesArray = newValue
                 userDefaults.setValue(newValue, forKey: "ContributionsDatas")
@@ -113,7 +115,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
                 let realOldValue = userDefaults.value(forKey: "ContributionsDates") as? [String],
                 let realNewValue = newValue else {return}
-            
+            userDefaults.synchronize()
             if realOldValue != realNewValue {
                 self.dateArray = newValue
                 userDefaults.setValue(newValue, forKey: "ContributionsDates")
@@ -142,9 +144,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
         self.contributionCollectionView.backgroundColor = .clear
-        self.getMonthTextForLabel()
-        
+        let collectionViewLayout = contributionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        collectionViewLayout?.sectionInset = self.collectionViewSectionInset
+        collectionViewLayout?.invalidateLayout()
         self.contributionCollectionView.isHidden = true
+        
+        self.getMonthTextForLabel()
     }
     
     override func viewWillLayoutSubviews() {
@@ -424,13 +429,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
         }
     }
-}
-
-//MARK:- extension_CollectionView Delegate & DataSource
-extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    //MARK:- numberOfItemsInSection: 셀 개수 출력 & collectionView 높이
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    //MARK:- UICollectionView Cell 크기를 계산하여 글씨를 출력해주는 함수
+    func  setUILabelSizePerFont() {
         let widgetWidth:CGFloat = self.view.frame.width
         let widgetHeight:CGFloat = self.view.frame.height
         
@@ -442,6 +443,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                     label?.font = label?.font.withSize(15)
                 }
                 self.weekdayLabelWidthConstraint.constant = 15
+                self.monthLabelHeightConstraint.constant = 18
             }
         }else if widgetHeight > 110 && widgetHeight < 145 {
             for view in self.view.subviews {
@@ -449,7 +451,8 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                     let label = view as? UILabel
                     label?.font = label?.font.withSize(12)
                 }
-                self.weekdayLabelWidthConstraint.constant = 13
+                self.weekdayLabelWidthConstraint.constant = 12.33
+                self.monthLabelHeightConstraint.constant = 14.4
             }
         }else if widgetHeight < 111 {
             for view in self.view.subviews {
@@ -459,35 +462,80 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                 }
                 
                 self.weekdayLabelWidthConstraint.constant = 11
-                
+                self.monthLabelHeightConstraint.constant = 12
             }
         }
+    }
+    
+    //MARK: 콜렉션뷰 셀 너비(=높이) 출력해주는 함수
+    func getCollectionViewCellWidth() -> CGFloat {
+        let widgetWidth:CGFloat = self.view.frame.width
+        let widgetHeight:CGFloat = self.view.frame.height
         
-        let collectionViewWidth:CGFloat = widgetWidth - self.collectionViewLeadingConstraint.constant - self.collectionViewTrailingConstraint.constant - self.weekdayLabelWidthConstraint.constant - self.weekdayLabelLeadingConstraint.constant
-        let collectionViewHeight:CGFloat = widgetHeight - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - self.monthLabelHeightConstraint.constant - self.monthLabelTopConstraint.constant
+        self.setUILabelSizePerFont()
+    
+        let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
         
-        let cellHeight:CGFloat = (collectionViewHeight - 4 - 9.6) / 7
-        let tempNumberOfWeek:CGFloat = (collectionViewWidth - 4) / cellHeight
-        let numberOfCellSpaces:CGFloat = tempNumberOfWeek.rounded(.up) + 1
-        let totalCellSpace:CGFloat = numberOfCellSpaces * 1.2
-        let numberOfWeek:CGFloat = ((collectionViewWidth - totalCellSpace - 4) / cellHeight).rounded(.down)
+        let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 8)) / 7
+        
+        return cellHeight
+    }
+    
+    //MARK:- UICollectionView Cell 크기를 계산하여 화면에 표시되는 일수를 출력하는 함수
+    func getMarkableDaysCount() -> Int {
+        let widgetWidth:CGFloat = self.view.frame.width
+        let widgetHeight:CGFloat = self.view.frame.height
+        
+        self.setUILabelSizePerFont()
+        
+        let collectionViewWidth:CGFloat = widgetWidth - (self.weekdayLabelLeadingConstraint.constant + self.weekdayLabelWidthConstraint.constant) - (self.collectionViewLeadingConstraint.constant + self.collectionViewTrailingConstraint.constant) - (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
+        let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        
+        let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 6)) / 7
+        let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.up)
         let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
         
-        guard let realDateArray = self.dateArray else {
-            self.widgetStatusLabel.text = "Mobile Data is Turned Off for GITGET".localized
-            self.dataActivityIndicator.stopAnimating()
-            return 0}
-        
-        self.collectionViewHeightConstraint.constant = collectionViewHeight
-        self.collectionViewWidthConstraint.constant = collectionViewWidth
-        self.wedToFriSpaceConstraint.constant = cellHeight + 2.4
-        self.wedToMonSpiceConstraint.constant = cellHeight + 2.4
+        self.collectionViewHeightConstraint.constant = collectionViewHeight + (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        self.collectionViewWidthConstraint.constant = collectionViewWidth + (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
+        self.wedToFriSpaceConstraint.constant = cellHeight + self.minimumCellSpacing * 2
+        self.wedToMonSpiceConstraint.constant = cellHeight + self.minimumCellSpacing * 2
         
         DispatchQueue.main.async {
             self.contributionCollectionView.isHidden = false
         }
         
-        return realDateArray.count - markableNumberOfDays
+        return markableNumberOfDays
+    }
+    
+    
+}
+
+//MARK:- extension_CollectionView Delegate & DataSource
+extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    //MARK:- numberOfItemsInSection: 셀 개수 출력 & collectionView 높이
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let markableNumberOfDays:Int = self.getMarkableDaysCount()
+        
+        guard let realHexCodeArray = self.hexColorCodesArray else {
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
+            self.dataActivityIndicator.stopAnimating()
+            self.contributionCollectionView.isHidden = true
+            self.mondayLabel.isHidden = true
+            self.wednesdayLabel.isHidden = true
+            self.fridayLabel.isHidden = true
+            self.currentMonthLabel.isHidden = true
+            self.firstPreviousMonthLabel.isHidden = true
+            self.secondPreviousMonthLabel.isHidden = true
+            self.thirdPreviousMonthLabel.isHidden = true
+            self.fourthPreviousMonthLabel.isHidden = true
+            self.fifthPreviousMonthLabel.isHidden = true
+            self.sixthPreviousMonthLabel.isHidden = true
+            self.seventhPreviousMonthLabel.isHidden = true
+            
+            return 0}
+    
+        return realHexCodeArray.count - markableNumberOfDays
     }
     
     //MARK:- cellForItemAt: 각 셀의 색상 설정 & 월별 첫날에 해당하는 셀의 xPosition 설정
@@ -495,44 +543,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
         
         if let realHexColorCodes:[String] = self.hexColorCodesArray {
-            let widgetWidth:CGFloat = self.view.frame.width
-            let widgetHeight:CGFloat = self.view.frame.height
-            
-            //높이에 따라 글자 크기 변화
-            if widgetHeight > 144 {
-                for view in self.view.subviews {
-                    if view.isKind(of: UILabel.classForCoder()) {
-                        let label = view as? UILabel
-                        label?.font = label?.font.withSize(15)
-                    }
-                    self.weekdayLabelWidthConstraint.constant = 15
-                }
-            }else if widgetHeight > 110 && widgetHeight < 145 {
-                for view in self.view.subviews {
-                    if view.isKind(of: UILabel.classForCoder()) {
-                        let label = view as? UILabel
-                        label?.font = label?.font.withSize(12)
-                    }
-                    self.weekdayLabelWidthConstraint.constant = 12
-                }
-            }else if widgetHeight < 111 {
-                for view in self.view.subviews {
-                    if view.isKind(of: UILabel.classForCoder()) {
-                        let label = view as? UILabel
-                        label?.font = label?.font.withSize(10)
-                    }
-                }
-            }
-            
-            let collectionViewWidth:CGFloat = widgetWidth - self.collectionViewLeadingConstraint.constant - self.collectionViewTrailingConstraint.constant - self.weekdayLabelWidthConstraint.constant - self.weekdayLabelLeadingConstraint.constant
-            let collectionViewHeight:CGFloat = widgetHeight - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - self.monthLabelHeightConstraint.constant - self.monthLabelTopConstraint.constant
-            
-            let cellHeight:CGFloat = (collectionViewHeight - 4 - 9.6) / 7
-            let tempNumberOfWeek:CGFloat = (collectionViewWidth - 4) / cellHeight
-            let numberOfCellSpaces:CGFloat = tempNumberOfWeek.rounded(.up) + 1
-            let totalCellSpace:CGFloat = numberOfCellSpaces * 1.2
-            let numberOfWeek:CGFloat = ((collectionViewWidth - totalCellSpace - 4) / cellHeight).rounded(.down)
-            let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
+            let markableNumberOfDays:Int = self.getMarkableDaysCount()
             
             cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + markableNumberOfDays])
             
@@ -547,12 +558,9 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widgetHeight:CGFloat = self.view.frame.height
-        let collectionViewHeight:CGFloat = widgetHeight - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - self.monthLabelHeightConstraint.constant - self.monthLabelTopConstraint.constant
+        let cellWidth:CGFloat = self.getCollectionViewCellWidth()
         
-        let cellHeight:CGFloat = (collectionViewHeight - 4 - 9.6) / 7
-        
-        return CGSize(width: cellHeight, height: cellHeight)
+        return CGSize(width: cellWidth, height: cellWidth)
     }
     
     //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들

@@ -144,9 +144,11 @@ extension OAuthWebViewController: UIWebViewDelegate {
                                     "firebaseUID":"\(realCurrentUser.uid)"]
                                 Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(tempDic)
                             }
+                            
+                            UserDefaults.standard.set(true, forKey: "isPassOAuth")
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let myFieldViewController:MyFieldViewController = storyboard.instantiateViewController(withIdentifier: "MyFieldViewController") as! MyFieldViewController
-                            self.present(myFieldViewController, animated: true, completion: {
+                            let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+                            self.present(tabBarController, animated: true, completion: {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                             })
                         })
