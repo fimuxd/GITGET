@@ -80,11 +80,22 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //MARK:- 월별 Label 위치 목록 가져옴
     var xPositionForMonthLabels:Set<CGFloat> = [] {
         willSet(newValue){
+            print("//엑스: 새로운 값이 들어왔습니다. ")
             if xPositionForMonthLabels.sorted() != newValue.sorted() {
                 self.xPositionForMonthLabels = newValue
-            }else{
-                print("//실행합니다.")
-                self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
+                
+                DispatchQueue.main.async {
+                    self.currentMonthLabel.isHidden = false
+                    self.firstPreviousMonthLabel.isHidden = false
+                    self.secondPreviousMonthLabel.isHidden = false
+                    self.thirdPreviousMonthLabel.isHidden = false
+                    self.fourthPreviousMonthLabel.isHidden = false
+                    self.fifthPreviousMonthLabel.isHidden = false
+                    self.sixthPreviousMonthLabel.isHidden = false
+                    self.seventhPreviousMonthLabel.isHidden = false
+                    
+                    self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
+                }
             }
         }
     }
@@ -148,6 +159,15 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         collectionViewLayout?.sectionInset = self.collectionViewSectionInset
         collectionViewLayout?.invalidateLayout()
         self.contributionCollectionView.isHidden = true
+        
+        self.currentMonthLabel.isHidden = true
+        self.firstPreviousMonthLabel.isHidden = true
+        self.secondPreviousMonthLabel.isHidden = true
+        self.thirdPreviousMonthLabel.isHidden = true
+        self.fourthPreviousMonthLabel.isHidden = true
+        self.fifthPreviousMonthLabel.isHidden = true
+        self.sixthPreviousMonthLabel.isHidden = true
+        self.seventhPreviousMonthLabel.isHidden = true
         
         self.getMonthTextForLabel()
     }
