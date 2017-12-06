@@ -18,8 +18,14 @@ class CustomTableViewCell: UITableViewCell {
     //detailCell
     @IBOutlet weak var detailTitleLabel: UILabel!
     
+    //modifiableCell
+    @IBOutlet weak var modifiableTitleLabel: UILabel!
+    @IBOutlet weak var modifiableTextField: UITextField!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,3 +35,4 @@ class CustomTableViewCell: UITableViewCell {
     }
     
 }
+

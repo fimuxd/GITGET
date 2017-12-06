@@ -95,8 +95,8 @@ class GitHubAPIManager {
                 guard let data:Data = response.data else {return}
                 let json:JSON = JSON(data:data)
                 
+                let email:String = (Auth.auth().currentUser?.email)!
                 let name:String = json["name"].stringValue
-                let email:String = json["email"].stringValue
                 let bio:String = json["bio"].stringValue
                 let url:String = json["blog"].stringValue
                 let company:String = json["company"].stringValue
@@ -196,6 +196,34 @@ class GitHubAPIManager {
             case .failure(let error):
                 print("///Alamofire.request - error: ", error)
             }
+        }
+    }
+    
+    //6. Repositories Data Array
+    func getStaredRepositoriesDataArray(completionHandler: @escaping(_ repositoryDataArray:[[String:Any]]) -> Void) {
+        self.getCurrentGitHubID { (realID) in
+            guard let getRepositoriesUrl:URL = URL(string: "https://api.github.com/users/\(realID)/starred") else {return}
+            
+            Alamofire.request(getRepositoriesUrl, method: .get).responseJSON(completionHandler: { (response) in
+                guard let data:Data = response.data else {return}
+                let json:JSON = JSON(data:data)
+                let jsonArray:[JSON] = json.arrayValue
+                let tempArray:[[String:Any]] = jsonArray.map({ (json) -> [String:Any] in
+                    let name:String = json["name"].stringValue
+                    let fullName:String = json["full_name"].stringValue
+                    let owner:String = json["owner"]["login"].stringValue
+                    let description:String? = json["description"].string
+                    let language:String = json["language"].stringValue
+                    let mappedDic:[String:Any] = ["name":name,
+                                                  "fullName":fullName,
+                                                  "owner":owner,
+                                                  "description":description ?? "",
+                                                  "language":language]
+                    return mappedDic
+                })
+                
+                completionHandler(tempArray)
+            })
         }
     }
     
