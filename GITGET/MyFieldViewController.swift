@@ -185,7 +185,9 @@ class MyFieldViewController: UIViewController {
             guard let profileUrlString = userData["profileImageUrl"],
                 let location = userData["location"],
                 let bio = userData["bio"],
-                let name = userData["name"] else {return}
+                let name = userData["name"],
+                let githubID = userData["githubID"]
+            else {return}
             
             self.userProfileImageView.kf.indicatorType = .activity
             self.userProfileImageView.kf.indicator?.startAnimatingView()
@@ -193,7 +195,7 @@ class MyFieldViewController: UIViewController {
                 self.userProfileImageView.kf.indicator?.stopAnimatingView()
             })
             
-            if location != "" {
+            if location != "" && location != nil {
                 self.locationLogoImageView.isHidden = false
             }else{
                 self.locationLogoImageView.isHidden = true
@@ -201,12 +203,10 @@ class MyFieldViewController: UIViewController {
             self.userLocationTextLabel.text = location
             self.userBioTextLabel.text = bio
             
-            if name != "" || name != nil {
+            if name != "" && name != nil {
                 self.userNameTextLabel.text = name
             }else{
-                GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
-                    self.userNameTextLabel.text = gitHubID
-                })
+                self.userNameTextLabel.text = githubID
             }
 
             self.refreshActivityIndicator.stopAnimating()

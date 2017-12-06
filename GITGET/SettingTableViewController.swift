@@ -75,14 +75,13 @@ class SettingTableViewController: UITableViewController {
                         profileCell.profileImageView.layer.masksToBounds = true
 
                         profileCell.profileTitleLabel.text = gitHubID
-//                        profileCell.detailTitleLabel.text = email
                         profileCell.setNeedsLayout()
                     }
                 })
             })
             return profileCell
         }else{
-            let titleList:[[String]] = [[""], ["Tutorial", "Rate GITGET", "Send email to GITGET"], ["Signout"]]
+            let titleList:[[String]] = [[""], ["Tutorial".localized, "Rate GITGET".localized, "Send email to GITGET".localized], ["Signout".localized]]
             detailCell.detailTitleLabel.text = titleList[indexPath.section][indexPath.row]
             
             if indexPath.section == 2 && indexPath.row == 0 {
@@ -101,10 +100,10 @@ class SettingTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
-//        case 0:
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let gitHubAccountSettingTableViewController:GitHubAccountSettingTableViewController = storyboard.instantiateViewController(withIdentifier: "GitHubAccountSettingTableViewController") as! GitHubAccountSettingTableViewController
-//            navigationController?.pushViewController(gitHubAccountSettingTableViewController, animated: true)
+        case 0:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let gitHubAccountSettingTableViewController:GitHubAccountSettingTableViewController = storyboard.instantiateViewController(withIdentifier: "GitHubAccountSettingTableViewController") as! GitHubAccountSettingTableViewController
+            navigationController?.pushViewController(gitHubAccountSettingTableViewController, animated: true)
         case 1:
             if indexPath.row == 0 {
                 self.openTutorial()
