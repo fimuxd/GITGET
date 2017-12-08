@@ -2,15 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "noun_368567_cc.png",
+      "filename" : "myField .png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "myField 2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "myField 3.png",
       "scale" : "3x"
     }
   ],
