@@ -63,7 +63,7 @@ class GitHubAPIManager {
     }
     
     //2. Contributions HexColorCode Array
-    func getContributionsColorCodeArray(gitHubID:String, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
+    func getContributionsColorCodeArray(gitHubID:String, theme:ThemeName?, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
         guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         
         Alamofire.request(getContributionsUrl, method: .get).responseString {(response) in
@@ -81,8 +81,9 @@ class GitHubAPIManager {
                     
                     let contributionsHexColorCodeArray:[String] = tempArray
         
-                    let themeNameRawValue:Int = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int ?? 0
-                    let currentThemeName:ThemeName = ThemeName(rawValue: themeNameRawValue) ?? .gitHubOriginal
+                    guard let currentThemeName:ThemeName = theme else {
+                        completionHandler(contributionsHexColorCodeArray)
+                        return}
                     
                     switch currentThemeName {
                     case .gitHubOriginal:
