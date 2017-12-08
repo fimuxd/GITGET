@@ -76,6 +76,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //깃젯 앱과 통신하여 가져오는 UserDefaults 값
     let isSignedIn:Bool? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "isSigned") as? Bool
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
+    let themeRawValue:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int
     
     //MARK:- 월별 Label 위치 목록 가져옴
     var xPositionForMonthLabels:Set<CGFloat> = [] {
@@ -147,6 +148,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func awakeFromNib() {
         super.awakeFromNib()
         print("//TE_awakeFromNib")
+
     }
     
     override func viewDidLoad() {
@@ -437,7 +439,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     //MARK:- GitHubAPIManager를 통한 데이터 업데이트
     func updateContributionDatasOf(gitHubID:String) {
-        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID) { (contributionsColorCodeArray) in
+        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID, theme: ThemeName(rawValue: self.themeRawValue ?? 0)) { (contributionsColorCodeArray) in
+            print("//왜안되: \(contributionsColorCodeArray)")
             self.hexColorCodesArray = contributionsColorCodeArray
         }
         
@@ -585,20 +588,16 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     
     //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들
     
-    /*TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
+    //TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
      func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-     let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
-     guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
-     let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
-     let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
-     
-     //        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
-     
-     print("//TE_widgetPerformUpdate:\(NCUpdateResult.newData)")
-     
+        guard let realGitHubID:String = self.currentGitHubID else {print("로그인한 값이 없음"); return}
+        
+        //색상코드 가져오기
+        
+        
+        
      completionHandler(NCUpdateResult.newData)
      }
-     */
     
     /* Delete: 현재 시간을 매번 확인하는 것보다, 받아오는 데이터의 수를 날짜 수로 인식하는 것이 오류가 없을 것이라 판단하여 삭제하였음.
      //현재 Local 시간을 UTC 기준으로 변환하여 요일수로 반환하기

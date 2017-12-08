@@ -34,7 +34,8 @@ class MyFieldViewController: UIViewController {
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
-    var isPassOAuth:Bool? = UserDefaults.standard.value(forKey: "isPassOAuth") as? Bool
+    var isPassOAuth:Bool? = UserDefaults.standard.value(forKey: "isPassOAuth2") as? Bool
+    let themeRawValue:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int
     
     var hexColorCodesArray:[String]?{
         didSet{
@@ -62,35 +63,6 @@ class MyFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //업데이트 후 재로그인 요청
-        if self.isPassOAuth == false {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-            
-            //Firebase SignOut
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                
-            }catch let signOutError as Error {
-                print("Error signing out: %@", signOutError)
-            }
-            
-            //GitHub API SignOut
-            let sessionManager = Alamofire.SessionManager.default
-            sessionManager.session.reset {
-                UserDefaults.standard.setValue(nil, forKey: "AccessToken")
-                
-                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-                userDefaults.setValue(false, forKey: "isSigned")
-                userDefaults.setValue(nil, forKey: "GitHubID")
-                userDefaults.synchronize()
-            }
-            
-            self.navigationController?.present(navigationController, animated: true, completion: nil)
-        }
-
-        
         guard let realCurrentUserUid:String = self.currentUser?.uid,
          let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
         let realAccessToken = self.accessToken else {
@@ -99,6 +71,7 @@ class MyFieldViewController: UIViewController {
             userDefaults.synchronize()
             return}
         
+        print("로그인되었음")
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
         
@@ -221,7 +194,7 @@ class MyFieldViewController: UIViewController {
     }
     
     func updateContributionDatasOf(gitHubID:String) {
-        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID) { (contributionsColorCodeArray) in
+        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID, theme: ThemeName(rawValue: self.themeRawValue ?? 0)) { (contributionsColorCodeArray) in
             self.hexColorCodesArray = contributionsColorCodeArray
         }
         

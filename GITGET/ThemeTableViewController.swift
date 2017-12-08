@@ -24,7 +24,7 @@ class ThemeTableViewController: UITableViewController {
 
     let cellTitleData:[String] = ["GitHub Original", "Black And White", "Jeju Ocean Blue", "Winter Burgundy", "Halloween Orange", "Ginkgo Yellow", "Freestyle", "Christmas Edition"]
     let cellImageData:[UIImage] = [#imageLiteral(resourceName: "Theme_GitHubOriginal"), #imageLiteral(resourceName: "Theme_BlackAndWhite"), #imageLiteral(resourceName: "Theme_JejuOceanBlue"), #imageLiteral(resourceName: "Theme_WinterBurgundy"), #imageLiteral(resourceName: "Theme_HalloweenOrange"), #imageLiteral(resourceName: "Theme_GinkgoYellow"), #imageLiteral(resourceName: "Theme_FreeStyle"), #imageLiteral(resourceName: "Theme_ChristmasEdition")]
-    var currentTheme = ThemeName(rawValue: UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int ?? 0) as? ThemeName {
+    var currentTheme = ThemeName(rawValue: (UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int) ?? 0) {
         willSet(newValue){
             if currentTheme != newValue {
                 currentTheme = newValue
