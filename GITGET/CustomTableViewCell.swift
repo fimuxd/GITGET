@@ -15,6 +15,10 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var profileTitleLabel: UILabel!
     @IBOutlet weak var profileDetailLabel: UILabel!
     
+    //themeCell
+    @IBOutlet weak var themeImageView: UIImageView!
+    @IBOutlet weak var themeTitleLabel: UILabel!
+    
     //detailCell
     @IBOutlet weak var detailTitleLabel: UILabel!
     
