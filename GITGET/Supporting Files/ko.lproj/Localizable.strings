@@ -6,6 +6,13 @@
   Copyright © 2017 Bo-Young PARK. All rights reserved.
 */
 
+//섹션 헤드
+"My GitHub Account" = "내 GitHub 정보";
+"Preferrences" = "설정";
+"About GitGet" = "깃젯에 대하여";
+
+//셀 타이틀
+"Theme" = "테마";
 "Tutorial" = "사용법";
 "Rate GITGET" = "깃젯 별점주기";
 "Send email to GITGET" = "깃젯에게 메일 보내기";
