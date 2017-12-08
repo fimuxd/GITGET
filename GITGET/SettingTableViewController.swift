@@ -17,7 +17,7 @@ import FirebaseAuth
 
 class SettingTableViewController: UITableViewController {
     
-    let sectionHeaderTitleData:[String] = ["My GitHub Account", "About GitGet", "SignOut"]
+    let sectionHeaderTitleData:[String] = ["My GitHub Account".localized, "Preferrences".localized, "About GitGet".localized, "SignOut".localized]
     
     
     override func viewDidLoad() {
@@ -47,8 +47,10 @@ class SettingTableViewController: UITableViewController {
         case 0:
             return 1
         case 1:
-            return 3
+            return 1
         case 2:
+            return 3
+        case 3:
             return 1
         default:
             return 0
@@ -81,10 +83,10 @@ class SettingTableViewController: UITableViewController {
             })
             return profileCell
         }else{
-            let titleList:[[String]] = [[""], ["Tutorial".localized, "Rate GITGET".localized, "Send email to GITGET".localized], ["Signout".localized]]
+            let titleList:[[String]] = [[""], ["Theme".localized], ["Tutorial".localized, "Rate GITGET".localized, "Send email to GITGET".localized], ["Signout".localized]]
             detailCell.detailTitleLabel.text = titleList[indexPath.section][indexPath.row]
             
-            if indexPath.section == 2 && indexPath.row == 0 {
+            if indexPath.section == 3 && indexPath.row == 0 {
                 detailCell.detailTitleLabel.textColor = .red
             }
             return detailCell
@@ -105,6 +107,11 @@ class SettingTableViewController: UITableViewController {
             let gitHubAccountSettingTableViewController:GitHubAccountSettingTableViewController = storyboard.instantiateViewController(withIdentifier: "GitHubAccountSettingTableViewController") as! GitHubAccountSettingTableViewController
             navigationController?.pushViewController(gitHubAccountSettingTableViewController, animated: true)
         case 1:
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let themeTableViewController:ThemeTableViewController = storyboard.instantiateViewController(withIdentifier: "ThemeTableViewController") as! ThemeTableViewController
+            navigationController?.pushViewController(themeTableViewController, animated: true)
+
+        case 2:
             if indexPath.row == 0 {
                 self.openTutorial()
             }else if indexPath.row == 1 {
@@ -112,7 +119,7 @@ class SettingTableViewController: UITableViewController {
             }else if indexPath.row == 2 {
                 self.sendEmailToGitGet()
             }
-        case 2:
+        case 3:
             self.signOutAction()
         default:
             break

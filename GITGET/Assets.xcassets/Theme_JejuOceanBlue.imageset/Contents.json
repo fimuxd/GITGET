@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "myField .png",
+      "filename" : "Theme_JejuOceanBlue-2.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "myField 2.png",
+      "filename" : "Theme_JejuOceanBlue.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "myField 3.png",
+      "filename" : "Theme_JejuOceanBlue-1.png",
       "scale" : "3x"
     }
   ],
