@@ -589,15 +589,166 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
     //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들
     
     //TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
-     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
         guard let realGitHubID:String = self.currentGitHubID else {print("로그인한 값이 없음"); return}
         
         //색상코드 가져오기
-        
-        
-        
-     completionHandler(NCUpdateResult.newData)
-     }
+        guard let getContributionsDataUrl:URL = URL(string: "https://github.com/users/\(realGitHubID)/contributions") else {return}
+        Alamofire.request(getContributionsDataUrl, method: .get).responseString { (response) in
+            switch response.result {
+            case .success(let value):
+                do{
+                    let htmlValue = value
+                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return}
+                    var tempArray:[String] = []
+                    
+                    for element:Element in elements.array() {
+                        guard let contributionsHexColorCode:String = try? element.attr("fill") else {return}
+                        tempArray.append(contributionsHexColorCode)
+                    }
+                    
+                    let contributionsHexColorCodeArray:[String] = tempArray
+                    
+                    guard let realThemeName = ThemeName(rawValue: self.themeRawValue ?? 0) else {return}
+                    
+                    switch realThemeName {
+                    case .gitHubOriginal:
+                        self.hexColorCodesArray = contributionsHexColorCodeArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .blackAndWhite:
+                        let blackAndWhiteColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "AAAAAA"
+                            case "#7bc96f": //lv.2
+                                return "7A7A7A"
+                            case "#239a3b": //lv.3
+                                return "444444"
+                            case "#196127": //lv.4
+                                return "222222"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = blackAndWhiteColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .jejuOceanBlue:
+                        let oceanColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "B2DADA"
+                            case "#7bc96f": //lv.2
+                                return "84D0E4"
+                            case "#239a3b": //lv.3
+                                return "54A9DE"
+                            case "#196127": //lv.4
+                                return "294478"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = oceanColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .winterBurgundy:
+                        let winterColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DC9690"
+                            case "#7bc96f": //lv.2
+                                return "AC4748"
+                            case "#239a3b": //lv.3
+                                return "872A2B"
+                            case "#196127": //lv.4
+                                return "430704"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = winterColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .halloweenOrange:
+                        let halloweenColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DE8F6E"
+                            case "#7bc96f": //lv.2
+                                return "CD603D"
+                            case "#239a3b": //lv.3
+                                return "A7502A"
+                            case "#196127": //lv.4
+                                return "894022"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = halloweenColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .ginkgoYellow:
+                        let ginkgoColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DCC08F"
+                            case "#7bc96f": //lv.2
+                                return "F8D25E"
+                            case "#239a3b": //lv.3
+                                return "F0AD3C"
+                            case "#196127": //lv.4
+                                return "E17036"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = ginkgoColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .freeStyle:
+                        let freeStyleColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "59645E"
+                            case "#7bc96f": //lv.2
+                                return "67D69F"
+                            case "#239a3b": //lv.3
+                                return "54A9DE"
+                            case "#196127": //lv.4
+                                return "CA4346"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = freeStyleColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .christmasEdition:
+                        let christmasColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "F5EBCD"
+                            case "#7bc96f": //lv.2
+                                return "254E12"
+                            case "#239a3b": //lv.3
+                                return "811919"
+                            case "#196127": //lv.4
+                                return "CF9946"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = christmasColorArray
+                        completionHandler(NCUpdateResult.newData)
+                    }
+                }
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+                completionHandler(NCUpdateResult.failed)
+            }
+        }
+    }
     
     /* Delete: 현재 시간을 매번 확인하는 것보다, 받아오는 데이터의 수를 날짜 수로 인식하는 것이 오류가 없을 것이라 판단하여 삭제하였음.
      //현재 Local 시간을 UTC 기준으로 변환하여 요일수로 반환하기

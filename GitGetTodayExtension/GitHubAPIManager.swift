@@ -26,6 +26,8 @@ enum ThemeName:Int {
 class GitHubAPIManager {
     static let sharedInstance = GitHubAPIManager()
     
+    
+    
     //OAuth 관련 데이터들 plist에서 불러오기
     //OAuth 관련 GITGET App의 clientID 및 secret 등은 노출되어선 안되므로, plist 파일에 별도 저장하고 .gitIgnore 하는 방식으로 처리한다.
     func loadOauthDatas() -> [String:String] {
