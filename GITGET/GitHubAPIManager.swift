@@ -12,8 +12,9 @@ import Alamofire
 import SwiftyJSON
 import SwiftSoup
 
-class GitHubAPIManager {
-    static let sharedInstance = GitHubAPIManager()
+class GitHubAPIManager:NSObject {
+    //Shared Instance
+    static let sharedInstance: GitHubAPIManager  = GitHubAPIManager()
     
     //OAuth 관련 데이터들 plist에서 불러오기
     //OAuth 관련 GITGET App의 clientID 및 secret 등은 노출되어선 안되므로, plist 파일에 별도 저장하고 .gitIgnore 하는 방식으로 처리한다.
@@ -23,14 +24,20 @@ class GitHubAPIManager {
         
         return oAuthDatas
     }
-    
-    func isNewbie(_ uid:String?) -> Bool {
-        guard let currentUserUid:String = Auth.auth().currentUser?.uid else {return true}
-        if currentUserUid == uid {
-            return false
-        }else{
-            return true
+
+    func isNewbie(uid:String?, completionHandler: @escaping (_ userStatus:Bool) -> Void) {
+        guard let currentUserUid:String = Auth.auth().currentUser?.uid else {
+            completionHandler(false)
+            return}
+        
+        Database.database().reference().child("UserInfo").child(currentUserUid).child("gitHubID").observeSingleEvent(of: .value) { (snapshot) in
+            if let observedValue = snapshot.value as? String {
+                completionHandler(false)
+            }else{
+                completionHandler(true)
+            }
         }
+        
     }
     
     func isFirstLogInForUpdate(completionHandler: @escaping(_ bool:Bool) -> Void) {
@@ -48,7 +55,7 @@ class GitHubAPIManager {
         guard let currentUserUid:String = Auth.auth().currentUser?.uid else {print("//해당 UID에 해당하는 유저가 없습니다."); return}
         Database.database().reference().child("UserInfo").child("\(currentUserUid)").child("gitHubID").observeSingleEvent(of: .value) { (snapshot) in
             guard let realGitHubID:String = snapshot.value as? String,
-                let userDefault = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {print("//해당 UID에 해당하는 유저가 없습니다."); return}
+                let userDefault = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {print("//깃헙아이디가 없습니다."); return}
             
             userDefault.setValue(realGitHubID, forKey: "GitHubID")
             completionHandler(realGitHubID)

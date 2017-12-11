@@ -127,6 +127,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
                     //생성된 토큰을 UserDefault에 저장
                     UserDefaults.standard.set(access_Token, forKey: "AccessToken")
                     
+                    
                     //MARK:- Firebase 연동
                     let credential = GitHubAuthProvider.credential(withToken: access_Token)
                     Auth.auth().signIn(with: credential, completion: { [unowned self] (user, error) in
@@ -137,15 +138,21 @@ extension OAuthWebViewController: UIWebViewDelegate {
                         guard let realCurrentUser = Auth.auth().currentUser else {return}
                         //기존 가입자라면 Database 덮어쓰기 없이 MyField로 바로 이동
                         Database.database().reference().queryOrdered(byChild: "UserInfo").queryEqual(toValue: "\(realCurrentUser.uid)").observeSingleEvent(of: .value, with: { (snapshot) in
-                            let observeValue = snapshot.value
-                            
-                            if observeValue == nil {
+                            guard let observeValue:String = snapshot.value as? String else {
+                                
                                 let tempDic:[String:String] = ["email":"\(realCurrentUser.providerData[0].email ?? "")",
                                     "firebaseUID":"\(realCurrentUser.uid)"]
                                 Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(tempDic)
+                                
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+                                self.present(tabBarController, animated: true, completion: {
+                                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                })
+                                
+                                return
                             }
                             
-                            UserDefaults.standard.set(true, forKey: "isPassOAuth2")
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
                             self.present(tabBarController, animated: true, completion: {

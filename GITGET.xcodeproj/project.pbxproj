@@ -181,6 +181,14 @@
 			path = GitGetTodayExtension;
 			sourceTree = "<group>";
 		};
+		6A3FA4991FDE1807008F205C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,7 +219,6 @@
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
-				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
 			);
 			name = TabBar;
 			sourceTree = "<group>";
@@ -242,6 +249,7 @@
 			children = (
 				6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */,
 				6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */,
+				6A3FA4991FDE1807008F205C /* Model */,
 				6A8E407C1FD0055D008F2DD7 /* SignIn */,
 				6A8E407E1FD00589008F2DD7 /* TabBar */,
 				6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */,
@@ -430,6 +438,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -441,6 +450,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",

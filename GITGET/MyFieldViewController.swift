@@ -64,41 +64,32 @@ class MyFieldViewController: UIViewController {
         super.viewDidLoad()
         
         guard let realCurrentUserUid:String = self.currentUser?.uid,
-         let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
-        let realAccessToken = self.accessToken else {
-            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-            userDefaults.setValue(false, forKey: "isSigned")
-            userDefaults.synchronize()
-            return}
+            let realAccessToken = self.accessToken,
+            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
         
-        print("로그인되었음")
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
         
-        if GitHubAPIManager.sharedInstance.isNewbie(realCurrentUserUid) == true { //만약 신입이라면
-            GitHubAPIManager.sharedInstance.getGitHubIDForNewbie(with: realAccessToken, by: realCurrentUserUid, completionHandler: { (gitHubID) in
-                self.updateUserInfo()
-                
-                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-                userDefaults.setValue(gitHubID, forKey: "GitHubID")
-                userDefaults.synchronize()
-            })
-            GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
-                self.updateUserInfo()
-                
-                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-                userDefaults.setValue(gitHubID, forKey: "GitHubID")
-                userDefaults.synchronize()
-            })
-        }else{ // 신입이 아니라면
-            GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
-                self.updateUserInfo()
-                
-                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-                userDefaults.setValue(gitHubID, forKey: "GitHubID")
-                userDefaults.synchronize()
-            })
-        }
+        GitHubAPIManager.sharedInstance.isNewbie(uid: realCurrentUserUid, completionHandler: { (bool) in
+            switch bool {
+            case true: //신입이라면
+                GitHubAPIManager.sharedInstance.getGitHubIDForNewbie(with: realAccessToken, by: realCurrentUserUid, completionHandler: { (gitHubID) in
+                    self.updateUserInfo()
+                    
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                    userDefaults.synchronize()
+                })
+            case false: //신입이 아니라면
+                GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
+                    self.updateUserInfo()
+                    
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                    userDefaults.synchronize()
+                })
+            }
+        })
         
         guard let realGitHubID = self.currentGitHubID else {return}
         self.updateContributionDatasOf(gitHubID: realGitHubID)
