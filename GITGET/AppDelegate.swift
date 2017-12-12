@@ -33,13 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch bool {
             case true:
                 UserDefaults.standard.removeObject(forKey: "isPassOAuth")
+                UserDefaults.standard.removeObject(forKey: "isPassOAuth2")
                 UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.removeObject(forKey: "ContributionsDatas")
+                UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.removeObject(forKey: "GitHubID")
                 UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.synchronize()
                 //Firebase SignOut
                 let firebaseAuth = Auth.auth()
                 do {
                     try firebaseAuth.signOut()
-                    
                 }catch let signOutError as Error {
                     print("Error signing out: %@", signOutError)
                 }

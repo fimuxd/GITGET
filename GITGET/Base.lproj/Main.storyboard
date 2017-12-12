@@ -750,7 +750,8 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="6Jb-0L-LCm"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Iff-Z4-eNt"/>
+                        <segue destination="bWi-sC-22m" kind="presentation" identifier="goToTabBarController" id="xKb-OD-2ms"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Lo-3a-pRl" userLabel="First Responder" sceneMemberID="firstResponder"/>
