@@ -12,8 +12,9 @@ import Alamofire
 import SwiftyJSON
 import SwiftSoup
 
-class GitHubAPIManager {
-    static let sharedInstance = GitHubAPIManager()
+class GitHubAPIManager:NSObject {
+    //Shared Instance
+    static let sharedInstance: GitHubAPIManager  = GitHubAPIManager()
     
     //OAuth 관련 데이터들 plist에서 불러오기
     //OAuth 관련 GITGET App의 clientID 및 secret 등은 노출되어선 안되므로, plist 파일에 별도 저장하고 .gitIgnore 하는 방식으로 처리한다.
@@ -23,14 +24,20 @@ class GitHubAPIManager {
         
         return oAuthDatas
     }
-    
-    func isNewbie(_ uid:String?) -> Bool {
-        guard let currentUserUid:String = Auth.auth().currentUser?.uid else {return true}
-        if currentUserUid == uid {
-            return false
-        }else{
-            return true
+
+    func isNewbie(uid:String?, completionHandler: @escaping (_ userStatus:Bool) -> Void) {
+        guard let currentUserUid:String = Auth.auth().currentUser?.uid else {
+            completionHandler(false)
+            return}
+        
+        Database.database().reference().child("UserInfo").child(currentUserUid).child("gitHubID").observeSingleEvent(of: .value) { (snapshot) in
+            if let observedValue = snapshot.value as? String {
+                completionHandler(false)
+            }else{
+                completionHandler(true)
+            }
         }
+        
     }
     
     func isFirstLogInForUpdate(completionHandler: @escaping(_ bool:Bool) -> Void) {
@@ -48,7 +55,7 @@ class GitHubAPIManager {
         guard let currentUserUid:String = Auth.auth().currentUser?.uid else {print("//해당 UID에 해당하는 유저가 없습니다."); return}
         Database.database().reference().child("UserInfo").child("\(currentUserUid)").child("gitHubID").observeSingleEvent(of: .value) { (snapshot) in
             guard let realGitHubID:String = snapshot.value as? String,
-                let userDefault = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {print("//해당 UID에 해당하는 유저가 없습니다."); return}
+                let userDefault = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {print("//깃헙아이디가 없습니다."); return}
             
             userDefault.setValue(realGitHubID, forKey: "GitHubID")
             completionHandler(realGitHubID)
@@ -146,7 +153,7 @@ class GitHubAPIManager {
     }
     
     //4. Contributions HexColorCode Array
-    func getContributionsColorCodeArray(gitHubID:String, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
+    func getContributionsColorCodeArray(gitHubID:String, theme:ThemeName?, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
         guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
         
         Alamofire.request(getContributionsUrl, method: .get).responseString {(response) in
@@ -164,7 +171,140 @@ class GitHubAPIManager {
                     
                     let contributionsHexColorCodeArray:[String] = tempArray
                     
-                    completionHandler(contributionsHexColorCodeArray)
+                    guard let currentThemeName:ThemeName = theme else {
+                        completionHandler(contributionsHexColorCodeArray)
+                        return}
+                    
+                    switch currentThemeName {
+                    case .gitHubOriginal:
+                        completionHandler(contributionsHexColorCodeArray)
+                        
+                    case .blackAndWhite:
+                        let oceanColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "AAAAAA"
+                            case "#7bc96f": //lv.2
+                                return "7A7A7A"
+                            case "#239a3b": //lv.3
+                                return "444444"
+                            case "#196127": //lv.4
+                                return "222222"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(oceanColorArray)
+                        
+                    case .jejuOceanBlue:
+                        let oceanColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "B2DADA"
+                            case "#7bc96f": //lv.2
+                                return "84D0E4"
+                            case "#239a3b": //lv.3
+                                return "54A9DE"
+                            case "#196127": //lv.4
+                                return "294478"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(oceanColorArray)
+                        
+                    case .winterBurgundy:
+                        let winterColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DC9690"
+                            case "#7bc96f": //lv.2
+                                return "AC4748"
+                            case "#239a3b": //lv.3
+                                return "872A2B"
+                            case "#196127": //lv.4
+                                return "430704"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(winterColorArray)
+                        
+                    case .halloweenOrange:
+                        let halloweenColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DE8F6E"
+                            case "#7bc96f": //lv.2
+                                return "CD603D"
+                            case "#239a3b": //lv.3
+                                return "A7502A"
+                            case "#196127": //lv.4
+                                return "894022"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(halloweenColorArray)
+                        
+                    case .ginkgoYellow:
+                        let ginkgoColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DCC08F"
+                            case "#7bc96f": //lv.2
+                                return "F8D25E"
+                            case "#239a3b": //lv.3
+                                return "F0AD3C"
+                            case "#196127": //lv.4
+                                return "E17036"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(ginkgoColorArray)
+                        
+                    case .freeStyle:
+                        let freeStyleColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "59645E"
+                            case "#7bc96f": //lv.2
+                                return "67D69F"
+                            case "#239a3b": //lv.3
+                                return "54A9DE"
+                            case "#196127": //lv.4
+                                return "CA4346"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(freeStyleColorArray)
+                        
+                    case .christmasEdition:
+                        let christmasColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "F5EBCD"
+                            case "#7bc96f": //lv.2
+                                return "254E12"
+                            case "#239a3b": //lv.3
+                                return "811919"
+                            case "#196127": //lv.4
+                                return "CF9946"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(christmasColorArray)
+                    }
                 }
             case .failure(let error):
                 print("///Alamofire.request - error: ", error)

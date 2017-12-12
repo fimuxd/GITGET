@@ -18,6 +18,7 @@
 		6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A238EA41FB9F5F10063C30A /* MainInterface.storyboard */; };
 		6A238EAA1FB9F5F10063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
+		6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */; };
 		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
 		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
@@ -85,6 +86,7 @@
 		6A238EA21FB9F5F10063C30A /* GitGetTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitGetTodayViewController.swift; sourceTree = "<group>"; };
 		6A238EA51FB9F5F10063C30A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
 		6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAccountSettingTableViewController.swift; sourceTree = "<group>"; };
 		6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
@@ -179,6 +181,14 @@
 			path = GitGetTodayExtension;
 			sourceTree = "<group>";
 		};
+		6A3FA4991FDE1807008F205C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,8 +217,8 @@
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
+				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
-				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
 			);
 			name = TabBar;
 			sourceTree = "<group>";
@@ -239,6 +249,7 @@
 			children = (
 				6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */,
 				6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */,
+				6A3FA4991FDE1807008F205C /* Model */,
 				6A8E407C1FD0055D008F2DD7 /* SignIn */,
 				6A8E407E1FD00589008F2DD7 /* TabBar */,
 				6A8E40791FCFE1D3008F2DD7 /* TutorialPageViews */,
@@ -427,6 +438,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -438,6 +450,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -500,6 +513,7 @@
 				6A8E40741FCFE173008F2DD7 /* WidgetViewController.swift in Sources */,
 				6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */,
 				6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */,
+				6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */,
 				6A8E40881FD04159008F2DD7 /* GitHubAPIManager.swift in Sources */,
 				6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */,
 				6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */,

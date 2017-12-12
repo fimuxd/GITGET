@@ -21,35 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         print("//applicationDidFinishLaunchingWithOptions")
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.tintColor = UIColor(red: 0.137, green: 0.604, blue: 0.231, alpha: 1)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-        let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-        
-        if let currentUserUid:String? = Auth.auth().currentUser?.uid {
-            self.window?.rootViewController = tabBarController
-            self.window?.makeKeyAndVisible()
-        }else{
-            self.window?.rootViewController = navigationController
-            self.window?.makeKeyAndVisible()
-        }
-        
-        /*
+    
         GitHubAPIManager.sharedInstance.isFirstLogInForUpdate { (bool) in
+    
             self.window = UIWindow(frame: UIScreen.main.bounds)
             self.window?.tintColor = UIColor(red: 0.137, green: 0.604, blue: 0.231, alpha: 1)
-            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
             let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
             
-            if bool == false && UserDefaults.standard.value(forKey: "isFirstLogInForUpdate") as? Bool == false {
-                self.window?.rootViewController = tabBarController
-                self.window?.makeKeyAndVisible()
-            }else{
+            switch bool {
+            case true:
+                UserDefaults.standard.removeObject(forKey: "isPassOAuth")
+                UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.removeObject(forKey: "ContributionsDatas")
+                UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.synchronize()
                 //Firebase SignOut
                 let firebaseAuth = Auth.auth()
                 do {
@@ -72,9 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 self.window?.rootViewController = navigationController
                 self.window?.makeKeyAndVisible()
+                
+            case false:
+                self.window?.rootViewController = tabBarController
+                self.window?.makeKeyAndVisible()
             }
         }
-         */
         
         return true
     }
