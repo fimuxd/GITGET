@@ -34,7 +34,7 @@ class MyFieldViewController: UIViewController {
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
-    var isPassOAuth:Bool? = UserDefaults.standard.value(forKey: "isPassOAuth2") as? Bool
+//    var isPassOAuth:Bool? = UserDefaults.standard.value(forKey: "isPassOAuth2") as? Bool
     let themeRawValue:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int
     
     var hexColorCodesArray:[String]?{
