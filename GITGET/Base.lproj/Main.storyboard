@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -512,7 +513,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heD-Ty-q5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1130" y="2371"/>
+            <point key="canvasLocation" x="-1868" y="2405"/>
         </scene>
         <!--Setting-->
         <scene sceneID="BOq-06-yBw">
@@ -601,7 +602,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Xh-aT-jy4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140.57971014492756" y="2370.6521739130435"/>
+            <point key="canvasLocation" x="876" y="2405"/>
         </scene>
         <!--My GitHub Account-->
         <scene sceneID="vxc-14-bmX">
@@ -684,7 +685,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oaZ-HR-hXx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2233" y="1807"/>
+            <point key="canvasLocation" x="2233" y="2001"/>
         </scene>
         <!--Theme Table View Controller-->
         <scene sceneID="l31-7J-O50">
@@ -737,7 +738,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zer-nk-C8m" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2232.8000000000002" y="2600.1499250374814"/>
+            <point key="canvasLocation" x="2233" y="2782"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LUQ-Bs-dti">
@@ -772,6 +773,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="ehP-CX-W5w" kind="relationship" relationship="viewControllers" id="3aZ-vf-k07"/>
+                        <segue destination="NQR-dG-aNj" kind="relationship" relationship="viewControllers" id="ZR8-YU-K55"/>
                         <segue destination="v4d-N2-Z2C" kind="relationship" relationship="viewControllers" id="Ltk-Sn-byE"/>
                     </connections>
                 </tabBarController>
@@ -779,13 +781,98 @@
             </objects>
             <point key="canvasLocation" x="-513" y="809"/>
         </scene>
+        <!--Team-->
+        <scene sceneID="Mw6-sb-EaK">
+            <objects>
+                <navigationController id="NQR-dG-aNj" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Team" image="tab_Team" id="fpy-Mx-RJp"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lSd-bY-6G2">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="fH7-c8-Hve" kind="relationship" relationship="rootViewController" id="nSk-ev-yeD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m5p-lX-MuH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-514" y="1656"/>
+        </scene>
+        <!--GITGET-->
+        <scene sceneID="2tl-4N-WA3">
+            <objects>
+                <tableViewController storyboardIdentifier="TeamTableViewController" id="fH7-c8-Hve" customClass="TeamTableViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Oyd-oC-4vQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="contributionsCell" rowHeight="110" id="24z-hU-myt" customClass="CustomTableViewCell" customModule="GITGET" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="110"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="24z-hU-myt" id="6Nj-tM-GAF">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7U-Pp-gCg">
+                                            <rect key="frame" x="8" y="10" width="37" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nc7-8f-wbm">
+                                            <rect key="frame" x="0.0" y="29" width="375" height="80.5"/>
+                                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </webView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Nc7-8f-wbm" firstAttribute="top" secondItem="M7U-Pp-gCg" secondAttribute="bottom" constant="2" id="K0Z-hp-SRg"/>
+                                        <constraint firstItem="M7U-Pp-gCg" firstAttribute="leading" secondItem="Nc7-8f-wbm" secondAttribute="leading" constant="8" id="LEX-Ez-YHx"/>
+                                        <constraint firstItem="M7U-Pp-gCg" firstAttribute="top" secondItem="6Nj-tM-GAF" secondAttribute="top" constant="10" id="Udd-Fo-L1v"/>
+                                        <constraint firstItem="Nc7-8f-wbm" firstAttribute="centerX" secondItem="6Nj-tM-GAF" secondAttribute="centerX" id="WbO-h8-lyD"/>
+                                        <constraint firstItem="Nc7-8f-wbm" firstAttribute="width" secondItem="6Nj-tM-GAF" secondAttribute="width" id="Y5g-hO-IQz"/>
+                                        <constraint firstAttribute="bottom" secondItem="Nc7-8f-wbm" secondAttribute="bottom" id="xD7-JV-78f"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="contributionUserNameTextLabel" destination="M7U-Pp-gCg" id="RAb-8b-AuK"/>
+                                    <outlet property="contributionsWebView" destination="Nc7-8f-wbm" id="Vlj-iS-efa"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fH7-c8-Hve" id="yI8-Of-5hu"/>
+                            <outlet property="delegate" destination="fH7-c8-Hve" id="IaG-cB-Cf6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="GITGET" id="Kqk-fE-K6W">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="hJ6-Bw-zsq">
+                                <connections>
+                                    <action selector="addBarButtonAction:" destination="fH7-c8-Hve" id="dCU-td-Veb"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="refresh" id="TwH-DS-CPs">
+                                <connections>
+                                    <action selector="refreshBarButtonAction:" destination="fH7-c8-Hve" id="jan-Gf-fRY"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addBarButtonOutlet" destination="hJ6-Bw-zsq" id="ckH-t0-M55"/>
+                        <outlet property="refreshBarButtonOutlet" destination="TwH-DS-CPs" id="27W-Hj-9DA"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HIO-54-I7N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-514.39999999999998" y="2404.9475262368819"/>
+        </scene>
         <!--My Field-->
         <scene sceneID="olq-kN-jeR">
             <objects>
                 <navigationController title="My Field" automaticallyAdjustsScrollViewInsets="NO" id="ehP-CX-W5w" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Field" image="tab_MyField" id="iXW-q5-X7T">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="My Field" image="tab_MyField" id="iXW-q5-X7T"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k9S-Mu-7lD">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -798,15 +885,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="puh-0R-XfZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1130" y="1656"/>
+            <point key="canvasLocation" x="-1868" y="1656"/>
         </scene>
         <!--Setting-->
         <scene sceneID="mZy-vD-HY9">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v4d-N2-Z2C" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Setting" image="tab_Setting" id="tug-Ms-V23">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Setting" image="tab_Setting" id="tug-Ms-V23"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="p2X-7g-C2w">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -819,7 +904,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiA-KH-RUg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="142" y="1656"/>
+            <point key="canvasLocation" x="876" y="1656"/>
         </scene>
     </scenes>
     <resources>
@@ -834,6 +919,7 @@
         <image name="refresh" width="257" height="273"/>
         <image name="tab_MyField" width="25" height="25"/>
         <image name="tab_Setting" width="25" height="25"/>
+        <image name="tab_Team" width="28" height="28"/>
     </resources>
     <color key="tintColor" red="0.14644312858581543" green="0.65519851446151733" blue="0.29857048392295837" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
