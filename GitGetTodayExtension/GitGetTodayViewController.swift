@@ -210,6 +210,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }else{
             print("//로그아웃상태")
             self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
+            self.widgetStatusLabel.isHidden = false
             self.contributionCollectionView.isHidden = true
             self.mondayLabel.isHidden = true
             self.wednesdayLabel.isHidden = true
@@ -529,7 +530,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 6)) / 7
         let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.up)
-        let markableNumberOfDays:Int = Int(54 - numberOfWeek) * 7
+        let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
         
         self.collectionViewHeightConstraint.constant = collectionViewHeight + (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
         self.collectionViewWidthConstraint.constant = collectionViewWidth + (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
