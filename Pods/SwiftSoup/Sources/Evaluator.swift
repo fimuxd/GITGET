@@ -35,13 +35,15 @@ public class Evaluator {
      */
     public class Tag: Evaluator {
         private let tagName: String
+        private let tagNameNormal: String
 
         public init(_ tagName: String) {
             self.tagName = tagName
+            self.tagNameNormal = tagName.lowercased()
         }
 
         open override func matches(_ root: Element, _ element: Element)throws->Bool {
-            return (element.tagName().equalsIgnoreCase(string: tagName))
+            return element.tagNameNormal() == tagNameNormal
         }
 
         open override func toString() -> String {
@@ -301,7 +303,7 @@ public class Evaluator {
 
             self.key = key.trim().lowercased()
             if (value2.startsWith("\"") && value2.hasSuffix("\"") || value2.startsWith("'") && value2.hasSuffix("'")) {
-                value2 = value2.substring(1, value2.characters.count-2)
+                value2 = value2.substring(1, value2.count-2)
             }
             self.value = value2.trim().lowercased()
         }

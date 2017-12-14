@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import Alamofire
 
 @UIApplicationMain
@@ -21,18 +22,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         print("//applicationDidFinishLaunchingWithOptions")
+    
+        let currentUserUid = Auth.auth().currentUser?.uid
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.tintColor = UIColor(red: 0.137, green: 0.604, blue: 0.231, alpha: 1)
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let myFieldViewController:MyFieldViewController = storyboard.instantiateViewController(withIdentifier: "MyFieldViewController") as! MyFieldViewController
-        let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-
-        if let currentUserUid:String? = Auth.auth().currentUser?.uid {
-            self.window?.rootViewController = myFieldViewController
+        
+        if let realUser = currentUserUid {
+            let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+            self.window?.rootViewController = tabBarController
             self.window?.makeKeyAndVisible()
         }else{
+            let navigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
             self.window?.rootViewController = navigationController
             self.window?.makeKeyAndVisible()
         }

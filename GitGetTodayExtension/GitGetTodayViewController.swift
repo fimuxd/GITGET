@@ -32,6 +32,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var fourthPreviousMonthLabel: UILabel!
     @IBOutlet weak var fifthPreviousMonthLabel: UILabel!
     @IBOutlet weak var sixthPreviousMonthLabel: UILabel!
+    @IBOutlet weak var seventhPreviousMonthLabel: UILabel!
     
     //MonthTextLabelAttribute
     @IBOutlet weak var currentMonthLabelLeadingConstraint: NSLayoutConstraint!
@@ -41,12 +42,33 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var fourthMonthLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var fifthMonthLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var sixthMonthLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var seventhMonthLabelLeadingConstraint: NSLayoutConstraint!
+    
+    //기기별 콜렉션뷰 출력을 위한 Constraints
+    //For Height
+    @IBOutlet weak var monthLabelHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var monthLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
+    
+    //ForWidth
+    @IBOutlet weak var weekdayLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var weekdayLabelWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var collectionViewWidthConstraint: NSLayoutConstraint!
+    //요일 라벨
+    @IBOutlet weak var wedToFriSpaceConstraint: NSLayoutConstraint!
+    @IBOutlet weak var wedToMonSpiceConstraint: NSLayoutConstraint!
     
     //UILabel_.상태확인바
     @IBOutlet weak var widgetStatusLabel: UILabel!
     
     //UICollectionView
     @IBOutlet weak var contributionCollectionView: UICollectionView!
+    var collectionViewSectionInset:UIEdgeInsets = UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
+    let minimumCellSpacing:CGFloat = 1.2
     
     //UIActivityIndicator
     @IBOutlet weak var dataActivityIndicator: UIActivityIndicatorView!
@@ -54,71 +76,76 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //깃젯 앱과 통신하여 가져오는 UserDefaults 값
     let isSignedIn:Bool? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "isSigned") as? Bool
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
+    let themeRawValue:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int
     
-    //월별 Label 위치 목록 가져옴
-    var xPositionForMonthLabels:[CGFloat] = [] {
+    //MARK:- 월별 Label 위치 목록 가져옴
+    var xPositionForMonthLabels:Set<CGFloat> = [] {
         willSet(newValue){
-            if xPositionForMonthLabels != newValue {
+            print("//엑스: 새로운 값이 들어왔습니다. ")
+            if xPositionForMonthLabels.sorted() != newValue.sorted() {
                 self.xPositionForMonthLabels = newValue
                 
-                let screenSize:CGFloat = self.view.frame.width
-                switch screenSize {
-                case 398.0: //iPhone Plus
-                    if newValue.count == 7 {
-                        self.setMonthLabelXPositions(with: newValue)
-                    }
-                case 359.0: //iPhone, X
-                    if newValue.count == 6 {
-                        self.setMonthLabelXPositions(with: newValue)
-                    }
-                case 304.0: //iPhone SE, 4
-                    if newValue.count == 5 {
-                        self.setMonthLabelXPositions(with: newValue)
-                    }
-                default:
-                    self.widgetStatusLabel.text = "Unable to Load"
+                DispatchQueue.main.async {
+                    self.currentMonthLabel.isHidden = false
+                    self.firstPreviousMonthLabel.isHidden = false
+                    self.secondPreviousMonthLabel.isHidden = false
+                    self.thirdPreviousMonthLabel.isHidden = false
+                    self.fourthPreviousMonthLabel.isHidden = false
+                    self.fifthPreviousMonthLabel.isHidden = false
+                    self.sixthPreviousMonthLabel.isHidden = false
+                    self.seventhPreviousMonthLabel.isHidden = false
+                    self.contributionCollectionView.isHidden = false
+                    self.widgetStatusLabel.isHidden = true
+                    self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
                 }
             }
         }
     }
     
     //Contributions 관련 Data 통신: 앱 설치 및 로그인 후 최초 1회만 앱을 통해 통신한 값을 띄우고, 이후부터는 위젯이 직접통신하는 구조
-    //색상 코드 목록 가져옴
-    var oldHexColorCodesArray:[String]? = []
+    //MARK:- 색상 코드 목록 가져옴
     var hexColorCodesArray = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String] {
-        didSet(oldValue){
-            self.oldHexColorCodesArray = oldValue
-            self.dataActivityIndicator.stopAnimating()
-        }
         willSet(newValue){
-            guard let realOldHexColorCodesArray = self.oldHexColorCodesArray,
-                let realNewValueArray = newValue else {self.dataActivityIndicator.stopAnimating(); return}
-            if realOldHexColorCodesArray != realNewValueArray {
-                self.hexColorCodesArray = realNewValueArray
-                print("//색상 업데이트 됨: 예전\(realOldHexColorCodesArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldValue = userDefaults.value(forKey: "ContributionsDatas") as? [String],
+                let realNewValue = newValue else {
+                    print("//hexColor 가드 \(UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String]), \(newValue)")
+                    return}
+            userDefaults.synchronize()
+            print("//hexColor 가드통과")
+            if realOldValue != realNewValue {
+                print("//hexColor 새값")
+                self.hexColorCodesArray = newValue
+                userDefaults.setValue(newValue, forKey: "ContributionsDatas")
+                print("//색상 업데이트 됨: 예전\(hexColorCodesArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
                 self.contributionCollectionView.reloadData()
+                self.contributionCollectionView.isHidden = false
+                self.widgetStatusLabel.isHidden = true
             }else{
-                print("//색상 새로고침 할 것 없음: 예전\(realOldHexColorCodesArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+                print("//hexColor 새값아님")
+                print("//색상 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
                 self.dataActivityIndicator.stopAnimating()
+                self.contributionCollectionView.isHidden = false
+                self.widgetStatusLabel.isHidden = true
             }
         }
     }
     
-    //날짜목록 가져옴
-    var oldDateArray:[String]? = []
+    //MARK:- 날짜목록 가져옴
     var dateArray = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDates") as? [String] {
-        didSet(oldValue){
-            self.oldDateArray = oldValue
-        }
         willSet(newValue){
-            guard let realOldDateArray = self.oldDateArray,
-                let realNewValueArray = newValue else {return}
-            if realOldDateArray != realNewValueArray {
-                self.dateArray = realNewValueArray
-                print("//날짜 업데이트 됨: 예전\(realOldDateArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
+                let realOldValue = userDefaults.value(forKey: "ContributionsDates") as? [String],
+                let realNewValue = newValue else {return}
+            userDefaults.synchronize()
+            if realOldValue != realNewValue {
+                self.dateArray = newValue
+                userDefaults.setValue(newValue, forKey: "ContributionsDates")
+                print("//날짜 업데이트 됨: 예전\(dateArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
                 self.contributionCollectionView.reloadData()
             }else{
-                print("//날짜 새로고침 할 것 없음: 예전\(realOldDateArray.last ?? "값없음"), 새것\(realNewValueArray.last ?? "값없음")")
+                print("//날짜 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
+                self.dataActivityIndicator.stopAnimating()
             }
         }
     }
@@ -131,20 +158,39 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func awakeFromNib() {
         super.awakeFromNib()
         print("//TE_awakeFromNib")
+
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("//TE_viewDidLoad")
         
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
+        userDefaults?.synchronize()
+        
+        extensionContext?.widgetLargestAvailableDisplayMode = .compact
         self.contributionCollectionView.backgroundColor = .clear
+        let collectionViewLayout = contributionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        collectionViewLayout?.sectionInset = self.collectionViewSectionInset
+        collectionViewLayout?.invalidateLayout()
+        self.contributionCollectionView.isHidden = true
+        
+        self.currentMonthLabel.isHidden = true
+        self.firstPreviousMonthLabel.isHidden = true
+        self.secondPreviousMonthLabel.isHidden = true
+        self.thirdPreviousMonthLabel.isHidden = true
+        self.fourthPreviousMonthLabel.isHidden = true
+        self.fifthPreviousMonthLabel.isHidden = true
+        self.sixthPreviousMonthLabel.isHidden = true
+        self.seventhPreviousMonthLabel.isHidden = true
+        
         self.getMonthTextForLabel()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         print("//TE_viewWillLayoutSubviews")
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -158,11 +204,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         guard let isRealSignIn = isSignedIn else {return}
         if isRealSignIn == true {
-            guard let realCurrentGitHubID:String = self.currentGitHubID else {return}
+            guard let realCurrentGitHubID:String = self.currentGitHubID else {print("여긴가"); return}
+            print("여기로 들어오나요")
             self.updateContributionDatasOf(gitHubID: realCurrentGitHubID)
         }else{
             print("//로그아웃상태")
             self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
+            self.widgetStatusLabel.isHidden = false
             self.contributionCollectionView.isHidden = true
             self.mondayLabel.isHidden = true
             self.wednesdayLabel.isHidden = true
@@ -174,6 +222,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             self.fourthPreviousMonthLabel.isHidden = true
             self.fifthPreviousMonthLabel.isHidden = true
             self.sixthPreviousMonthLabel.isHidden = true
+            self.seventhPreviousMonthLabel.isHidden = true
         }
         self.dataActivityIndicator.stopAnimating()
     }
@@ -220,14 +269,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         })
     }
     
-    //Widget을 한번 탭하면 GitGet이 새로고침 됨
+    //MARK:- Widget을 한번 탭하면 GitGet이 새로고침 됨
     @IBAction func toRefershGitGetApp(_ sender: UITapGestureRecognizer) {
         self.dataActivityIndicator.startAnimating()
         guard let realGitHubID:String = self.currentGitHubID else {return}
         self.updateContributionDatasOf(gitHubID: realGitHubID)
     }
     
-    //위젯의 크기에 따라 표현하고 싶은 내용이 다를 때 사용.
+    //MARK:- 위젯의 크기에 따라 표현하고 싶은 내용이 다를 때 사용. (현재 깃젯은 compact만 지원)
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
         if activeDisplayMode == .compact {
             /* .compact는 default 값으로, 높이 값이 정해져 있어 조절이 불가능 하다. (fixed 110px)
@@ -237,23 +286,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
              고정된 높이(110px)에서 글자를 크게 조절할 수록 높이가 늘어나고, 작게 조절할 수록 높이는 줄어든다.
              글씨 사이즈별로 위젯 높이는 8가지로 변화한다.
              95, 100, 105, 110, 130, 145, 170, 200
-            */
+             */
             self.preferredContentSize = maxSize
-        }else {
-            self.preferredContentSize = CGSize(width: 0, height: 110)
         }
     }
     
+    //MARK:- 월별 텍스트(Jan~Dec) 가져오기
     func getMonthTextForLabel() {
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
-        let currentMonth = dateFormatter.string(from: date)
         
         dateFormatter.dateFormat = "MMM"
         dateFormatter.locale = Locale(identifier: "en_US") as Locale
         
         var dateArray:[Date] = [date]
-        for count in 1...6 {
+        for count in 1...7 {
             let previousDate:Date = Date(timeInterval: -2592200 * fabs(Double(count)), since: date)
             dateArray.append(previousDate)
         }
@@ -261,6 +308,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var monthStringArray:[String] = dateArray.map { (date) -> String in
             return dateFormatter.string(from: date)
         }
+        
         self.currentMonthLabel.text = monthStringArray[0]
         self.firstPreviousMonthLabel.text = monthStringArray[1]
         self.secondPreviousMonthLabel.text = monthStringArray[2]
@@ -268,66 +316,119 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         self.fourthPreviousMonthLabel.text = monthStringArray[4]
         self.fifthPreviousMonthLabel.text = monthStringArray[5]
         self.sixthPreviousMonthLabel.text = monthStringArray[6]
+        self.seventhPreviousMonthLabel.text = monthStringArray[7]
     }
     
-    //각 월의 첫 날에 해당하는 셀의 x좌표와, 각 월별Label의 x좌표를 맞추는 함수
+    //MARK:- 각 월의 첫 날에 해당하는 셀의 x좌표와, 각 월별Label의 x좌표를 맞추는 함수
     func setMonthLabelXPositions(with xPositionArray:[CGFloat]) {
-        let screenWidth:CGFloat = self.view.frame.width
-        switch screenWidth {
-        case 398.0: //iPhone Plus
-            if xPositionArray[6] < 351 {
-                self.currentMonthLabelLeadingConstraint.constant = xPositionArray[6]
-            }else{
-                self.currentMonthLabel.isHidden = true
-            }
-            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[5]
-            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[4]
-            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
-            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[2]
-            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[1]
-            if xPositionArray[0] > 12 {
-                self.sixthMonthLabelLeadingConstraint.constant = xPositionArray[0]
-            }else{
+        if xPositionArray.count > 0 && xPositionArray.count < 4 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            
+            DispatchQueue.main.async {
+                self.thirdPreviousMonthLabel.isHidden = true
+                self.fourthPreviousMonthLabel.isHidden = true
+                self.fifthPreviousMonthLabel.isHidden = true
                 self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
             }
-        case 359.0: //iPhone 6,7,8,X
-                if xPositionArray[5] < 311 {
-                    self.currentMonthLabelLeadingConstraint.constant = xPositionArray[5]
-                }else{
-                    self.currentMonthLabel.isHidden = true
+            
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.secondPreviousMonthLabel.isHidden = true
                 }
-                self.firstMonthLabelLeadingConstraint.constant = xPositionArray[4]
-                self.secondMonthLabelLeadingConstraint.constant = xPositionArray[3]
-                self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[2]
-                self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[1]
-                if xPositionArray[0] > 12 {
-                    self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[0]
-                }else{
+            }
+        }else if xPositionArray.count == 4 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            
+            DispatchQueue.main.async {
+                self.fourthPreviousMonthLabel.isHidden = true
+                self.fifthPreviousMonthLabel.isHidden = true
+                self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
+            }
+            
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.thirdPreviousMonthLabel.isHidden = true
+                }
+            }
+        }else if xPositionArray.count == 5 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            DispatchQueue.main.async {
+                self.fifthPreviousMonthLabel.isHidden = true
+                self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
+            }
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.fourthPreviousMonthLabel.isHidden = true
+                }
+            }
+        }else if xPositionArray.count == 6 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[4]
+            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            DispatchQueue.main.async {
+                self.sixthPreviousMonthLabel.isHidden = true
+                self.seventhPreviousMonthLabel.isHidden = true
+            }
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
                     self.fifthPreviousMonthLabel.isHidden = true
                 }
-                self.sixthPreviousMonthLabel.isHidden = true
-        case 304.0: //iPhone 4,5,SE
-            if xPositionArray[4] < 251 {
-                self.currentMonthLabelLeadingConstraint.constant = xPositionArray[4]
-            }else{
-                self.currentMonthLabel.isHidden = true
             }
-            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[3]
+        }else if xPositionArray.count == 7 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
             self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
-            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[1]
-            if xPositionArray[0] > 12 {
-                self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[0]
-            }else{
-                self.fourthPreviousMonthLabel.isHidden = true
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[4]
+            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[5]
+            self.sixthMonthLabelLeadingConstraint.constant = xPositionArray.last!
+            DispatchQueue.main.async {
+                self.seventhPreviousMonthLabel.isHidden = true
             }
-            self.fifthPreviousMonthLabel.isHidden = true
-            self.sixthPreviousMonthLabel.isHidden = true
-        default:
-            self.widgetStatusLabel.text = "Unable into Load"
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.sixthPreviousMonthLabel.isHidden = true
+                }
+            }
+        }else if xPositionArray.count > 7 {
+            self.currentMonthLabelLeadingConstraint.constant = xPositionArray.first!
+            self.firstMonthLabelLeadingConstraint.constant = xPositionArray[1]
+            self.secondMonthLabelLeadingConstraint.constant = xPositionArray[2]
+            self.thirdMonthLabelLeadingConstraint.constant = xPositionArray[3]
+            self.fourthMonthLabelLeadingConstraint.constant = xPositionArray[4]
+            self.fifthMonthLabelLeadingConstraint.constant = xPositionArray[5]
+            self.sixthMonthLabelLeadingConstraint.constant = xPositionArray[6]
+            self.seventhMonthLabelLeadingConstraint.constant = xPositionArray[7]
+            
+            if xPositionArray.last! < self.weekdayLabelWidthConstraint.constant + collectionViewLeadingConstraint.constant {
+                DispatchQueue.main.async {
+                    self.seventhPreviousMonthLabel.isHidden = true
+                }
+            }
         }
+        
+        if xPositionArray.first! > self.view.frame.width - self.collectionViewTrailingConstraint.constant {
+            self.currentMonthLabel.isHidden = true
+        }
+        
     }
     
-    //GitHubAPIManager를 통해 가져온 dateArray의 index 중, #번째 전월의 첫날에 해당하는 index를 출력하는 함수
+    //MARK:- GitHubAPIManager를 통해 가져온 dateArray의 index 중, #번째 전월의 첫날에 해당하는 index를 출력하는 함수
     func findIndexPathForFirstOf(previousMonthNumber:Int) -> Int {
         let date:Date = Date()
         let dateFormatter:DateFormatter = DateFormatter()
@@ -351,94 +452,313 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         return indexPath
     }
     
-    //GitHubAPIManager를 통한 데이터 업데이트
+    //MARK:- GitHubAPIManager를 통한 데이터 업데이트
     func updateContributionDatasOf(gitHubID:String) {
-        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID) { (contributionsColorCodeArray) in
+        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID, theme: ThemeName(rawValue: self.themeRawValue ?? 0)) { (contributionsColorCodeArray) in
             self.hexColorCodesArray = contributionsColorCodeArray
         }
         
         GitHubAPIManager.sharedInstance.getContributionsDateArray(gitHubID: gitHubID) { (contributionsDateArray) in
             self.dateArray = contributionsDateArray
         }
-    }
-}
-
-//MARK:- extension_CollectionView Delegate & DataSource
-extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let screenSize:CGFloat = self.view.frame.width
         
-        guard let realDateArray = self.dateArray else {print("//날짜 값이 들어오지 않았습니다"); return 0}
-        switch screenSize {
-        case 398.0: //iPhone Plus
-            return realDateArray.count - 140
-        case 359.0: //iPhone, X
-            return realDateArray.count - 161
-        case 304.0: //iPhone SE, 4
-            return realDateArray.count - 196
-        default:
-            self.widgetStatusLabel.text = "Unable to Load"
-            return 0
+        if self.xPositionForMonthLabels.count != 0 {
+            self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
         }
     }
     
+    //MARK:- UICollectionView Cell 크기를 계산하여 글씨를 출력해주는 함수
+    func  setUILabelSizePerFont() {
+        let widgetWidth:CGFloat = self.view.frame.width
+        let widgetHeight:CGFloat = self.view.frame.height
+        
+        //높이에 따라 글자 크기 변화
+        if widgetHeight > 144 {
+            for view in self.view.subviews {
+                if view.isKind(of: UILabel.classForCoder()) {
+                    let label = view as? UILabel
+                    label?.font = label?.font.withSize(15)
+                }
+                self.weekdayLabelWidthConstraint.constant = 15
+                self.monthLabelHeightConstraint.constant = 18
+            }
+        }else if widgetHeight > 110 && widgetHeight < 145 {
+            for view in self.view.subviews {
+                if view.isKind(of: UILabel.classForCoder()) {
+                    let label = view as? UILabel
+                    label?.font = label?.font.withSize(12)
+                }
+                self.weekdayLabelWidthConstraint.constant = 12.33
+                self.monthLabelHeightConstraint.constant = 14.4
+            }
+        }else if widgetHeight < 111 {
+            for view in self.view.subviews {
+                if view.isKind(of: UILabel.classForCoder()) {
+                    let label = view as? UILabel
+                    label?.font = label?.font.withSize(10)
+                }
+                
+                self.weekdayLabelWidthConstraint.constant = 11
+                self.monthLabelHeightConstraint.constant = 12
+            }
+        }
+    }
+    
+    //MARK: 콜렉션뷰 셀 너비(=높이) 출력해주는 함수
+    func getCollectionViewCellWidth() -> CGFloat {
+        let widgetWidth:CGFloat = self.view.frame.width
+        let widgetHeight:CGFloat = self.view.frame.height
+        
+        self.setUILabelSizePerFont()
+    
+        let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        
+        let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 8)) / 7
+        
+        return cellHeight
+    }
+    
+    //MARK:- UICollectionView Cell 크기를 계산하여 화면에 표시되는 일수를 출력하는 함수
+    func getMarkableDaysCount() -> Int {
+        let widgetWidth:CGFloat = self.view.frame.width
+        let widgetHeight:CGFloat = self.view.frame.height
+        
+        self.setUILabelSizePerFont()
+        
+        let collectionViewWidth:CGFloat = widgetWidth - (self.weekdayLabelLeadingConstraint.constant + self.weekdayLabelWidthConstraint.constant) - (self.collectionViewLeadingConstraint.constant + self.collectionViewTrailingConstraint.constant) - (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
+        let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        
+        let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 6)) / 7
+        let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.up)
+        let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
+        
+        self.collectionViewHeightConstraint.constant = collectionViewHeight + (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        self.collectionViewWidthConstraint.constant = collectionViewWidth + (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
+        self.wedToFriSpaceConstraint.constant = cellHeight + self.minimumCellSpacing * 2
+        self.wedToMonSpiceConstraint.constant = cellHeight + self.minimumCellSpacing * 2
+        
+        return markableNumberOfDays
+    }
+    
+    
+}
+
+//MARK:- extension_CollectionView Delegate & DataSource
+extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    //MARK:- numberOfItemsInSection: 셀 개수 출력 & collectionView 높이
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let markableNumberOfDays:Int = self.getMarkableDaysCount()
+        
+        guard let realHexCodeArray = self.hexColorCodesArray else {
+            self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
+            self.dataActivityIndicator.stopAnimating()
+            self.contributionCollectionView.isHidden = true
+            self.mondayLabel.isHidden = true
+            self.wednesdayLabel.isHidden = true
+            self.fridayLabel.isHidden = true
+            self.currentMonthLabel.isHidden = true
+            self.firstPreviousMonthLabel.isHidden = true
+            self.secondPreviousMonthLabel.isHidden = true
+            self.thirdPreviousMonthLabel.isHidden = true
+            self.fourthPreviousMonthLabel.isHidden = true
+            self.fifthPreviousMonthLabel.isHidden = true
+            self.sixthPreviousMonthLabel.isHidden = true
+            self.seventhPreviousMonthLabel.isHidden = true
+            
+            return 0}
+    
+        return realHexCodeArray.count - markableNumberOfDays
+    }
+    
+    //MARK:- cellForItemAt: 각 셀의 색상 설정 & 월별 첫날에 해당하는 셀의 xPosition 설정
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "contributions", for: indexPath)
+        
         if let realHexColorCodes:[String] = self.hexColorCodesArray {
-            let screenSize:CGFloat = self.view.frame.width
-            switch screenSize {
-            case 398.0: //iPhone Plus
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 140])
-                
-                for index in 0...6 {
-                    if (indexPath.row + 140) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition)
-                    }
+            let markableNumberOfDays:Int = self.getMarkableDaysCount()
+            
+            cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + markableNumberOfDays])
+            
+            for index in 0...7 {
+                if (indexPath.row + markableNumberOfDays) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
+                    let xPosition:CGFloat = cell.frame.origin.x
+                    self.xPositionForMonthLabels.insert(xPosition)
                 }
-            case 359.0: //iPhone, X
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 161])
-                
-                for index in 0...5 {
-                    if (indexPath.row + 161) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition)
-                    }
-                }
-            case 304.0: //iPhone SE, 4
-                cell.backgroundColor = UIColor(hex: realHexColorCodes[indexPath.row + 196])
-                
-                for index in 0...4 {
-                    if (indexPath.row + 196) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
-                        let xPosition:CGFloat = cell.frame.origin.x
-                        self.xPositionForMonthLabels.append(xPosition)
-                    }
-                }
-            default:
-                self.widgetStatusLabel.text = "Unable to Load"
             }
         }
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth:CGFloat = self.getCollectionViewCellWidth()
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
     
     //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들
     
-    /*TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
-     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
-     let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
-     guard let contributionDatas:[String] = userDefaults?.object(forKey: "ContributionsDatas") as? [String],
-     let contributionDates:[String] = userDefaults?.object(forKey: "ContributionsDates") as? [String],
-     let todayContribution:String = userDefaults?.object(forKey: "TodayContributions") as? String else {return}
-     
-     //        self.expandedUserStatusLabel.text! = "Cheer up! \(todayContribution) contributions today!"
-     
-     print("//TE_widgetPerformUpdate:\(NCUpdateResult.newData)")
-     
-     completionHandler(NCUpdateResult.newData)
-     }
-     */
+    //TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
+    func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
+        guard let realGitHubID:String = self.currentGitHubID else {print("로그인한 값이 없음"); return}
+        
+        //색상코드 가져오기
+        guard let getContributionsDataUrl:URL = URL(string: "https://github.com/users/\(realGitHubID)/contributions") else {return}
+        Alamofire.request(getContributionsDataUrl, method: .get).responseString { (response) in
+            switch response.result {
+            case .success(let value):
+                do{
+                    let htmlValue = value
+                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return}
+                    var tempArray:[String] = []
+                    
+                    for element:Element in elements.array() {
+                        guard let contributionsHexColorCode:String = try? element.attr("fill") else {return}
+                        tempArray.append(contributionsHexColorCode)
+                    }
+                    
+                    let contributionsHexColorCodeArray:[String] = tempArray
+                    
+                    guard let realThemeName = ThemeName(rawValue: self.themeRawValue ?? 0) else {return}
+                    
+                    switch realThemeName {
+                    case .gitHubOriginal:
+                        self.hexColorCodesArray = contributionsHexColorCodeArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .blackAndWhite:
+                        let blackAndWhiteColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "AAAAAA"
+                            case "#7bc96f": //lv.2
+                                return "7A7A7A"
+                            case "#239a3b": //lv.3
+                                return "444444"
+                            case "#196127": //lv.4
+                                return "222222"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = blackAndWhiteColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .jejuOceanBlue:
+                        let oceanColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "B2DADA"
+                            case "#7bc96f": //lv.2
+                                return "84D0E4"
+                            case "#239a3b": //lv.3
+                                return "54A9DE"
+                            case "#196127": //lv.4
+                                return "294478"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = oceanColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .winterBurgundy:
+                        let winterColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DC9690"
+                            case "#7bc96f": //lv.2
+                                return "AC4748"
+                            case "#239a3b": //lv.3
+                                return "872A2B"
+                            case "#196127": //lv.4
+                                return "430704"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = winterColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .halloweenOrange:
+                        let halloweenColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DE8F6E"
+                            case "#7bc96f": //lv.2
+                                return "CD603D"
+                            case "#239a3b": //lv.3
+                                return "A7502A"
+                            case "#196127": //lv.4
+                                return "894022"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = halloweenColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .ginkgoYellow:
+                        let ginkgoColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "DCC08F"
+                            case "#7bc96f": //lv.2
+                                return "F8D25E"
+                            case "#239a3b": //lv.3
+                                return "F0AD3C"
+                            case "#196127": //lv.4
+                                return "E17036"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = ginkgoColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .freeStyle:
+                        let freeStyleColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "59645E"
+                            case "#7bc96f": //lv.2
+                                return "67D69F"
+                            case "#239a3b": //lv.3
+                                return "54A9DE"
+                            case "#196127": //lv.4
+                                return "CA4346"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = freeStyleColorArray
+                        completionHandler(NCUpdateResult.newData)
+                        
+                    case .christmasEdition:
+                        let christmasColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "F5EBCD"
+                            case "#7bc96f": //lv.2
+                                return "254E12"
+                            case "#239a3b": //lv.3
+                                return "811919"
+                            case "#196127": //lv.4
+                                return "CF9946"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        self.hexColorCodesArray = christmasColorArray
+                        completionHandler(NCUpdateResult.newData)
+                    }
+                }
+            case .failure(let error):
+                print("///Alamofire.request - error: ", error)
+                completionHandler(NCUpdateResult.failed)
+            }
+        }
+    }
     
     /* Delete: 현재 시간을 매번 확인하는 것보다, 받아오는 데이터의 수를 날짜 수로 인식하는 것이 오류가 없을 것이라 판단하여 삭제하였음.
      //현재 Local 시간을 UTC 기준으로 변환하여 요일수로 반환하기
@@ -557,6 +877,106 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
      }
      */
     
+    
+    /* Delete: 콜렉션뷰를 이해하고 조작하는 것이 힘들었다. 일일히 다 시뮬레이터 해가면서 계산했는데 당연히 컴퓨팅이 정확하다.
+     switch widgetWidth { //접속한 기기의 종류에 따라 스위치
+     case 398.0: //iPhone Plus
+     if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 24.0, height: 24.0)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 19.5, height: 19.5)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 15.1, height: 15.1)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 13.6, height: 13.6)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 11.8, height: 11.8)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 11.4, height: 11.4)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else{
+     return CGSize(width: 9.2, height: 9.2)
+     }
+     case 359.0: //iPhone 6,7,8,X
+     if widgetHeight > 178.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 12.0, height: 12.0)
+     }else if widgetHeight > 177.0 && widgetHeight < 178.0 {
+     return CGSize(width: 11.5, height: 11.5)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 11.0, height: 11.0)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 10.5, height: 10.5)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 10.0, height: 10.0)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 9.0, height: 9.0)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 8.5, height: 8.5)
+     }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
+     return CGSize(width: 8.0, height: 8.0)
+     }else{
+     return CGSize(width: 7.5, height: 7.5)
+     }
+     case 304.0: //iPhone SE
+     if widgetHeight > 178.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 12.0, height: 12.0)
+     }else if widgetHeight > 177.0 && widgetHeight < 178.0 {
+     return CGSize(width: 11.5, height: 11.5)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 11.0, height: 11.0)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 10.5, height: 10.5)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 10.0, height: 10.0)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 9.0, height: 9.0)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 8.5, height: 8.5)
+     }else if widgetHeight > 99.0 && widgetHeight < 104.0 {
+     return CGSize(width: 8.0, height: 8.0)
+     }else{
+     return CGSize(width: 7.5, height: 7.5)
+     }
+     default:
+     return CGSize(width: 0, height: 0)
+     }
+     */
+    
+    /* Delete: 콜렉션뷰를 이해하고 조작하는 것이 힘들었다. 일일히 다 시뮬레이터 해가면서 계산했는데 당연히 컴퓨팅이 정확하다.
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+     let widgetWidth:CGFloat = self.view.frame.width
+     let widgetHeight:CGFloat = self.view.frame.height
+     
+     if widgetWidth == 359.0 {
+     let cellHeight:CGFloat = (widgetHeight - self.monthLabelHeightConstraint.constant - self.collectionViewTopConstraint.constant - self.collectionViewBottomConstraint.constant - 4 - 9.6) / 7
+     return CGSize(width: cellHeight, height: cellHeight)
+     }else{
+     if widgetHeight > 177.0 { //현재 위젯 높이(유저별 셋팅에서 글자 크기)에 따라 구분
+     return CGSize(width: 24.0, height: 24.0)
+     }else if widgetHeight > 169.0 && widgetHeight < 177.0 {
+     return CGSize(width: 19.5, height: 19.5)
+     }else if widgetHeight > 144.0 && widgetHeight < 169.0 {
+     return CGSize(width: 15.1, height: 15.1)
+     }else if widgetHeight > 129.0 && widgetHeight < 144.0 {
+     return CGSize(width: 13.6, height: 13.6)
+     }else if widgetHeight > 119.0 && widgetHeight < 129.0 {
+     return CGSize(width: 11.8, height: 11.8)
+     }else if widgetHeight > 109.0 && widgetHeight < 119.0 {
+     return CGSize(width: 11.4, height: 11.4)
+     }else if widgetHeight > 104.0 && widgetHeight < 109.0 {
+     return CGSize(width: 9.5, height: 9.5)
+     }else{
+     return CGSize(width: 9.2, height: 9.2)
+     }
+     }
+     }
+     */
+    
 }
 
 //MARK:- extension_색상 hexcode 를 입력하면 해당 색으로 출력
@@ -591,6 +1011,13 @@ extension String {
     
     func localizedWithComment(comment:String) -> String {
         return NSLocalizedString(self, comment: comment)
+    }
+}
+
+//MARK: Bold Text 여부 확인하는 목적
+extension UIFont {
+    var isBold:Bool {
+        return fontDescriptor.symbolicTraits.contains(.traitBold)
     }
 }
 

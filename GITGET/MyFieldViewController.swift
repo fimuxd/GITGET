@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import StoreKit
-import SafariServices
-import MessageUI
 
 import FirebaseAuth
 import FirebaseDatabase
@@ -29,14 +26,18 @@ class MyFieldViewController: UIViewController {
     @IBOutlet weak var userLocationTextLabel: UILabel!
     @IBOutlet weak var userBioTextLabel: UILabel!
     @IBOutlet weak var todayContributionsCountLabel: UILabel!
-    @IBOutlet weak var buttonBackgroundView: UIView!
     @IBOutlet weak var locationLogoImageView: UIImageView!
     @IBOutlet weak var mainActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshDataButtonOutlet: UIButton!
     
+    var ref: DatabaseReference!
+    
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
+    let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
+    var isPassOAuth:Bool? = UserDefaults.standard.value(forKey: "isPassOAuth2") as? Bool
+    let themeRawValue:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int
     
     var hexColorCodesArray:[String]?{
         didSet{
@@ -57,58 +58,63 @@ class MyFieldViewController: UIViewController {
         }
     }
     
-    var dataCountArray:[String]?{
-        didSet{
-            guard let realDataCountArray = dataCountArray,
-                let realCurrentUserUID = Auth.auth().currentUser?.uid,
-                let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-            
-            guard let todayContribution = realDataCountArray.last else {return}
-            self.todayContributionsCountLabel.text = todayContribution
-            
-            userDefaults.setValue(realDataCountArray.last!, forKey: "TodayContributions")
-            userDefaults.synchronize()
-            
-            self.mainActivityIndicator.stopAnimating()
-            self.refreshActivityIndicator.stopAnimating()
-            self.refreshDataButtonOutlet.isHidden = false
-        }
-    }
-    
     
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let realCurrentUserUid:String = self.currentUser?.uid else {
-            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-            userDefaults.setValue(false, forKey: "isSigned")
-            userDefaults.synchronize()
-            return}
         
-        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        
+        /** Version Control Using Firebase */
+        ref = Database.database().reference()
+        
+        ref = Database.database().reference()
+        
+        ref.child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
+            let dic = snapShot.value as? Dictionary<String, AnyObject>
+            let vData = GitgetVersion()
+            
+            vData.force_update_message = dic!["force_update_message"] as! String
+            vData.optional_update_message = dic!["optional_update_message"] as! String
+            vData.lastest_version_code = dic!["lastest_version_code"] as! String
+            vData.lastest_version_name = dic!["lastest_version_name"] as! String
+            vData.minimum_version_code = dic!["minimum_version_code"] as! String
+            vData.minimum_version_name = dic!["minimum_version_name"] as! String
+            
+            self.checkUpdateVersion(dbdata: vData)
+        })
+
+        guard let realCurrentUserUid:String = self.currentUser?.uid,
+            let realAccessToken = self.accessToken,
+            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+        
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
         
-        self.getUTCWeekdayFromLocalTime()
-        
-        Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value) { [unowned self] (snapshot) in
-            if let observeValue:[String:Any] = snapshot.value as? [String : Any] {
-                Database.database().reference().child("UserInfo").child(realCurrentUserUid).observeSingleEvent(of: .value, with: { [unowned self] (snapshot) in
-                    let observeValue:JSON = JSON.init(snapshot.value)
-                    let gitHubID:String = observeValue["gitHubID"].stringValue
-                    self.updateUserInfo(for: gitHubID)
+        GitHubAPIManager.sharedInstance.isNewbie(uid: realCurrentUserUid, completionHandler: { (bool) in
+            switch bool {
+            case true: //신입이라면
+                GitHubAPIManager.sharedInstance.getGitHubIDForNewbie(with: realAccessToken, by: realCurrentUserUid, completionHandler: { (gitHubID) in
+                    self.updateUserInfo()
+                    
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                    userDefaults.synchronize()
                 })
-            }else{
-                self.getGitHubUserInfoForNewbie()
+            case false: //신입이 아니라면
+                GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
+                    self.updateUserInfo()
+                    
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                    userDefaults.synchronize()
+                })
             }
-
-        }
-            buttonBackgroundView.layer.cornerRadius = 22
-            buttonBackgroundView.layer.shadowOpacity = 0.2
-            buttonBackgroundView.layer.shadowRadius = 1
-            buttonBackgroundView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        })
+        
+        guard let realGitHubID = self.currentGitHubID else {return}
+        self.updateContributionDatasOf(gitHubID: realGitHubID)
             
             userProfileImageView.layer.cornerRadius = 10
             userProfileImageView.layer.shadowRadius = 1
@@ -123,21 +129,24 @@ class MyFieldViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        self.navigationController?.navigationBar.isHidden = false
+        
         if currentUser == nil {
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             userDefaults.setValue(false, forKey: "isSigned")
+            userDefaults.setValue(nil, forKey: "GitHubID")
             userDefaults.synchronize()
             
             let navigationController:UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
             self.present(navigationController, animated: false, completion: nil)
+        }else{
+            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            userDefaults.setValue(true, forKey: "isSigned")
+            userDefaults.synchronize()
+            
+            guard let realGitHubID = self.currentGitHubID else {return}
+            self.updateContributionDatasOf(gitHubID: realGitHubID)
         }
-        
-        guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-        userDefaults.setValue(true, forKey: "isSigned")
-        userDefaults.synchronize()
-        
-        self.getUTCWeekdayFromLocalTime()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -150,143 +159,21 @@ class MyFieldViewController: UIViewController {
     //MARK:-       Methods | IBAction           //
     /********************************************/
     
-    @IBAction func menuButtonAction(_ sender: UIButton) {
-        self.openMenuButtonActionSheet()
-    }
-    
     @IBAction func refreshDataButtonAction(_ sender: UIButton) {
         self.refreshDataButtonOutlet.isHidden = true
         self.refreshActivityIndicator.startAnimating()
-        
-        guard let realCurruntUserUid:String = self.currentUser?.uid else {return}
-        Database.database().reference().child("UserInfo").child(realCurruntUserUid).observeSingleEvent(of: .value) { (snapshot) in
-            guard let observeValue:[String:Any] = snapshot.value as? [String:Any],
-                let gitHubID:String = observeValue["gitHubID"] as? String else {return}
-            
-            self.updateUserInfo(for: gitHubID)
-        }
-    }
-    
-    
-    func openMenuButtonActionSheet() {
-        let alert:UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        //How to use
-        let openTutorial:UIAlertAction = UIAlertAction(title: "Tutorial".localized, style: .default) { (action) in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let pageViewController:TutorialPageViewController = storyboard.instantiateViewController(withIdentifier: "TutorialPageViewController") as! TutorialPageViewController
-            self.present(pageViewController, animated: true, completion: nil)
-        }
-        
-        //In-App 별점
-        let rateGitGet:UIAlertAction = UIAlertAction(title: "Rate GITGET".localized, style: .default) { (action) in
-            if #available(iOS 10.3, *) {
-                SKStoreReviewController.requestReview()
-            }else{
-                let rateGitGetUrl = URL(string: "itms-apps://itunes.apple.com/app/id1317170245?action=write-review")
-                UIApplication.shared.open(rateGitGetUrl!, options: [:], completionHandler: nil)
-                UIApplication.shared.canOpenURL(rateGitGetUrl!)
-            }
-        }
-        
-        //개발자에게 메일보내기
-        let sendEmailToDeveloper:UIAlertAction = UIAlertAction(title: "Send email to GITGET".localized, style: .default) { (aciton) in
-            let userSystemVersion = UIDevice.current.systemVersion
-            let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-            
-            let mailComposeViewController = self.configuredMailComposeViewController(emailAddress: "iosdeveloperkr@gmail.com", systemVersion: userSystemVersion, appVersion: userAppVersion!)
-            
-            if MFMailComposeViewController.canSendMail() {
-                self.present(mailComposeViewController, animated: true, completion: nil)
-            }
-        }
-        
-        let signOut:UIAlertAction = UIAlertAction(title: "Signout".localized, style: .default) { (action) in
-            //Firebase SignOut
-            let firebaseAuth = Auth.auth()
-            do {
-                try firebaseAuth.signOut()
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let navigationViewController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-                self.present(navigationViewController, animated: true, completion: nil)
-                
-            }catch let signOutError as Error {
-                print("Error signing out: %@", signOutError)
-            }
-            
-            //GitHub API SignOut
-            let sessionManager = Alamofire.SessionManager.default
-            sessionManager.session.reset {
-                UserDefaults.standard.setValue(nil, forKey: "AccessToken")
-                
-                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-                userDefaults.setValue(false, forKey: "isSigned")
-                userDefaults.synchronize()
-            }
-            
-        }
-        
-        //취소
-        let cancel:UIAlertAction = UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil)
-        
-        alert.addAction(openTutorial)
-        alert.addAction(rateGitGet)
-        alert.addAction(sendEmailToDeveloper)
-        alert.addAction(signOut)
-        alert.addAction(cancel)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func configuredMailComposeViewController(emailAddress:String, systemVersion:String, appVersion:String) -> MFMailComposeViewController {
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self
-        
-        mailComposerVC.setToRecipients([emailAddress])
-        mailComposerVC.setSubject("[GITGET] Feedback for GITGET")
-        mailComposerVC.setMessageBody(String(format:NSLocalizedString("\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====", comment: ""),systemVersion,appVersion), isHTML: false)
-        
-        return mailComposerVC
-    }
-    
-    func getGitHubUserInfoForNewbie() {
-        guard let realAccessToken = self.accessToken,
-            let getAuthenticatedUserUrl:URL = URL(string:"https://api.github.com/user"),
-            let realCurrentUser = self.currentUser else {return}
-        let headers:HTTPHeaders = ["authorization":"Bearer \(realAccessToken)"]
-        
-        Alamofire.request(getAuthenticatedUserUrl, method: .get, headers: headers).responseJSON { [unowned self] (response) in
-            guard let data:Data = response.data else {return}
-            let userInfoJson:JSON = JSON(data:data)
-            let gitHubID = userInfoJson["login"].stringValue
-            
-            let userInfo = ["gitHubID":gitHubID]
-            
-            //가져온 정보를 Firebase에 저장
-            Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(userInfo)
-            
-            //GitHubID를 받아서 해당 유저의 Contributions를 수집하도록 함
-            //TODO:- 추후에 로그인 계정이 User인지 Corp(Team) 인지 구별하여 별도 처리하도록 함.
-            //       이유는, Contributions 가져오는 주소가 다른 것으로 알고 있음. (
-            //       개인: https://github.com/users{/username}/contributions
-            //       단체: 개인사이트 같은 별도 뷰는 없음. 비슷한 형태는, https://github.com{/organization_name}{/repository_name}/graphs/contributors
-            
-            self.updateUserInfo(for: gitHubID)
-        }
+
+        self.updateUserInfo()
     }
  
-    func updateUserInfo(for githubID:String) {
-        guard let getUserDataURL:URL = URL(string:"https://api.github.com/users/\(githubID)") else {print("여기니")
-            return}
-        Alamofire.request(getUserDataURL, method: .get).responseJSON { [unowned self] (response) in
-            guard let data:Data = response.data else {print("저기니 \(response.data)")
-                return}
-            let userInfoJson:JSON = JSON(data:data)
-            let profileUrlString:String = userInfoJson["avatar_url"].stringValue
-            let location:String = userInfoJson["location"].stringValue
-            let bio:String = userInfoJson["bio"].stringValue
-            let name:String = userInfoJson["name"].stringValue
+    func updateUserInfo() {
+        GitHubAPIManager.sharedInstance.getCurrentUserDatas { (userData) in
+            guard let profileUrlString = userData["profileImageUrl"],
+                let location = userData["location"],
+                let bio = userData["bio"],
+                let name = userData["name"],
+                let githubID = userData["githubID"]
+            else {return}
             
             self.userProfileImageView.kf.indicatorType = .activity
             self.userProfileImageView.kf.indicator?.startAnimatingView()
@@ -294,107 +181,104 @@ class MyFieldViewController: UIViewController {
                 self.userProfileImageView.kf.indicator?.stopAnimatingView()
             })
             
-            if location != "" {
+            if location != "" && location != nil {
                 self.locationLogoImageView.isHidden = false
             }else{
                 self.locationLogoImageView.isHidden = true
             }
             self.userLocationTextLabel.text = location
-            
             self.userBioTextLabel.text = bio
-
             
-            if name != "" || name != nil {
-                self.userNameTextLabel.text = githubID
-            }else{
+            if name != "" && name != nil {
                 self.userNameTextLabel.text = name
+            }else{
+                self.userNameTextLabel.text = githubID
             }
-            
-            self.updateContributionDatasOf(gitHubID: githubID)
 
+            self.refreshActivityIndicator.stopAnimating()
+            self.refreshDataButtonOutlet.isHidden = false
+            self.mainActivityIndicator.stopAnimating()
+        }
+        
+        GitHubAPIManager.sharedInstance.getTodayContributionsCount { (todayContributions) in
+            self.todayContributionsCountLabel.text = todayContributions
         }
         
     }
     
     func updateContributionDatasOf(gitHubID:String) {
-        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
-        Alamofire.request(getContributionsUrl, method: .get).responseString { [unowned self] (response) in
-            switch response.result {
-            case .success(let value):
-                //https://github.com/users/\(username)/contributions 링크를 통해 가져온 HTML 내용 중, 필요한 정보만 추출하기
-                do {
-                    let htmlValue = value
-                    guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return} //parse html_rect
-                    var tempColorCodeArray:[String] = []
-                    var tempDateArray:[String] = []
-                    var tempDataCountArray:[String] = []
-                    //color code 추출하기
-                    for element:Element in elements.array() {
-                        guard let hexColorCode:String = try? element.attr("fill") else {return}
-                        tempColorCodeArray.append(hexColorCode)
-                    }
-                    self.hexColorCodesArray = tempColorCodeArray
-                    
-                    //date(날짜) 추출하기
-                    for element:Element in elements.array() {
-                        guard let date:String = try? element.attr("data-date") else {return}
-                        tempDateArray.append(date)
-                    }
-                    self.dateArray = tempDateArray
-                    
-                    //data-count(contribution 수) 추출하기
-                    for element:Element in elements.array() {
-                        guard let dataCount:String = try? element.attr("data-count") else {return}
-                        tempDataCountArray.append(dataCount)
-                    }
-                    self.dataCountArray = tempDataCountArray
-                    
-                    //가져온 GitHubID를 TodayExtension과 통신
-                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-                    userDefaults.setValue(gitHubID, forKey: "GitHubID")
-                    userDefaults.synchronize()
-                    
-                }catch Exception.Error(let type, let result){
-                    print(result, type)
-                }catch{
-                    print("error")
-                }
-            case .failure(let error):
-                print("///Alamofire.request - error: ", error)
-            }
+        GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID, theme: ThemeName(rawValue: self.themeRawValue ?? 0)) { (contributionsColorCodeArray) in
+            self.hexColorCodesArray = contributionsColorCodeArray
+        }
+        
+        GitHubAPIManager.sharedInstance.getContributionsDateArray(gitHubID: gitHubID) { (contributionsDateArray) in
+            self.dateArray = contributionsDateArray
         }
     }
     
-    func getUTCWeekdayFromLocalTime(){
-        let date:Date = Date()
-        let dateFormatter:DateFormatter = DateFormatter()
-        guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
-            let utcWeekDay = dateFormatter.calendar.dateComponents(in: timeZone, from: date).weekday,
-            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+    func checkUpdateVersion(dbdata:GitgetVersion) {
+        let appLastestVersion = dbdata.lastest_version_code as String
+        let appMinimumVersion = dbdata.minimum_version_code as String
         
-        userDefaults.setValue(utcWeekDay, forKey: "UTCWeekday")
-        userDefaults.synchronize()
+        let infoDic         = Bundle.main.infoDictionary!
+        let appBuildVersion = infoDic["CFBundleVersion"] as? String
+        
+        if (Int(appBuildVersion!)! < Int(appMinimumVersion)!) {
+            //강제업데이트
+            forceUdpateAlert(message: dbdata.force_update_message)
+        }else if(Int(appBuildVersion!)! < Int(appLastestVersion)!) {
+            //선택업데이트
+            optionalUpdateAlert(message: dbdata.optional_update_message, version: Int(dbdata.lastest_version_code)!)
+        }
     }
     
-    func openSafariViewOf(url:String) {
-        guard let realURL = URL(string:url) else {return}
-        let safariViewController = SFSafariViewController(url: realURL)
-        safariViewController.delegate = self
-        self.present(safariViewController, animated: true, completion: nil)
+    func forceUdpateAlert(message:String) {
+        
+        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+            print("Go to AppStore")
+            // AppStore 로 가도록 연결시켜 주면 됩니다.
+            if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
+                UIApplication.shared.canOpenURL(url)
+            {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }))
+        
+        self.present(refreshAlert, animated: true, completion: nil)
+        
     }
     
-}
-
-extension MyFieldViewController:SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension MyFieldViewController: MFMailComposeViewControllerDelegate {
-    
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
+    func optionalUpdateAlert(message:String, version:Int) {
+        
+        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action: UIAlertAction!) in
+            print("Go to AppStore")
+            
+            if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
+                UIApplication.shared.canOpenURL(url)
+            {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Close Alert")
+        }))
+        
+        self.present(refreshAlert, animated: true, completion: nil)
+        
     }
 }
 
