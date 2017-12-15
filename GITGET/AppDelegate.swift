@@ -89,17 +89,17 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                         switch Int(todayContributions)! {
                         case 0:
                             notificationContent.body = "😔 Oh no. You don't have any commits today.".localized
-                        case 1...5:
+                        case 1...6:
                             notificationContent.body = String(format:NSLocalizedString("👍 Good. %@ contributions today!", comment: ""),todayContributions)
-                        case 6...19:
-                            notificationContent.body = String(format:NSLocalizedString("👏 Well done. %@ contributions today!", comment: ""),todayContributions)
+//                        case 6...19:
+//                            notificationContent.body = String(format:NSLocalizedString("👏 Well done. %@ contributions today!", comment: ""),todayContributions)
                         default:
                             notificationContent.body = String(format:NSLocalizedString("🔥 Burned out! %@ contributions today!", comment: ""),todayContributions)
                         }
                         
                         var notificationDateComponents = DateComponents()
                         notificationDateComponents.hour = 13
-                        notificationDateComponents.minute = 14
+                        notificationDateComponents.minute = 20
                         
                         let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: notificationDateComponents, repeats: true)
                         let nightRequest:UNNotificationRequest = UNNotificationRequest(identifier: "GitGet", content: notificationContent, trigger: notificationTrigger)
