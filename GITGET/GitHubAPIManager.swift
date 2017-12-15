@@ -69,25 +69,37 @@ class GitHubAPIManager:NSObject {
         
         Alamofire.request(getAuthenticatedUserUrl, method: .get, headers: headers).responseJSON { [unowned self] (response) in
             guard let data:Data = response.data else {return}
-            let userInfoJson:JSON = JSON(data:data)
-            let gitHubID = userInfoJson["login"].stringValue
             
-            let userInfo = ["gitHubID":gitHubID]
+            do {
+                let userInfoJson:JSON = try JSON(data:data)
+                let gitHubID = userInfoJson["login"].stringValue
+                
+                let userInfo = ["gitHubID":gitHubID]
+                
+                //가져온 정보를 Firebase에 저장
+                Database.database().reference().child("UserInfo").child("\(currentUserUid)").setValue(userInfo)
+                
+                //GitHubID를 받아서 해당 유저의 Contributions를 수집하도록 함
+                //TODO:- 추후에 로그인 계정이 User인지 Corp(Team) 인지 구별하여 별도 처리하도록 함.
+                //       이유는, Contributions 가져오는 주소가 다른 것으로 알고 있음. (
+                //       개인: https://github.com/users{/username}/contributions
+                //       단체: 개인사이트 같은 별도 뷰는 없음. 비슷한 형태는, https://github.com{/organization_name}{/repository_name}/graphs/contributors
+                
+                guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                userDefaults.setValue(gitHubID, forKey: "GitHubID")
+                userDefaults.synchronize()
+                
+                completionHandler(gitHubID)
+            }
+            catch _ {
+                // Error handling
+            }
             
-            //가져온 정보를 Firebase에 저장
-            Database.database().reference().child("UserInfo").child("\(currentUserUid)").setValue(userInfo)
             
-            //GitHubID를 받아서 해당 유저의 Contributions를 수집하도록 함
-            //TODO:- 추후에 로그인 계정이 User인지 Corp(Team) 인지 구별하여 별도 처리하도록 함.
-            //       이유는, Contributions 가져오는 주소가 다른 것으로 알고 있음. (
-            //       개인: https://github.com/users{/username}/contributions
-            //       단체: 개인사이트 같은 별도 뷰는 없음. 비슷한 형태는, https://github.com{/organization_name}{/repository_name}/graphs/contributors
             
-            guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
-            userDefaults.setValue(gitHubID, forKey: "GitHubID")
-            userDefaults.synchronize()
             
-            completionHandler(gitHubID)
+            
+           
         }
     }
     
@@ -100,25 +112,42 @@ class GitHubAPIManager:NSObject {
             let parameter:Parameters = ["Authorization":"Bearer \(accessToken)"]
             Alamofire.request(getCurrentUserDataUrl, method: .get, parameters:parameter).responseJSON(completionHandler: { (response) in
                 guard let data:Data = response.data else {return}
-                let json:JSON = JSON(data:data)
                 
-                let email:String = (Auth.auth().currentUser?.email)!
-                let name:String = json["name"].stringValue
-                let bio:String = json["bio"].stringValue
-                let url:String = json["blog"].stringValue
-                let company:String = json["company"].stringValue
-                let location:String = json["location"].stringValue
-                let profileImageUrl:String = json["avatar_url"].stringValue
                 
-                let userDatas:[String:String] = ["githubID":realID,
-                                                 "name":name,
-                                               "email":email,
-                                               "bio":bio,
-                                               "url":url,
-                                               "company":company,
-                                               "location":location,
-                                               "profileImageUrl":profileImageUrl]
-                completionHandler(userDatas)
+                do {
+                    let json:JSON = try JSON(data:data)
+                    
+                    
+                    let email:String = (Auth.auth().currentUser?.email)!
+                    let name:String = json["name"].stringValue
+                    let bio:String = json["bio"].stringValue
+                    let url:String = json["blog"].stringValue
+                    let company:String = json["company"].stringValue
+                    let location:String = json["location"].stringValue
+                    let profileImageUrl:String = json["avatar_url"].stringValue
+                    
+                    let userDatas:[String:String] = ["githubID":realID,
+                                                     "name":name,
+                                                     "email":email,
+                                                     "bio":bio,
+                                                     "url":url,
+                                                     "company":company,
+                                                     "location":location,
+                                                     "profileImageUrl":profileImageUrl]
+                    completionHandler(userDatas)
+                    
+
+                    
+                    
+                }
+                catch _ {
+                    // Error handling
+                }
+                
+                
+                
+                
+
             })
         }
     }
@@ -346,23 +375,31 @@ class GitHubAPIManager:NSObject {
             
             Alamofire.request(getRepositoriesUrl, method: .get).responseJSON(completionHandler: { (response) in
                 guard let data:Data = response.data else {return}
-                let json:JSON = JSON(data:data)
-                let jsonArray:[JSON] = json.arrayValue
-                let tempArray:[[String:Any]] = jsonArray.map({ (json) -> [String:Any] in
-                    let name:String = json["name"].stringValue
-                    let fullName:String = json["full_name"].stringValue
-                    let owner:String = json["owner"]["login"].stringValue
-                    let description:String? = json["description"].string
-                    let language:String = json["language"].stringValue
-                    let mappedDic:[String:Any] = ["name":name,
-                                                  "fullName":fullName,
-                                                  "owner":owner,
-                                                  "description":description ?? "",
-                                                  "language":language]
-                    return mappedDic
-                })
                 
-                completionHandler(tempArray)
+                do {
+                    let json:JSON = try JSON(data:data)
+                    let jsonArray:[JSON] = try json.arrayValue
+                    
+                    let tempArray:[[String:Any]] = jsonArray.map({ (json) -> [String:Any] in
+                        let name:String = json["name"].stringValue
+                        let fullName:String = json["full_name"].stringValue
+                        let owner:String = json["owner"]["login"].stringValue
+                        let description:String? = json["description"].string
+                        let language:String = json["language"].stringValue
+                        let mappedDic:[String:Any] = ["name":name,
+                                                      "fullName":fullName,
+                                                      "owner":owner,
+                                                      "description":description ?? "",
+                                                      "language":language]
+                        return mappedDic
+                    })
+                    
+                    completionHandler(tempArray)
+                }
+                catch _ {
+                    // Error handling
+                }
+
             })
         }
     }
