@@ -33,8 +33,10 @@ class CustomTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        if self.reuseIdentifier == "contributionsCell" {
         self.contributionsWebView.delegate = self
         self.contributionsWebView.scrollView.bounces = false
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
