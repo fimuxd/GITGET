@@ -20,6 +20,7 @@ open class Tag: Hashable {
     }()
 
     fileprivate var _tagName: String
+    fileprivate var _tagNameNormal: String
     fileprivate var _isBlock: Bool = true // block or inline
     fileprivate var _formatAsBlock: Bool = true // should be formatted as a block
     fileprivate var _canContainBlock: Bool = true // Can this tag hold block level tags?
@@ -32,6 +33,7 @@ open class Tag: Hashable {
 
     public init(_ tagName: String) {
         self._tagName = tagName
+        self._tagNameNormal = tagName.lowercased()
     }
 
     /**
@@ -41,6 +43,9 @@ open class Tag: Hashable {
      */
     open func getName() -> String {
         return self._tagName
+    }
+    open func getNameNormal() -> String {
+        return self._tagNameNormal
     }
 
     /**
@@ -235,19 +240,7 @@ open class Tag: Hashable {
     /// Hash values are not guaranteed to be equal across different executions of
     /// your program. Do not save hash values to use during a future execution.
     public var hashValue: Int {
-        let prime = 31
-        var result = 1
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_tagName.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_isBlock.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_formatAsBlock.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_canContainBlock.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_canContainInline.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_empty.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_selfClosing.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_preserveWhitespace.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_formList.hashValue).partialValue
-        result = prime.multipliedReportingOverflow(by: result).partialValue.addingReportingOverflow(_formSubmit.hashValue).partialValue
-        return result
+        return _tagName.hashValue ^ _isBlock.hashValue ^ _formatAsBlock.hashValue ^ _canContainBlock.hashValue ^ _canContainInline.hashValue ^ _empty.hashValue ^ _selfClosing.hashValue ^ _preserveWhitespace.hashValue ^ _formList.hashValue ^ _formSubmit.hashValue
     }
 
     open func toString() -> String {

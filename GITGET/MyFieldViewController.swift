@@ -31,6 +31,8 @@ class MyFieldViewController: UIViewController {
     @IBOutlet weak var refreshActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var refreshDataButtonOutlet: UIButton!
     
+    var ref: DatabaseReference!
+    
     let currentUser:User? = Auth.auth().currentUser
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
@@ -63,6 +65,26 @@ class MyFieldViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        /** Version Control Using Firebase */
+        ref = Database.database().reference()
+        
+        ref = Database.database().reference()
+        
+        ref.child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
+            let dic = snapShot.value as? Dictionary<String, AnyObject>
+            let vData = GitgetVersion()
+            
+            vData.force_update_message = dic!["force_update_message"] as! String
+            vData.optional_update_message = dic!["optional_update_message"] as! String
+            vData.lastest_version_code = dic!["lastest_version_code"] as! String
+            vData.lastest_version_name = dic!["lastest_version_name"] as! String
+            vData.minimum_version_code = dic!["minimum_version_code"] as! String
+            vData.minimum_version_name = dic!["minimum_version_name"] as! String
+            
+            self.checkUpdateVersion(dbdata: vData)
+        })
+
         guard let realCurrentUserUid:String = self.currentUser?.uid,
             let realAccessToken = self.accessToken,
             let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
@@ -194,6 +216,70 @@ class MyFieldViewController: UIViewController {
         }
     }
     
+    func checkUpdateVersion(dbdata:GitgetVersion) {
+        let appLastestVersion = dbdata.lastest_version_code as String
+        let appMinimumVersion = dbdata.minimum_version_code as String
+        
+        let infoDic         = Bundle.main.infoDictionary!
+        let appBuildVersion = infoDic["CFBundleVersion"] as? String
+        
+        if (Int(appBuildVersion!)! < Int(appMinimumVersion)!) {
+            //강제업데이트
+            forceUdpateAlert(message: dbdata.force_update_message)
+        }else if(Int(appBuildVersion!)! < Int(appLastestVersion)!) {
+            //선택업데이트
+            optionalUpdateAlert(message: dbdata.optional_update_message, version: Int(dbdata.lastest_version_code)!)
+        }
+    }
+    
+    func forceUdpateAlert(message:String) {
+        
+        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+            print("Go to AppStore")
+            // AppStore 로 가도록 연결시켜 주면 됩니다.
+            if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
+                UIApplication.shared.canOpenURL(url)
+            {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }))
+        
+        self.present(refreshAlert, animated: true, completion: nil)
+        
+    }
+    
+    func optionalUpdateAlert(message:String, version:Int) {
+        
+        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action: UIAlertAction!) in
+            print("Go to AppStore")
+            
+            if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
+                UIApplication.shared.canOpenURL(url)
+            {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Close Alert")
+        }))
+        
+        self.present(refreshAlert, animated: true, completion: nil)
+        
+    }
 }
 
 extension String {

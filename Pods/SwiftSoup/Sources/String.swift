@@ -11,11 +11,18 @@ import Foundation
 extension String {
 
 	subscript (i: Int) -> Character {
-        return self[self.characters.index(self.startIndex, offsetBy: i)]
+        return self[self.index(self.startIndex, offsetBy: i)]
     }
 
 	subscript (i: Int) -> String {
         return String(self[i] as Character)
+    }
+    
+    init<S: Sequence>(_ ucs: S)where S.Iterator.Element == UnicodeScalar
+    {
+        var s = ""
+        s.unicodeScalars.append(contentsOf: ucs)
+        self = s
     }
 
 	func unicodeScalar(_ i: Int) -> UnicodeScalar {
@@ -30,8 +37,12 @@ extension String {
     static func split(_ value: String, _ offset: Int, _ count: Int) -> String {
         let start = value.index(value.startIndex, offsetBy: offset)
         let end = value.index(value.startIndex, offsetBy: count+offset)
+        #if swift(>=4)
+        return String(value[start..<end])
+        #else
         let range = start..<end
         return value.substring(with: range)
+        #endif
     }
 
 	func isEmptyOrWhitespace() -> Bool {
@@ -47,13 +58,18 @@ extension String {
     }
 
 	func indexOf(_ substring: String, _ offset: Int ) -> Int {
-        if(offset > characters.count) {return -1}
+        if(offset > count) {return -1}
 
-        let maxIndex = self.characters.count - substring.characters.count
+        let maxIndex = self.count - substring.count
         if(maxIndex >= 0) {
             for index in offset...maxIndex {
-                let rangeSubstring = self.characters.index(self.startIndex, offsetBy: index)..<self.characters.index(self.startIndex, offsetBy: index + substring.characters.count)
-                if self.substring(with: rangeSubstring) == substring {
+                let rangeSubstring = self.index(self.startIndex, offsetBy: index)..<self.index(self.startIndex, offsetBy: index + substring.count)
+                #if swift(>=4)
+                let selfSubstring = self[rangeSubstring]
+                #else
+                let selfSubstring = self.substring(with: rangeSubstring)
+                #endif
+                if selfSubstring == substring {
                     return index
                 }
             }
@@ -79,7 +95,7 @@ extension String {
     }
 
     func insert(string: String, ind: Int) -> String {
-        return  String(self.characters.prefix(ind)) + string + String(self.characters.suffix(self.characters.count-ind))
+        return  String(self.prefix(ind)) + string + String(self.suffix(self.count-ind))
     }
 
     func charAt(_ i: Int) -> Character {
@@ -87,7 +103,7 @@ extension String {
     }
 
 	func substring(_ beginIndex: Int) -> String {
-        return String.split(self, beginIndex, self.characters.count-beginIndex)
+        return String.split(self, beginIndex, self.count-beginIndex)
     }
 
 	func substring(_ beginIndex: Int, _ count: Int) -> String {
@@ -96,8 +112,8 @@ extension String {
 
     func regionMatches(_ ignoreCase: Bool, _ selfOffset: Int, _ other: String, _ otherOffset: Int, _ length: Int ) -> Bool {
         if ((otherOffset < 0) || (selfOffset < 0)
-            || (selfOffset > self.characters.count - length)
-            || (otherOffset > other.characters.count - length)) {
+            || (selfOffset > self.count - length)
+            || (otherOffset > other.count - length)) {
             return false
         }
 
@@ -118,10 +134,10 @@ extension String {
     }
 
     func startsWith(_ input: String, _ offset: Int) -> Bool {
-        if ((offset < 0) || (offset > characters.count - input.characters.count)) {
+        if ((offset < 0) || (offset > count - input.count)) {
             return false
         }
-        for i in 0..<input.characters.count {
+        for i in 0..<input.count {
             let charSelf: Character = self[i+offset]
             let charOther: Character = input[i]
             if(charSelf != charOther) {return false}
@@ -137,14 +153,13 @@ extension String {
         }
     }
 
-    func replaceAll(of pattern: String, with replacement: String, options: NCRegularExpression.Options = []) -> String {
+    func replaceAll(of pattern: String, with replacement: String, options: NSRegularExpression.Options = []) -> String {
         do {
-            let regex = try NCRegularExpression(pattern: pattern, options: [])
+            let regex = try NSRegularExpression(pattern: pattern, options: [])
             let range = NSRange(0..<self.utf16.count)
             return regex.stringByReplacingMatches(in: self, options: [],
                                                   range: range, withTemplate: replacement)
         } catch {
-            NSLog("replaceAll error: \(error)")
             return self
         }
     }
@@ -153,11 +168,6 @@ extension String {
 		if(s == nil) {return false}
         return self == s!
     }
-
-	static func unicodescalars ( _ scalars: [UnicodeScalar]) -> String {
-		return String(scalars.flatMap { Character($0) })
-	}
-
 }
 
 extension String.Encoding {
