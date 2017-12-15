@@ -19,6 +19,7 @@
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */; };
 		6A3FA49B1FE0D205008F205C /* TeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */; };
+		6A3FA49D1FE3580C008F205C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */; };
 		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
 		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
@@ -37,8 +38,6 @@
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
 		79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */; };
-		826EA3C61FDF91410090769E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3C51FDF91410090769E /* GoogleService-Info.plist */; };
-		826EA3C71FDF91410090769E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3C51FDF91410090769E /* GoogleService-Info.plist */; };
 		826EA3CC1FDF93B20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */; };
 		826EA3D01FDF94690090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */; };
 		826EA3D21FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
@@ -92,6 +91,7 @@
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
 		6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewController.swift; sourceTree = "<group>"; };
+		6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAccountSettingTableViewController.swift; sourceTree = "<group>"; };
 		6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
@@ -115,7 +115,6 @@
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7659BF0A3ED16F54209FB052 /* Pods-GitGetTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitGetTodayExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		826EA3C51FDF91410090769E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "GITGET/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
@@ -160,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				6A0F5C5D1FCEF1D30081834E /* Info.plist */,
-				826EA3C51FDF91410090769E /* GoogleService-Info.plist */,
+				6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */,
 				6A0F5C661FCEF6EB0081834E /* Localizable.strings */,
 				826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */,
 			);
@@ -383,7 +382,6 @@
 			files = (
 				6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */,
 				826EA3D01FDF94690090769E /* OAuthClientDatas.plist in Resources */,
-				826EA3C71FDF91410090769E /* GoogleService-Info.plist in Resources */,
 				6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */,
 				826EA3D31FDF94D20090769E /* OAuthClientDatas.plist in Resources */,
 				6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */,
@@ -395,7 +393,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A8E40951FD1820F008F2DD7 /* Main.storyboard in Resources */,
-				826EA3C61FDF91410090769E /* GoogleService-Info.plist in Resources */,
+				6A3FA49D1FE3580C008F205C /* GoogleService-Info.plist in Resources */,
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
 				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
 				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
