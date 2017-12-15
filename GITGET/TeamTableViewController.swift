@@ -110,7 +110,10 @@ class TeamTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            self.myColleagueContributionsDatas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+//            self.tableView.reloadData()
         }
     }
 
