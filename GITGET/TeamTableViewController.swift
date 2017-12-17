@@ -27,7 +27,12 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
-    var myColleagueContributionsDatas:[[String:String]] = []
+    var myColleagueContributionsDatas:[[String:String]] = [] {
+        willSet(value){
+            myColleagueContributionsDatas = value
+            self.tableView.reloadData()
+        }
+    }
     
     
     /********************************************/
@@ -42,7 +47,17 @@ class TeamTableViewController: UITableViewController {
             self.myContributionsData = htmlValue
         }
         
-
+        //동료 Contributions 가져오기
+        let colleagueIDList = ColleagueList.standard.getList()
+        for colleagueID in colleagueIDList {
+            self.getContributions(of: colleagueID, { (htmlValue) in
+                let tempDic = ["GitHubID":colleagueID,
+                               "ContributionsHTML":htmlValue]
+                
+                self.myColleagueContributionsDatas.append(tempDic)
+            })
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,7 +128,7 @@ class TeamTableViewController: UITableViewController {
             self.myColleagueContributionsDatas.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
-//            self.tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
 
@@ -158,12 +173,12 @@ class TeamTableViewController: UITableViewController {
         // Add the text field for text entry.
         alertController.addTextField { textField in
             textField.placeholder = "GitHub username only"
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(TeamTableViewController.handleTextFieldTextDidChangeNotification(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: textField)
+
+            NotificationCenter.default.addObserver(self, selector: #selector(TeamTableViewController.handleTextFieldTextDidChangeNotification(_:)), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: textField)
         }
         
         let removeTextFieldObserver: () -> Void = {
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidChange, object: alertController.textFields!.first)
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidEndEditing, object: alertController.textFields!.first)
         }
         
         // Create the actions.
@@ -173,7 +188,6 @@ class TeamTableViewController: UITableViewController {
         
         let doneAction = UIAlertAction(title: otherButtonTitle, style: .default) { _ in
             removeTextFieldObserver()
-            
             self.tableView.reloadData()
         }
         
@@ -189,16 +203,14 @@ class TeamTableViewController: UITableViewController {
         let textField = notification.object as! UITextField
         
         if let text = textField.text {
-            //TODO:- Firebase DB에 추가하기
-            
-            self.getContributions(of: text, {[unowned self] (htmlValue) in
+            self.getContributions(of: text, {(htmlValue) in
                 let tempDic:[String:String] = ["GitHubID":text,
                                                "ContributionsHTML":htmlValue]
-                
-                self.myColleagueContributionsDatas.append(tempDic)
+                ColleagueList.standard.set(text)
+                print(ColleagueList.standard.getList())
             })
-
         }
+        
     }
     
     func getContributions(of gitHubID:String, _ completionHandler: @escaping(_ htmlValue:String) -> Void) {
@@ -211,10 +223,6 @@ class TeamTableViewController: UITableViewController {
                 print("//에러가 발생했습니다. \(error)")
             }
         }
-    }
-
-    func getTeamContribution() {
-        
     }
 
 }

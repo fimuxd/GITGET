@@ -46,6 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//        <#code#>
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         print("//applicationWillResignActive")
     }
@@ -77,7 +81,7 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
             let notificationCenter = UNUserNotificationCenter.current()
             notificationCenter.delegate = self
             
-            notificationCenter.requestAuthorization(options: [.alert,.sound,.badge], completionHandler: { (granted, error) in
+            notificationCenter.requestAuthorization(options: [.alert,.sound], completionHandler: { (granted, error) in
                 if granted { //알림 On
                     
                     GitHubAPIManager.sharedInstance.getTodayContributionsCount(completionHandler: { (todayContributions) in
@@ -89,10 +93,10 @@ extension AppDelegate:UNUserNotificationCenterDelegate {
                         switch Int(todayContributions)! {
                         case 0:
                             notificationContent.body = "😔 Oh no. You don't have any commits today.".localized
-                        case 1...6:
+                        case 1...5:
                             notificationContent.body = String(format:NSLocalizedString("👍 Good. %@ contributions today!", comment: ""),todayContributions)
-//                        case 6...19:
-//                            notificationContent.body = String(format:NSLocalizedString("👏 Well done. %@ contributions today!", comment: ""),todayContributions)
+                        case 6...19:
+                            notificationContent.body = String(format:NSLocalizedString("👏 Well done. %@ contributions today!", comment: ""),todayContributions)
                         default:
                             notificationContent.body = String(format:NSLocalizedString("🔥 Burned out! %@ contributions today!", comment: ""),todayContributions)
                         }
