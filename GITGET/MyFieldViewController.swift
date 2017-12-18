@@ -63,8 +63,7 @@ class MyFieldViewController: UIViewController {
     /********************************************/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*
+
         /** Version Control Using Firebase */
         ref = Database.database().reference()
         
@@ -83,7 +82,6 @@ class MyFieldViewController: UIViewController {
             
             self.checkUpdateVersion(dbdata: vData)
         })
- */
         
         print("//뷰디드로드")
         
