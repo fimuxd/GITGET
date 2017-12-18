@@ -107,26 +107,28 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var hexColorCodesArray = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String] {
         willSet(newValue){
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
-                let realOldValue = userDefaults.value(forKey: "ContributionsDatas") as? [String],
-                let realNewValue = newValue else {
-                    print("//hexColor 가드 \(UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String]), \(newValue)")
-                    return}
+                let realNewValue = newValue else {return}
             userDefaults.synchronize()
             print("//hexColor 가드통과")
-            if realOldValue != realNewValue {
-                print("//hexColor 새값")
-                self.hexColorCodesArray = newValue
-                userDefaults.setValue(newValue, forKey: "ContributionsDatas")
-                print("//색상 업데이트 됨: 예전\(hexColorCodesArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
-                self.contributionCollectionView.reloadData()
-                self.contributionCollectionView.isHidden = false
-                self.widgetStatusLabel.isHidden = true
+            
+            if let realOldValue = self.hexColorCodesArray {
+                if realOldValue != realNewValue {
+                    print("//hexColor 새값")
+                    self.hexColorCodesArray = newValue
+                    userDefaults.setValue(newValue, forKey: "ContributionsDatas")
+                    print("//색상 업데이트 됨: 예전\(hexColorCodesArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
+                    self.contributionCollectionView.reloadData()
+                    self.contributionCollectionView.isHidden = false
+                    self.widgetStatusLabel.isHidden = true
+                }else{
+                    print("//hexColor 새값아님")
+                    print("//색상 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
+                    self.dataActivityIndicator.stopAnimating()
+                    self.contributionCollectionView.isHidden = false
+                    self.widgetStatusLabel.isHidden = true
+                }
             }else{
-                print("//hexColor 새값아님")
-                print("//색상 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
-                self.dataActivityIndicator.stopAnimating()
-                self.contributionCollectionView.isHidden = false
-                self.widgetStatusLabel.isHidden = true
+                self.hexColorCodesArray = realNewValue
             }
         }
     }
@@ -204,8 +206,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         guard let isRealSignIn = isSignedIn else {return}
         if isRealSignIn == true {
-            guard let realCurrentGitHubID:String = self.currentGitHubID else {print("여긴가"); return}
-            print("여기로 들어오나요")
+            guard let realCurrentGitHubID:String = self.currentGitHubID else {print("///현재 로그인한 아이디가 없습니다. \(self.currentGitHubID)"); return}
+            print("///현재 로그인한 아이디: \(realCurrentGitHubID), 유저디폴트 상태: \(isRealSignIn)")
             self.updateContributionDatasOf(gitHubID: realCurrentGitHubID)
         }else{
             print("//로그아웃상태")

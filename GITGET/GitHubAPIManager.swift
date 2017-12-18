@@ -105,7 +105,10 @@ class GitHubAPIManager:NSObject {
     
     //2.2 기본 userProfile 데이터
     func getCurrentUserDatas(completionHandler: @escaping (_ userDatas:[String:String]) -> Void) {
+        print("//GitHubAPI_getCurrentUserDatas")
         self.getCurrentGitHubID { (realID) in
+            print("//GitHubAPI_getCurrentUserDatas 클로저")
+            
             guard let getCurrentUserDataUrl:URL = URL(string: "https://api.github.com/users/\(realID)"),
                 let accessToken:String = UserDefaults.standard.value(forKey: "AccessToken") as? String else {return}
             
@@ -116,8 +119,7 @@ class GitHubAPIManager:NSObject {
                 
                 do {
                     let json:JSON = try JSON(data:data)
-                    
-                    
+
                     let email:String = (Auth.auth().currentUser?.email)!
                     let name:String = json["name"].stringValue
                     let bio:String = json["bio"].stringValue
@@ -134,11 +136,9 @@ class GitHubAPIManager:NSObject {
                                                      "company":company,
                                                      "location":location,
                                                      "profileImageUrl":profileImageUrl]
+                    
                     completionHandler(userDatas)
-                    
 
-                    
-                    
                 }
                 catch _ {
                     // Error handling

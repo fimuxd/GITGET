@@ -84,10 +84,11 @@ class MyFieldViewController: UIViewController {
             self.checkUpdateVersion(dbdata: vData)
         })
  */
-
+        
+        print("//뷰디드로드")
+        
         guard let realCurrentUserUid:String = self.currentUser?.uid,
-            let realAccessToken = self.accessToken,
-            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+            let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {print("뷰디드로드 가드"); return}
         
         userDefaults.setValue(true, forKey: "isSigned")
         userDefaults.synchronize()
@@ -95,57 +96,74 @@ class MyFieldViewController: UIViewController {
         GitHubAPIManager.sharedInstance.isNewbie(uid: realCurrentUserUid, completionHandler: { (bool) in
             switch bool {
             case true: //신입이라면
+                print("신입입니다.")
+                guard let realAccessToken = self.accessToken else {return}
                 GitHubAPIManager.sharedInstance.getGitHubIDForNewbie(with: realAccessToken, by: realCurrentUserUid, completionHandler: { (gitHubID) in
                     self.updateUserInfo()
                     
                     guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
                     userDefaults.setValue(gitHubID, forKey: "GitHubID")
                     userDefaults.synchronize()
+                    
+                    print("///뷰디드로드 신입: 로그인한 아이디 \(gitHubID)")
+                    self.updateContributionDatasOf(gitHubID: gitHubID)
                 })
             case false: //신입이 아니라면
+                print("신입이 아닙니다.")
                 GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
-                    self.updateUserInfo()
                     
-                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
+                    guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {print("//뷰디드로드 가드"); return}
                     userDefaults.setValue(gitHubID, forKey: "GitHubID")
                     userDefaults.synchronize()
+                    
+                    print("///뷰디드로드 기존: 로그인한 아이디 \(gitHubID)")
+                        self.updateContributionDatasOf(gitHubID: gitHubID)
+                        self.updateUserInfo()
                 })
             }
         })
         
-        guard let realGitHubID = self.currentGitHubID else {return}
-        self.updateContributionDatasOf(gitHubID: realGitHubID)
-            
-            userProfileImageView.layer.cornerRadius = 10
-            userProfileImageView.layer.shadowRadius = 1
-            userProfileImageView.layer.shadowOpacity = 0.2
-            userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
-            userProfileImageView.clipsToBounds = false
-            
-            self.refreshActivityIndicator.stopAnimating()
+        userProfileImageView.layer.cornerRadius = 10
+        userProfileImageView.layer.shadowRadius = 1
+        userProfileImageView.layer.shadowOpacity = 0.2
+        userProfileImageView.layer.shadowOffset = CGSize(width: 1, height: 1)
+        userProfileImageView.clipsToBounds = false
+        
+        self.refreshActivityIndicator.stopAnimating()
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         self.navigationController?.navigationBar.isHidden = false
         
         if currentUser == nil {
+            print("///뷰윌어피어: 현재유저가 없습니다. \(currentUser)")
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             userDefaults.setValue(false, forKey: "isSigned")
             userDefaults.setValue(nil, forKey: "GitHubID")
             userDefaults.synchronize()
-            
-            let navigationController:UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
-            self.present(navigationController, animated: false, completion: nil)
+
+//            let navigationController:UINavigationController = self.storyboard?.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+//            self.present(navigationController, animated: false, completion: nil)
         }else{
+            print("///뷰윌어피어: 현재로그인한 유저. \(currentUser)")
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults") else {return}
             userDefaults.setValue(true, forKey: "isSigned")
             userDefaults.synchronize()
-            
-            guard let realGitHubID = self.currentGitHubID else {return}
-            self.updateContributionDatasOf(gitHubID: realGitHubID)
+
+            if let realGitHubID = self.currentGitHubID { //만약 기존의 UserDefault에 저장된 아이디가 있다면,
+                print("///뷰윌어피어: 로그인 유저디폴트 아이디 \(realGitHubID)")
+                self.updateContributionDatasOf(gitHubID: realGitHubID)
+                self.updateUserInfo()
+            }else{// 업데이트 등으로 UserDefault에 저장된 아이디가 없다면
+                GitHubAPIManager.sharedInstance.getCurrentGitHubID(completionHandler: { (gitHubID) in
+                    print("///뷰윌어피어: 로그인한 아이디 \(gitHubID)")
+                    self.updateContributionDatasOf(gitHubID: gitHubID)
+                    self.updateUserInfo()
+                })
+            }
         }
     }
     
@@ -162,19 +180,22 @@ class MyFieldViewController: UIViewController {
     @IBAction func refreshDataButtonAction(_ sender: UIButton) {
         self.refreshDataButtonOutlet.isHidden = true
         self.refreshActivityIndicator.startAnimating()
-
+        
         self.updateUserInfo()
     }
- 
+    
     func updateUserInfo() {
+        print("updateUserInfo")
         GitHubAPIManager.sharedInstance.getCurrentUserDatas { (userData) in
+             print("updateUserInfo 클로저")
             guard let profileUrlString = userData["profileImageUrl"],
                 let location = userData["location"],
                 let bio = userData["bio"],
                 let name = userData["name"],
                 let githubID = userData["githubID"]
-            else {return}
+                else {print("updateUserInfo 가드: \(userData)"); return}
             
+             print("updateUserInfo 가드 통과")
             self.userProfileImageView.kf.indicatorType = .activity
             self.userProfileImageView.kf.indicator?.startAnimatingView()
             self.userProfileImageView.kf.setImage(with: URL(string:profileUrlString), options: [.forceRefresh], completionHandler: { [unowned self] (image, error, cache, url) in
@@ -194,7 +215,7 @@ class MyFieldViewController: UIViewController {
             }else{
                 self.userNameTextLabel.text = githubID
             }
-
+            
             self.refreshActivityIndicator.stopAnimating()
             self.refreshDataButtonOutlet.isHidden = false
             self.mainActivityIndicator.stopAnimating()
