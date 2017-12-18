@@ -6,6 +6,13 @@
   Copyright © 2017 Bo-Young PARK. All rights reserved.
 */
 
+//노티피케이션 문구
+"Check Your Today Contributions" = "오늘의 Contributions가 도착했습니다.";
+"😔 Oh no. You don't have any commits today." = "😔 헐. 정말 이대로 하얗게 비워둘거예요?";
+"👍 Good. %@ contributions today!" = "👍 좋아요. 오늘 %@ 번 기여하셨어요!";
+"👏 Well done. %@ contributions today!" = "👏 최고예요. 오늘 %@ 번 기여하셨어요!";
+"🔥 Burned out! %@ contributions today!" = "🔥 대박! 오늘 %@ 번 기여하셨어요!";
+
 //섹션 헤드
 "My GitHub Account" = "내 GitHub 정보";
 "Preferrences" = "설정";

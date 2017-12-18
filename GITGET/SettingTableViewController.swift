@@ -17,14 +17,15 @@ import FirebaseAuth
 
 class SettingTableViewController: UITableViewController {
     
+    /********************************************/
+    //MARK:-      Variation | IBOutlet          //
+    /********************************************/
     let sectionHeaderTitleData:[String] = ["My GitHub Account".localized, "Preferrences".localized, "About GitGet".localized, "SignOut".localized]
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
+    /********************************************/
+    //MARK:-            LifeCycle               //
+    /********************************************/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -33,15 +34,18 @@ class SettingTableViewController: UITableViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
+        
     }
-
+    
+    
+    /********************************************/
+    //MARK:-       Methods | IBAction           //
+    /********************************************/
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.sectionHeaderTitleData.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -56,7 +60,7 @@ class SettingTableViewController: UITableViewController {
             return 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionHeaderTitleData[section]
     }
@@ -75,7 +79,7 @@ class SettingTableViewController: UITableViewController {
                         
                         profileCell.profileImageView.layer.cornerRadius = profileCell.profileImageView.frame.size.height / 2
                         profileCell.profileImageView.layer.masksToBounds = true
-
+                        
                         profileCell.profileTitleLabel.text = gitHubID
                         profileCell.setNeedsLayout()
                     }
@@ -99,7 +103,7 @@ class SettingTableViewController: UITableViewController {
         }
         return 44
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
@@ -110,7 +114,7 @@ class SettingTableViewController: UITableViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let themeTableViewController:ThemeTableViewController = storyboard.instantiateViewController(withIdentifier: "ThemeTableViewController") as! ThemeTableViewController
             navigationController?.pushViewController(themeTableViewController, animated: true)
-
+            
         case 2:
             if indexPath.row == 0 {
                 self.openTutorial()
@@ -126,6 +130,7 @@ class SettingTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Methods
     func openTutorial() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let pageViewController:TutorialPageViewController = storyboard.instantiateViewController(withIdentifier: "TutorialPageViewController") as! TutorialPageViewController
@@ -201,6 +206,7 @@ class SettingTableViewController: UITableViewController {
         return mailComposerVC
     }
 }
+
 
 extension SettingTableViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {

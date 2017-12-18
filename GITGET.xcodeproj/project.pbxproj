@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		69BBFA82E9BE9794C1A1A5EE /* Pods_GitGetTodayExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */; };
-		6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */; };
 		6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
 		6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C661FCEF6EB0081834E /* Localizable.strings */; };
 		6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A0F5C6E1FCEF85F0081834E /* Localizable.strings */; };
@@ -19,8 +18,11 @@
 		6A238EAA1FB9F5F10063C30A /* GitGetTodayExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 6A238E9F1FB9F5F10063C30A /* GitGetTodayExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */; };
+		6A3FA49B1FE0D205008F205C /* TeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */; };
+		6A3FA49D1FE3580C008F205C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */; };
 		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
 		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
+		6A5E67C31FE6867B00A9F865 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E67C21FE6867B00A9F865 /* RealmModel.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
 		6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */; };
 		6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */; };
@@ -29,16 +31,19 @@
 		6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40751FCFE183008F2DD7 /* SingleTapViewController.swift */; };
 		6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40771FCFE191008F2DD7 /* DoubleTapViewController.swift */; };
 		6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */; };
-		6A8E40861FD03262008F2DD7 /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */; };
 		6A8E40881FD04159008F2DD7 /* GitHubAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */; };
 		6A8E408C1FD0D991008F2DD7 /* GitHubAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E408B1FD0D991008F2DD7 /* GitHubAPIManager.swift */; };
-		6A8E40901FD0E892008F2DD7 /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E408F1FD0E892008F2DD7 /* OAuthClientDatas.plist */; };
 		6A8E40951FD1820F008F2DD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E40971FD1820F008F2DD7 /* Main.storyboard */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
 		79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */; };
+		826EA3CC1FDF93B20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */; };
+		826EA3D01FDF94690090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */; };
+		826EA3D21FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
+		826EA3D31FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
+		82BEE5E51FE1F44500467B5C /* GitgetVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +73,6 @@
 /* Begin PBXFileReference section */
 		1B507D756291BC85346B89D1 /* Pods-GITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.debug.xcconfig"; sourceTree = "<group>"; };
 		4A110BB59CF060DB1D577D1B /* Pods-GitGetTodayExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A0F5C561FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		6A0F5C571FCEEF8B0081834E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		6A0F5C591FCEF1C30081834E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
@@ -87,10 +91,13 @@
 		6A238EA51FB9F5F10063C30A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
+		6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewController.swift; sourceTree = "<group>"; };
+		6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAccountSettingTableViewController.swift; sourceTree = "<group>"; };
 		6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
+		6A5E67C21FE6867B00A9F865 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
 		6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTodayViewController.swift; sourceTree = "<group>"; };
@@ -99,10 +106,8 @@
 		6A8E40751FCFE183008F2DD7 /* SingleTapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleTapViewController.swift; sourceTree = "<group>"; };
 		6A8E40771FCFE191008F2DD7 /* DoubleTapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTapViewController.swift; sourceTree = "<group>"; };
 		6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewController.swift; sourceTree = "<group>"; };
-		6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIManager.swift; sourceTree = "<group>"; };
 		6A8E408B1FD0D991008F2DD7 /* GitHubAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPIManager.swift; sourceTree = "<group>"; };
-		6A8E408F1FD0E892008F2DD7 /* OAuthClientDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		6A8E40981FD18212008F2DD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A8E409A1FD1822A008F2DD7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +117,10 @@
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7659BF0A3ED16F54209FB052 /* Pods-GitGetTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitGetTodayExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
+		826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
+		826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
+		82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitgetVersion.swift; sourceTree = "<group>"; };
 		ADFD0E33736AB7E8F919E8D0 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
 		B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -152,9 +161,9 @@
 			isa = PBXGroup;
 			children = (
 				6A0F5C5D1FCEF1D30081834E /* Info.plist */,
-				6A0F5C3E1FCEE0000081834E /* GoogleService-Info.plist */,
-				6A8E408F1FD0E892008F2DD7 /* OAuthClientDatas.plist */,
+				6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */,
 				6A0F5C661FCEF6EB0081834E /* Localizable.strings */,
+				826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -163,8 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				6A0F5C5A1FCEF1C30081834E /* Info.plist */,
+				826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */,
 				6A0F5C6E1FCEF85F0081834E /* Localizable.strings */,
-				6A8E40851FD03262008F2DD7 /* OAuthClientDatas.plist */,
+				826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -185,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
+				82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -216,6 +227,8 @@
 			children = (
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
+				6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */,
+				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
@@ -322,7 +335,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Bo-Young PARK";
 				TargetAttributes = {
 					6A238E9E1FB9F5F10063C30A = {
@@ -336,7 +349,7 @@
 					};
 					6AFA4AF01F9EDBDF00000759 = {
 						CreatedOnToolsVersion = 9.0.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
@@ -371,8 +384,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */,
-				6A8E40861FD03262008F2DD7 /* OAuthClientDatas.plist in Resources */,
+				826EA3D01FDF94690090769E /* OAuthClientDatas.plist in Resources */,
 				6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */,
+				826EA3D31FDF94D20090769E /* OAuthClientDatas.plist in Resources */,
 				6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,11 +396,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A8E40951FD1820F008F2DD7 /* Main.storyboard in Resources */,
+				6A3FA49D1FE3580C008F205C /* GoogleService-Info.plist in Resources */,
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
 				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
-				6A0F5C3F1FCEE0000081834E /* GoogleService-Info.plist in Resources */,
 				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
-				6A8E40901FD0E892008F2DD7 /* OAuthClientDatas.plist in Resources */,
+				826EA3CC1FDF93B20090769E /* OAuthClientDatas.plist in Resources */,
+				826EA3D21FDF94D20090769E /* OAuthClientDatas.plist in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,6 +454,8 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -451,6 +468,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -510,13 +529,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82BEE5E51FE1F44500467B5C /* GitgetVersion.swift in Sources */,
 				6A8E40741FCFE173008F2DD7 /* WidgetViewController.swift in Sources */,
 				6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */,
 				6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */,
 				6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */,
 				6A8E40881FD04159008F2DD7 /* GitHubAPIManager.swift in Sources */,
 				6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */,
+				6A3FA49B1FE0D205008F205C /* TeamTableViewController.swift in Sources */,
 				6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */,
+				6A5E67C31FE6867B00A9F865 /* RealmModel.swift in Sources */,
 				6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */,
 				6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */,
 				6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */,
@@ -772,13 +794,16 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = "GITGET/Supporting Files/Base.lproj/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0faed33f-6cb5-4604-aba0-a693de17f132";
+				PROVISIONING_PROFILE_SPECIFIER = GitGet;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -791,13 +816,16 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = "GITGET/Supporting Files/Base.lproj/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "0faed33f-6cb5-4604-aba0-a693de17f132";
+				PROVISIONING_PROFILE_SPECIFIER = GitGet;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

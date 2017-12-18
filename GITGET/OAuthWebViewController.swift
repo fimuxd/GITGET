@@ -13,7 +13,6 @@ import SafariServices
 import Alamofire
 
 
-
 class OAuthWebViewController: UIViewController {
     
     /********************************************/
@@ -22,7 +21,6 @@ class OAuthWebViewController: UIViewController {
     
     @IBOutlet weak var authorizationWebView: UIWebView!
     
-    
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
@@ -30,6 +28,7 @@ class OAuthWebViewController: UIViewController {
         super.viewDidLoad()
         
         self.signInGithub()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,16 +62,10 @@ class OAuthWebViewController: UIViewController {
                                      "allow_signup":"false"]
         
         Alamofire.request(redirectURLToRequestGitHubIdentity, method: .get, parameters: parameters, headers: nil).responseString { [unowned self] (response) in
-            print("//여기여기여기: \(response.value)")
-            
             switch response.result {
             case .success(let value):
-                if Auth.auth().currentUser != nil {
-                    self.dismiss(animated: true, completion: nil)
-                }else{
-                    self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                }
+                self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             case .failure(let error):
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 print("///Alamofire.request - error: ", error)
@@ -106,6 +99,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
         let callbackURL:String = oAuthDatas["callbackURL"]!
         
         if String(describing: request).contains(callbackURL) {
+            print("//콜백유알엘로 들어옴")
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             let callbackUrlWithCode:String = realURL.absoluteString
             guard let queryItemsForCode = URLComponents(string:callbackUrlWithCode)?.queryItems,
@@ -127,7 +121,6 @@ extension OAuthWebViewController: UIWebViewDelegate {
                     //생성된 토큰을 UserDefault에 저장
                     UserDefaults.standard.set(access_Token, forKey: "AccessToken")
                     
-                    
                     //MARK:- Firebase 연동
                     let credential = GitHubAuthProvider.credential(withToken: access_Token)
                     Auth.auth().signIn(with: credential, completion: { [unowned self] (user, error) in
@@ -144,10 +137,14 @@ extension OAuthWebViewController: UIWebViewDelegate {
                                     "firebaseUID":"\(realCurrentUser.uid)"]
                                 Database.database().reference().child("UserInfo").child("\(realCurrentUser.uid)").setValue(tempDic)
                                 
+                                
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-                                self.present(tabBarController, animated: true, completion: {
+                                
+                                self.navigationController?.present(tabBarController, animated: true, completion: {
                                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                    UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.set(true, forKey: "isSigned")
+                                    UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.synchronize()
                                 })
                                 
                                 return
@@ -155,8 +152,12 @@ extension OAuthWebViewController: UIWebViewDelegate {
                             
                             let storyboard = UIStoryboard(name: "Main", bundle: nil)
                             let tabBarController:UITabBarController = storyboard.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-                            self.present(tabBarController, animated: true, completion: {
+                            //                            self.present(tabBarController, animated: true, completion: {
+                            let mainNavigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
+                            mainNavigationController.present(tabBarController, animated: true, completion: {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.set(true, forKey: "isSigned")
+                                UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.synchronize()
                             })
                         })
                     })

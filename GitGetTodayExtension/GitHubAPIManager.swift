@@ -66,11 +66,12 @@ class GitHubAPIManager {
     
     //2. Contributions HexColorCode Array
     func getContributionsColorCodeArray(gitHubID:String, theme:ThemeName?, completionHandler: @escaping(_ contributionsHexColorCodeArray: [String]) -> Void) {
-        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {return}
-        
+        guard let getContributionsUrl:URL = URL(string: "https://github.com/users/\(gitHubID)/contributions") else {print("//API 가드"); return}
+        print("//API 가드 통과")
         Alamofire.request(getContributionsUrl, method: .get).responseString {(response) in
             switch response.result {
             case .success(let value):
+                print("//API success")
                 do{
                     let htmlValue = value
                     guard let elements:Elements = try? SwiftSoup.parse(htmlValue).select("rect") else {return}
@@ -84,9 +85,11 @@ class GitHubAPIManager {
                     let contributionsHexColorCodeArray:[String] = tempArray
         
                     guard let currentThemeName:ThemeName = theme else {
+                        print("//API 테마가드")
                         completionHandler(contributionsHexColorCodeArray)
                         return}
                     
+                    print("//API 테마가드\(currentThemeName)")
                     switch currentThemeName {
                     case .gitHubOriginal:
                         completionHandler(contributionsHexColorCodeArray)

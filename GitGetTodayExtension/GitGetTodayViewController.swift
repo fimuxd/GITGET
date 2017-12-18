@@ -94,7 +94,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     self.fifthPreviousMonthLabel.isHidden = false
                     self.sixthPreviousMonthLabel.isHidden = false
                     self.seventhPreviousMonthLabel.isHidden = false
-                    
+                    self.contributionCollectionView.isHidden = false
+                    self.widgetStatusLabel.isHidden = true
                     self.setMonthLabelXPositions(with: self.xPositionForMonthLabels.sorted(by: >))
                 }
             }
@@ -106,17 +107,28 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     var hexColorCodesArray = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ContributionsDatas") as? [String] {
         willSet(newValue){
             guard let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults"),
-                let realOldValue = userDefaults.value(forKey: "ContributionsDatas") as? [String],
                 let realNewValue = newValue else {return}
             userDefaults.synchronize()
-            if realOldValue != realNewValue {
-                self.hexColorCodesArray = newValue
-                userDefaults.setValue(newValue, forKey: "ContributionsDatas")
-                print("//색상 업데이트 됨: 예전\(hexColorCodesArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
-                self.contributionCollectionView.reloadData()
+            print("//hexColor 가드통과")
+            
+            if let realOldValue = self.hexColorCodesArray {
+                if realOldValue != realNewValue {
+                    print("//hexColor 새값")
+                    self.hexColorCodesArray = newValue
+                    userDefaults.setValue(newValue, forKey: "ContributionsDatas")
+                    print("//색상 업데이트 됨: 예전\(hexColorCodesArray!.last ?? "값없음"), 새것\(newValue!.last ?? "값없음")")
+                    self.contributionCollectionView.reloadData()
+                    self.contributionCollectionView.isHidden = false
+                    self.widgetStatusLabel.isHidden = true
+                }else{
+                    print("//hexColor 새값아님")
+                    print("//색상 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
+                    self.dataActivityIndicator.stopAnimating()
+                    self.contributionCollectionView.isHidden = false
+                    self.widgetStatusLabel.isHidden = true
+                }
             }else{
-                print("//색상 새로고침 할 것 없음: 예전\(realOldValue.last ?? "값없음"), 새것\(realNewValue.last ?? "값없음")")
-                self.dataActivityIndicator.stopAnimating()
+                self.hexColorCodesArray = realNewValue
             }
         }
     }
@@ -155,6 +167,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewDidLoad()
         print("//TE_viewDidLoad")
         
+        let userDefaults = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")
+        userDefaults?.synchronize()
+        
         extensionContext?.widgetLargestAvailableDisplayMode = .compact
         self.contributionCollectionView.backgroundColor = .clear
         let collectionViewLayout = contributionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
@@ -191,11 +206,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         guard let isRealSignIn = isSignedIn else {return}
         if isRealSignIn == true {
-            guard let realCurrentGitHubID:String = self.currentGitHubID else {return}
+            guard let realCurrentGitHubID:String = self.currentGitHubID else {print("///현재 로그인한 아이디가 없습니다. \(self.currentGitHubID)"); return}
+            print("///현재 로그인한 아이디: \(realCurrentGitHubID), 유저디폴트 상태: \(isRealSignIn)")
             self.updateContributionDatasOf(gitHubID: realCurrentGitHubID)
         }else{
             print("//로그아웃상태")
             self.widgetStatusLabel.text = "Open GITGET to get your contributions :)\n\n  • Double tap to open \n  • Single tap to refresh".localized
+            self.widgetStatusLabel.isHidden = false
             self.contributionCollectionView.isHidden = true
             self.mondayLabel.isHidden = true
             self.wednesdayLabel.isHidden = true
@@ -440,7 +457,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     //MARK:- GitHubAPIManager를 통한 데이터 업데이트
     func updateContributionDatasOf(gitHubID:String) {
         GitHubAPIManager.sharedInstance.getContributionsColorCodeArray(gitHubID: gitHubID, theme: ThemeName(rawValue: self.themeRawValue ?? 0)) { (contributionsColorCodeArray) in
-            print("//왜안되: \(contributionsColorCodeArray)")
             self.hexColorCodesArray = contributionsColorCodeArray
         }
         
@@ -516,16 +532,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 6)) / 7
         let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.up)
-        let markableNumberOfDays:Int = Int(54 - numberOfWeek) * 7
+        let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
         
         self.collectionViewHeightConstraint.constant = collectionViewHeight + (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
         self.collectionViewWidthConstraint.constant = collectionViewWidth + (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
         self.wedToFriSpaceConstraint.constant = cellHeight + self.minimumCellSpacing * 2
         self.wedToMonSpiceConstraint.constant = cellHeight + self.minimumCellSpacing * 2
-        
-        DispatchQueue.main.async {
-            self.contributionCollectionView.isHidden = false
-        }
         
         return markableNumberOfDays
     }

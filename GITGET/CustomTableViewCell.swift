@@ -26,10 +26,17 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var modifiableTitleLabel: UILabel!
     @IBOutlet weak var modifiableTextField: UITextField!
     
+    //contributionCell
+    @IBOutlet weak var contributionUserNameTextLabel: UILabel!
+    @IBOutlet weak var contributionsWebView: UIWebView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
+        if self.reuseIdentifier == "contributionsCell" {
+        self.contributionsWebView.delegate = self
+        self.contributionsWebView.scrollView.bounces = false
+        }
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,3 +47,9 @@ class CustomTableViewCell: UITableViewCell {
     
 }
 
+extension CustomTableViewCell:UIWebViewDelegate {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontFamily =\"-apple-system\"")
+        webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontSize = '10px'")
+    }
+}

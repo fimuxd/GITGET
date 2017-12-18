@@ -15,7 +15,6 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "FIRDatabaseSwiftNameSupport.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  * They can't be modified and will never change. To modify data at a location,
  * use a FIRDatabaseReference (e.g. with setValue:).
  */
-FIR_SWIFT_NAME(DataSnapshot)
+NS_SWIFT_NAME(DataSnapshot)
 @interface FIRDataSnapshot : NSObject
 
 
@@ -134,7 +133,7 @@ FIR_SWIFT_NAME(DataSnapshot)
  *
  * @return An NSEnumerator of the children.
  */
-@property (strong, readonly, nonatomic) NSEnumerator* children;
+@property (strong, readonly, nonatomic) NSEnumerator<FIRDataSnapshot *>* children;
 
 /**
  * The priority of the data in this FIRDataSnapshot.

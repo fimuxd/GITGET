@@ -13,6 +13,7 @@ target 'GITGET' do
   pod "SwiftSoup"
   pod 'Kingfisher'
   pod 'ObjectMapper', '~> 3.1'
+  pod ‘RealmSwift' 
 
 end
 
