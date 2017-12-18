@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import Alamofire
+import SwiftyJSON
+import RealmSwift
 
 class TeamTableViewController: UITableViewController {
     /********************************************/
@@ -17,19 +19,16 @@ class TeamTableViewController: UITableViewController {
     @IBOutlet weak var addBarButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var refreshBarButtonOutlet: UIBarButtonItem!
     
-    let sectionHeaderTitleData:[String] = ["My Contributions", "Team Contributions"]
+    var realm: Realm!
+    var colleagueObjects:Results<Colleague>!
+    var notificationToken: NotificationToken!
+    
+    let sectionHeaderTitles:[String] = ["My Contributions", "Team Contributions"]
     var myContributionsData:String? {
         didSet{
             guard let realMyContributionsData = myContributionsData else {return}
             self.myContributionsData = realMyContributionsData
             
-            self.tableView.reloadData()
-        }
-    }
-    
-    var myColleagueContributionsDatas:[[String:String]] = [] {
-        willSet(value){
-            myColleagueContributionsDatas = value
             self.tableView.reloadData()
         }
     }
@@ -41,54 +40,62 @@ class TeamTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //MARK:- Realm_Init
+        do {
+            realm = try Realm()
+        }catch{
+            print("///Error: Realm \(error)")
+        }
+        
+        
+        ////MARK:- Realm_Notification 셋팅하기
+        self.notificationToken = colleagueObjects?.observe({ (change) in
+            print("노티가 들어옴 \(self.colleagueObjects)")
+            self.tableView.reloadData()
+        })
+        
         //내 Contributions 가져오기
         guard let currentGitHubID = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String else {return}
         self.getContributions(of: currentGitHubID) { (htmlValue) in
             self.myContributionsData = htmlValue
         }
         
-        //동료 Contributions 가져오기
-        let colleagueIDList = ColleagueList.standard.getList()
-        for colleagueID in colleagueIDList {
-            self.getContributions(of: colleagueID, { (htmlValue) in
-                let tempDic = ["GitHubID":colleagueID,
-                               "ContributionsHTML":htmlValue]
-                
-                self.myColleagueContributionsDatas.append(tempDic)
-            })
-        }
+        ////MARK:- Realm_동료 Contributions 가져오기
+        self.colleagueObjects = realm.objects(Colleague.self).sorted(byKeyPath: "gitHubUserName", ascending: true)
+        print(self.colleagueObjects)
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
-
+    
     
     /********************************************/
     //MARK:-       Methods | IBAction           //
     /********************************************/
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sectionHeaderTitleData.count
+        return self.sectionHeaderTitles.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sectionHeaderTitleData[section]
+        return self.sectionHeaderTitles[section]
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 1
         case 1:
-            return self.myColleagueContributionsDatas.count
+            guard let realColleague = self.colleagueObjects else {return 0}
+            return realColleague.count
         default:
             return 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CustomTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contributionsCell") as! CustomTableViewCell
         
@@ -101,19 +108,19 @@ class TeamTableViewController: UITableViewController {
             
             return cell
         }else{
-            cell.contributionUserNameTextLabel.text = self.myColleagueContributionsDatas[indexPath.row]["GitHubID"]
-            cell.contributionsWebView.loadHTMLString(self.myColleagueContributionsDatas[indexPath.row]["ContributionsHTML"]!, baseURL: nil)
+            guard let realColleague = self.colleagueObjects else {return cell}
+            let object = realColleague[indexPath.row]
+            cell.contributionUserNameTextLabel.text = object.gitHubUserName
+            cell.contributionsWebView.loadHTMLString(object.htmlValue, baseURL: nil)
             
             return cell
         }
-
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
     }
- 
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
         case 0:
@@ -122,37 +129,26 @@ class TeamTableViewController: UITableViewController {
             return true
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            self.myColleagueContributionsDatas.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            self.tableView.reloadData()
+            do {
+                try realm.write {
+                    guard let realColleague = self.colleagueObjects else {return}
+                    realm.delete(realColleague[indexPath.row])
+                    self.tableView.reloadData()
+                }
+            }catch{
+                print("///Error: Realm_\(error)")
+            }
         }
     }
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        switch indexPath.section {
-        case 0:
-            return false
-        default:
-            return true
-        }
-    }
-
+    
     
     // MARK: - Methods
     
     @IBAction func addBarButtonAction(_ sender: UIBarButtonItem) {
-        self.addColleagueContributions()
+        self.alertForColleagueContributions(contributionToBeUpdated: nil)
     }
     
     @IBAction func refreshBarButtonAction(_ sender: UIBarButtonItem) {
@@ -160,9 +156,10 @@ class TeamTableViewController: UITableViewController {
         self.getContributions(of: currentGitHubID) { (htmlValue) in
             self.myContributionsData = htmlValue
         }
+        self.tableView.reloadData()
     }
     
-    func addColleagueContributions() {
+    func alertForColleagueContributions(contributionToBeUpdated: Colleague?) {
         let title = NSLocalizedString("Add Colleague", comment: "")
         let message = NSLocalizedString("Please enter your colleague's GitHub username.", comment: "")
         let cancelButtonTitle = NSLocalizedString("Cancel", comment: "")
@@ -172,46 +169,54 @@ class TeamTableViewController: UITableViewController {
         
         // Add the text field for text entry.
         alertController.addTextField { textField in
-            textField.placeholder = "GitHub username only"
-
-            NotificationCenter.default.addObserver(self, selector: #selector(TeamTableViewController.handleTextFieldTextDidChangeNotification(_:)), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: textField)
-        }
-        
-        let removeTextFieldObserver: () -> Void = {
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UITextFieldTextDidEndEditing, object: alertController.textFields!.first)
+            if contributionToBeUpdated != nil {
+                textField.placeholder = "GitHub username only"
+                textField.text = contributionToBeUpdated?.gitHubUserName
+            }
+            
         }
         
         // Create the actions.
-        let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel) { _ in
-            removeTextFieldObserver()
-        }
+        let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
         
         let doneAction = UIAlertAction(title: otherButtonTitle, style: .default) { _ in
-            removeTextFieldObserver()
-            self.tableView.reloadData()
+            let inputUserName = alertController.textFields?.first?.text
+            
+            self.getContributions(of: inputUserName!, { (html) in
+                if contributionToBeUpdated != nil {
+                    do {
+                        try self.realm.write {
+                            contributionToBeUpdated?.gitHubUserName = inputUserName!
+                            contributionToBeUpdated?.htmlValue = html
+                            print("첫번째: \(self.colleagueObjects)")
+                            self.tableView.reloadData()
+                        }
+                    } catch {
+                        print("///Error: Realm_\(error)")
+                    }
+                } else {
+                    let newColleague = Colleague()
+                    newColleague.gitHubUserName = inputUserName!
+                    newColleague.htmlValue = html
+                    do {
+                        try self.realm.write {
+                            self.realm.add(newColleague)
+                            print("두번째: \(self.colleagueObjects)")
+                            self.tableView.reloadData()
+                        }
+                    } catch {
+                        print("///Error: Realm_\(error)")
+                    }
+                }
+            })
         }
         
         // Add the actions.
         alertController.addAction(cancelAction)
         alertController.addAction(doneAction)
-        
         present(alertController, animated: true, completion: nil)
-        
     }
     
-    @objc func handleTextFieldTextDidChangeNotification(_ notification: Notification) {
-        let textField = notification.object as! UITextField
-        
-        if let text = textField.text {
-            self.getContributions(of: text, {(htmlValue) in
-                let tempDic:[String:String] = ["GitHubID":text,
-                                               "ContributionsHTML":htmlValue]
-                ColleagueList.standard.set(text)
-                print(ColleagueList.standard.getList())
-            })
-        }
-        
-    }
     
     func getContributions(of gitHubID:String, _ completionHandler: @escaping(_ htmlValue:String) -> Void) {
         guard let getMyContributionsUrl:URL = URL(string:"https://github.com/users/\(gitHubID)/contributions") else {return}
@@ -224,5 +229,5 @@ class TeamTableViewController: UITableViewController {
             }
         }
     }
-
+    
 }
