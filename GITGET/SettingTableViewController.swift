@@ -13,7 +13,9 @@ import MessageUI
 
 import Alamofire
 import Kingfisher
+import Firebase
 import FirebaseAuth
+import Toaster
 
 class SettingTableViewController: UITableViewController {
     
@@ -22,10 +24,10 @@ class SettingTableViewController: UITableViewController {
     /********************************************/
     let sectionHeaderTitleData:[String] = ["My GitHub Account".localized, "Preferrences".localized, "About GitGet".localized, "SignOut".localized]
     
-    
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -53,7 +55,7 @@ class SettingTableViewController: UITableViewController {
         case 1:
             return 1
         case 2:
-            return 3
+            return 4
         case 3:
             return 1
         default:
@@ -87,11 +89,15 @@ class SettingTableViewController: UITableViewController {
             })
             return profileCell
         }else{
-            let titleList:[[String]] = [[""], ["Theme".localized], ["Tutorial".localized, "Rate GITGET".localized, "Send email to GITGET".localized], ["Signout".localized]]
+            let titleList:[[String]] = [[""], ["Theme".localized], ["Tutorial".localized, "Rate GITGET".localized, "Version".localized, "Send email to GITGET".localized], ["Signout".localized]]
             detailCell.detailTitleLabel.text = titleList[indexPath.section][indexPath.row]
-            
-            if indexPath.section == 3 && indexPath.row == 0 {
+            detailCell.detailSubTitleLabel.text = ""
+            if indexPath.section == 2 && indexPath.row == 2 {
+                let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+                detailCell.detailSubTitleLabel.text = userAppVersion
+            } else if indexPath.section == 3 && indexPath.row == 0 {
                 detailCell.detailTitleLabel.textColor = .red
+                detailCell.accessoryType = .none
             }
             return detailCell
         }
@@ -120,7 +126,9 @@ class SettingTableViewController: UITableViewController {
                 self.openTutorial()
             }else if indexPath.row == 1 {
                 self.rateGitGet()
-            }else if indexPath.row == 2 {
+            }else if indexPath.row == 2{
+                self.checkUpdateVersion()
+            }else if indexPath.row == 3 {
                 self.sendEmailToGitGet()
             }
         case 3:
@@ -205,6 +213,53 @@ class SettingTableViewController: UITableViewController {
         
         return mailComposerVC
     }
+    
+    func checkUpdateVersion() {
+        Database.database().reference().child("GitgetVersion").observeSingleEvent(of: .value) { (snapshot) in
+            guard let gitgetVersion:[String:String] = snapshot.value as? [String:String] else {return}
+            let appMinimumVersion:String = gitgetVersion["minimum_version_code"] as! String
+            let appLastestVersion:String = gitgetVersion["lastest_version_code"] as! String
+            
+            let infoDic         = Bundle.main.infoDictionary!
+            let appBuildVersion = infoDic["CFBundleVersion"] as? String
+            
+            if(Int(appBuildVersion!)! < Int(appLastestVersion)!) {
+                //선택업데이트
+                self.optionalUpdateAlert(message: "최신 버전 업데이트가 있어요.\n새로운앱으로 설치하시겠어요?", version: Int(appLastestVersion)!)
+            }else{
+                //최신버전입니다.
+                Toast(text: "This is the latest version.".localized).show()
+            }
+        }
+    }
+    
+    func optionalUpdateAlert(message:String, version:Int) {
+        
+        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action: UIAlertAction!) in
+            print("Go to AppStore")
+            
+            if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
+                UIApplication.shared.canOpenURL(url)
+            {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            
+        }))
+        
+        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+            print("Close Alert")
+        }))
+        
+        self.present(refreshAlert, animated: true, completion: nil)
+        
+    }
+    
 }
 
 
