@@ -31,6 +31,9 @@
 	ii. `GitHub API`: API 통신 및 `OAuth 2.0` +  `Firebase Auth` 연동
 	
 	iii. `Today Extension`: Widget과 Host App간의 연동
+	
+	iv. `Realm`: 로컬저장소로써의 Realm 활용
+	
 - 작은 위젯전용앱을 만들어보자라는 생각에서 시작했지만, 이제 걸음마를 시작한 저에게는 아직 도전입니다! ~세상에 작은 프로젝트는 없다. by [까북](https://github.com/blackturtle2)~
 
 ## Update
