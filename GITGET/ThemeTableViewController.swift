@@ -22,7 +22,14 @@ enum ThemeName:Int {
 
 class ThemeTableViewController: UITableViewController {
 
-    let cellTitleData:[String] = ["GitHub Original", "Black And White", "Jeju Ocean Blue", "Winter Burgundy", "Halloween Orange", "Ginkgo Yellow", "Freestyle", "Christmas Edition"]
+    let cellTitleData:[String] = ["GitHub Original".localized,
+                                  "Black And White".localized,
+                                  "Jeju Ocean Blue".localized,
+                                  "Winter Burgundy".localized,
+                                  "Halloween Orange".localized,
+                                  "Ginkgo Yellow".localized,
+                                  "Freestyle".localized,
+                                  "Christmas Edition".localized]
     let cellImageData:[UIImage] = [#imageLiteral(resourceName: "Theme_GitHubOriginal"), #imageLiteral(resourceName: "Theme_BlackAndWhite"), #imageLiteral(resourceName: "Theme_JejuOceanBlue"), #imageLiteral(resourceName: "Theme_WinterBurgundy"), #imageLiteral(resourceName: "Theme_HalloweenOrange"), #imageLiteral(resourceName: "Theme_GinkgoYellow"), #imageLiteral(resourceName: "Theme_FreeStyle"), #imageLiteral(resourceName: "Theme_ChristmasEdition")]
     var currentTheme = ThemeName(rawValue: (UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int) ?? 0) {
         willSet(newValue){

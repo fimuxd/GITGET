@@ -23,7 +23,7 @@ class TeamTableViewController: UITableViewController {
     var colleagueObjects:Results<Colleague>!
     var notificationToken: NotificationToken!
     
-    let sectionHeaderTitles:[String] = ["My Contributions", "Team Contributions"]
+    let sectionHeaderTitles:[String] = ["My Contributions".localized, "Team Contributions".localized]
     var myContributionsData:String? {
         didSet{
             guard let realMyContributionsData = myContributionsData else {return}
@@ -63,7 +63,7 @@ class TeamTableViewController: UITableViewController {
         ////MARK:- Realm_동료 Contributions 가져오기
         self.colleagueObjects = realm.objects(Colleague.self).sorted(byKeyPath: "gitHubUserName", ascending: true)
         print(self.colleagueObjects)
-        
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -152,25 +152,21 @@ class TeamTableViewController: UITableViewController {
     }
     
     @IBAction func refreshBarButtonAction(_ sender: UIBarButtonItem) {
-        guard let currentGitHubID = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String else {return}
-        self.getContributions(of: currentGitHubID) { (htmlValue) in
-            self.myContributionsData = htmlValue
-        }
-        self.tableView.reloadData()
+        self.refreshContributions()
     }
     
     func alertForColleagueContributions(contributionToBeUpdated: Colleague?) {
-        let title = NSLocalizedString("Add Colleague", comment: "")
-        let message = NSLocalizedString("Please enter your colleague's GitHub username.", comment: "")
-        let cancelButtonTitle = NSLocalizedString("Cancel", comment: "")
-        let otherButtonTitle = NSLocalizedString("Done", comment: "")
+        let title = "Add Colleague".localized
+        let message = "Please enter your colleague's GitHub username.".localized
+        let cancelButtonTitle = "Cancel".localized
+        let otherButtonTitle = "Done".localized
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
         // Add the text field for text entry.
         alertController.addTextField { textField in
             if contributionToBeUpdated != nil {
-                textField.placeholder = "GitHub username only"
+                textField.placeholder = "GitHub username only".localized
                 textField.text = contributionToBeUpdated?.gitHubUserName
             }
             
@@ -217,6 +213,28 @@ class TeamTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     
+    func refreshContributions() {
+        //My Contributions 갱신
+        
+        guard let currentGitHubID = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String else {return}
+        self.getContributions(of: currentGitHubID) { (htmlValue) in
+            self.myContributionsData = htmlValue
+        }
+        
+        //Colleague Contributions 갱신
+        for colleague in self.colleagueObjects {
+            self.getContributions(of: colleague.gitHubUserName, { (html) in
+                do {
+                    try self.realm.write {
+                        colleague.htmlValue = html
+                        self.tableView.reloadData()
+                    }
+                } catch {
+                    print("///Error: Realm_\(error)")
+                }
+            })
+        }
+    }
     
     func getContributions(of gitHubID:String, _ completionHandler: @escaping(_ htmlValue:String) -> Void) {
         guard let getMyContributionsUrl:URL = URL(string:"https://github.com/users/\(gitHubID)/contributions") else {return}
@@ -229,5 +247,4 @@ class TeamTableViewController: UITableViewController {
             }
         }
     }
-    
 }

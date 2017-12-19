@@ -8,9 +8,6 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "0cA-Zn-vRI"; */
 "0cA-Zn-vRI.text" = "-";
 
-/* Class = "UITabBarItem"; title = "MyField"; ObjectID = "2Tg-B8-Yts"; */
-"2Tg-B8-Yts.title" = "MyField";
-
 /* Class = "UILabel"; text = "Tips💡Tap once to refresh your contributions. And double tap to open GITGET app."; ObjectID = "A4h-oE-NhH"; */
 "A4h-oE-NhH.text" = "팁💡 새로고침 하려면 탭 한번, 깃젯 앱으로 가려면 더블 탭!";
 
@@ -56,5 +53,17 @@
 /* Class = "UILabel"; text = "-"; ObjectID = "qEQ-9V-c3E"; */
 "qEQ-9V-c3E.text" = "-";
 
+/* Class = "UITabBarItem"; title = "MyField"; ObjectID = "iXW-q5-X7T"; */
+"iXW-q5-X7T.title" = "내 상태";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "fpy-Mx-RJp"; */
+"fpy-Mx-RJp.title" = "동료들";
+
 /* Class = "UITabBarItem"; title = "Item"; ObjectID = "tug-Ms-V23"; */
-"tug-Ms-V23.title" = "Item";
+"tug-Ms-V23.title" = "설정";
+
+"pUy-hh-c3h.title" = "깃젯";
+"Kqk-fE-K6W.title" = "깃젯";
+"oSA-Id-pSS.title" = "깃젯";
+"4Ay-10-twz.title" = "내 GitHub 정보";
+"WyN-Vk-VH9.title" = "테마";
