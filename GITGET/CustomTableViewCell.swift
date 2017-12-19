@@ -21,6 +21,7 @@ class CustomTableViewCell: UITableViewCell {
     
     //detailCell
     @IBOutlet weak var detailTitleLabel: UILabel!
+    @IBOutlet weak var detailSubTitleLabel: UILabel!
     
     //modifiableCell
     @IBOutlet weak var modifiableTitleLabel: UILabel!
@@ -29,13 +30,17 @@ class CustomTableViewCell: UITableViewCell {
     //contributionCell
     @IBOutlet weak var contributionUserNameTextLabel: UILabel!
     @IBOutlet weak var contributionsWebView: UIWebView!
+    @IBOutlet weak var contributionsActivityIndicator: UIActivityIndicatorView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         if self.reuseIdentifier == "contributionsCell" {
-        self.contributionsWebView.delegate = self
-        self.contributionsWebView.scrollView.bounces = false
+            self.contributionsWebView.delegate = self
+            self.contributionsWebView.isHidden = true
+            self.contributionsWebView.scrollView.bounces = false
+        }else if self.reuseIdentifier == "themeCell" {
+            
         }
     }
     
@@ -48,8 +53,18 @@ class CustomTableViewCell: UITableViewCell {
 }
 
 extension CustomTableViewCell:UIWebViewDelegate {
+    
     func webViewDidFinishLoad(_ webView: UIWebView) {
+        let xPosition = webView.scrollView.contentSize.width - self.frame.width - 8
+        self.contributionsActivityIndicator.startAnimating()
         webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontFamily =\"-apple-system\"")
         webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontSize = '10px'")
+        webView.scrollView.contentOffset = CGPoint(x: xPosition, y: 0.0)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
+            self.contributionsWebView.isHidden = false
+            self.contributionsActivityIndicator.stopAnimating()
+        })
     }
 }
+

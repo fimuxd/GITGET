@@ -20,6 +20,7 @@ class OAuthWebViewController: UIViewController {
     /********************************************/
     
     @IBOutlet weak var authorizationWebView: UIWebView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -28,6 +29,7 @@ class OAuthWebViewController: UIViewController {
         super.viewDidLoad()
         
         self.signInGithub()
+        self.activityIndicator.startAnimating()
         
     }
     
@@ -66,6 +68,7 @@ class OAuthWebViewController: UIViewController {
             case .success(let value):
                 self.authorizationWebView.loadHTMLString(value, baseURL: URL(string:"https://github.com"))
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.activityIndicator.stopAnimating()
             case .failure(let error):
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 print("///Alamofire.request - error: ", error)
@@ -84,12 +87,14 @@ extension OAuthWebViewController: UIWebViewDelegate {
             safariViewController.delegate = self
             self.present(safariViewController, animated: true, completion: {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                self.activityIndicator.stopAnimating()
             })
             return false
         }
         
         guard let realURL = request.url else {
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            self.activityIndicator.stopAnimating()
             return true}
         
         //MARK:- CallbackURL(Firebase) 로 연결되었을 때 - code 추출
@@ -101,6 +106,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
         if String(describing: request).contains(callbackURL) {
             print("//콜백유알엘로 들어옴")
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            self.activityIndicator.startAnimating()
             let callbackUrlWithCode:String = realURL.absoluteString
             guard let queryItemsForCode = URLComponents(string:callbackUrlWithCode)?.queryItems,
                 let code = queryItemsForCode.filter({$0.name == "code"}).first?.value,
@@ -156,6 +162,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
                             let mainNavigationController:UINavigationController = storyboard.instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
                             mainNavigationController.present(tabBarController, animated: true, completion: {
                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                self.activityIndicator.stopAnimating()
                                 UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.set(true, forKey: "isSigned")
                                 UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.synchronize()
                             })
@@ -165,6 +172,7 @@ extension OAuthWebViewController: UIWebViewDelegate {
                 case .failure(let error):
                     print("///Alamofire.request - error: ", error)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }
