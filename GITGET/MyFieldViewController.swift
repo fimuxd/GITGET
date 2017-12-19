@@ -66,8 +66,8 @@ class MyFieldViewController: UIViewController {
 
         /** Version Control Using Firebase */
         ref = Database.database().reference()
-        
-        ref = Database.database().reference()
+//
+//        ref = Database.database().reference()
         
         ref.child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
             let dic = snapShot.value as? Dictionary<String, AnyObject>
