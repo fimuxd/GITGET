@@ -14,8 +14,10 @@
 "🔥 Burned out! %@ contributions today!" = "🔥 대박! 오늘 %@ 번 기여하셨어요!";
 
 //업데이트
-"UPDATE" = "업데이트";
+"Update" = "업데이트";
+"Update Available" = "업데이트 가능";
 "OK" = "확인";
+"Not Now" = "지금 하지 않음";
 
 //Team Tab
 "My Contributions" = "나의 Contributions";
@@ -45,6 +47,11 @@
 "Cancel" = "취소";
 
 "This is the latest version." = "현재 최신 버전입니다.";
+"It is recommended that you update the GitGet to the latest version." = "깃젯을 최신버전으로 업데이트 해주세요.";
+"It is recommended that you update the GitGet to the latest version.\nPlease update it in Setting" = "깃젯을 최신버전으로 업데이트 해주세요.\n설정 메뉴에서 언제든지 가능합니다.";
+"Are you sure you want to Log out?" = "정말 로그아웃 하시겠어요?";
+"(Update Available)" = "(최신버전 아님)";
+"(The Latest Ver.)" = "(최신버전)";
 
 //깃젯에게 메일보내기 눌렀을 때 메일 내용
 "\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====" = "피드백 주셔서 감사합니다!\n깃젯에 대한 소중한 의견을 여기에 적어주세요. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====";

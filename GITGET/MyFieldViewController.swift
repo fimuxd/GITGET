@@ -38,6 +38,7 @@ class MyFieldViewController: UIViewController {
     let accessToken:String? = UserDefaults.standard.object(forKey: "AccessToken") as? String
     let currentGitHubID:String? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String
     let themeRawValue:Int? = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int
+    let isNotNowTapped:Bool? = UserDefaults.standard.value(forKey: "isNotNowTapped") as? Bool
     
     var hexColorCodesArray:[String]?{
         didSet{
@@ -252,7 +253,7 @@ class MyFieldViewController: UIViewController {
     
     func forceUdpateAlert(message:String) {
         
-        let refreshAlert = UIAlertController(title: "UPDATE".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let refreshAlert = UIAlertController(title: "Update Available".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action: UIAlertAction!) in
             print("Go to AppStore")
@@ -278,7 +279,7 @@ class MyFieldViewController: UIViewController {
         
         refreshAlert.addAction(UIAlertAction(title: "Update".localized, style: .default, handler: { (action: UIAlertAction!) in
             print("Go to AppStore")
-            
+            UserDefaults.standard.setValue(false, forKey: "isNotNowTapped")
             if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
                 UIApplication.shared.canOpenURL(url)
             {
@@ -293,11 +294,19 @@ class MyFieldViewController: UIViewController {
         
         refreshAlert.addAction(UIAlertAction(title: "Not Now".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             print("Close Alert")
-            Toast.init(text: "It is recommended that you update the GitGet to the latest version.\nPlease update it in Setting").show()
+            Toast.init(text: "It is recommended that you update the GitGet to the latest version.\nPlease update it in Setting".localized).show()
+            UserDefaults.standard.setValue(true, forKey: "isNotNowTapped")
         }))
         
+        if let isNotNowTapped = self.isNotNowTapped {
+            switch isNotNowTapped {
+            case true:
+                print("User Tapped Not Now before")
+            case false:
+                self.present(refreshAlert, animated: true, completion: nil)
+            }
+        }
         self.present(refreshAlert, animated: true, completion: nil)
-        
     }
 }
 

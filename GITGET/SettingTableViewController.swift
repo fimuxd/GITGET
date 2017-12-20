@@ -95,15 +95,13 @@ class SettingTableViewController: UITableViewController {
             if indexPath.section == 2 && indexPath.row == 2 {
                 guard let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
                     let appBuildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {return detailCell}
-                
                 Database.database().reference().child("GitgetVersion").child("lastest_version_code").observeSingleEvent(of: .value, with: { (snapshot) in
                     guard let lastestVersionCode = snapshot.value as? String else {return}
-                    print("가드통과")
                     DispatchQueue.main.async {
                         if Int(lastestVersionCode)! > Int(appBuildVersion)! {
-                            detailCell.detailSubTitleLabel.text = "\(userAppVersion)(Update Available)"
+                            detailCell.detailSubTitleLabel.text = userAppVersion + "(Update Available)".localized
                         }else{
-                            detailCell.detailSubTitleLabel.text = "\(userAppVersion)(The Latest Ver.)"
+                            detailCell.detailSubTitleLabel.text = userAppVersion + "(The Latest Ver.)".localized
                         }
                         detailCell.setNeedsLayout()
                     }
@@ -192,7 +190,7 @@ class SettingTableViewController: UITableViewController {
     }
     
     func signOutAction() {
-        let alert:UIAlertController = UIAlertController(title: "Signout", message: "Are you sure you want to Log out?", preferredStyle: .alert)
+        let alert:UIAlertController = UIAlertController(title: "Signout".localized, message: "Are you sure you want to Log out?".localized, preferredStyle: .alert)
         let signOut:UIAlertAction = UIAlertAction(title: "Signout".localized, style: .default) { (action) in
             //Firebase SignOut
             let firebaseAuth = Auth.auth()
@@ -260,7 +258,7 @@ class SettingTableViewController: UITableViewController {
     
     func forceUdpateAlert(message:String) {
         
-        let refreshAlert = UIAlertController(title: "UPDATE".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let refreshAlert = UIAlertController(title: "Update Available".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
         refreshAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action: UIAlertAction!) in
             print("Go to AppStore")
@@ -282,11 +280,11 @@ class SettingTableViewController: UITableViewController {
     
     func optionalUpdateAlert(message:String, version:Int) {
         
-        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let refreshAlert = UIAlertController(title: "Update Available".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Update".localized, style: .default, handler: { (action: UIAlertAction!) in
             print("Go to AppStore")
-            
+            UserDefaults.standard.setValue(false, forKey: "isNotNowTapped")
             if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
                 UIApplication.shared.canOpenURL(url)
             {
@@ -299,12 +297,12 @@ class SettingTableViewController: UITableViewController {
             
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Not Now".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             print("Close Alert")
+            Toast.init(text: "It is recommended that you update the GitGet to the latest version.".localized).show()
         }))
         
         self.present(refreshAlert, animated: true, completion: nil)
-        
     }
 }
 
