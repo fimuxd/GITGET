@@ -27,7 +27,7 @@ class SettingTableViewController: UITableViewController {
     /********************************************/
     //MARK:-            LifeCycle               //
     /********************************************/
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -93,8 +93,21 @@ class SettingTableViewController: UITableViewController {
             detailCell.detailTitleLabel.text = titleList[indexPath.section][indexPath.row]
             detailCell.detailSubTitleLabel.text = ""
             if indexPath.section == 2 && indexPath.row == 2 {
-                let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-                detailCell.detailSubTitleLabel.text = userAppVersion
+                guard let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+                    let appBuildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {return detailCell}
+                
+                Database.database().reference().child("GitgetVersion").child("lastest_version_code").observeSingleEvent(of: .value, with: { (snapshot) in
+                    guard let lastestVersionCode = snapshot.value as? String else {return}
+                    print("가드통과")
+                    DispatchQueue.main.async {
+                        if Int(lastestVersionCode)! > Int(appBuildVersion)! {
+                            detailCell.detailSubTitleLabel.text = "\(userAppVersion)(Update Available)"
+                        }else{
+                            detailCell.detailSubTitleLabel.text = "\(userAppVersion)(The Latest Ver.)"
+                        }
+                        detailCell.setNeedsLayout()
+                    }
+                })
             } else if indexPath.section == 3 && indexPath.row == 0 {
                 detailCell.detailTitleLabel.textColor = .red
                 detailCell.accessoryType = .none
@@ -127,7 +140,19 @@ class SettingTableViewController: UITableViewController {
             }else if indexPath.row == 1 {
                 self.rateGitGet()
             }else if indexPath.row == 2{
-                self.checkUpdateVersion()
+                Database.database().reference().child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
+                    let dic = snapShot.value as? Dictionary<String, AnyObject>
+                    let vData = GitgetVersion()
+                    
+                    vData.force_update_message = dic!["force_update_message"] as! String
+                    vData.optional_update_message = dic!["optional_update_message"] as! String
+                    vData.lastest_version_code = dic!["lastest_version_code"] as! String
+                    vData.lastest_version_name = dic!["lastest_version_name"] as! String
+                    vData.minimum_version_code = dic!["minimum_version_code"] as! String
+                    vData.minimum_version_name = dic!["minimum_version_name"] as! String
+                    
+                    self.checkUpdateVersion(dbdata: vData)
+                })
             }else if indexPath.row == 3 {
                 self.sendEmailToGitGet()
             }
@@ -214,23 +239,45 @@ class SettingTableViewController: UITableViewController {
         return mailComposerVC
     }
     
-    func checkUpdateVersion() {
-        Database.database().reference().child("GitgetVersion").observeSingleEvent(of: .value) { (snapshot) in
-            guard let gitgetVersion:[String:String] = snapshot.value as? [String:String] else {return}
-            let appMinimumVersion:String = gitgetVersion["minimum_version_code"] as! String
-            let appLastestVersion:String = gitgetVersion["lastest_version_code"] as! String
-            
-            let infoDic         = Bundle.main.infoDictionary!
-            let appBuildVersion = infoDic["CFBundleVersion"] as? String
-            
-            if(Int(appBuildVersion!)! < Int(appLastestVersion)!) {
-                //선택업데이트
-                self.optionalUpdateAlert(message: "최신 버전 업데이트가 있어요.\n새로운앱으로 설치하시겠어요?", version: Int(appLastestVersion)!)
-            }else{
-                //최신버전입니다.
-                Toast(text: "This is the latest version.".localized).show()
-            }
+    func checkUpdateVersion(dbdata:GitgetVersion) {
+        let appLastestVersion = dbdata.lastest_version_code as String
+        let appMinimumVersion = dbdata.minimum_version_code as String
+        
+        let infoDic         = Bundle.main.infoDictionary!
+        let appBuildVersion = infoDic["CFBundleVersion"] as? String
+        
+        if (Int(appBuildVersion!)! < Int(appMinimumVersion)!) {
+            //강제업데이트
+            forceUdpateAlert(message: dbdata.force_update_message)
+        }else if(Int(appBuildVersion!)! < Int(appLastestVersion)!) {
+            //선택업데이트
+            optionalUpdateAlert(message: dbdata.optional_update_message, version: Int(dbdata.lastest_version_code)!)
+        }else{
+            //최신버전입니다.
+            Toast.init(text: "This is the latest version.".localized).show()
         }
+    }
+    
+    func forceUdpateAlert(message:String) {
+        
+        let refreshAlert = UIAlertController(title: "UPDATE".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        
+        refreshAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action: UIAlertAction!) in
+            print("Go to AppStore")
+            // AppStore 로 가도록 연결시켜 주면 됩니다.
+            if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
+                UIApplication.shared.canOpenURL(url)
+            {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+        }))
+        
+        self.present(refreshAlert, animated: true, completion: nil)
+        
     }
     
     func optionalUpdateAlert(message:String, version:Int) {
@@ -259,9 +306,7 @@ class SettingTableViewController: UITableViewController {
         self.present(refreshAlert, animated: true, completion: nil)
         
     }
-    
 }
-
 
 extension SettingTableViewController:SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {

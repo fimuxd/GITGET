@@ -15,6 +15,7 @@ import Alamofire
 import SwiftyJSON
 import SwiftSoup
 import Kingfisher
+import Toaster
 
 class MyFieldViewController: UIViewController {
     
@@ -66,8 +67,6 @@ class MyFieldViewController: UIViewController {
 
         /** Version Control Using Firebase */
         ref = Database.database().reference()
-//
-//        ref = Database.database().reference()
         
         ref.child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
             let dic = snapShot.value as? Dictionary<String, AnyObject>
@@ -253,9 +252,9 @@ class MyFieldViewController: UIViewController {
     
     func forceUdpateAlert(message:String) {
         
-        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let refreshAlert = UIAlertController(title: "UPDATE".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "OK".localized, style: .default, handler: { (action: UIAlertAction!) in
             print("Go to AppStore")
             // AppStore 로 가도록 연결시켜 주면 됩니다.
             if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
@@ -275,9 +274,9 @@ class MyFieldViewController: UIViewController {
     
     func optionalUpdateAlert(message:String, version:Int) {
         
-        let refreshAlert = UIAlertController(title: "UPDATE", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let refreshAlert = UIAlertController(title: "Update Available".localized, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        refreshAlert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Update".localized, style: .default, handler: { (action: UIAlertAction!) in
             print("Go to AppStore")
             
             if let url = URL(string: "itms-apps://itunes.apple.com/us/app/gitget/id1317170245?mt=8"),
@@ -292,8 +291,9 @@ class MyFieldViewController: UIViewController {
             
         }))
         
-        refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
+        refreshAlert.addAction(UIAlertAction(title: "Not Now".localized, style: .cancel, handler: { (action: UIAlertAction!) in
             print("Close Alert")
+            Toast.init(text: "It is recommended that you update the GitGet to the latest version.\nPlease update it in Setting").show()
         }))
         
         self.present(refreshAlert, animated: true, completion: nil)
