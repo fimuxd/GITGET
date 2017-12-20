@@ -13,6 +13,10 @@
 "👏 Well done. %@ contributions today!" = "👏 최고예요. 오늘 %@ 번 기여하셨어요!";
 "🔥 Burned out! %@ contributions today!" = "🔥 대박! 오늘 %@ 번 기여하셨어요!";
 
+//업데이트
+"UPDATE" = "업데이트";
+"OK" = "확인";
+
 //Team Tab
 "My Contributions" = "나의 Contributions";
 "Team Contributions" = "동료 개발자들의 Contributions";
@@ -22,6 +26,7 @@
 "Please enter your colleague's GitHub username." = "동료의 GitHub username을 입력하세요.";
 "Done" = "완료";
 "GitHub username only" = "GitHub username";
+"Edit" = "편집";
 
 //Setting Tab
 //섹션 헤드

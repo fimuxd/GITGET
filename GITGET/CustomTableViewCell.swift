@@ -39,11 +39,13 @@ class CustomTableViewCell: UITableViewCell {
             self.contributionsWebView.delegate = self
             self.contributionsWebView.isHidden = true
             self.contributionsWebView.scrollView.bounces = false
+            self.contributionsWebView.backgroundColor = .white
+            
         }else if self.reuseIdentifier == "themeCell" {
             
         }
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -55,7 +57,7 @@ class CustomTableViewCell: UITableViewCell {
 extension CustomTableViewCell:UIWebViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        let xPosition = webView.scrollView.contentSize.width - self.frame.width - 8
+        let xPosition = webView.scrollView.contentSize.width - self.frame.width - 8 + 12
         self.contributionsActivityIndicator.startAnimating()
         webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontFamily =\"-apple-system\"")
         webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontSize = '10px'")

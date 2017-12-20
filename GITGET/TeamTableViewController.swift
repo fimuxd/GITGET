@@ -17,7 +17,8 @@ class TeamTableViewController: UITableViewController {
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
     @IBOutlet weak var addBarButtonOutlet: UIBarButtonItem!
-    @IBOutlet weak var refreshBarButtonOutlet: UIBarButtonItem!
+    @IBOutlet weak var editBarButtonOutlet: UIBarButtonItem!
+
     
     var realm: Realm!
     var colleagueObjects:Results<Colleague>!
@@ -32,7 +33,6 @@ class TeamTableViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-    
     
     /********************************************/
     //MARK:-            LifeCycle               //
@@ -63,8 +63,11 @@ class TeamTableViewController: UITableViewController {
         ////MARK:- Realm_동료 Contributions 가져오기
         self.colleagueObjects = realm.objects(Colleague.self).sorted(byKeyPath: "gitHubUserName", ascending: true)
         print(self.colleagueObjects)
-
+        
+        //스크롤 다운 하면 리프레시
+        self.refreshControl?.addTarget(self, action: #selector(TeamTableViewController.refreshContributions(_:)), for: .valueChanged)
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -144,17 +147,49 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        if indexPath.section == 0 {
+            return .none
+        }else{
+            return UITableViewCellEditingStyle.delete
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     
     // MARK: - Methods
+    
+    //IBAction 을 통한 수정/추가
+    @IBAction func editBarButtonAction(_ sender: UIBarButtonItem) {
+        self.tableView.isEditing = true
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel".localized, style: .plain, target: self, action: #selector(TeamTableViewController.editingCancelled(_:)))
+    }
     
     @IBAction func addBarButtonAction(_ sender: UIBarButtonItem) {
         self.alertForColleagueContributions(contributionToBeUpdated: nil)
     }
-    
-    @IBAction func refreshBarButtonAction(_ sender: UIBarButtonItem) {
-        self.refreshContributions()
+
+    //Selector 를 통한 수정/수정취소/추가
+    @objc func editColleagues(_ sender: UIBarButtonItem) {
+        self.tableView.isEditing = true
+        self.navigationItem.rightBarButtonItem = nil
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel".localized, style: .plain, target: self, action: #selector(TeamTableViewController.editingCancelled(_:)))
     }
     
+    @objc func editingCancelled(_ sender: UIBarButtonItem) {
+        self.tableView.isEditing = false
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit".localized, style: .plain, target: self, action: #selector(TeamTableViewController.editColleagues(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(TeamTableViewController.addColleagues(_:)))
+    }
+    
+    @objc func addColleagues(_ sender: UIBarButtonItem) {
+        self.alertForColleagueContributions(contributionToBeUpdated: nil)
+    }
+
+    //추가 시 Alert
     func alertForColleagueContributions(contributionToBeUpdated: Colleague?) {
         let title = "Add Colleague".localized
         let message = "Please enter your colleague's GitHub username.".localized
@@ -213,9 +248,8 @@ class TeamTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func refreshContributions() {
+    @objc func refreshContributions(_ sender:UIRefreshControl) {
         //My Contributions 갱신
-        
         guard let currentGitHubID = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String else {return}
         self.getContributions(of: currentGitHubID) { (htmlValue) in
             self.myContributionsData = htmlValue
@@ -228,6 +262,7 @@ class TeamTableViewController: UITableViewController {
                     try self.realm.write {
                         colleague.htmlValue = html
                         self.tableView.reloadData()
+                        self.refreshControl?.endRefreshing()
                     }
                 } catch {
                     print("///Error: Realm_\(error)")
