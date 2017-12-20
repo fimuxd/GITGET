@@ -5,11 +5,11 @@
 [<img src = "https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg">](https://itunes.apple.com/us/app/gitget/id1317170245?mt=8) [<img src = "https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store-kr.svg">](https://itunes.apple.com/kr/app/gitget/id1317170245?mt=8)
 
 ## Contents
-* About GITGET
-* Concept
-* Update
-* Contributors
-* Contact ME
+* [About GITGET](https://github.com/fimuxd/GITGET#about-gitget)
+* [Concept](https://github.com/fimuxd/GITGET#concept)
+* [Update](https://github.com/fimuxd/GITGET#update)
+* [Contributors(Special Thanks)](https://github.com/fimuxd/GITGET#contributors-special-thanks)
+* [Contact ME](https://github.com/fimuxd/GITGET#contact-me)
 
 ## About GITGET
 > - `GitHub` + `Widget`
