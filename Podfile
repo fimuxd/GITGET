@@ -14,6 +14,7 @@ target 'GITGET' do
   pod 'Kingfisher'
   pod 'ObjectMapper', '~> 3.1'
   pod ‘RealmSwift' 
+  pod 'Toaster'
 
 end
 

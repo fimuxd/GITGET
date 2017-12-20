@@ -10,7 +10,7 @@ import UIKit
 
 class GitHubAccountSettingTableViewController: UITableViewController {
     
-    let sectionHeadTitleData:[String] = ["Profile", "Starred Repositories"]
+    let sectionHeadTitleData:[String] = ["Profile".localized, "Starred Repositories".localized]
     var repositoriesDatas:[[String:Any]]? {
         didSet{
             guard let realRepositoriesDatas = repositoriesDatas else {return}
@@ -73,7 +73,7 @@ class GitHubAccountSettingTableViewController: UITableViewController {
         
         switch indexPath.section {
         case 0:
-            let cellTitles:[String] = ["Name", "Email", "Bio", "URL", "Company", "Location"]
+            let cellTitles:[String] = ["Name".localized, "Email".localized, "Bio".localized, "URL".localized, "Company".localized, "Location".localized]
             modifiableCell.modifiableTitleLabel.text = cellTitles[indexPath.row]
             
             GitHubAPIManager.sharedInstance.getCurrentUserDatas(completionHandler: { (userDatas) in

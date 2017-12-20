@@ -13,21 +13,50 @@
 "👏 Well done. %@ contributions today!" = "👏 최고예요. 오늘 %@ 번 기여하셨어요!";
 "🔥 Burned out! %@ contributions today!" = "🔥 대박! 오늘 %@ 번 기여하셨어요!";
 
+//업데이트
+"Update" = "업데이트";
+"Update Available" = "업데이트 가능";
+"OK" = "확인";
+"Not Now" = "지금 하지 않음";
+
+//Team Tab
+"My Contributions" = "나의 Contributions";
+"Team Contributions" = "동료 개발자들의 Contributions";
+
+//Team Tab Alert
+"Add Colleague" = "동료 추가하기";
+"Please enter your colleague's GitHub username." = "동료의 GitHub username을 입력하세요.";
+"Done" = "완료";
+"GitHub username only" = "GitHub username";
+"Edit" = "편집";
+
+//Setting Tab
 //섹션 헤드
 "My GitHub Account" = "내 GitHub 정보";
 "Preferrences" = "설정";
 "About GitGet" = "깃젯에 대하여";
+"SignOut" = "나가기";
 
 //셀 타이틀
 "Theme" = "테마";
 "Tutorial" = "사용법";
 "Rate GITGET" = "깃젯 별점주기";
+"Version" = "버전 정보";
 "Send email to GITGET" = "깃젯에게 메일 보내기";
 "Signout" = "로그아웃";
 "Cancel" = "취소";
 
+"This is the latest version." = "현재 최신 버전입니다.";
+"It is recommended that you update the GitGet to the latest version." = "깃젯을 최신버전으로 업데이트 해주세요.";
+"It is recommended that you update the GitGet to the latest version.\nPlease update it in Setting" = "깃젯을 최신버전으로 업데이트 해주세요.\n설정 메뉴에서 언제든지 가능합니다.";
+"Are you sure you want to Log out?" = "정말 로그아웃 하시겠어요?";
+"(Update Available)" = "(최신버전 아님)";
+"(The Latest Ver.)" = "(최신버전)";
+
+//깃젯에게 메일보내기 눌렀을 때 메일 내용
 "\nThanks for your feedback!\nKindly write your advise here. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====" = "피드백 주셔서 감사합니다!\n깃젯에 대한 소중한 의견을 여기에 적어주세요. :)\n\n\n=====\niOS Version: %@\nApp Version: %@\n=====";
 
+//튜토리얼로 보여줄 이미지
 "TutorialOne_en_iPhone" = "TutorialOne_kr_iPhone";
 "TutorialTwo_en_iPhone" = "TutorialTwo_kr_iPhone";
 "TutorialThree_en_iPhone" = "TutorialThree_kr_iPhone";
@@ -45,3 +74,23 @@
 "TutorialThree_en_iPhoneSE" = "TutorialThree_kr_iPhoneSE";
 "TutorialFour_en_iPhoneSE" = "TutorialFour_kr_iPhoneSE";
 "TutorialFive_en_iPhoneSE" = "TutorialFive_kr_iPhoneSE";
+
+//프로필(디테일 설정)
+"Profile" = "프로필";
+"Starred Repositories" = "즐겨찾기한 Repositories";
+"Name" = "이름";
+"Email" = "이메일";
+"Bio" = "상태메시지";
+"URL" = "URL";
+"Company" = "소속";
+"Location" = "위치";
+
+//색상테마(디테일 설정)
+"GitHub Original" = "GitHub 기본";
+"Black And White" = "바둑돌";
+"Jeju Ocean Blue" = "제주 바다";
+"Winter Burgundy" = "따뜻한 겨울";
+"Halloween Orange" = "할로윈";
+"Ginkgo Yellow" = "은행나무";
+"Freestyle" = "프리스타일";
+"Christmas Edition" = "크리스마스";
