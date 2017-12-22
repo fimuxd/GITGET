@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lnZ-rD-8Xo">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -31,11 +31,11 @@
             <objects>
                 <viewController storyboardIdentifier="OpenTodayViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="f9c-Ub-me9" customClass="OpenTodayViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gOP-3H-vQN">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jE1-Rw-WOg">
-                                <rect key="frame" x="294" y="40" width="41" height="32"/>
+                                <rect key="frame" x="333" y="40" width="41" height="32"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <state key="normal" title="Skip"/>
                                 <connections>
@@ -43,13 +43,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TutorialOne_en_iPhone" translatesAutoresizingMaskIntoConstraints="NO" id="kHe-GQ-g3D">
-                                <rect key="frame" x="93" y="148.5" width="300" height="533.5"/>
+                                <rect key="frame" x="100.66666666666666" y="162" width="331.33333333333337" height="589"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kHe-GQ-g3D" secondAttribute="height" multiplier="9:16" id="eRg-gr-3r8"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to the right while home screen to reveal your widgets." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIr-99-9lu">
-                                <rect key="frame" x="20" y="82" width="300" height="70"/>
+                                <rect key="frame" x="20" y="82" width="331.33333333333331" height="70"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -83,11 +83,11 @@
             <objects>
                 <viewController storyboardIdentifier="AddWidgetViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="T8Z-Mg-NrD" customClass="AddWidgetViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KfN-3v-rjX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzs-tI-fnv">
-                                <rect key="frame" x="294" y="40" width="41" height="32"/>
+                                <rect key="frame" x="333" y="40" width="41" height="32"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <state key="normal" title="Skip"/>
                                 <connections>
@@ -95,13 +95,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TutorialTwo_en_iPhone" translatesAutoresizingMaskIntoConstraints="NO" id="hMU-aK-ezq">
-                                <rect key="frame" x="93" y="148.5" width="300" height="533.5"/>
+                                <rect key="frame" x="100.66666666666666" y="162" width="331.33333333333337" height="589"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="hMU-aK-ezq" secondAttribute="height" multiplier="9:16" id="g6O-gh-Y0D"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scroll all the way to the bottom and tap Edit." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccg-hE-Bis">
-                                <rect key="frame" x="20" y="82" width="300" height="47"/>
+                                <rect key="frame" x="20" y="82" width="331.33333333333331" height="46.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -135,11 +135,11 @@
             <objects>
                 <viewController storyboardIdentifier="WidgetViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vBt-0u-2NL" customClass="WidgetViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="i8L-dG-M7m">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHB-no-see">
-                                <rect key="frame" x="294" y="40" width="41" height="32"/>
+                                <rect key="frame" x="333" y="40" width="41" height="32"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <state key="normal" title="Skip"/>
                                 <connections>
@@ -147,13 +147,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TutorialThree_en_iPhone" translatesAutoresizingMaskIntoConstraints="NO" id="FOL-fv-tUg">
-                                <rect key="frame" x="93" y="148.5" width="300" height="533.5"/>
+                                <rect key="frame" x="100.66666666666666" y="162" width="331.33333333333337" height="589"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FOL-fv-tUg" secondAttribute="height" multiplier="9:16" id="kJG-jx-5bJ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cherry-pick GITGET and arrange it to top. ;) " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wjz-4G-Lj8">
-                                <rect key="frame" x="20" y="82" width="300" height="47"/>
+                                <rect key="frame" x="20" y="82" width="331.33333333333331" height="46.666666666666657"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -187,11 +187,11 @@
             <objects>
                 <viewController storyboardIdentifier="SingleTapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qDG-hY-cB9" customClass="SingleTapViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QDY-xs-dAh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BeA-dj-LQK">
-                                <rect key="frame" x="294" y="40" width="41" height="32"/>
+                                <rect key="frame" x="333" y="40" width="41" height="32"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <state key="normal" title="Skip"/>
                                 <connections>
@@ -199,13 +199,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TutorialFour_en_iPhone" translatesAutoresizingMaskIntoConstraints="NO" id="dxJ-7y-Vnm">
-                                <rect key="frame" x="93" y="148.5" width="300" height="533.5"/>
+                                <rect key="frame" x="100.66666666666666" y="162" width="331.33333333333337" height="589"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="dxJ-7y-Vnm" secondAttribute="height" multiplier="9:16" id="ccD-fb-Y9v"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yay! Keep in touch with your GitHub contributions anytime, anywhere!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hiu-e5-NNx">
-                                <rect key="frame" x="20" y="82" width="300" height="93.5"/>
+                                <rect key="frame" x="20" y="82" width="331.33333333333331" height="70"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -240,11 +240,11 @@
             <objects>
                 <viewController storyboardIdentifier="DoubleTapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nv0-Fc-KCi" customClass="DoubleTapViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1RQ-yG-AUa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0HR-fO-bOO">
-                                <rect key="frame" x="294" y="40" width="41" height="32"/>
+                                <rect key="frame" x="333" y="40" width="41" height="32"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
@@ -252,13 +252,13 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TutorialFive_en_iPhone" translatesAutoresizingMaskIntoConstraints="NO" id="xFq-qu-oXe">
-                                <rect key="frame" x="93" y="148.5" width="300" height="533.5"/>
+                                <rect key="frame" x="100.66666666666666" y="162" width="331.33333333333337" height="589"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="xFq-qu-oXe" secondAttribute="height" multiplier="9:16" id="RtC-69-M1b"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tips💡Tap once to refresh your contributions. And double tap to open GITGET app." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4h-oE-NhH">
-                                <rect key="frame" x="20" y="82" width="299.5" height="116.5"/>
+                                <rect key="frame" x="20" y="82" width="331" height="93.333333333333314"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="1" height="2"/>
@@ -301,11 +301,11 @@
             <objects>
                 <viewController storyboardIdentifier="LogInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LogInViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vbi-Vd-LDq">
-                                <rect key="frame" x="56.5" y="341.5" width="262" height="48"/>
+                                <rect key="frame" x="62" y="373.33333333333331" width="290" height="53.333333333333314"/>
                                 <color key="backgroundColor" red="0.19999769330024719" green="0.19999843835830688" blue="0.20000004768371582" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Vbi-Vd-LDq" secondAttribute="height" multiplier="445:82" id="fLT-wD-Dll"/>
@@ -320,19 +320,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You need to have a GitHub account to use the GITGET." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0R-Yb-emA">
-                                <rect key="frame" x="56" y="652" width="263" height="12"/>
+                                <rect key="frame" x="75.666666666666686" y="714" width="263" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GitgetLogo" translatesAutoresizingMaskIntoConstraints="NO" id="yO7-un-1jQ">
-                                <rect key="frame" x="150" y="206" width="75" height="75"/>
+                                <rect key="frame" x="165.66666666666666" y="225.33333333333334" width="82.666666666666657" height="82.666666666666657"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="yO7-un-1jQ" secondAttribute="height" multiplier="1:1" id="Ekp-Y6-9a6"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to GITGET" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CDZ-2P-FwJ">
-                                <rect key="frame" x="126" y="282" width="123" height="14"/>
+                                <rect key="frame" x="145.66666666666666" y="309" width="122.99999999999997" height="14"/>
                                 <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -367,18 +367,18 @@
             <objects>
                 <viewController storyboardIdentifier="OAuthWebViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m02-hB-Uz2" customClass="OAuthWebViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hx9-Xa-KN6">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTL-EB-NnV">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="731"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="m02-hB-Uz2" id="bHl-QF-cmZ"/>
                                 </connections>
                             </webView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OQA-Px-dWh">
-                                <rect key="frame" x="177" y="355.5" width="20" height="20"/>
+                                <rect key="frame" x="197" y="390" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -406,54 +406,54 @@
             <objects>
                 <viewController storyboardIdentifier="MyFieldViewController" title="My Field" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wy3-E4-Bnw" customClass="MyFieldViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BXK-DH-mLc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="i6T-Wf-BJW">
-                                <rect key="frame" x="131.5" y="199" width="112" height="112"/>
+                                <rect key="frame" x="145" y="220.66666666666666" width="124" height="124.33333333333334"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="i6T-Wf-BJW" secondAttribute="height" multiplier="1:1" id="ONL-Lc-LOS"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loca" translatesAutoresizingMaskIntoConstraints="NO" id="p92-mc-I73">
-                                <rect key="frame" x="172" y="363" width="18" height="18"/>
+                                <rect key="frame" x="191.66666666666666" y="397" width="18" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="18" id="rsh-VR-4dY"/>
                                     <constraint firstAttribute="width" secondItem="p92-mc-I73" secondAttribute="height" multiplier="1:1" id="vL5-yU-Tcd"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0B3-zh-i3P">
-                                <rect key="frame" x="194" y="362" width="5" height="19"/>
+                                <rect key="frame" x="213.66666666666666" y="396" width="5" height="19"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                                 <color key="textColor" red="0.62488495314319603" green="0.629340467712727" blue="0.64270701142131981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today Contributions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvx-ph-41U">
-                                <rect key="frame" x="121" y="87" width="133" height="17"/>
+                                <rect key="frame" x="140.66666666666666" y="97.666666666666671" width="132.99999999999997" height="17"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0cA-Zn-vRI">
-                                <rect key="frame" x="182" y="112" width="10" height="35"/>
+                                <rect key="frame" x="201.66666666666666" y="122.66666666666669" width="10" height="35"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEQ-9V-c3E">
-                                <rect key="frame" x="184" y="319" width="7" height="28"/>
+                                <rect key="frame" x="203.66666666666666" y="353" width="7" height="28"/>
                                 <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="20"/>
                                 <color key="textColor" red="0.15694883465766907" green="0.15669789910316467" blue="0.16470703482627869" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilY-Zk-HrG">
-                                <rect key="frame" x="37.5" y="389" width="300" height="19"/>
+                                <rect key="frame" x="41.333333333333343" y="423" width="331.33333333333326" height="19"/>
                                 <fontDescription key="fontDescription" name="Helvetica-Oblique" family="Helvetica" pointSize="16"/>
                                 <color key="textColor" red="0.62488495310000003" green="0.62934046769999996" blue="0.64270701139999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uvs-ac-8yK">
-                                <rect key="frame" x="326.5" y="84" width="22" height="24"/>
+                                <rect key="frame" x="361.66666666666669" y="94.666666666666671" width="22" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="22" id="086-Cv-2j4"/>
                                     <constraint firstAttribute="width" secondItem="uvs-ac-8yK" secondAttribute="height" multiplier="514:547" id="33t-Lk-aO7"/>
@@ -464,11 +464,11 @@
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="8kk-TL-SVg">
-                                <rect key="frame" x="169" y="300.5" width="37" height="37"/>
+                                <rect key="frame" x="188.66666666666666" y="335" width="37" height="37"/>
                                 <color key="color" red="0.1464431286" green="0.6551985145" blue="0.29857048390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="wMm-co-lgI">
-                                <rect key="frame" x="326.5" y="84" width="22" height="24"/>
+                                <rect key="frame" x="361.66666666666669" y="94.666666666666671" width="22" height="24"/>
                                 <color key="color" red="0.1464431286" green="0.6551985145" blue="0.29857048390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -525,19 +525,19 @@
             <objects>
                 <tableViewController storyboardIdentifier="SettingTableViewController" title="Setting" id="O2S-ba-qnj" customClass="SettingTableViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="eZW-ma-xnp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="96" id="Gv9-qc-qpq" customClass="CustomTableViewCell" customModule="GITGET" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="96"/>
+                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gv9-qc-qpq" id="xk9-8j-hJD">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="95.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="95.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bDu-Z3-o3C">
-                                            <rect key="frame" x="15.5" y="10.5" width="76.5" height="76"/>
+                                            <rect key="frame" x="15.666666666666664" y="10.666666666666664" width="76.333333333333343" height="76"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="bDu-Z3-o3C" secondAttribute="height" multiplier="1:1" id="Yha-WV-dga"/>
                                             </constraints>
@@ -549,7 +549,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitHub ID, Profile &amp; Repositories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGb-XE-vvH">
-                                            <rect key="frame" x="100" y="38" width="183.5" height="14.5"/>
+                                            <rect key="frame" x="99.999999999999986" y="38" width="183.66666666666663" height="14.666666666666664"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -574,10 +574,10 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="detailCell" id="jLs-Xh-8vL" customClass="CustomTableViewCell" customModule="GITGET" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="151.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="151.33333333333334" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jLs-Xh-8vL" id="Ywd-ZD-qCy">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7N-23-Xkw">
@@ -587,7 +587,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYi-le-2ge">
-                                            <rect key="frame" x="300" y="14" width="35" height="17"/>
+                                            <rect key="frame" x="339" y="14" width="35" height="17"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -626,25 +626,25 @@
             <objects>
                 <tableViewController storyboardIdentifier="GitHubAccountSettingTableViewController" id="U3J-s1-Mcf" customClass="GitHubAccountSettingTableViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="smR-fL-KbI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="modifiableCell" rowHeight="50" id="P7g-Sn-bXo" customClass="CustomTableViewCell" customModule="GITGET" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="P7g-Sn-bXo" id="xHn-rK-U4d">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="49.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxJ-u5-v99">
-                                            <rect key="frame" x="35" y="16" width="37.5" height="18"/>
+                                            <rect key="frame" x="35" y="16" width="37.666666666666657" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uy0-uz-MWN">
-                                            <rect key="frame" x="122.5" y="0.5" width="237.5" height="49.5"/>
+                                            <rect key="frame" x="136.66666666666666" y="0.66666666666666785" width="262.33333333333337" height="49.333333333333329"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -668,21 +668,21 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationLevel="1" indentationWidth="10" reuseIdentifier="cell" textLabel="hQn-2X-K45" detailTextLabel="7ix-Ol-s0U" style="IBUITableViewCellStyleSubtitle" id="Bc2-7w-9YA">
-                                <rect key="frame" x="0.0" y="105.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="105.33333333333334" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bc2-7w-9YA" id="nWK-qr-oNL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hQn-2X-K45">
-                                            <rect key="frame" x="26" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="30.000000000000004" y="5" width="33.333333333333336" height="20.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7ix-Ol-s0U">
-                                            <rect key="frame" x="26" y="25.5" width="33" height="14.5"/>
+                                            <rect key="frame" x="29.999999999999996" y="25.333333333333332" width="32.666666666666664" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -709,25 +709,25 @@
             <objects>
                 <tableViewController storyboardIdentifier="ThemeTableViewController" id="jgc-Mv-f2K" customClass="ThemeTableViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="pv3-dW-cf8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="themeCell" rowHeight="66" id="EH5-vg-Aqj" customClass="CustomTableViewCell" customModule="GITGET" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="66"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="66"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EH5-vg-Aqj" id="3Nn-s8-MKz">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="65.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IWt-IC-VmX">
-                                            <rect key="frame" x="8" y="19.5" width="106" height="26.5"/>
+                                            <rect key="frame" x="8" y="19.666666666666671" width="106" height="26.333333333333329"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="IWt-IC-VmX" secondAttribute="height" multiplier="4:1" id="J0J-N8-5tE"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qJf-ls-eFY">
-                                            <rect key="frame" x="132" y="24.5" width="35.5" height="17"/>
+                                            <rect key="frame" x="132" y="24.666666666666671" width="35.666666666666657" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -764,7 +764,7 @@
                 <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="lnZ-rD-8Xo" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZiK-8A-X1I">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -805,7 +805,7 @@
                 <navigationController id="NQR-dG-aNj" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Team" image="tab_Team" id="fpy-Mx-RJp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lSd-bY-6G2">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -821,43 +821,68 @@
             <objects>
                 <tableViewController storyboardIdentifier="TeamTableViewController" id="fH7-c8-Hve" customClass="TeamTableViewController" customModule="GITGET" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Oyd-oC-4vQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="contributionsCell" rowHeight="110" id="24z-hU-myt" customClass="CustomTableViewCell" customModule="GITGET" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="110"/>
+                                <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="110"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="24z-hU-myt" id="6Nj-tM-GAF">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7U-Pp-gCg">
-                                            <rect key="frame" x="20" y="10" width="37" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GitHub UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7U-Pp-gCg">
+                                            <rect key="frame" x="20" y="10" width="122" height="17"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nc7-8f-wbm">
-                                            <rect key="frame" x="12" y="29" width="363" height="80.5"/>
+                                            <rect key="frame" x="12" y="29.000000000000007" width="402" height="80.666666666666686"/>
                                             <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </webView>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Rd3-c3-9OS">
-                                            <rect key="frame" x="177.5" y="45" width="20" height="20"/>
+                                            <rect key="frame" x="197" y="45" width="20" height="20"/>
                                         </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NickName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32M-40-4t5">
+                                            <rect key="frame" x="150" y="11" width="61.666666666666657" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="13"/>
+                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UKO-j2-7Td">
+                                            <rect key="frame" x="216.66666666666666" y="14" width="12.333333333333343" height="13"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="13" id="28X-go-Eot"/>
+                                                <constraint firstAttribute="width" secondItem="UKO-j2-7Td" secondAttribute="height" multiplier="1:1" id="uNR-lZ-Q2G"/>
+                                            </constraints>
+                                            <state key="normal" image="edit"/>
+                                            <connections>
+                                                <action selector="contributionEditNicknameButtonAction:" destination="24z-hU-myt" eventType="touchUpInside" id="dRf-ft-0K3"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="UKO-j2-7Td" firstAttribute="leading" secondItem="32M-40-4t5" secondAttribute="trailing" constant="5" id="E8s-j2-KN0"/>
                                         <constraint firstItem="Nc7-8f-wbm" firstAttribute="top" secondItem="M7U-Pp-gCg" secondAttribute="bottom" constant="2" id="K0Z-hp-SRg"/>
                                         <constraint firstItem="M7U-Pp-gCg" firstAttribute="leading" secondItem="Nc7-8f-wbm" secondAttribute="leading" constant="8" id="LEX-Ez-YHx"/>
+                                        <constraint firstItem="32M-40-4t5" firstAttribute="centerY" secondItem="M7U-Pp-gCg" secondAttribute="centerY" id="PNf-8s-FtK"/>
+                                        <constraint firstItem="UKO-j2-7Td" firstAttribute="bottom" secondItem="32M-40-4t5" secondAttribute="bottom" id="PuG-aq-Fwh"/>
                                         <constraint firstItem="M7U-Pp-gCg" firstAttribute="top" secondItem="6Nj-tM-GAF" secondAttribute="top" constant="10" id="Udd-Fo-L1v"/>
+                                        <constraint firstItem="32M-40-4t5" firstAttribute="leading" secondItem="M7U-Pp-gCg" secondAttribute="trailing" constant="8" id="YKq-F3-Qix"/>
                                         <constraint firstAttribute="trailing" secondItem="Nc7-8f-wbm" secondAttribute="trailing" id="cch-8p-54h"/>
                                         <constraint firstItem="Rd3-c3-9OS" firstAttribute="centerX" secondItem="6Nj-tM-GAF" secondAttribute="centerX" id="gDf-G0-fDD"/>
                                         <constraint firstItem="Rd3-c3-9OS" firstAttribute="centerY" secondItem="6Nj-tM-GAF" secondAttribute="centerY" id="gdV-b4-Bj9"/>
+                                        <constraint firstItem="UKO-j2-7Td" firstAttribute="height" secondItem="6Nj-tM-GAF" secondAttribute="height" multiplier="1/9" priority="750" constant="1" id="txq-p8-pGA"/>
                                         <constraint firstItem="Nc7-8f-wbm" firstAttribute="leading" secondItem="6Nj-tM-GAF" secondAttribute="leading" constant="12" id="uDh-ve-K7w"/>
                                         <constraint firstAttribute="bottom" secondItem="Nc7-8f-wbm" secondAttribute="bottom" id="xD7-JV-78f"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="contributionEditNicknameButtonAction" destination="UKO-j2-7Td" id="pZ8-pF-J3w"/>
+                                    <outlet property="contributionEditNicknameButtonOutlet" destination="UKO-j2-7Td" id="c7a-HJ-VyM"/>
+                                    <outlet property="contributionNicknameTextLabel" destination="32M-40-4t5" id="xJ2-V0-cXS"/>
                                     <outlet property="contributionUserNameTextLabel" destination="M7U-Pp-gCg" id="RAb-8b-AuK"/>
                                     <outlet property="contributionsActivityIndicator" destination="Rd3-c3-9OS" id="aK9-Q4-Cia"/>
                                     <outlet property="contributionsWebView" destination="Nc7-8f-wbm" id="Vlj-iS-efa"/>
@@ -895,7 +920,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HIO-54-I7N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-514.39999999999998" y="2404.9475262368819"/>
+            <point key="canvasLocation" x="-514.49275362318849" y="2404.8913043478265"/>
         </scene>
         <!--My Field-->
         <scene sceneID="olq-kN-jeR">
@@ -904,7 +929,7 @@
                     <tabBarItem key="tabBarItem" title="My Field" image="tab_MyField" id="iXW-q5-X7T"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k9S-Mu-7lD">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -923,7 +948,7 @@
                     <tabBarItem key="tabBarItem" title="Setting" image="tab_Setting" id="tug-Ms-V23"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="p2X-7g-C2w">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -937,18 +962,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GitHub-Mark_White" width="32" height="32"/>
-        <image name="GitgetLogo" width="512" height="512"/>
-        <image name="TutorialFive_en_iPhone" width="450" height="844"/>
-        <image name="TutorialFour_en_iPhone" width="450" height="844"/>
-        <image name="TutorialOne_en_iPhone" width="450" height="844"/>
-        <image name="TutorialThree_en_iPhone" width="450" height="844"/>
-        <image name="TutorialTwo_en_iPhone" width="400" height="750"/>
+        <image name="GitHub-Mark_White" width="40" height="40"/>
+        <image name="GitgetLogo" width="341" height="341"/>
+        <image name="TutorialFive_en_iPhone" width="300" height="562"/>
+        <image name="TutorialFour_en_iPhone" width="300" height="562"/>
+        <image name="TutorialOne_en_iPhone" width="300" height="562"/>
+        <image name="TutorialThree_en_iPhone" width="300" height="562"/>
+        <image name="TutorialTwo_en_iPhone" width="266" height="500"/>
+        <image name="edit" width="100" height="100"/>
         <image name="loca" width="27" height="35"/>
-        <image name="refresh" width="257" height="273"/>
+        <image name="refresh" width="171" height="182"/>
         <image name="tab_MyField" width="25" height="25"/>
         <image name="tab_Setting" width="25" height="25"/>
-        <image name="tab_Team" width="28" height="28"/>
+        <image name="tab_Team" width="27" height="27"/>
     </resources>
     <color key="tintColor" red="0.14644312858581543" green="0.65519851446151733" blue="0.29857048392295837" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
