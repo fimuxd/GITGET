@@ -868,9 +868,9 @@
                                         <constraint firstItem="UKO-j2-7Td" firstAttribute="leading" secondItem="32M-40-4t5" secondAttribute="trailing" constant="5" id="E8s-j2-KN0"/>
                                         <constraint firstItem="Nc7-8f-wbm" firstAttribute="top" secondItem="M7U-Pp-gCg" secondAttribute="bottom" constant="2" id="K0Z-hp-SRg"/>
                                         <constraint firstItem="M7U-Pp-gCg" firstAttribute="leading" secondItem="Nc7-8f-wbm" secondAttribute="leading" constant="8" id="LEX-Ez-YHx"/>
-                                        <constraint firstItem="32M-40-4t5" firstAttribute="centerY" secondItem="M7U-Pp-gCg" secondAttribute="centerY" id="PNf-8s-FtK"/>
                                         <constraint firstItem="M7U-Pp-gCg" firstAttribute="top" secondItem="6Nj-tM-GAF" secondAttribute="top" constant="10" id="Udd-Fo-L1v"/>
                                         <constraint firstItem="32M-40-4t5" firstAttribute="leading" secondItem="M7U-Pp-gCg" secondAttribute="trailing" constant="8" id="YKq-F3-Qix"/>
+                                        <constraint firstItem="32M-40-4t5" firstAttribute="bottom" secondItem="M7U-Pp-gCg" secondAttribute="bottom" id="ZcV-0r-7g7"/>
                                         <constraint firstAttribute="trailing" secondItem="Nc7-8f-wbm" secondAttribute="trailing" id="cch-8p-54h"/>
                                         <constraint firstItem="Rd3-c3-9OS" firstAttribute="centerX" secondItem="6Nj-tM-GAF" secondAttribute="centerX" id="gDf-G0-fDD"/>
                                         <constraint firstItem="Rd3-c3-9OS" firstAttribute="centerY" secondItem="6Nj-tM-GAF" secondAttribute="centerY" id="gdV-b4-Bj9"/>
