@@ -94,12 +94,6 @@ class GitHubAPIManager:NSObject {
             catch _ {
                 // Error handling
             }
-            
-            
-            
-            
-            
-           
         }
     }
     

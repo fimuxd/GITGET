@@ -11,6 +11,8 @@ import Firebase
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+//import SwiftReorder
+import Toaster
 
 class TeamTableViewController: UITableViewController {
     /********************************************/
@@ -18,7 +20,6 @@ class TeamTableViewController: UITableViewController {
     /********************************************/
     @IBOutlet weak var addBarButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var editBarButtonOutlet: UIBarButtonItem!
-
     
     var realm: Realm!
     var colleagueObjects:Results<Colleague>!
@@ -47,10 +48,8 @@ class TeamTableViewController: UITableViewController {
             print("///Error: Realm \(error)")
         }
         
-        
-        ////MARK:- Realm_Notification 셋팅하기
+        //MARK:- Realm_Notification 셋팅하기
         self.notificationToken = colleagueObjects?.observe({ (change) in
-            print("노티가 들어옴 \(self.colleagueObjects)")
             self.tableView.reloadData()
         })
         
@@ -61,11 +60,14 @@ class TeamTableViewController: UITableViewController {
         }
         
         ////MARK:- Realm_동료 Contributions 가져오기
-        self.colleagueObjects = realm.objects(Colleague.self).sorted(byKeyPath: "gitHubUserName", ascending: true)
-        print(self.colleagueObjects)
+        self.colleagueObjects = realm.objects(Colleague.self)
+//        sorted(byKeyPath: "gitHubUserName", ascending: true)
         
         //스크롤 다운 하면 리프레시
         self.refreshControl?.addTarget(self, action: #selector(TeamTableViewController.refreshContributions(_:)), for: .valueChanged)
+        
+        //TODO:- Drag&Drop(LongPressGesture)로 셀 위치 옮기는 module 사용을 위한 delegate 설정
+//        self.tableView.reorder.delegate = self
     }
     
     
@@ -79,14 +81,18 @@ class TeamTableViewController: UITableViewController {
     //MARK:-       Methods | IBAction           //
     /********************************************/
     // MARK: - Table view data source
+    
+    //섹션개수 설정
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.sectionHeaderTitles.count
     }
     
+    //섹션헤더 설정
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionHeaderTitles[section]
     }
     
+    //섹션별 로우개수 설정
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -99,8 +105,10 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
+    //각 로우별 셀에 대한 설정
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CustomTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contributionsCell") as! CustomTableViewCell
+        
         
         if indexPath.section == 0 {
             guard let currentGitHubID = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String else {return cell}
@@ -108,22 +116,37 @@ class TeamTableViewController: UITableViewController {
             
             guard let realMyContributionsData = self.myContributionsData else {return cell}
             cell.contributionsWebView.loadHTMLString(realMyContributionsData, baseURL: nil)
+            cell.contributionNicknameTextLabel.isHidden = true
+            cell.contributionEditNicknameButtonOutlet.isHidden = true
             
             return cell
         }else{
+            //TODO:- Reodering Cells
+//            if let spacer = tableView.reorder.spacerCell(for: indexPath) {
+//                return spacer
+//            }
+
+            cell.delegate = self
+            
             guard let realColleague = self.colleagueObjects else {return cell}
             let object = realColleague[indexPath.row]
             cell.contributionUserNameTextLabel.text = object.gitHubUserName
+            cell.contributionNicknameTextLabel.text = object.nickname
             cell.contributionsWebView.loadHTMLString(object.htmlValue, baseURL: nil)
+            cell.indexPathRow = indexPath.row
+            cell.contributionNicknameTextLabel.isHidden = false
+            cell.contributionEditNicknameButtonOutlet.isHidden = false
             
             return cell
         }
     }
     
+    //셀의 높이 설정
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
     }
     
+    //셀 삭제/수정 가능여부 설정
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
         case 0:
@@ -133,6 +156,7 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
+    //셀 삭제/수정시 데이터 핸들링
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             do {
@@ -147,14 +171,7 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.section == 0 {
-            return .none
-        }else{
-            return UITableViewCellEditingStyle.delete
-        }
-    }
-    
+    //셀 수정할 동안 들여쓰기? 여부 설정
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -169,9 +186,9 @@ class TeamTableViewController: UITableViewController {
     }
     
     @IBAction func addBarButtonAction(_ sender: UIBarButtonItem) {
-        self.alertForColleagueContributions(contributionToBeUpdated: nil)
+        self.alertForAddColleagueContributions(contributionToBeUpdated: nil)
     }
-
+    
     //Selector 를 통한 수정/수정취소/추가
     @objc func editColleagues(_ sender: UIBarButtonItem) {
         self.tableView.isEditing = true
@@ -186,11 +203,11 @@ class TeamTableViewController: UITableViewController {
     }
     
     @objc func addColleagues(_ sender: UIBarButtonItem) {
-        self.alertForColleagueContributions(contributionToBeUpdated: nil)
+        self.alertForAddColleagueContributions(contributionToBeUpdated: nil)
     }
-
+    
     //추가 시 Alert
-    func alertForColleagueContributions(contributionToBeUpdated: Colleague?) {
+    func alertForAddColleagueContributions(contributionToBeUpdated: Colleague?) {
         let title = "Add Colleague".localized
         let message = "Please enter your colleague's GitHub username.".localized
         let cancelButtonTitle = "Cancel".localized
@@ -200,46 +217,53 @@ class TeamTableViewController: UITableViewController {
         
         // Add the text field for text entry.
         alertController.addTextField { textField in
-            if contributionToBeUpdated != nil {
-                textField.placeholder = "GitHub username only".localized
-                textField.text = contributionToBeUpdated?.gitHubUserName
-            }
-            
+            textField.placeholder = "GitHub username only".localized
         }
-        
         // Create the actions.
         let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
         
         let doneAction = UIAlertAction(title: otherButtonTitle, style: .default) { _ in
-            let inputUserName = alertController.textFields?.first?.text
+            guard let inputUserName = alertController.textFields?.first?.text else {return}
+            let checkExistColleague = self.colleagueObjects.map({ (colleagueData) -> String in
+                return colleagueData.gitHubUserName
+            }).sorted()
             
-            self.getContributions(of: inputUserName!, { (html) in
-                if contributionToBeUpdated != nil {
-                    do {
-                        try self.realm.write {
-                            contributionToBeUpdated?.gitHubUserName = inputUserName!
-                            contributionToBeUpdated?.htmlValue = html
-                            print("첫번째: \(self.colleagueObjects)")
-                            self.tableView.reloadData()
+            if !checkExistColleague.contains(inputUserName) {
+                self.getContributions(of: inputUserName, { (html) in
+                    switch html.contains("Not Found") {
+                    case true:
+                        Toast.init(text: String(format:NSLocalizedString("'%@' is invalid username.", comment: ""),inputUserName)).show()
+                    case false:
+                        if contributionToBeUpdated != nil {
+                            do {
+                                try self.realm.write {
+                                    contributionToBeUpdated?.gitHubUserName = inputUserName
+                                    contributionToBeUpdated?.htmlValue = html
+                                    
+                                    self.tableView.reloadData()
+                                }
+                            } catch {
+                                print("///Error: Realm_\(error)")
+                            }
+                        } else {
+                            let newColleague = Colleague()
+                            newColleague.gitHubUserName = inputUserName
+                            newColleague.htmlValue = html
+                            do {
+                                try self.realm.write {
+                                    self.realm.add(newColleague)
+                                    self.tableView.reloadData()
+                                }
+                            } catch {
+                                print("///Error: Realm_\(error)")
+                            }
                         }
-                    } catch {
-                        print("///Error: Realm_\(error)")
+                        Toast.init(text: String(format:NSLocalizedString("'%@' is added.", comment: ""),inputUserName)).show()
                     }
-                } else {
-                    let newColleague = Colleague()
-                    newColleague.gitHubUserName = inputUserName!
-                    newColleague.htmlValue = html
-                    do {
-                        try self.realm.write {
-                            self.realm.add(newColleague)
-                            print("두번째: \(self.colleagueObjects)")
-                            self.tableView.reloadData()
-                        }
-                    } catch {
-                        print("///Error: Realm_\(error)")
-                    }
-                }
-            })
+                })
+            }else{
+                Toast.init(text: String(format:NSLocalizedString("'%@' is already exist.", comment: ""),inputUserName)).show()
+            }
         }
         
         // Add the actions.
@@ -283,3 +307,57 @@ class TeamTableViewController: UITableViewController {
         }
     }
 }
+
+//MARK:- CustomTableViewCellDelegate
+extension TeamTableViewController:CustomTableViewCellDelegate {
+    func contributionEditNicknameButtonTapped(at indexPathRow: Int) {
+        self.alertForEditColleagueNickname(indexPathRow)
+    }
+    
+    func alertForEditColleagueNickname(_ indexPathRow:Int) {
+        let title = "Edit colleague's name".localized
+        let message = "Please enter your colleague's nickname.".localized
+        let cancelButtonTitle = "Cancel".localized
+        let otherButtonTitle = "Done".localized
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        // Add the text field for text entry.
+        alertController.addTextField { textField in
+            if self.colleagueObjects[indexPathRow].nickname != "" {
+                textField.text = self.colleagueObjects[indexPathRow].nickname
+            }
+            textField.placeholder = "Colleague's nickname".localized
+        }
+        
+        // Create the actions.
+        let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
+        
+        let doneAction = UIAlertAction(title: otherButtonTitle, style: .default) { _ in
+            let inputNickname = alertController.textFields?.first?.text
+            do {
+                try self.realm.write {
+                    self.colleagueObjects[indexPathRow].nickname = inputNickname ?? ""
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print("///Error: Realm_\(error)")
+            }
+            
+        }
+        
+        
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(doneAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+
+//TODO:- Drag&Drop(LongPressGesture)를 이용한 Cell 위치 이동
+//extension TeamTableViewController:TableViewReorderDelegate {
+//    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//
+//    }
+//}
+

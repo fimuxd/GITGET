@@ -70,15 +70,22 @@ class MyFieldViewController: UIViewController {
         ref = Database.database().reference()
         
         ref.child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
-            let dic = snapShot.value as? Dictionary<String, AnyObject>
+            guard let dic = snapShot.value as? Dictionary<String, AnyObject>,
+                let forceUpdateMessage = dic["force_update_message"] as? String,
+                let optionalUpdateMessage = dic["optional_update_message"] as? String,
+                let lastestVersionCode = dic["lastest_version_code"] as? String,
+                let lastestVersionName = dic["lastest_version_name"] as? String,
+                let minimumVersionCode = dic["minimum_version_code"] as? String,
+                let minimumVersionName = dic["minimum_version_name"] as? String else {return}
+            
             let vData = GitgetVersion()
             
-            vData.force_update_message = dic!["force_update_message"] as! String
-            vData.optional_update_message = dic!["optional_update_message"] as! String
-            vData.lastest_version_code = dic!["lastest_version_code"] as! String
-            vData.lastest_version_name = dic!["lastest_version_name"] as! String
-            vData.minimum_version_code = dic!["minimum_version_code"] as! String
-            vData.minimum_version_name = dic!["minimum_version_name"] as! String
+            vData.force_update_message = forceUpdateMessage
+            vData.optional_update_message = optionalUpdateMessage
+            vData.lastest_version_code = lastestVersionCode
+            vData.lastest_version_name = lastestVersionName
+            vData.minimum_version_code = minimumVersionCode
+            vData.minimum_version_name = minimumVersionName
             
             self.checkUpdateVersion(dbdata: vData)
         })

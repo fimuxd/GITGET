@@ -12,6 +12,7 @@ import RealmSwift
 class Colleague: Object {
     @objc dynamic var gitHubUserName:String = ""
     @objc dynamic var htmlValue:String = ""
+    @objc dynamic var nickname:String = ""
     @objc dynamic var uuid:String = UUID().uuidString
     
     override static func primaryKey() -> String? {
@@ -22,3 +23,4 @@ class Colleague: Object {
 class AccessToken: Object {
     @objc dynamic var token:String = ""
 }
+

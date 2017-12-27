@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
+
+protocol CustomTableViewCellDelegate:NSObjectProtocol {
+    func contributionEditNicknameButtonTapped(at indexPathRow:Int)
+}
 
 class CustomTableViewCell: UITableViewCell {
     
@@ -29,8 +34,15 @@ class CustomTableViewCell: UITableViewCell {
     
     //contributionCell
     @IBOutlet weak var contributionUserNameTextLabel: UILabel!
+    @IBOutlet weak var contributionNicknameTextLabel: UILabel!
     @IBOutlet weak var contributionsWebView: UIWebView!
     @IBOutlet weak var contributionsActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var contributionEditNicknameButtonOutlet: UIButton!
+    var indexPathRow:Int = 0
+    
+    var realm: Realm!
+    var colleagueObjects:Results<Colleague>!
+    var delegate:CustomTableViewCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,12 +57,18 @@ class CustomTableViewCell: UITableViewCell {
             
         }
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
     }
+    
+    
+    @IBAction func contributionEditNicknameButtonAction(_ sender: UIButton) {
+        self.delegate?.contributionEditNicknameButtonTapped(at: self.indexPathRow)
+    }
+    
     
 }
 

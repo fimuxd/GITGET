@@ -196,6 +196,7 @@
 			children = (
 				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
 				82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */,
+				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -228,7 +229,6 @@
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */,
-				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
@@ -453,9 +453,9 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
@@ -468,9 +468,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",

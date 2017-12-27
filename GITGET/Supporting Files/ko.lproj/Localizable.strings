@@ -27,15 +27,23 @@
 "Add Colleague" = "동료 추가하기";
 "Please enter your colleague's GitHub username." = "동료의 GitHub username을 입력하세요.";
 "Done" = "완료";
-"GitHub username only" = "GitHub username";
+"GitHub username only" = "GitHub username만 입력하세요.";
 "Edit" = "편집";
+
+//Edit Nickname Alert
+"Edit colleague's name" = "별명 추가하기";
+"Please enter your colleague's nickname." = "추가하거나 수정하고 싶은 동료의 별명을 입력하세요.";
+"Colleague's nickname" = "별명";
+"'%@' is invalid username." = "'%@'는 유효하지 않은 username 입니다.";
+"'%@' is added." = "'%@'님이 추가되었습니다.";
+"'%@' is already exist." = "'%@'님은 이미 추가하신 동료입니다.";
 
 //Setting Tab
 //섹션 헤드
 "My GitHub Account" = "내 GitHub 정보";
 "Preferrences" = "설정";
 "About GitGet" = "깃젯에 대하여";
-"SignOut" = "나가기";
+"Exit" = "출구";
 
 //셀 타이틀
 "Theme" = "테마";
@@ -43,7 +51,7 @@
 "Rate GITGET" = "깃젯 별점주기";
 "Version" = "버전 정보";
 "Send email to GITGET" = "깃젯에게 메일 보내기";
-"Signout" = "로그아웃";
+"Signout" = "나가기";
 "Cancel" = "취소";
 
 "This is the latest version." = "현재 최신 버전입니다.";
