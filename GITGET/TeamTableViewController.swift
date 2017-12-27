@@ -11,6 +11,8 @@ import Firebase
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+//import SwiftReorder
+import Toaster
 
 class TeamTableViewController: UITableViewController {
     /********************************************/
@@ -18,7 +20,6 @@ class TeamTableViewController: UITableViewController {
     /********************************************/
     @IBOutlet weak var addBarButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var editBarButtonOutlet: UIBarButtonItem!
-    
     
     var realm: Realm!
     var colleagueObjects:Results<Colleague>!
@@ -47,8 +48,7 @@ class TeamTableViewController: UITableViewController {
             print("///Error: Realm \(error)")
         }
         
-        
-        ////MARK:- Realm_Notification 셋팅하기
+        //MARK:- Realm_Notification 셋팅하기
         self.notificationToken = colleagueObjects?.observe({ (change) in
             self.tableView.reloadData()
         })
@@ -60,10 +60,14 @@ class TeamTableViewController: UITableViewController {
         }
         
         ////MARK:- Realm_동료 Contributions 가져오기
-        self.colleagueObjects = realm.objects(Colleague.self).sorted(byKeyPath: "gitHubUserName", ascending: true)
+        self.colleagueObjects = realm.objects(Colleague.self)
+//        sorted(byKeyPath: "gitHubUserName", ascending: true)
         
         //스크롤 다운 하면 리프레시
         self.refreshControl?.addTarget(self, action: #selector(TeamTableViewController.refreshContributions(_:)), for: .valueChanged)
+        
+        //TODO:- Drag&Drop(LongPressGesture)로 셀 위치 옮기는 module 사용을 위한 delegate 설정
+//        self.tableView.reorder.delegate = self
     }
     
     
@@ -77,14 +81,18 @@ class TeamTableViewController: UITableViewController {
     //MARK:-       Methods | IBAction           //
     /********************************************/
     // MARK: - Table view data source
+    
+    //섹션개수 설정
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.sectionHeaderTitles.count
     }
     
+    //섹션헤더 설정
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.sectionHeaderTitles[section]
     }
     
+    //섹션별 로우개수 설정
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -97,8 +105,10 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
+    //각 로우별 셀에 대한 설정
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CustomTableViewCell = tableView.dequeueReusableCell(withIdentifier: "contributionsCell") as! CustomTableViewCell
+        
         
         if indexPath.section == 0 {
             guard let currentGitHubID = UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "GitHubID") as? String else {return cell}
@@ -111,6 +121,11 @@ class TeamTableViewController: UITableViewController {
             
             return cell
         }else{
+            //TODO:- Reodering Cells
+//            if let spacer = tableView.reorder.spacerCell(for: indexPath) {
+//                return spacer
+//            }
+
             cell.delegate = self
             
             guard let realColleague = self.colleagueObjects else {return cell}
@@ -121,15 +136,17 @@ class TeamTableViewController: UITableViewController {
             cell.indexPathRow = indexPath.row
             cell.contributionNicknameTextLabel.isHidden = false
             cell.contributionEditNicknameButtonOutlet.isHidden = false
-    
+            
             return cell
         }
     }
     
+    //셀의 높이 설정
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150.0
     }
     
+    //셀 삭제/수정 가능여부 설정
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         switch indexPath.section {
         case 0:
@@ -139,6 +156,7 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
+    //셀 삭제/수정시 데이터 핸들링
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             do {
@@ -153,14 +171,7 @@ class TeamTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        if indexPath.section == 0 {
-            return .none
-        }else{
-            return UITableViewCellEditingStyle.delete
-        }
-    }
-    
+    //셀 수정할 동안 들여쓰기? 여부 설정
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -212,39 +223,46 @@ class TeamTableViewController: UITableViewController {
             }
             
         }
-        
         // Create the actions.
         let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
         
         let doneAction = UIAlertAction(title: otherButtonTitle, style: .default) { _ in
-            let inputUserName = alertController.textFields?.first?.text
+            guard let inputUserName = alertController.textFields?.first?.text else {return}
+            let checkExistColleague = self.colleagueObjects.map({ (colleagueData) -> String in
+                return colleagueData.gitHubUserName
+            }).sorted()
             
-            self.getContributions(of: inputUserName!, { (html) in
-                if contributionToBeUpdated != nil {
-                    do {
-                        try self.realm.write {
-                            contributionToBeUpdated?.gitHubUserName = inputUserName!
-                            contributionToBeUpdated?.htmlValue = html
-
-                            self.tableView.reloadData()
+            if !checkExistColleague.contains(inputUserName) {
+                self.getContributions(of: inputUserName, { (html) in
+                    if contributionToBeUpdated != nil {
+                        do {
+                            try self.realm.write {
+                                contributionToBeUpdated?.gitHubUserName = inputUserName
+                                contributionToBeUpdated?.htmlValue = html
+                                
+                                self.tableView.reloadData()
+                            }
+                        } catch {
+                            print("///Error: Realm_\(error)")
                         }
-                    } catch {
-                        print("///Error: Realm_\(error)")
-                    }
-                } else {
-                    let newColleague = Colleague()
-                    newColleague.gitHubUserName = inputUserName!
-                    newColleague.htmlValue = html
-                    do {
-                        try self.realm.write {
-                            self.realm.add(newColleague)
-                            self.tableView.reloadData()
+                    } else {
+                        let newColleague = Colleague()
+                        newColleague.gitHubUserName = inputUserName
+                        newColleague.htmlValue = html
+                        do {
+                            try self.realm.write {
+                                self.realm.add(newColleague)
+                                self.tableView.reloadData()
+                            }
+                        } catch {
+                            print("///Error: Realm_\(error)")
                         }
-                    } catch {
-                        print("///Error: Realm_\(error)")
                     }
-                }
-            })
+                    Toast.init(text: "'\(inputUserName)' is added.").show()
+                })
+            }else{
+                Toast.init(text: "'\(inputUserName)' is already exist.").show()
+            }
         }
         
         // Add the actions.
@@ -320,7 +338,6 @@ extension TeamTableViewController:CustomTableViewCellDelegate {
             do {
                 try self.realm.write {
                     self.colleagueObjects[indexPathRow].nickname = inputNickname ?? ""
-                    print("선택된 셀: \(self.colleagueObjects)현재 셀의 uuid: \(self.colleagueObjects[indexPathRow].uuid)")
                     self.tableView.reloadData()
                 }
             } catch {
@@ -336,4 +353,11 @@ extension TeamTableViewController:CustomTableViewCellDelegate {
         present(alertController, animated: true, completion: nil)
     }
 }
+
+//TODO:- Drag&Drop(LongPressGesture)를 이용한 Cell 위치 이동
+//extension TeamTableViewController:TableViewReorderDelegate {
+//    func tableView(_ tableView: UITableView, reorderRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//
+//    }
+//}
 
