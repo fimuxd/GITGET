@@ -11,17 +11,37 @@ import UserNotifications
 import Firebase
 import FirebaseAuth
 import Alamofire
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    //MARK:- (주석처리)Firebase configure가 간헐적으로 작동하지 않을 때가 있어서 사용했던 코드.
 //    override init() {
 //        DispatchQueue.main.async {
 //            FirebaseApp.configure()
 //        }
 //    }
+    
+    //MARK:- Realm SchemaVersion 관리
+    //Realm의 DB를 사용할 때, 애초부터 변경이 없다면 상관이 없지만, App Release 후 모델의 구조가 변경되었다면, SchemaVersion 관리를 해주어야 한다.
+    //참고: 마이그레이션이란 Realm 데이터베이스 스키마에 변화가 생겼을 때 디스크에 쓰인 데이터와 새로운 스키마의 차이를 맞추는 작업입니다. 사실 아직 릴리즈 이전의 개발 중이라면 시간 절약상 굳이 사용하지 않고 앱을 지웠다가 다시 설치하는 것을 추천합니다. 단 이미 릴리즈돼서 설치된 앱의 스키마가 변경된다면 마이그레이션이 필요합니다. 스키마 변경을 한 단계 올리고 마이그레이션 내에서 어떤 작업을 할지 지정하면 됩니다. - 출처: https://academy.realm.io/kr/posts/realm-swift-live-coding-beginner/
+    
+    /* schemaVersion 0
+     @objc dynamic var gitHubUserName:String = ""
+     @objc dynamic var htmlValue:String = ""
+     @objc dynamic var uuid:String = UUID().uuidString
+     */
+    
+    /* schemaVersion 1
+     @objc dynamic var gitHubUserName:String = ""
+     @objc dynamic var htmlValue:String = ""
+     //add nickname
+     @objc dynamic var nickname:String = ""
+     @objc dynamic var uuid:String = UUID().uuidString
+     */
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         print("//applicationDidFinishLaunchingWithOptions")
@@ -47,7 +67,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         
+        //FIXME:- 하단의 noti 함수 수정 후 실행할 것
 //        self.setNotification(application: application)
+        
+        //MARK:- Realm migration
+        let migrationBlock:MigrationBlock = { (migration, oldSchemaVersion) in
+            migration.enumerateObjects(ofType: Colleague.className(), { (oldObject, newObject) in
+                if oldSchemaVersion < 1 {
+                    newObject?["nickname"] = ""
+                }
+            })
+            print("Migration complete.")
+        }
+        
+        Realm.Configuration.defaultConfiguration = Realm.Configuration(schemaVersion: 1, migrationBlock: migrationBlock)
         
         return true
     }
@@ -95,11 +128,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             userDefaults.synchronize()
         }
     }
-    
-    
 }
 
-//MARK:- Notification 설정
+//FIXME:- Notification 설정
+//(수정사항): 설정한 Noti 시간에 작동은 잘 되지만, 해당 시간에 API와 통신하여 값을 가져와야 하는데, 지금은 앱이 실행될 때 통신한 후 기다렸다가 정해진 시간에 그 데이터를 쏘는 상황
 extension AppDelegate:UNUserNotificationCenterDelegate {
     
     func setNotification(application:UIApplication) {
