@@ -23,6 +23,7 @@
 		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
 		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
 		6A5E67C31FE6867B00A9F865 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E67C21FE6867B00A9F865 /* RealmModel.swift */; };
+		6A65FE931FF3CD4C008726CB /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
 		6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */; };
 		6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */; };
@@ -98,6 +99,7 @@
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
 		6A5E67C21FE6867B00A9F865 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarViewController.swift; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
 		6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTodayViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */,
+				6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
@@ -544,6 +547,7 @@
 				6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */,
 				6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */,
 				6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */,
+				6A65FE931FF3CD4C008726CB /* TipJarViewController.swift in Sources */,
 				6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */,
 				6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */,
 				6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */,
