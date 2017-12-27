@@ -18,7 +18,7 @@ class TeamTableViewController: UITableViewController {
     /********************************************/
     @IBOutlet weak var addBarButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var editBarButtonOutlet: UIBarButtonItem!
-
+    
     
     var realm: Realm!
     var colleagueObjects:Results<Colleague>!
@@ -50,7 +50,6 @@ class TeamTableViewController: UITableViewController {
         
         ////MARK:- Realm_Notification 셋팅하기
         self.notificationToken = colleagueObjects?.observe({ (change) in
-            print("노티가 들어옴 \(self.colleagueObjects)")
             self.tableView.reloadData()
         })
         
@@ -62,7 +61,6 @@ class TeamTableViewController: UITableViewController {
         
         ////MARK:- Realm_동료 Contributions 가져오기
         self.colleagueObjects = realm.objects(Colleague.self).sorted(byKeyPath: "gitHubUserName", ascending: true)
-        print(self.colleagueObjects)
         
         //스크롤 다운 하면 리프레시
         self.refreshControl?.addTarget(self, action: #selector(TeamTableViewController.refreshContributions(_:)), for: .valueChanged)
@@ -108,14 +106,22 @@ class TeamTableViewController: UITableViewController {
             
             guard let realMyContributionsData = self.myContributionsData else {return cell}
             cell.contributionsWebView.loadHTMLString(realMyContributionsData, baseURL: nil)
+            cell.contributionNicknameTextLabel.isHidden = true
+            cell.contributionEditNicknameButtonOutlet.isHidden = true
             
             return cell
         }else{
+            cell.delegate = self
+            
             guard let realColleague = self.colleagueObjects else {return cell}
             let object = realColleague[indexPath.row]
             cell.contributionUserNameTextLabel.text = object.gitHubUserName
+            cell.contributionNicknameTextLabel.text = object.nickname
             cell.contributionsWebView.loadHTMLString(object.htmlValue, baseURL: nil)
-            
+            cell.indexPathRow = indexPath.row
+            cell.contributionNicknameTextLabel.isHidden = false
+            cell.contributionEditNicknameButtonOutlet.isHidden = false
+    
             return cell
         }
     }
@@ -169,9 +175,9 @@ class TeamTableViewController: UITableViewController {
     }
     
     @IBAction func addBarButtonAction(_ sender: UIBarButtonItem) {
-        self.alertForColleagueContributions(contributionToBeUpdated: nil)
+        self.alertForAddColleagueContributions(contributionToBeUpdated: nil)
     }
-
+    
     //Selector 를 통한 수정/수정취소/추가
     @objc func editColleagues(_ sender: UIBarButtonItem) {
         self.tableView.isEditing = true
@@ -186,11 +192,11 @@ class TeamTableViewController: UITableViewController {
     }
     
     @objc func addColleagues(_ sender: UIBarButtonItem) {
-        self.alertForColleagueContributions(contributionToBeUpdated: nil)
+        self.alertForAddColleagueContributions(contributionToBeUpdated: nil)
     }
-
+    
     //추가 시 Alert
-    func alertForColleagueContributions(contributionToBeUpdated: Colleague?) {
+    func alertForAddColleagueContributions(contributionToBeUpdated: Colleague?) {
         let title = "Add Colleague".localized
         let message = "Please enter your colleague's GitHub username.".localized
         let cancelButtonTitle = "Cancel".localized
@@ -219,7 +225,7 @@ class TeamTableViewController: UITableViewController {
                         try self.realm.write {
                             contributionToBeUpdated?.gitHubUserName = inputUserName!
                             contributionToBeUpdated?.htmlValue = html
-                            print("첫번째: \(self.colleagueObjects)")
+
                             self.tableView.reloadData()
                         }
                     } catch {
@@ -232,7 +238,6 @@ class TeamTableViewController: UITableViewController {
                     do {
                         try self.realm.write {
                             self.realm.add(newColleague)
-                            print("두번째: \(self.colleagueObjects)")
                             self.tableView.reloadData()
                         }
                     } catch {
@@ -283,3 +288,52 @@ class TeamTableViewController: UITableViewController {
         }
     }
 }
+
+//MARK:- CustomTableViewCellDelegate
+extension TeamTableViewController:CustomTableViewCellDelegate {
+    func contributionEditNicknameButtonTapped(at indexPathRow: Int) {
+        self.alertForEditColleagueNickname(indexPathRow)
+    }
+    
+    func alertForEditColleagueNickname(_ indexPathRow:Int) {
+        let title = "Edit colleague's name".localized
+        let message = "Please enter your colleague's nickname.".localized
+        let cancelButtonTitle = "Cancel".localized
+        let otherButtonTitle = "Done".localized
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        // Add the text field for text entry.
+        alertController.addTextField { textField in
+            if self.colleagueObjects[indexPathRow].nickname != "" {
+                textField.text = self.colleagueObjects[indexPathRow].nickname
+                textField.placeholder = self.colleagueObjects[indexPathRow].nickname
+            }
+            textField.placeholder = "Colleague's nickname".localized
+        }
+        
+        // Create the actions.
+        let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
+        
+        let doneAction = UIAlertAction(title: otherButtonTitle, style: .default) { _ in
+            let inputNickname = alertController.textFields?.first?.text
+            do {
+                try self.realm.write {
+                    self.colleagueObjects[indexPathRow].nickname = inputNickname ?? ""
+                    print("선택된 셀: \(self.colleagueObjects)현재 셀의 uuid: \(self.colleagueObjects[indexPathRow].uuid)")
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print("///Error: Realm_\(error)")
+            }
+            
+        }
+        
+        
+        // Add the actions.
+        alertController.addAction(cancelAction)
+        alertController.addAction(doneAction)
+        present(alertController, animated: true, completion: nil)
+    }
+}
+

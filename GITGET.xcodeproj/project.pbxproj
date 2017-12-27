@@ -196,6 +196,7 @@
 			children = (
 				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
 				82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */,
+				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -228,7 +229,6 @@
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */,
-				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
