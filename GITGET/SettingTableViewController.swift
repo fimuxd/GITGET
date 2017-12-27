@@ -22,7 +22,7 @@ class SettingTableViewController: UITableViewController {
     /********************************************/
     //MARK:-      Variation | IBOutlet          //
     /********************************************/
-    let sectionHeaderTitleData:[String] = ["My GitHub Account".localized, "Preferrences".localized, "About GitGet".localized, "SignOut".localized]
+    let sectionHeaderTitleData:[String] = ["My GitHub Account".localized, "Preferrences".localized, "About GitGet".localized, "Exit".localized]
     
     /********************************************/
     //MARK:-            LifeCycle               //
