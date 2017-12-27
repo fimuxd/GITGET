@@ -864,11 +864,11 @@
                                         </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="UKO-j2-7Td" firstAttribute="bottom" secondItem="M7U-Pp-gCg" secondAttribute="bottom" id="0VG-jh-IKU"/>
                                         <constraint firstItem="UKO-j2-7Td" firstAttribute="leading" secondItem="32M-40-4t5" secondAttribute="trailing" constant="5" id="E8s-j2-KN0"/>
                                         <constraint firstItem="Nc7-8f-wbm" firstAttribute="top" secondItem="M7U-Pp-gCg" secondAttribute="bottom" constant="2" id="K0Z-hp-SRg"/>
                                         <constraint firstItem="M7U-Pp-gCg" firstAttribute="leading" secondItem="Nc7-8f-wbm" secondAttribute="leading" constant="8" id="LEX-Ez-YHx"/>
                                         <constraint firstItem="32M-40-4t5" firstAttribute="centerY" secondItem="M7U-Pp-gCg" secondAttribute="centerY" id="PNf-8s-FtK"/>
-                                        <constraint firstItem="UKO-j2-7Td" firstAttribute="bottom" secondItem="32M-40-4t5" secondAttribute="bottom" id="PuG-aq-Fwh"/>
                                         <constraint firstItem="M7U-Pp-gCg" firstAttribute="top" secondItem="6Nj-tM-GAF" secondAttribute="top" constant="10" id="Udd-Fo-L1v"/>
                                         <constraint firstItem="32M-40-4t5" firstAttribute="leading" secondItem="M7U-Pp-gCg" secondAttribute="trailing" constant="8" id="YKq-F3-Qix"/>
                                         <constraint firstAttribute="trailing" secondItem="Nc7-8f-wbm" secondAttribute="trailing" id="cch-8p-54h"/>
@@ -880,8 +880,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="contributionEditNicknameButtonAction" destination="UKO-j2-7Td" id="pZ8-pF-J3w"/>
-                                    <outlet property="contributionEditNicknameButtonOutlet" destination="UKO-j2-7Td" id="c7a-HJ-VyM"/>
+                                    <outlet property="contributionEditNicknameButtonOutlet" destination="UKO-j2-7Td" id="GIU-Fa-fhQ"/>
                                     <outlet property="contributionNicknameTextLabel" destination="32M-40-4t5" id="xJ2-V0-cXS"/>
                                     <outlet property="contributionUserNameTextLabel" destination="M7U-Pp-gCg" id="RAb-8b-AuK"/>
                                     <outlet property="contributionsActivityIndicator" destination="Rd3-c3-9OS" id="aK9-Q4-Cia"/>
