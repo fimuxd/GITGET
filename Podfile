@@ -12,9 +12,9 @@ target 'GITGET' do
   pod 'SwiftyJSON'
   pod "SwiftSoup"
   pod 'Kingfisher'
-  pod 'ObjectMapper', '~> 3.1'
   pod ‘RealmSwift' 
   pod 'Toaster'
+  pod 'SwiftReorder', '~> 3.2'
 
 end
 
@@ -26,6 +26,5 @@ target 'GitGetTodayExtension' do
   pod 'Alamofire', '~> 4.5'
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
-  pod 'ObjectMapper', '~> 3.1'
 
 end
