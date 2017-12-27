@@ -217,11 +217,7 @@ class TeamTableViewController: UITableViewController {
         
         // Add the text field for text entry.
         alertController.addTextField { textField in
-            if contributionToBeUpdated != nil {
-                textField.placeholder = "GitHub username only".localized
-                textField.text = contributionToBeUpdated?.gitHubUserName
-            }
-            
+            textField.placeholder = "GitHub username only".localized
         }
         // Create the actions.
         let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .cancel, handler: nil)
@@ -234,34 +230,39 @@ class TeamTableViewController: UITableViewController {
             
             if !checkExistColleague.contains(inputUserName) {
                 self.getContributions(of: inputUserName, { (html) in
-                    if contributionToBeUpdated != nil {
-                        do {
-                            try self.realm.write {
-                                contributionToBeUpdated?.gitHubUserName = inputUserName
-                                contributionToBeUpdated?.htmlValue = html
-                                
-                                self.tableView.reloadData()
+                    switch html.contains("Not Found") {
+                    case true:
+                        Toast.init(text: String(format:NSLocalizedString("'%@' is invalid username.", comment: ""),inputUserName)).show()
+                    case false:
+                        if contributionToBeUpdated != nil {
+                            do {
+                                try self.realm.write {
+                                    contributionToBeUpdated?.gitHubUserName = inputUserName
+                                    contributionToBeUpdated?.htmlValue = html
+                                    
+                                    self.tableView.reloadData()
+                                }
+                            } catch {
+                                print("///Error: Realm_\(error)")
                             }
-                        } catch {
-                            print("///Error: Realm_\(error)")
-                        }
-                    } else {
-                        let newColleague = Colleague()
-                        newColleague.gitHubUserName = inputUserName
-                        newColleague.htmlValue = html
-                        do {
-                            try self.realm.write {
-                                self.realm.add(newColleague)
-                                self.tableView.reloadData()
+                        } else {
+                            let newColleague = Colleague()
+                            newColleague.gitHubUserName = inputUserName
+                            newColleague.htmlValue = html
+                            do {
+                                try self.realm.write {
+                                    self.realm.add(newColleague)
+                                    self.tableView.reloadData()
+                                }
+                            } catch {
+                                print("///Error: Realm_\(error)")
                             }
-                        } catch {
-                            print("///Error: Realm_\(error)")
                         }
+                        Toast.init(text: String(format:NSLocalizedString("'%@' is added.", comment: ""),inputUserName)).show()
                     }
-                    Toast.init(text: "'\(inputUserName)' is added.").show()
                 })
             }else{
-                Toast.init(text: "'\(inputUserName)' is already exist.").show()
+                Toast.init(text: String(format:NSLocalizedString("'%@' is already exist.", comment: ""),inputUserName)).show()
             }
         }
         
@@ -325,7 +326,6 @@ extension TeamTableViewController:CustomTableViewCellDelegate {
         alertController.addTextField { textField in
             if self.colleagueObjects[indexPathRow].nickname != "" {
                 textField.text = self.colleagueObjects[indexPathRow].nickname
-                textField.placeholder = self.colleagueObjects[indexPathRow].nickname
             }
             textField.placeholder = "Colleague's nickname".localized
         }
