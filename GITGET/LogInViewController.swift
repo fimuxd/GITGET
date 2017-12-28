@@ -7,9 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
-import SafariServices
-import Alamofire
 
 class LogInViewController: UIViewController {
     
