@@ -40,6 +40,11 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var contributionEditNicknameButtonOutlet: UIButton!
     var indexPathRow:Int = 0
     
+    //donationCell
+    @IBOutlet weak var donationImageView: UIImageView!
+    @IBOutlet weak var donationTitleLabel: UILabel!
+    @IBOutlet weak var donationPriceLabel: UILabel!
+    
     var realm: Realm!
     var colleagueObjects:Results<Colleague>!
     var delegate:CustomTableViewCellDelegate?
