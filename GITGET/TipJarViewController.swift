@@ -108,7 +108,6 @@ extension TipJarViewController:UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(indexPath.row)번째 셀이 눌렸습니다.")
         IAPHandler.shared.purchaseMyProduct(index: indexPath.row)
     }
     
