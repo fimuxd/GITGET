@@ -89,10 +89,10 @@ class SettingTableViewController: UITableViewController {
             })
             return profileCell
         }else{
-            let titleList:[[String]] = [[""], ["Theme".localized], ["Tutorial".localized, "Rate GITGET".localized, "Version".localized, "Send email to GITGET".localized], ["Signout".localized]]
+            let titleList:[[String]] = [[""], ["Theme".localized], ["Tutorial".localized, "Rate GITGET".localized, "Send email to GITGET".localized, "Version".localized], ["Signout".localized]]
             detailCell.detailTitleLabel.text = titleList[indexPath.section][indexPath.row]
             detailCell.detailSubTitleLabel.text = ""
-            if indexPath.section == 2 && indexPath.row == 2 {
+            if indexPath.section == 2 && indexPath.row == 3 {
                 guard let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
                     let appBuildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {return detailCell}
                 Database.database().reference().child("GitgetVersion").child("lastest_version_code").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -137,7 +137,9 @@ class SettingTableViewController: UITableViewController {
                 self.openTutorial()
             }else if indexPath.row == 1 {
                 self.rateGitGet()
-            }else if indexPath.row == 2{
+            }else if indexPath.row == 2 {
+                self.sendEmailToGitGet()
+            }else if indexPath.row == 3{
                 Database.database().reference().child("GitgetVersion").observeSingleEvent(of: .value, with: { snapShot in
                     guard let dic = snapShot.value as? Dictionary<String, AnyObject>,
                         let forceUpdateMessage = dic["force_update_message"] as? String,
@@ -158,8 +160,6 @@ class SettingTableViewController: UITableViewController {
                     
                     self.checkUpdateVersion(dbdata: vData)
                 })
-            }else if indexPath.row == 3 {
-                self.sendEmailToGitGet()
             }
         case 3:
             self.signOutAction()
