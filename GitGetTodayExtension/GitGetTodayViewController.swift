@@ -310,7 +310,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var monthStringArray:[String] = dateArray.map { (date) -> String in
             return dateFormatter.string(from: date)
         }
-        
         self.currentMonthLabel.text = monthStringArray[0]
         self.firstPreviousMonthLabel.text = monthStringArray[1]
         self.secondPreviousMonthLabel.text = monthStringArray[2]
@@ -447,10 +446,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             utcMonthString = "\(utcMonth - previousMonthNumber)"
         }
         
+        //FIXME:- 현재 2018년으로 해가 바뀜으로 인해 제대로 날짜가 작동하지 않고 있음. 수정해야 함.
+        //        추가적으로, UserDefaults를 통해 데이터 통신하는 것은 의미가 없어보이므로, 전반적인 데이터 수정 작업할 것.
         let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
         
         guard let realDateArray = self.dateArray,
             let indexPath = realDateArray.index(of: previousDateString) else {return 0}
+        
         return indexPath
     }
     
@@ -586,6 +588,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                 if (indexPath.row + markableNumberOfDays) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
                     let xPosition:CGFloat = cell.frame.origin.x
                     self.xPositionForMonthLabels.insert(xPosition)
+                    print("잘 넣고 있냐. \(self.xPositionForMonthLabels)")
                 }
             }
         }
