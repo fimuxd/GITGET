@@ -186,3 +186,4 @@ extension OAuthWebViewController:SFSafariViewControllerDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 }
+

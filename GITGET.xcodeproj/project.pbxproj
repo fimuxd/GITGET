@@ -23,6 +23,9 @@
 		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
 		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
 		6A5E67C31FE6867B00A9F865 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E67C21FE6867B00A9F865 /* RealmModel.swift */; };
+		6A65FE931FF3CD4C008726CB /* TipJarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */; };
+		6A65FE951FF4CEAC008726CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A65FE941FF4CEAC008726CB /* StoreKit.framework */; };
+		6A65FE971FF506A0008726CB /* IAPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65FE961FF506A0008726CB /* IAPHandler.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
 		6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */; };
 		6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */; };
@@ -98,6 +101,9 @@
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		6A4A3ABD1FBC22A300B1B666 /* GitGetTodayExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GitGetTodayExtension.entitlements; sourceTree = "<group>"; };
 		6A5E67C21FE6867B00A9F865 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipJarViewController.swift; sourceTree = "<group>"; };
+		6A65FE941FF4CEAC008726CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		6A65FE961FF506A0008726CB /* IAPHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHandler.swift; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
 		6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTodayViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +146,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */,
+				6A65FE951FF4CEAC008726CB /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +204,7 @@
 				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
 				82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */,
 				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
+				6A65FE961FF506A0008726CB /* IAPHandler.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -229,6 +237,7 @@
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
 				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */,
+				6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
 				6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */,
@@ -277,6 +286,7 @@
 		75834077143F1622C7606A5A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A65FE941FF4CEAC008726CB /* StoreKit.framework */,
 				6A238E741FB928970063C30A /* NotificationCenter.framework */,
 				B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */,
 				7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */,
@@ -352,6 +362,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
@@ -542,8 +555,10 @@
 				6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */,
 				6A5E67C31FE6867B00A9F865 /* RealmModel.swift in Sources */,
 				6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */,
+				6A65FE971FF506A0008726CB /* IAPHandler.swift in Sources */,
 				6A8E40761FCFE183008F2DD7 /* SingleTapViewController.swift in Sources */,
 				6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */,
+				6A65FE931FF3CD4C008726CB /* TipJarViewController.swift in Sources */,
 				6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */,
 				6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */,
 				6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */,
