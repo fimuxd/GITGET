@@ -38,6 +38,7 @@
 		6A8E408C1FD0D991008F2DD7 /* GitHubAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E408B1FD0D991008F2DD7 /* GitHubAPIManager.swift */; };
 		6A8E40951FD1820F008F2DD7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A8E40971FD1820F008F2DD7 /* Main.storyboard */; };
 		6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */; };
+		6AFA40232021FBA100DDAC15 /* GitHubApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA40222021FBA100DDAC15 /* GitHubApiService.swift */; };
 		6AFA4AF51F9EDBDF00000759 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */; };
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
@@ -117,6 +118,7 @@
 		6A8E40981FD18212008F2DD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6A8E409A1FD1822A008F2DD7 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewController.swift; sourceTree = "<group>"; };
+		6AFA40222021FBA100DDAC15 /* GitHubApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubApiService.swift; sourceTree = "<group>"; };
 		6AFA4AF11F9EDBDF00000759 /* GITGET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GITGET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFA4AF41F9EDBDF00000759 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				6A8E40871FD04159008F2DD7 /* GitHubAPIManager.swift */,
+				6AFA40222021FBA100DDAC15 /* GitHubApiService.swift */,
 				82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */,
 				6A5E67C21FE6867B00A9F865 /* RealmModel.swift */,
 				6A65FE961FF506A0008726CB /* IAPHandler.swift */,
@@ -235,8 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */,
-				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */,
+				6A8E407F1FD005B1008F2DD7 /* SettingTableViewController.swift */,
 				6A65FE921FF3CD4C008726CB /* TipJarViewController.swift */,
 				6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */,
 				6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */,
@@ -468,9 +471,12 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Then/Then.framework",
 				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -483,9 +489,12 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Then.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -560,6 +569,7 @@
 				6A8E40801FD005B1008F2DD7 /* SettingTableViewController.swift in Sources */,
 				6A65FE931FF3CD4C008726CB /* TipJarViewController.swift in Sources */,
 				6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */,
+				6AFA40232021FBA100DDAC15 /* GitHubApiService.swift in Sources */,
 				6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */,
 				6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */,
 				6A8E40721FCFE169008F2DD7 /* AddWidgetViewController.swift in Sources */,
@@ -666,6 +676,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -686,6 +697,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
