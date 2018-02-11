@@ -310,7 +310,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         var monthStringArray:[String] = dateArray.map { (date) -> String in
             return dateFormatter.string(from: date)
         }
-        
         self.currentMonthLabel.text = monthStringArray[0]
         self.firstPreviousMonthLabel.text = monthStringArray[1]
         self.secondPreviousMonthLabel.text = monthStringArray[2]
@@ -437,20 +436,36 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
             let utcYear = dateFormatter.calendar.dateComponents(in: timeZone, from: date).year,
             let utcMonth = dateFormatter.calendar.dateComponents(in: timeZone, from: date).month else {return 0}
+        var utcYearString:String = String(utcYear)
         var utcMonthString:String = ""
-        
-        if utcMonth - previousMonthNumber == 1 {
-            utcMonthString = "12"
-        }else if utcMonth - previousMonthNumber < 10 {
-            utcMonthString = "0\(utcMonth - previousMonthNumber)"
-        }else{
-            utcMonthString = "\(utcMonth - previousMonthNumber)"
+     
+        if previousMonthNumber >= utcMonth {
+            utcYearString = String(utcYear - 1)
         }
         
-        let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
+        if utcMonth < 8 {
+            if previousMonthNumber >= utcMonth {
+                let months = ["12", "11", "10", "09", "08", "07", "06"]
+                let index = previousMonthNumber - utcMonth
+                utcMonthString = months[index]
+            } else {
+                utcMonthString = "0\(utcMonth - previousMonthNumber)"
+            }
+        } else {
+            if (utcMonth - previousMonthNumber) == 1 {
+                utcMonthString = "12"
+            }else if (utcMonth - previousMonthNumber) < 10 {
+                utcMonthString = "0\(utcMonth - previousMonthNumber)"
+            }else{
+                utcMonthString = "\(utcMonth - previousMonthNumber)"
+            }
+        }
         
+        let previousDateString:String = "\(utcYearString)-\(utcMonthString)-01"
+        print("찍히는 날짜: \(previousDateString)")
         guard let realDateArray = self.dateArray,
             let indexPath = realDateArray.index(of: previousDateString) else {return 0}
+        
         return indexPath
     }
     
@@ -586,6 +601,7 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                 if (indexPath.row + markableNumberOfDays) == self.findIndexPathForFirstOf(previousMonthNumber: index) {
                     let xPosition:CGFloat = cell.frame.origin.x
                     self.xPositionForMonthLabels.insert(xPosition)
+                    print("잘 넣고 있냐. \(self.xPositionForMonthLabels)")
                 }
             }
         }
@@ -597,8 +613,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         
         return CGSize(width: cellWidth, height: cellWidth)
     }
-    
-    //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들
     
     //TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
