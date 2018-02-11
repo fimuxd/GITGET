@@ -12,9 +12,12 @@ import StoreKit
 
 class TipJarViewController: UIViewController {
 
-    let rowTitles:[String] = ["Energy bar", "A Cup of Coffee", "Burger and Fries"]
-    let rowSubtitles:[String] = [" $0.99", " $4.99", " $9.99"]
-
+    let rowTitles:[String] = ["Energy bar".localized,
+                              "A Cup of Coffee".localized,
+                              "Burger and Fries".localized]
+    let rowSubtitles:[String] = [" $0.99".localized,
+                                 " $4.99".localized,
+                                 " $9.99".localized]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,6 @@ class TipJarViewController: UIViewController {
                 strongSelf.present(alertView, animated: true, completion: nil)
             }
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,21 +82,23 @@ extension TipJarViewController:UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return """
         CHOOSE DONATION PLAN
-        Don't worry. All services of GITGET is free. You don't have to pay for me to use GITGET App.
-        """
+        Don't worry. All services of GITGET is free. You don't have to pay to use the app.
+        """.localized
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.text = """
         CHOOSE DONATION PLAN
         Don't worry. All services of GITGET is free. You don't have to pay to use the app.
-        """
+        """.localized
     }
     
+    // TODO: 추후에 총 기부액 표시기능 넣기
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let donatedAmount = 0.00
-        return "Total donated amount: $\(donatedAmount)"
+//        let donatedAmount = "0.00"
+//        return String(format: NSLocalizedString("Total donated amount: $%@", comment: ""),donatedAmount)
+        return ""
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
