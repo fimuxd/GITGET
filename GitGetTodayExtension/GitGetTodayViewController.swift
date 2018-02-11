@@ -436,20 +436,33 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         guard let timeZone:TimeZone = TimeZone(abbreviation: "UTC"),
             let utcYear = dateFormatter.calendar.dateComponents(in: timeZone, from: date).year,
             let utcMonth = dateFormatter.calendar.dateComponents(in: timeZone, from: date).month else {return 0}
+        var utcYearString:String = String(utcYear)
         var utcMonthString:String = ""
-        
-        if utcMonth - previousMonthNumber == 1 {
-            utcMonthString = "12"
-        }else if utcMonth - previousMonthNumber < 10 {
-            utcMonthString = "0\(utcMonth - previousMonthNumber)"
-        }else{
-            utcMonthString = "\(utcMonth - previousMonthNumber)"
+     
+        if previousMonthNumber >= utcMonth {
+            utcYearString = String(utcYear - 1)
         }
         
-        //FIXME:- 현재 2018년으로 해가 바뀜으로 인해 제대로 날짜가 작동하지 않고 있음. 수정해야 함.
-        //        추가적으로, UserDefaults를 통해 데이터 통신하는 것은 의미가 없어보이므로, 전반적인 데이터 수정 작업할 것.
-        let previousDateString:String = "\(utcYear)-\(utcMonthString)-01"
+        if utcMonth < 8 {
+            if previousMonthNumber >= utcMonth {
+                let months = ["12", "11", "10", "09", "08", "07", "06"]
+                let index = previousMonthNumber - utcMonth
+                utcMonthString = months[index]
+            } else {
+                utcMonthString = "0\(utcMonth - previousMonthNumber)"
+            }
+        } else {
+            if (utcMonth - previousMonthNumber) == 1 {
+                utcMonthString = "12"
+            }else if (utcMonth - previousMonthNumber) < 10 {
+                utcMonthString = "0\(utcMonth - previousMonthNumber)"
+            }else{
+                utcMonthString = "\(utcMonth - previousMonthNumber)"
+            }
+        }
         
+        let previousDateString:String = "\(utcYearString)-\(utcMonthString)-01"
+        print("찍히는 날짜: \(previousDateString)")
         guard let realDateArray = self.dateArray,
             let indexPath = realDateArray.index(of: previousDateString) else {return 0}
         
@@ -600,8 +613,6 @@ extension TodayViewController: UICollectionViewDelegateFlowLayout, UICollectionV
         
         return CGSize(width: cellWidth, height: cellWidth)
     }
-    
-    //MARK:- 리팩토링 저장소_과거 작성했었으나 개선 또는 보류의 목적으로 주석처리한 코드들
     
     //TODO:- widgetPerformUpdate 사용법을 이해하지 못하고 있음. 스터디 후 활용할 것
     func widgetPerformUpdate(completionHandler: @escaping (NCUpdateResult) -> Void) {
