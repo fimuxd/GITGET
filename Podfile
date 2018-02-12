@@ -15,6 +15,9 @@ target 'GITGET' do
   pod ‘RealmSwift' 
   pod 'Toaster'
   pod 'SwiftReorder', '~> 3.2'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'Then'
 
 end
 
@@ -26,5 +29,8 @@ target 'GitGetTodayExtension' do
   pod 'Alamofire', '~> 4.5'
   pod 'SwiftyJSON'
   pod 'SwiftSoup'
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'Then'
 
 end

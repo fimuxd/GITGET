@@ -62,8 +62,11 @@
 /* Class = "UITabBarItem"; title = "Item"; ObjectID = "tug-Ms-V23"; */
 "tug-Ms-V23.title" = "설정";
 
+"L2O-rO-lwQ.title" = "기부하기";
+
 "pUy-hh-c3h.title" = "깃젯";
 "Kqk-fE-K6W.title" = "깃젯";
 "oSA-Id-pSS.title" = "깃젯";
 "4Ay-10-twz.title" = "내 GitHub 정보";
 "WyN-Vk-VH9.title" = "테마";
+"rHz-iO-2XC.text" = "깃젯은 여러분들의 후원을 통해 유지됩니다.\n작은 후원과 기부가 모여 개발자에게 큰 동기부여가 되고 있습니다.\n걸음마 개발자에게 한잔의 커피는 큰 힘이 됩니다.\n고맙습니다.";
