@@ -546,7 +546,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
         
         let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 6)) / 7
-        let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.up)
+        let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.down)
         let markableNumberOfDays:Int = Int(53 - numberOfWeek) * 7
         
         self.collectionViewHeightConstraint.constant = collectionViewHeight + (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
