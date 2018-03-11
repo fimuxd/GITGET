@@ -57,7 +57,7 @@
 ## Contact Me
 - 📱 +82 10.3316.1609
 - 📧 [iosdeveloperkr@gmail.com](iosdeveloperkr@gmail.com)
-- <img src = "https://assets.brandfolder.com/osogig-6gybeo-1fxfn9/original/Slack%20App%20Icon.png" width = 20> [gitget.slack.com](gitget.slack.com)
+- <img src = "https://assets.brandfolder.com/osogig-6gybeo-1fxfn9/original/Slack%20App%20Icon.png" width = 20> [gitget.slack.com](https://gitget.slack.com/messages)
 
 ***
 ***Life is a game. Play it :)***
