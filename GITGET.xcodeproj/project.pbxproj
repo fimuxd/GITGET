@@ -19,7 +19,6 @@
 		6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */; };
 		6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */; };
 		6A3FA49B1FE0D205008F205C /* TeamTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */; };
-		6A3FA49D1FE3580C008F205C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */; };
 		6A464E941FD58C56007C177A /* GitHubAccountSettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */; };
 		6A464E961FD5AA8E007C177A /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */; };
 		6A5E67C31FE6867B00A9F865 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5E67C21FE6867B00A9F865 /* RealmModel.swift */; };
@@ -27,6 +26,7 @@
 		6A65FE951FF4CEAC008726CB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A65FE941FF4CEAC008726CB /* StoreKit.framework */; };
 		6A65FE971FF506A0008726CB /* IAPHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65FE961FF506A0008726CB /* IAPHandler.swift */; };
 		6A7F80F51FC7E98100052CF3 /* MyFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */; };
+		6A8B09882056526E00D9ECA4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A8B09872056526D00D9ECA4 /* GoogleService-Info.plist */; };
 		6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */; };
 		6A8E40701FCFE156008F2DD7 /* OpenTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */; };
 		6A8E40721FCFE169008F2DD7 /* AddWidgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8E40711FCFE168008F2DD7 /* AddWidgetViewController.swift */; };
@@ -43,8 +43,6 @@
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
 		79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */; };
-		826EA3CC1FDF93B20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */; };
-		826EA3D01FDF94690090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */; };
 		826EA3D21FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
 		826EA3D31FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
 		82BEE5E51FE1F44500467B5C /* GitgetVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */; };
@@ -96,7 +94,6 @@
 		6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		6A32EA861FDA4068003938E5 /* ThemeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTableViewController.swift; sourceTree = "<group>"; };
 		6A3FA49A1FE0D205008F205C /* TeamTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamTableViewController.swift; sourceTree = "<group>"; };
-		6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A464E931FD58C56007C177A /* GitHubAccountSettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAccountSettingTableViewController.swift; sourceTree = "<group>"; };
 		6A464E951FD5AA8E007C177A /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		6A4A3ABC1FBC21E000B1B666 /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
@@ -106,6 +103,9 @@
 		6A65FE941FF4CEAC008726CB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6A65FE961FF506A0008726CB /* IAPHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHandler.swift; sourceTree = "<group>"; };
 		6A7F80F41FC7E98100052CF3 /* MyFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFieldViewController.swift; sourceTree = "<group>"; };
+		6A8B09872056526D00D9ECA4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6A8B098A205653E400D9ECA4 /* OAuthClientDatas.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
+		6A8B098B205654BA00D9ECA4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A8E406D1FCFCA02008F2DD7 /* TutorialPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageViewController.swift; sourceTree = "<group>"; };
 		6A8E406F1FCFE156008F2DD7 /* OpenTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTodayViewController.swift; sourceTree = "<group>"; };
 		6A8E40711FCFE168008F2DD7 /* AddWidgetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWidgetViewController.swift; sourceTree = "<group>"; };
@@ -125,8 +125,6 @@
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7659BF0A3ED16F54209FB052 /* Pods-GitGetTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitGetTodayExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
-		826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitgetVersion.swift; sourceTree = "<group>"; };
 		ADFD0E33736AB7E8F919E8D0 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Pods/Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,7 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				6A0F5C5D1FCEF1D30081834E /* Info.plist */,
-				6A3FA49C1FE3580C008F205C /* GoogleService-Info.plist */,
+				6A8B09872056526D00D9ECA4 /* GoogleService-Info.plist */,
 				6A0F5C661FCEF6EB0081834E /* Localizable.strings */,
 				826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */,
 			);
@@ -181,9 +179,9 @@
 			isa = PBXGroup;
 			children = (
 				6A0F5C5A1FCEF1C30081834E /* Info.plist */,
-				826EA3CE1FDF94690090769E /* OAuthClientDatas.plist */,
+				6A8B098B205654BA00D9ECA4 /* GoogleService-Info.plist */,
+				6A8B098A205653E400D9ECA4 /* OAuthClientDatas.plist */,
 				6A0F5C6E1FCEF85F0081834E /* Localizable.strings */,
-				826EA3CB1FDF93B20090769E /* OAuthClientDatas.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -308,7 +306,6 @@
 				6A238E9B1FB9F5F10063C30A /* Sources */,
 				6A238E9C1FB9F5F10063C30A /* Frameworks */,
 				6A238E9D1FB9F5F10063C30A /* Resources */,
-				F53A6E861542FA6B0781DD05 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -328,7 +325,6 @@
 				6AFA4AEE1F9EDBDF00000759 /* Frameworks */,
 				6AFA4AEF1F9EDBDF00000759 /* Resources */,
 				96E58F7568C76E2F49CC06A8 /* [CP] Embed Pods Frameworks */,
-				1B3809AC2D84CD21B4CB3D24 /* [CP] Copy Pods Resources */,
 				6A238E831FB928970063C30A /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -400,7 +396,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A0F5C6C1FCEF85F0081834E /* Localizable.strings in Resources */,
-				826EA3D01FDF94690090769E /* OAuthClientDatas.plist in Resources */,
 				6A0F5C501FCEEBAE0081834E /* LaunchScreen.storyboard in Resources */,
 				826EA3D31FDF94D20090769E /* OAuthClientDatas.plist in Resources */,
 				6A238EA61FB9F5F10063C30A /* MainInterface.storyboard in Resources */,
@@ -412,11 +407,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A8E40951FD1820F008F2DD7 /* Main.storyboard in Resources */,
-				6A3FA49D1FE3580C008F205C /* GoogleService-Info.plist in Resources */,
+				6A8B09882056526E00D9ECA4 /* GoogleService-Info.plist in Resources */,
 				6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */,
 				6A0F5C761FCEFB520081834E /* InfoPlist.strings in Resources */,
 				6A0F5C641FCEF6EB0081834E /* Localizable.strings in Resources */,
-				826EA3CC1FDF93B20090769E /* OAuthClientDatas.plist in Resources */,
 				826EA3D21FDF94D20090769E /* OAuthClientDatas.plist in Resources */,
 				6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */,
 			);
@@ -425,21 +419,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B3809AC2D84CD21B4CB3D24 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GITGET/Pods-GITGET-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		373CA8CD5EBCF55BB3376E08 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -520,21 +499,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F53A6E861542FA6B0781DD05 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
