@@ -18,6 +18,7 @@ enum ThemeName:Int {
     case ginkgoYellow
     case freeStyle
     case christmasEdition
+    case saladEdition
 }
 
 class ThemeTableViewController: UITableViewController {
@@ -29,8 +30,10 @@ class ThemeTableViewController: UITableViewController {
                                   "Halloween Orange".localized,
                                   "Ginkgo Yellow".localized,
                                   "Freestyle".localized,
-                                  "Christmas Edition".localized]
-    let cellImageData:[UIImage] = [#imageLiteral(resourceName: "Theme_GitHubOriginal"), #imageLiteral(resourceName: "Theme_BlackAndWhite"), #imageLiteral(resourceName: "Theme_JejuOceanBlue"), #imageLiteral(resourceName: "Theme_WinterBurgundy"), #imageLiteral(resourceName: "Theme_HalloweenOrange"), #imageLiteral(resourceName: "Theme_GinkgoYellow"), #imageLiteral(resourceName: "Theme_FreeStyle"), #imageLiteral(resourceName: "Theme_ChristmasEdition")]
+                                  "Christmas Edition".localized,
+                                  "Salad Edition".localized
+                                  ]
+    let cellImageData:[UIImage] = [#imageLiteral(resourceName: "Theme_GitHubOriginal"), #imageLiteral(resourceName: "Theme_BlackAndWhite"), #imageLiteral(resourceName: "Theme_JejuOceanBlue"), #imageLiteral(resourceName: "Theme_WinterBurgundy"), #imageLiteral(resourceName: "Theme_HalloweenOrange"), #imageLiteral(resourceName: "Theme_GinkgoYellow"), #imageLiteral(resourceName: "Theme_FreeStyle"), #imageLiteral(resourceName: "Theme_ChristmasEdition"), #imageLiteral(resourceName: "Theme_Salad")]
     var currentTheme = ThemeName(rawValue: (UserDefaults(suiteName: "group.devfimuxd.TodayExtensionSharingDefaults")?.value(forKey: "ThemeNameRawValue") as? Int) ?? 0) {
         willSet(newValue){
             if currentTheme != newValue {

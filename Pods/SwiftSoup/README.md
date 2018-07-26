@@ -31,7 +31,6 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod 'SwiftSoup'
 ```
-
 ### Carthage
 SwiftSoup is also available through [Carthage](https://github.com/Carthage/Carthage). To install
 it, simply add the following line to your Cartfile:
@@ -39,6 +38,33 @@ it, simply add the following line to your Cartfile:
 ```ruby
 github "scinfu/SwiftSoup"
 ```
+### Swift Package Manager
+SwiftSoup is also available through [Swift Package Manager](https://github.com/apple/swift-package-manager). 
+To install it, simply add the dependency to your Package.Swift file:
+
+```swift
+...
+dependencies: [
+    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "1.5.10"),
+],
+targets: [
+    .target( name: "YourTarget", dependencies: ["SwiftSoup"]),
+]
+...
+```
+
+## Try
+### try simple online CSS Seletors site:
+[SwiftSoup Test Site](https://swiftsoup.herokuapp.com/)
+
+### try example project opening Terminal and type:
+```shell
+pod try SwiftSoup
+```
+<p align="center" >
+  <img src="https://raw.githubusercontent.com/scinfu/SwiftSoup/master/Example/img1.png" alt="SwiftSoup" title="SwiftSoup">
+  <img src="https://raw.githubusercontent.com/scinfu/SwiftSoup/master/Example/img2.png" alt="SwiftSoup" title="SwiftSoup">
+</p>
 
 # To parse an HTML document:
 
@@ -75,18 +101,19 @@ After parsing a document, and finding some elements, you'll want to get at the d
 - To get the value of an attribute, use `Node.attr(_ String key)` method
 - For the text on an element (and its combined children), use `Element.text()`
 - For HTML, use `Element.html()`, or `Node.outerHtml()¡ as appropriate
+
 ```swift
 do {
     let html: String = "<p>An <a href='http://example.com/'><b>example</b></a> link.</p>";
-    let doc: Document = try! SwiftSoup.parse(html)
-    let link: Element = try! doc.select("a").first()!
+    let doc: Document = try SwiftSoup.parse(html)
+    let link: Element = try doc.select("a").first()!
     
-    let text: String = try! doc.body()!.text(); // "An example link"
-    let linkHref: String = try! link.attr("href"); // "http://example.com/"
-    let linkText: String = try! link.text(); // "example""
+    let text: String = try doc.body()!.text(); // "An example link"
+    let linkHref: String = try link.attr("href"); // "http://example.com/"
+    let linkText: String = try link.text(); // "example""
     
-    let linkOuterH: String = try! link.outerHtml(); // "<a href="http://example.com"><b>example</b></a>"
-    let linkInnerH: String = try! link.html(); // "<b>example</b>"
+    let linkOuterH: String = try link.outerHtml(); // "<a href="http://example.com"><b>example</b></a>"
+    let linkInnerH: String = try link.html(); // "<b>example</b>"
 } catch Exception.Error(let type, let message) {
     print(message)
 } catch {
@@ -282,8 +309,8 @@ Use the text setter methods of `Element`:
 
 ```swift
 do {
-    let doc: Document = try! SwiftSoup.parse("")
-    let div: Element = try! doc.select("div").first()! // <div></div>
+    let doc: Document = try SwiftSoup.parse("")
+    let div: Element = try doc.select("div").first()! // <div></div>
     try div.text("five > four") // <div>five &gt; four</div>
     try div.prepend("First ")
     try div.append(" Last")

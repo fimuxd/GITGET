@@ -1,4 +1,4 @@
-Please go to https://firebase.google.com/support/release-notes/ios#4.10.1
+Please go to https://firebase.google.com/support/release-notes/ios#0.0.0
 to view the Firebase iOS release notes.
 
 You can find information about prior changes to the Firebase pod and Firebase

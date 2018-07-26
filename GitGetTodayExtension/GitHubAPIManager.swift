@@ -21,6 +21,7 @@ enum ThemeName:Int {
     case ginkgoYellow
     case freeStyle
     case christmasEdition
+    case saladEdition
 }
 
 class GitHubAPIManager {
@@ -219,6 +220,24 @@ class GitHubAPIManager {
                         })
                         
                         completionHandler(christmasColorArray)
+                        
+                    case .saladEdition:
+                        let saladColorArray = contributionsHexColorCodeArray.map({ (colorCode) -> String in
+                            switch colorCode {
+                            case "#c6e48b": //lv.1
+                                return "6FDCB3"
+                            case "#7bc96f": //lv.2
+                                return "2CB783"
+                            case "#239a3b": //lv.3
+                                return "149566"
+                            case "#196127": //lv.4
+                                return "1F7C5A"
+                            default: //"#ebedf0": //lv.0(Contributions 0)
+                                return "#ebedf0"
+                            }
+                        })
+                        
+                        completionHandler(saladColorArray)
                     }
                 }
             case .failure(let error):
