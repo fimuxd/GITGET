@@ -19,6 +19,7 @@ target 'GITGET' do
   pod 'RxCocoa'
   pod 'Then'
   pod 'SwiftDate'
+  pod 'SnapKit'
 
 end
 

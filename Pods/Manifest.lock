@@ -80,6 +80,8 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.0):
     - RxAtomic (~> 4.4)
+  - SnapKit (4.2.0)
+  - SwiftDate (5.1.0)
   - SwiftReorder (3.2.0)
   - SwiftSoup (1.7.4)
   - SwiftyJSON (4.2.0)
@@ -96,6 +98,8 @@ DEPENDENCIES:
   - RealmSwift
   - RxCocoa
   - RxSwift
+  - SnapKit
+  - SwiftDate
   - SwiftReorder (~> 3.2)
   - SwiftSoup
   - SwiftyJSON
@@ -123,6 +127,8 @@ SPEC REPOS:
     - RxAtomic
     - RxCocoa
     - RxSwift
+    - SnapKit
+    - SwiftDate
     - SwiftReorder
     - SwiftSoup
     - SwiftyJSON
@@ -149,12 +155,14 @@ SPEC CHECKSUMS:
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftDate: 6329e58969a2de31cea7f1ee1143b247693196e7
   SwiftReorder: 27d737099efd6125339d5e8cb090e46c67341143
   SwiftSoup: 92f5b348c131aed8af04f4326db1579ab19fa08c
   SwiftyJSON: c4bcba26dd9ec7a027fc8eade48e2c911f229e96
   Then: 71866660c7af35a7343831f7668e7cd2b62ee0f2
   Toaster: a6c9532de1ded8105e77376f7dffeb2e12b46dbb
 
-PODFILE CHECKSUM: c89154428993284225f2cc1f811e148a8dbb604a
+PODFILE CHECKSUM: 17d42ffce497001c020180c2e19783a5431c3be0
 
 COCOAPODS: 1.5.3
