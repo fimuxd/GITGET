@@ -43,6 +43,8 @@
 		6AFA4AFC1F9EDBDF00000759 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */; };
 		6AFA4AFF1F9EDBDF00000759 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFA4AFD1F9EDBDF00000759 /* LaunchScreen.storyboard */; };
 		79790DD4087B0734F45C8F96 /* Pods_GITGET.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F4E7E489348256A25AA35D /* Pods_GITGET.framework */; };
+		7D27D0F521F5E99A00334EB2 /* LogInViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D27D0F421F5E99A00334EB2 /* LogInViewController2.swift */; };
+		7D27D0F721F5F10300334EB2 /* OAuthWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D27D0F621F5F10300334EB2 /* OAuthWebViewModel.swift */; };
 		826EA3D21FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
 		826EA3D31FDF94D20090769E /* OAuthClientDatas.plist in Resources */ = {isa = PBXBuildFile; fileRef = 826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */; };
 		82BEE5E51FE1F44500467B5C /* GitgetVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */; };
@@ -124,6 +126,8 @@
 		6AFA4AFB1F9EDBDF00000759 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AFA4AFE1F9EDBDF00000759 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7659BF0A3ED16F54209FB052 /* Pods-GitGetTodayExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitGetTodayExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-GitGetTodayExtension/Pods-GitGetTodayExtension.release.xcconfig"; sourceTree = "<group>"; };
+		7D27D0F421F5E99A00334EB2 /* LogInViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController2.swift; sourceTree = "<group>"; };
+		7D27D0F621F5F10300334EB2 /* OAuthWebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthWebViewModel.swift; sourceTree = "<group>"; };
 		7E204C0A6F430994B18CF5C6 /* Pods_GitGetTodayExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitGetTodayExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		826EA3D11FDF94D20090769E /* OAuthClientDatas.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuthClientDatas.plist; sourceTree = "<group>"; };
 		82BEE5E41FE1F44500467B5C /* GitgetVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitgetVersion.swift; sourceTree = "<group>"; };
@@ -227,7 +231,9 @@
 			isa = PBXGroup;
 			children = (
 				6A2FC4B21FA0B81D00C33ACB /* LogInViewController.swift */,
+				7D27D0F421F5E99A00334EB2 /* LogInViewController2.swift */,
 				6AD30F621FB3723D00D9C251 /* OAuthWebViewController.swift */,
+				7D27D0F621F5F10300334EB2 /* OAuthWebViewModel.swift */,
 			);
 			name = SignIn;
 			sourceTree = "<group>";
@@ -453,6 +459,8 @@
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftDate/SwiftDate.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftReorder/SwiftReorder.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -472,6 +480,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftDate.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftReorder.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -521,6 +531,7 @@
 			files = (
 				82BEE5E51FE1F44500467B5C /* GitgetVersion.swift in Sources */,
 				6A8E40741FCFE173008F2DD7 /* WidgetViewController.swift in Sources */,
+				7D27D0F521F5E99A00334EB2 /* LogInViewController2.swift in Sources */,
 				6A2FC4B31FA0B81D00C33ACB /* LogInViewController.swift in Sources */,
 				6A8E406E1FCFCA02008F2DD7 /* TutorialPageViewController.swift in Sources */,
 				6A32EA871FDA4068003938E5 /* ThemeTableViewController.swift in Sources */,
@@ -540,6 +551,7 @@
 				6A8E40781FCFE191008F2DD7 /* DoubleTapViewController.swift in Sources */,
 				6A8E40721FCFE169008F2DD7 /* AddWidgetViewController.swift in Sources */,
 				6AD30F631FB3723D00D9C251 /* OAuthWebViewController.swift in Sources */,
+				7D27D0F721F5F10300334EB2 /* OAuthWebViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
