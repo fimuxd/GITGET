@@ -18,6 +18,7 @@ target 'GITGET' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Then'
+  pod 'SwiftDate'
 
 end
 
@@ -32,5 +33,6 @@ target 'GitGetTodayExtension' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Then'
+  pod 'SwiftDate'
 
 end

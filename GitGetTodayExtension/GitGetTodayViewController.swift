@@ -527,8 +527,12 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         let widgetHeight:CGFloat = self.view.frame.height
         
         self.setUILabelSizePerFont()
+        
+        let adjustMonthLabel = self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant
+        let adjustCollectionView = self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant
+        let adjustSection = self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom
     
-        let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        let collectionViewHeight:CGFloat = widgetHeight - adjustMonthLabel - adjustCollectionView - adjustSection
         
         let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 8)) / 7
         
@@ -542,8 +546,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         self.setUILabelSizePerFont()
         
-        let collectionViewWidth:CGFloat = widgetWidth - (self.weekdayLabelLeadingConstraint.constant + self.weekdayLabelWidthConstraint.constant) - (self.collectionViewLeadingConstraint.constant + self.collectionViewTrailingConstraint.constant) - (self.collectionViewSectionInset.left + self.collectionViewSectionInset.right)
-        let collectionViewHeight:CGFloat = widgetHeight - (self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant) - (self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant) - (self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom)
+        let adjustWeekdayLabel = self.weekdayLabelLeadingConstraint.constant + self.weekdayLabelWidthConstraint.constant
+        let adjustCollectionView = self.collectionViewLeadingConstraint.constant + self.collectionViewTrailingConstraint.constant
+        let adjustSection = self.collectionViewSectionInset.left + self.collectionViewSectionInset.right
+        let adjustMonthLabel = self.monthLabelTopConstraint.constant + self.monthLabelHeightConstraint.constant
+        let adjustCollectionViewHeight = self.collectionViewTopConstraint.constant + self.collectionViewBottomConstraint.constant
+        let adjustSectionHeight = self.collectionViewSectionInset.top + self.collectionViewSectionInset.bottom
+        let collectionViewWidth:CGFloat = widgetWidth - adjustWeekdayLabel - adjustCollectionView - adjustSection
+        let collectionViewHeight:CGFloat = widgetHeight - adjustMonthLabel - adjustCollectionViewHeight - adjustSectionHeight
         
         let cellHeight:CGFloat = (collectionViewHeight - (self.minimumCellSpacing * 6)) / 7
         let numberOfWeek:CGFloat = ((collectionViewWidth - self.minimumCellSpacing) / (cellHeight + self.minimumCellSpacing)).rounded(.down)
