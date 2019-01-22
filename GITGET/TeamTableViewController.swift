@@ -133,7 +133,7 @@ class TeamTableViewController: UITableViewController {
             cell.contributionUserNameTextLabel.text = object.gitHubUserName
             cell.contributionNicknameTextLabel.text = object.nickname
             cell.contributionsWebView.loadHTMLString(object.htmlValue, baseURL: nil)
-            cell.indexPathRow = indexPath.row
+            cell.indexPath = (section: indexPath.section, row: indexPath.row)
             cell.contributionNicknameTextLabel.isHidden = false
             cell.contributionEditNicknameButtonOutlet.isHidden = false
             
@@ -143,7 +143,7 @@ class TeamTableViewController: UITableViewController {
     
     //셀의 높이 설정
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150.0
+        return 123.0
     }
     
     //셀 삭제/수정 가능여부 설정

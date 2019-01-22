@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 
 protocol CustomTableViewCellDelegate:NSObjectProtocol {
-    func contributionEditNicknameButtonTapped(at indexPathRow:Int)
+    func contributionEditNicknameButtonTapped(at indexPathRow: Int)
 }
 
 class CustomTableViewCell: UITableViewCell {
@@ -38,7 +38,8 @@ class CustomTableViewCell: UITableViewCell {
     @IBOutlet weak var contributionsWebView: UIWebView!
     @IBOutlet weak var contributionsActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var contributionEditNicknameButtonOutlet: UIButton!
-    var indexPathRow:Int = 0
+    var indexPath: (section: Int, row: Int) = (section: 0, row: 0)
+    var isLargeChart: Bool = false
     
     //donationCell
     @IBOutlet weak var donationImageView: UIImageView!
@@ -55,9 +56,11 @@ class CustomTableViewCell: UITableViewCell {
         if self.reuseIdentifier == "contributionsCell" {
             self.contributionsWebView.delegate = self
             self.contributionsWebView.isHidden = true
+            self.contributionsWebView.scrollView.delegate = self
             self.contributionsWebView.scrollView.bounces = false
             self.contributionsWebView.backgroundColor = .white
             
+            self.contributionsWebView.scrollView.showsVerticalScrollIndicator = false
         }else if self.reuseIdentifier == "themeCell" {
             
         }
@@ -71,25 +74,41 @@ class CustomTableViewCell: UITableViewCell {
     
     
     @IBAction func contributionEditNicknameButtonAction(_ sender: UIButton) {
-        self.delegate?.contributionEditNicknameButtonTapped(at: self.indexPathRow)
+        self.delegate?.contributionEditNicknameButtonTapped(at: self.indexPath.row)
     }
     
     
 }
 
-extension CustomTableViewCell:UIWebViewDelegate {
+extension CustomTableViewCell: UIWebViewDelegate, UIScrollViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         let xPosition = webView.scrollView.contentSize.width - self.frame.width - 8 + 12
         self.contributionsActivityIndicator.startAnimating()
         webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontFamily =\"-apple-system\"")
         webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.fontSize = '10px'")
-        webView.scrollView.contentOffset = CGPoint(x: xPosition, y: 0.0)
+        
+        guard let outerHTML = webView.stringByEvaluatingJavaScript(from: "document.documentElement.outerHTML") else { return }
+        
+        self.isLargeChart = outerHTML.contains("details-menu")
+        print(isLargeChart)
+        let isFirstCell = self.indexPath.section == 0 && self.indexPath.row == 0
+        let offsetY: CGFloat = isFirstCell ? 60 : isLargeChart ? 70.0 : 35.0
+        webView.scrollView.contentOffset = CGPoint(x: xPosition, y: offsetY)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
             self.contributionsWebView.isHidden = false
             self.contributionsActivityIndicator.stopAnimating()
         })
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let isFirstCell = self.indexPath.section == 0 && self.indexPath.row == 0
+        let offsetY: CGFloat = isFirstCell ? 60.0 : isLargeChart ? 70.0 : 35.0
+
+        if scrollView.contentOffset.y != offsetY {
+            scrollView.contentOffset.y = offsetY
+        }
     }
 }
 

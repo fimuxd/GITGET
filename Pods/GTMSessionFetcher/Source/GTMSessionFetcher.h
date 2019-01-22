@@ -455,6 +455,7 @@ extern NSString *const kGTMSessionFetcherErrorDomain;
 // userInfo dictionary with key kGTMSessionFetcherStatusDataKey.
 extern NSString *const kGTMSessionFetcherStatusDomain;
 extern NSString *const kGTMSessionFetcherStatusDataKey;
+extern NSString *const kGTMSessionFetcherStatusDataContentTypeKey;
 
 // When a fetch fails with an error, these keys are included in the error userInfo
 // dictionary if retries were attempted.
@@ -732,14 +733,6 @@ NSData * GTM_NULLABLE_TYPE GTMDataFromInputStream(NSInputStream *inputStream, NS
 // Set a header field value on the request. Header field value changes will not
 // affect a fetch after the fetch has begun.
 - (void)setRequestValue:(GTM_NULLABLE NSString *)value forHTTPHeaderField:(NSString *)field;
-
-// The fetcher's request (deprecated.)
-//
-// Exposing a mutable object in the interface was convenient but a bad design decision due
-// to thread-safety requirements.  Clients should use the request property and
-// setRequestValue:forHTTPHeaderField: instead.
-@property(atomic, readonly, GTM_NULLABLE) NSMutableURLRequest *mutableRequest
-    GTMSESSION_DEPRECATE_ON_2016_SDKS("use 'request' or '-setRequestValue:forHTTPHeaderField:'");
 
 // Data used for resuming a download task.
 @property(atomic, readonly, GTM_NULLABLE) NSData *downloadResumeData;
@@ -1246,7 +1239,11 @@ NSData * GTM_NULLABLE_TYPE GTMDataFromInputStream(NSInputStream *inputStream, NS
 // can catch those.
 
 #ifdef __OBJC__
-#if DEBUG
+// If asserts are entirely no-ops, the synchronization monitor is just a bunch
+// of counting code that doesn't report exceptional circumstances in any way.
+// Only build the synchronization monitor code if NS_BLOCK_ASSERTIONS is not
+// defined or asserts are being logged instead.
+#if DEBUG && (!defined(NS_BLOCK_ASSERTIONS) || GTMSESSION_ASSERT_AS_LOG)
   #define __GTMSessionMonitorSynchronizedVariableInner(varname, counter) \
       varname ## counter
   #define __GTMSessionMonitorSynchronizedVariable(varname, counter)  \
