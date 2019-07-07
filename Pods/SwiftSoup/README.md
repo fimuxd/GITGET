@@ -20,7 +20,10 @@
 * Clean user-submitted content against a safe white-list, to prevent XSS attacks
 * Output tidy HTML
 `SwiftSoup` is designed to deal with all varieties of HTML found in the wild; from pristine and validating, to invalid tag-soup; `SwiftSoup` will create a sensible parse tree.
+## Swift
+Swift 5 ```>=2.0.0```
 
+Swift 4.2 ```1.7.4```
 
 ## Installation
 
@@ -45,7 +48,7 @@ To install it, simply add the dependency to your Package.Swift file:
 ```swift
 ...
 dependencies: [
-    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "1.5.10"),
+    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "1.7.4"),
 ],
 targets: [
     .target( name: "YourTarget", dependencies: ["SwiftSoup"]),
