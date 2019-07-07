@@ -81,7 +81,6 @@ class CustomTableViewCell: UITableViewCell {
 }
 
 extension CustomTableViewCell: UIWebViewDelegate, UIScrollViewDelegate {
-    
     func webViewDidFinishLoad(_ webView: UIWebView) {
         let xPosition = webView.scrollView.contentSize.width - self.frame.width - 8 + 12
         self.contributionsActivityIndicator.startAnimating()
