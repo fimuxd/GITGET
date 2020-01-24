@@ -56,10 +56,10 @@ class TipJarViewController: UIViewController {
     }
     
     @IBAction func goToLinkedInAction(_ sender: UIButton) {
-        guard let directUrl:URL = URL(string: "linkedin://profile/iosdeveloperkr") else {return}
+        guard let directUrl:URL = URL(string: "linkedin://profile/parkboyoung") else {return}
         UIApplication.shared.open(directUrl, options: [:], completionHandler: { (result) in
             if !result {
-                self.openSafariViewOf(url: "https://www.linkedin.com/in/iosdeveloperkr")
+                self.openSafariViewOf(url: "https://www.linkedin.com/in/parkboyoung")
             }
         })
     }
