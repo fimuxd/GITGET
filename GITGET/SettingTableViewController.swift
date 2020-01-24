@@ -189,7 +189,7 @@ class SettingTableViewController: UITableViewController {
         let userSystemVersion = UIDevice.current.systemVersion
         let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         
-        let mailComposeViewController = self.configuredMailComposeViewController(emailAddress: "iosdeveloperkr@gmail.com", systemVersion: userSystemVersion, appVersion: userAppVersion!)
+        let mailComposeViewController = self.configuredMailComposeViewController(emailAddress: "me@boyoung.dev", systemVersion: userSystemVersion, appVersion: userAppVersion!)
         
         if MFMailComposeViewController.canSendMail() {
             self.present(mailComposeViewController, animated: true, completion: nil)
