@@ -1,39 +1,31 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-   use_frameworks!
-
 target 'GITGET' do
- # Pods for GITGET
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
-  pod 'Alamofire', '~> 4.5'
-  pod 'SwiftyJSON'
-  pod "SwiftSoup"
-  pod 'Kingfisher'
-  pod ‘RealmSwift' 
-  pod 'Toaster'
-  pod 'SwiftReorder', '~> 3.2'
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for GITGET
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'RxDataSources'
   pod 'Then'
-  pod 'SwiftDate'
   pod 'SnapKit'
-
-end
-
-target 'GitGetTodayExtension' do
- # Pods for GITGET Widget
-  pod 'Firebase'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
-  pod 'Alamofire', '~> 4.5'
-  pod 'SwiftyJSON'
   pod 'SwiftSoup'
-  pod 'RxSwift'
-  pod 'RxCocoa'
-  pod 'Then'
   pod 'SwiftDate'
+
+  target 'CONTRIBUTIONSExtension' do
+     inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'GITGETTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'GITGETUITests' do
+    # Pods for testing
+  end
 
 end

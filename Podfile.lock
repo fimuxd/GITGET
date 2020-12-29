@@ -1,171 +1,52 @@
 PODS:
-  - Alamofire (4.8.2)
-  - Firebase (6.3.0):
-    - Firebase/Core (= 6.3.0)
-  - Firebase/Auth (6.3.0):
-    - Firebase/CoreOnly
-    - FirebaseAuth (~> 6.1.2)
-  - Firebase/Core (6.3.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.0.2)
-  - Firebase/CoreOnly (6.3.0):
-    - FirebaseCore (= 6.0.3)
-  - Firebase/Database (6.3.0):
-    - Firebase/CoreOnly
-    - FirebaseDatabase (~> 6.0.0)
-  - FirebaseAnalytics (6.0.2):
-    - FirebaseCore (~> 6.0)
-    - FirebaseInstanceID (~> 4.2)
-    - GoogleAppMeasurement (= 6.0.2)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (~> 0.3)
-  - FirebaseAuth (6.1.2):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.2)
-    - GoogleUtilities/Environment (~> 6.2)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (6.0.3):
-    - GoogleUtilities/Environment (~> 6.0)
-    - GoogleUtilities/Logger (~> 6.0)
-  - FirebaseDatabase (6.0.0):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.0)
-    - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (4.2.0):
-    - FirebaseCore (~> 6.0)
-    - GoogleUtilities/Environment (~> 6.0)
-    - GoogleUtilities/UserDefaults (~> 6.0)
-  - GoogleAppMeasurement (6.0.2):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (~> 0.3)
-  - GoogleUtilities/AppDelegateSwizzler (6.2.1):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.2.1)
-  - GoogleUtilities/Logger (6.2.1):
-    - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.2.1):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.2.1):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.2.1)"
-  - GoogleUtilities/Reachability (6.2.1):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.2.1):
-    - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.2.2)
-  - Kingfisher (5.7.0)
-  - leveldb-library (1.20)
-  - nanopb (0.3.901):
-    - nanopb/decode (= 0.3.901)
-    - nanopb/encode (= 0.3.901)
-  - nanopb/decode (0.3.901)
-  - nanopb/encode (0.3.901)
-  - Realm (3.17.0):
-    - Realm/Headers (= 3.17.0)
-  - Realm/Headers (3.17.0)
-  - RealmSwift (3.17.0):
-    - Realm (= 3.17.0)
-  - RxCocoa (5.0.0):
+  - Differentiator (4.0.1)
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxRelay (5.0.0):
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.0.0)
-  - SnapKit (5.0.0)
-  - SwiftDate (6.0.3)
-  - SwiftReorder (3.2.0)
-  - SwiftSoup (2.2.0)
-  - SwiftyJSON (5.0.0)
-  - Then (2.5.0)
-  - Toaster (2.2.0)
+  - RxSwift (5.1.1)
+  - SnapKit (5.0.1)
+  - SwiftDate (6.3.1)
+  - SwiftSoup (2.3.2)
+  - Then (2.7.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.5)
-  - Firebase
-  - Firebase/Auth
-  - Firebase/Core
-  - Firebase/Database
-  - Kingfisher
-  - RealmSwift
   - RxCocoa
+  - RxDataSources
   - RxSwift
   - SnapKit
   - SwiftDate
-  - SwiftReorder (~> 3.2)
   - SwiftSoup
-  - SwiftyJSON
   - Then
-  - Toaster
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Alamofire
-    - Firebase
-    - FirebaseAnalytics
-    - FirebaseAuth
-    - FirebaseAuthInterop
-    - FirebaseCore
-    - FirebaseDatabase
-    - FirebaseInstanceID
-    - GoogleAppMeasurement
-    - GoogleUtilities
-    - GTMSessionFetcher
-    - Kingfisher
-    - leveldb-library
-    - nanopb
-    - Realm
-    - RealmSwift
+  trunk:
+    - Differentiator
     - RxCocoa
+    - RxDataSources
     - RxRelay
     - RxSwift
     - SnapKit
     - SwiftDate
-    - SwiftReorder
     - SwiftSoup
-    - SwiftyJSON
     - Then
-    - Toaster
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  Firebase: 8432d732974498afd5987e9001a05f90f1a3d625
-  FirebaseAnalytics: 470ddab7253b21ad5a40bebd4a9903d7ae19386a
-  FirebaseAuth: 7fa2cc010b93770831a4e7a60651b52c3b8d111a
-  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: 68f8a7f50cdae542715d4e86afa37c4067217dcb
-  FirebaseDatabase: f48e067716864be2b855cf716b927ef375d6cfa0
-  FirebaseInstanceID: f20243a1d828e0e9a3798b995174dedc16f1b32a
-  GoogleAppMeasurement: a35a645835bae31b6bdc0576396bc23908f12a22
-  GoogleUtilities: c7a0b08bda3bf808be823ed151f0e28ac6866e71
-  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
-  Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
-  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  Realm: b30db41ff34fc858ffc25ba8d44a82c164e7ccd0
-  RealmSwift: fe733e459d60dc7b6971d4cbee2eb4854097d12c
-  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
-  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
-  SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
-  SwiftReorder: 27d737099efd6125339d5e8cb090e46c67341143
-  SwiftSoup: 230991361c5ba249d140161860a3864a28b63860
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
-  Then: 0157115e883545c77967b452fe74a1d25fb796e1
-  Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftDate: 72d28954e8e1c6c1c0f917ccc8005e4f83c7d4b2
+  SwiftSoup: f97bc4e988c7729d6457f9642f974c617a6e2510
+  Then: acfe0be7e98221c6204e12f8161459606d5d822d
 
-PODFILE CHECKSUM: 17d42ffce497001c020180c2e19783a5431c3be0
+PODFILE CHECKSUM: 61819294f7a76ccf8549837c37888bf84f68b21a
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.10.0
