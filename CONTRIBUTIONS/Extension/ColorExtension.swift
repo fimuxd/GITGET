@@ -8,6 +8,10 @@
 import SwiftUI
 
 extension Color {
+    public static var background: Color {
+        return Color("widgetBackground")
+    }
+    
     public static var level0: Color {
         return Color("lv0")
     }
