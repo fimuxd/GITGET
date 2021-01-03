@@ -35,8 +35,7 @@
 		7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9868C259862E600BAEAEA /* Assets.xcassets */; };
 		7DA98690259862E600BAEAEA /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9868B259862E500BAEAEA /* GitHubWidget.intentdefinition */; };
 		7DA98693259862E600BAEAEA /* CONTRIBUTIONSExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7DA98683259862E500BAEAEA /* CONTRIBUTIONSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		7DA9869D2598668400BAEAEA /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9869C2598668400BAEAEA /* SettingTableViewCell.swift */; };
-		7DA986CE2598859000BAEAEA /* HowToUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986CD2598859000BAEAEA /* HowToUseViewController.swift */; };
+		7DA986CE2598859000BAEAEA /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986CD2598859000BAEAEA /* TutorialViewController.swift */; };
 		7DA986E12598936D00BAEAEA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986E02598936D00BAEAEA /* Constants.swift */; };
 		7DA986F32599718D00BAEAEA /* GitHubNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */; };
 		7DA986F42599718D00BAEAEA /* GitHubNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */; };
@@ -132,8 +131,7 @@
 		7DA9868B259862E500BAEAEA /* GitHubWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = GitHubWidget.intentdefinition; sourceTree = "<group>"; };
 		7DA9868C259862E600BAEAEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DA9868E259862E600BAEAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7DA9869C2598668400BAEAEA /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
-		7DA986CD2598859000BAEAEA /* HowToUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToUseViewController.swift; sourceTree = "<group>"; };
+		7DA986CD2598859000BAEAEA /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		7DA986E02598936D00BAEAEA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubNetwork.swift; sourceTree = "<group>"; };
 		7DA987242599780C00BAEAEA /* Contribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contribution.swift; sourceTree = "<group>"; };
@@ -282,7 +280,7 @@
 				7DA9861A2598608700BAEAEA /* AppDelegate.swift */,
 				7DA9861C2598608700BAEAEA /* SceneDelegate.swift */,
 				7DA986C82598856E00BAEAEA /* MainView */,
-				7DA986D72598859500BAEAEA /* HowToUse */,
+				7DA986D72598859500BAEAEA /* Tutorial */,
 				7D3D3C6625998FFE00CCD1E9 /* Resource */,
 			);
 			path = GITGET;
@@ -323,18 +321,17 @@
 			children = (
 				7DA986752598622100BAEAEA /* SettingViewController.swift */,
 				7DA9867A2598622800BAEAEA /* SettingViewModel.swift */,
-				7DA9869C2598668400BAEAEA /* SettingTableViewCell.swift */,
 				7DA986E02598936D00BAEAEA /* Constants.swift */,
 			);
 			path = MainView;
 			sourceTree = "<group>";
 		};
-		7DA986D72598859500BAEAEA /* HowToUse */ = {
+		7DA986D72598859500BAEAEA /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				7DA986CD2598859000BAEAEA /* HowToUseViewController.swift */,
+				7DA986CD2598859000BAEAEA /* TutorialViewController.swift */,
 			);
-			path = HowToUse;
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		7DE7A9E32599AF3D00F5F4BB /* Bundle */ = {
@@ -689,10 +686,9 @@
 				7DE7AA272599E00C00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */,
 				7DE7AA222599DFF100F5F4BB /* CalendarChart.swift in Sources */,
 				7DA9867B2598622800BAEAEA /* SettingViewModel.swift in Sources */,
-				7DA9869D2598668400BAEAEA /* SettingTableViewCell.swift in Sources */,
 				7DA9861B2598608700BAEAEA /* AppDelegate.swift in Sources */,
 				7D7FD52C259B63200072775E /* NoticeTextStyle.swift in Sources */,
-				7DA986CE2598859000BAEAEA /* HowToUseViewController.swift in Sources */,
+				7DA986CE2598859000BAEAEA /* TutorialViewController.swift in Sources */,
 				7D7FD505259B45FD0072775E /* User.swift in Sources */,
 				7DE7AA4E2599ED7900F5F4BB /* GitHubContributionsProvider.swift in Sources */,
 				7DA986E12598936D00BAEAEA /* Constants.swift in Sources */,

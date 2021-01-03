@@ -23,4 +23,12 @@ struct SystemConstants {
         =====
         """
     }
+    
+    struct SNS {
+        static let github = "https://github.com/fimuxd"
+        static let linkedin = "https://www.linkedin.com/in/parkboyoung/"
+        static let linkedinDirect = "linkedin://profile/parkboyoung"
+        static let instagram = "https://www.instagram.com/fimuxd/"
+        static let instagramDirect = "instagram://user?username=fimuxd"
+    }
 }
