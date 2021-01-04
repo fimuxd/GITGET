@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- * A minimal String utility class. Designed for internal jsoup use only.
+ * A minimal String utility class. Designed for internal SwiftSoup use only.
  */
 open class StringUtil {
     enum StringError: Error {
@@ -160,19 +160,6 @@ open class StringUtil {
                 reachedNonWhite = true
             }
         }
-    }
-
-    public static func inString(_ needle: String?, haystack: String...) -> Bool {
-        return inString(needle, haystack)
-    }
-    public static func inString(_ needle: String?, _ haystack: [String?]) -> Bool {
-        if(needle == nil) {return false}
-        for hay in haystack {
-            if(hay != nil  && hay! == needle!) {
-                return true
-            }
-        }
-        return false
     }
 
 //    open static func inSorted(_ needle: String, haystack: [String]) -> Bool {
