@@ -16,24 +16,6 @@ enum SettingMenu {
     case gitHub
     case linkedin
     case instagram
-    
-    var title: String {
-        switch self {
-        case .howToUse: return "시작하기"
-        case .rating: return "별점주기"
-        case .sendMail: return "문의하기"
-        case .gitHub, .linkedin, .instagram: return ""
-        }
-    }
-    
-    var iconImage: UIImage {
-        switch self {
-        case .howToUse, .rating, .sendMail: return UIImage()
-        case .gitHub: return #imageLiteral(resourceName: "logo_github")
-        case .linkedin: return #imageLiteral(resourceName: "logo_linkedin")
-        case .instagram: return #imageLiteral(resourceName: "logo_instagram")
-        }
-    }
 }
 
 struct SettingViewModel: SettingViewBindable {

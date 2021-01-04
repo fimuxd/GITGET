@@ -96,11 +96,9 @@ class SettingViewController: UIViewController {
         }
         
         howToUserButton.do {
-            $0.setTitle("시작하기", for: .normal)
+            $0.setTitle("START", for: .normal)
             $0.setTitleColor(.white, for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 20, weight: .bold)
-            $0.titleLabel?.textAlignment = .left
-            $0.titleEdgeInsets = UIEdgeInsets(top: 22, left: 20, bottom: 22, right: 230)
             $0.backgroundColor = UIColor(named: "button")
             $0.layer.cornerRadius = 10
             $0.clipsToBounds = true
@@ -114,13 +112,13 @@ class SettingViewController: UIViewController {
         }
         
         ratingButton.do {
-            $0.setTitle("별점주기", for: .normal)
+            $0.setTitle("Rate GitGet", for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 18, weight: .bold)
             $0.setTitleColor(.darkGray, for: .normal)
         }
         
         sendMailButton.do {
-            $0.setTitle("문의하기", for: .normal)
+            $0.setTitle("Support", for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 18, weight: .bold)
             $0.setTitleColor(.darkGray, for: .normal)
         }
@@ -208,7 +206,7 @@ extension Reactive where Base: SettingViewController {
     var buttonAction: Binder<SettingMenu> {
         return Binder(base) { base, menu in
             switch menu {
-            case .howToUse: return
+            case .howToUse: return presentTutorial()
             case .rating: return requestReview()
             case .sendMail: return setEmail()
             case .gitHub: return goToGitHub()
@@ -220,6 +218,9 @@ extension Reactive where Base: SettingViewController {
     
     func presentTutorial() {
         let viewController = TutorialViewController()
+        let viewModel = TutorialViewModel()
+        viewController.bind(viewModel)
+        
         base.present(viewController, animated: true, completion: nil)
     }
     
@@ -234,6 +235,7 @@ extension Reactive where Base: SettingViewController {
         let userSystemVersion = UIDevice.current.systemVersion
         let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] ?? ""
         let mailComposeViewController = MFMailComposeViewController()
+        mailComposeViewController.mailComposeDelegate = base
         
         mailComposeViewController.do {
             $0.setToRecipients([SystemConstants.Email.emailAddress])

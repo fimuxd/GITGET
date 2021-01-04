@@ -27,7 +27,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>기본</string>
+					<string>Original</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>01uvn0</string>
 					<key>INEnumValueIndex</key>
@@ -37,7 +37,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>바둑돌</string>
+					<string>Go</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>85L2fd</string>
 					<key>INEnumValueIndex</key>
@@ -47,7 +47,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>제주 바다</string>
+					<string>Ocean</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>l9brhp</string>
 					<key>INEnumValueIndex</key>
@@ -57,7 +57,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>할로윈</string>
+					<string>Halloween</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>MKC2jI</string>
 					<key>INEnumValueIndex</key>
@@ -67,7 +67,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>따뜻한 겨울</string>
+					<string>Warm</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>sWZug7</string>
 					<key>INEnumValueIndex</key>
@@ -77,7 +77,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>은행나무</string>
+					<string>Ginkgo</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>mYU8WG</string>
 					<key>INEnumValueIndex</key>
@@ -87,7 +87,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>프리스타일</string>
+					<string>Freestyle</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>svxRBF</string>
 					<key>INEnumValueIndex</key>
@@ -97,7 +97,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>크리스마스</string>
+					<string>Christmas</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>vsKCLE</string>
 					<key>INEnumValueIndex</key>
@@ -107,7 +107,7 @@
 				</dict>
 				<dict>
 					<key>INEnumValueDisplayName</key>
-					<string>클래식</string>
+					<string>Classic</string>
 					<key>INEnumValueDisplayNameID</key>
 					<string>Xf9NO0</string>
 					<key>INEnumValueIndex</key>
