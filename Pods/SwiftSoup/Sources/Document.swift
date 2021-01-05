@@ -21,7 +21,7 @@ open class Document: Element {
     /**
      Create a new, empty Document.
      @param baseUri base URI of document
-     @see org.jsoup.Jsoup#parse
+     @see SwiftSoup#parse
      @see #createShell
      */
     public init(_ baseUri: String) {
@@ -34,7 +34,7 @@ open class Document: Element {
      @param baseUri baseUri of document
      @return document with html, head, and body elements.
      */
-    static open func createShell(_ baseUri: String) -> Document {
+    static public func createShell(_ baseUri: String) -> Document {
         let doc: Document = Document(baseUri)
         let html: Element = try! doc.appendElement("html")
         try! html.appendElement("head")

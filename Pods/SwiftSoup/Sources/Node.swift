@@ -21,7 +21,7 @@ open class Node: Equatable, Hashable {
 	* Get the list index of this node in its node sibling list. I.e. if this is the first node
 	* sibling, returns 0.
 	* @return position in node sibling list
-	* @see org.jsoup.nodes.Element#elementSiblingIndex()
+	* @see Element#elementSiblingIndex()
 	*/
     public private(set) var siblingIndex: Int = 0
 
@@ -560,7 +560,7 @@ open class Node: Equatable, Hashable {
      @return next sibling, or null if this is the last sibling
      */
     open func nextSibling() -> Node? {
-        guard let siblings: Array<Node> =  parentNode?.childNodes else{
+        guard let siblings: Array<Node> =  parentNode?.childNodes else {
             return nil
         }
 
@@ -708,7 +708,7 @@ open class Node: Equatable, Hashable {
 			let currParent: Node = nodesToProcess.removeFirst()
 
 			for i in 0..<currParent.childNodes.count {
-				let childClone: Node = currParent.childNodes[i].copy(parent:currParent)
+				let childClone: Node = currParent.childNodes[i].copy(parent: currParent)
 				currParent.childNodes[i] = childClone
 				nodesToProcess.append(childClone)
 			}
@@ -750,9 +750,15 @@ open class Node: Equatable, Hashable {
         }
 
         open func tail(_ node: Node, _ depth: Int)throws {
+            // When compiling a release optimized swift linux 4.2 version the "saves a void hit."
+            // causes a SIL error. Removing optimization on linux until a fix is found.
+            #if os(Linux)
+            try node.outerHtmlTail(accum, depth, out)
+            #else
             if (!(node.nodeName() == OuterHtmlVisitor.text)) { // saves a void hit.
                 try node.outerHtmlTail(accum, depth, out)
             }
+            #endif
         }
     }
 
@@ -772,13 +778,13 @@ open class Node: Equatable, Hashable {
 	///
 	/// Hash values are not guaranteed to be equal across different executions of
 	/// your program. Do not save hash values to use during a future execution.
-	public var hashValue: Int {
-		return description.hashValue ^ (baseUri?.hashValue ?? 31)
-	}
-
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(description)
+        hasher.combine(baseUri)
+    }
 }
 
-extension Node : CustomStringConvertible {
+extension Node: CustomStringConvertible {
 	public var description: String {
 		do {
 			return try outerHtml()
@@ -789,7 +795,7 @@ extension Node : CustomStringConvertible {
 	}
 }
 
-extension Node : CustomDebugStringConvertible {
+extension Node: CustomDebugStringConvertible {
     private static let space = " "
 	public var debugDescription: String {
 		do {

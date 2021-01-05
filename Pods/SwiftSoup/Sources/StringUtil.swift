@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- * A minimal String utility class. Designed for internal jsoup use only.
+ * A minimal String utility class. Designed for internal SwiftSoup use only.
  */
 open class StringUtil {
     enum StringError: Error {
@@ -19,7 +19,9 @@ open class StringUtil {
     }
 
     // memoised padding up to 10
-    fileprivate static var padding: [String] = ["", " ", "  ", "   ", "    ", "     ", "      ", "       ", "        ", "         ", "          "]
+    fileprivate static let padding: [String] = ["", " ", "  ", "   ", "    ", "     ", "      ", "       ", "        ", "         ", "          "]
+    private static let empty = ""
+    private static let space = " "
 
     /**
      * Join a collection of strings by a seperator
@@ -27,14 +29,14 @@ open class StringUtil {
      * @param sep string to place between strings
      * @return joined string
      */
-    open static func join(_ strings: [String], sep: String) -> String {
+    public static func join(_ strings: [String], sep: String) -> String {
         return strings.joined(separator: sep)
     }
-    open static func join(_ strings: Set<String>, sep: String) -> String {
+    public static func join(_ strings: Set<String>, sep: String) -> String {
         return strings.joined(separator: sep)
     }
 
-	open static func join(_ strings: OrderedSet<String>, sep: String) -> String {
+    public static func join(_ strings: OrderedSet<String>, sep: String) -> String {
 		return strings.joined(separator: sep)
 	}
 
@@ -64,22 +66,17 @@ open class StringUtil {
      * @param width amount of padding desired
      * @return string of spaces * width
      */
-    open static func padding(_ width: Int) -> String {
+    public static func padding(_ width: Int) -> String {
 
-        if(width <= 0) {
-            return ""
+        if width <= 0 {
+            return empty
         }
 
-        if (width < padding.count) {
+        if width < padding.count {
             return padding[width]
         }
-
-        var out: [Character] = [Character]()
-
-        for _ in 0..<width {
-            out.append(" ")
-        }
-        return String(out)
+        
+        return String.init(repeating: space, count: width)
     }
 
     /**
@@ -87,7 +84,7 @@ open class StringUtil {
      * @param string string to test
      * @return if string is blank
      */
-    open static func isBlank(_ string: String) -> Bool {
+    public static func isBlank(_ string: String) -> Bool {
         if (string.count == 0) {
             return true
         }
@@ -105,7 +102,7 @@ open class StringUtil {
      * @param string string to test
      * @return true if only digit chars, false if empty or null or contains non-digit chrs
      */
-    open static func isNumeric(_ string: String) -> Bool {
+    public static func isNumeric(_ string: String) -> Bool {
         if (string.count == 0) {
             return false
         }
@@ -123,7 +120,7 @@ open class StringUtil {
      * @param c code point to test
      * @return true if code point is whitespace, false otherwise
      */
-    open static func isWhitespace(_ c: Character) -> Bool {
+    public static func isWhitespace(_ c: Character) -> Bool {
         //(c == " " || c == UnicodeScalar.BackslashT || c == "\n" || (c == "\f" ) || c == "\r")
         return c.isWhitespace
     }
@@ -134,7 +131,7 @@ open class StringUtil {
      * @param string content to normalise
      * @return normalised string
      */
-    open static func normaliseWhitespace(_ string: String) -> String {
+    public static func normaliseWhitespace(_ string: String) -> String {
         let sb: StringBuilder  = StringBuilder.init()
         appendNormalisedWhitespace(sb, string: string, stripLeading: false)
         return sb.toString()
@@ -146,7 +143,7 @@ open class StringUtil {
      * @param string string to normalize whitespace within
      * @param stripLeading set to true if you wish to remove any leading whitespace
      */
-    open static func appendNormalisedWhitespace(_ accum: StringBuilder, string: String, stripLeading: Bool ) {
+    public static func appendNormalisedWhitespace(_ accum: StringBuilder, string: String, stripLeading: Bool ) {
         var lastWasWhite: Bool = false
         var reachedNonWhite: Bool  = false
 
@@ -163,19 +160,6 @@ open class StringUtil {
                 reachedNonWhite = true
             }
         }
-    }
-
-    open static func inString(_ needle: String?, haystack: String...) -> Bool {
-        return inString(needle, haystack)
-    }
-    open static func inString(_ needle: String?, _ haystack: [String?]) -> Bool {
-        if(needle == nil) {return false}
-        for hay in haystack {
-            if(hay != nil  && hay! == needle!) {
-                return true
-            }
-        }
-        return false
     }
 
 //    open static func inSorted(_ needle: String, haystack: [String]) -> Bool {
@@ -210,12 +194,12 @@ open class StringUtil {
      * @throws MalformedURLException if an error occurred generating the URL
      */
     //NOTE: Not sure it work
-    open static func resolve(_ base: URL, relUrl: String ) -> URL? {
+    public static func resolve(_ base: URL, relUrl: String ) -> URL? {
         var base = base
         if(base.pathComponents.count == 0 && base.absoluteString.last != "/" && !base.isFileURL) {
             base = base.appendingPathComponent("/", isDirectory: false)
         }
-        let u =  URL(string: relUrl, relativeTo : base)
+        let u =  URL(string: relUrl, relativeTo: base)
         return u
     }
 
@@ -225,13 +209,13 @@ open class StringUtil {
      * @param relUrl the relative URL to resolve. (If it's already absolute, it will be returned)
      * @return an absolute URL if one was able to be generated, or the empty string if not
      */
-    open static func resolve(_ baseUrl: String, relUrl: String ) -> String {
+    public static func resolve(_ baseUrl: String, relUrl: String ) -> String {
 
         let base = URL(string: baseUrl)
 
         if(base == nil || base?.scheme == nil) {
             let abs = URL(string: relUrl)
-			return abs != nil && abs?.scheme != nil ? abs!.absoluteURL.absoluteString : ""
+			return abs != nil && abs?.scheme != nil ? abs!.absoluteURL.absoluteString : empty
         } else {
             let url = resolve(base!, relUrl: relUrl)
             if(url != nil) {
@@ -244,7 +228,7 @@ open class StringUtil {
                 return ext
             }
 
-            return ""
+            return empty
         }
 
 //        try {
