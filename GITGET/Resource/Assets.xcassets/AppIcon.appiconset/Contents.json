@@ -107,6 +107,66 @@
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-16@2x-1.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "16x16"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본-1.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "16x16"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본-2.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "32x32"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본 4.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "32x32"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본 3.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "128x128"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본 2.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "128x128"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본 2-1.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "256x256"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "256x256"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1024 복사본-3.png",
+      "idiom" : "mac",
+      "scale" : "1x",
+      "size" : "512x512"
+    },
+    {
+      "filename" : "KakaoTalk_Photo_2020-12-29-20-17-13-1025.png",
+      "idiom" : "mac",
+      "scale" : "2x",
+      "size" : "512x512"
     }
   ],
   "info" : {

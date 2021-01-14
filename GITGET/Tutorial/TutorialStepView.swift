@@ -9,7 +9,7 @@ import RxSwift
 import RxCocoa
 
 protocol TutorialStepViewBindable {
-    var step: Signal<Step> { get }
+    var step: Signal<TutorialStep> { get }
 }
 
 class TutorialStepView: UIView {
@@ -67,7 +67,10 @@ class TutorialStepView: UIView {
             $0.sizeToFit()
         }
         
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.contentMode = .scaleAspectFit
+        }
     }
     
     func layout() {
@@ -87,6 +90,9 @@ class TutorialStepView: UIView {
         imageView.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(24)
             $0.centerX.bottom.equalToSuperview()
+            #if targetEnvironment(macCatalyst)
+            $0.width.equalToSuperview().inset(10)
+            #endif
         }
     }
 }
