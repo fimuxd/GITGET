@@ -79,6 +79,7 @@
 		7DED5BB325B0868700C9574E /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986752598622100BAEAEA /* SettingViewController.swift */; };
 		7DED5BB425B0868700C9574E /* MacOSTutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */; };
 		7DED5BB525B0868700C9574E /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6825B078B900C9574E /* Step.swift */; };
+		7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986282598608900BAEAEA /* LaunchScreen.storyboard */; };
 		B0ABAD709839A9915B84C79B /* Pods_MacGITGETTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C046E19187106F599DD6B81 /* Pods_MacGITGETTests.framework */; };
 		BF9972EF28F24D2A96507C3D /* Pods_GITGETTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADCB12D96CB367A58D02F04 /* Pods_GITGETTests.framework */; };
 		F7B1B65486F37C49158EC43B /* Pods_GITGET_GITGETUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80A575FF2F61563A6D6308BC /* Pods_GITGET_GITGETUITests.framework */; };
@@ -754,6 +755,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DA986272598608900BAEAEA /* Assets.xcassets in Resources */,
+				7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1315,7 +1317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1323,7 +1325,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.2.0;
+				MARKETING_VERSION = 21.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1341,7 +1343,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1349,7 +1351,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.2.0;
+				MARKETING_VERSION = 21.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = NO;
@@ -1454,7 +1456,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1464,7 +1466,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.2.0;
+				MARKETING_VERSION = 21.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1482,7 +1484,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1492,7 +1494,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.2.0;
+				MARKETING_VERSION = 21.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1510,14 +1512,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MacGITGET/MacGITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = MacGITGET/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = paruku.MacGITGET;
+				MARKETING_VERSION = 21.3.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.mac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -1533,14 +1538,17 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MacGITGET/MacGITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 14;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = MacGITGET/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = paruku.MacGITGET;
+				MARKETING_VERSION = 21.3.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.mac;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
