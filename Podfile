@@ -26,26 +26,4 @@ target 'GITGET' do
     inherit! :search_paths
     # Pods for testing
   end
-
-  target 'GITGETUITests' do
-    # Pods for testing
-  end
-
-target 'MacGITGET' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for MacGITGET
-
-  target 'MacGITGETTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'MacGITGETUITests' do
-    # Pods for testing
-  end
-
-end
-
 end
