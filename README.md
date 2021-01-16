@@ -1,4 +1,4 @@
-# GITGET <img src = "https://github.com/fimuxd/GITGET/blob/dev/GITGET/Resource/Assets.xcassets/AppIcon.appiconset/KakaoTalk_Photo_2020-12-29-20-17-13-1024.png?raw=true" width = 50 align = right>
+# GITGET <img src = "https://github.com/fimuxd/GITGET/blob/develop/GITGET/Resource/Assets.xcassets/AppIcon.appiconset/mac_app_icon_1024.png?raw=true" width = 50 align = right>
 
 > **첫 번째 개인 Project**
 
@@ -12,6 +12,9 @@
 * [Contact ME](https://github.com/fimuxd/GITGET#contact-me)
 
 ## About GITGET
+
+<img src = "https://github.com/fimuxd/GITGET/blob/master/screenshots/devices.png?raw=true">
+
 > - `GitHub` + `Widget`
 > - No three meals a day, three commits a day!
 > - No more grey field on GitHub
@@ -21,7 +24,7 @@
 
 ## Concept
 
-- GITGET(이하 `깃젯`)은 2017년 5월, `Swift`로 코딩을 처음 접한 뒤 지금까지 배운 내용을 토대로 시도하는 첫 번째 `iOS 전용` Application 입니다.
+- GITGET(이하 `깃젯`)은 2017년 5월, `Swift`로 코딩을 처음 접한 뒤 혼자서 완성한 첫 번째 앱입니다.
 - GitHub profile 페이지의 `contributions`를 `iPhone`의 `widget`상에 띄워서 볼 수 있게 하였습니다.
 - `깃젯`을 통해 다음과 같은 내용을 스터디할 수 있었습니다..
 
@@ -36,14 +39,18 @@
     v. `SwiftUI+Combine`: WidgetKit 적용 
 
 ## Update
-- v1.0.1: 1차 App Store release (2017.11.28)
-- v1.1.0: 위젯을 한번 탭하면 새로고침, 두번 탭하면 앱이 열리는 기능 추가. 위젯이 직접 통신
-- v2.0.0: 대대적 UI 및 데이터 통신 수정. `UITabBarController`, `UINavigationController` 추가
-- v3.0.0: 위젯 색상 테마 기능 
-- v3.1.0: Team 추가 기능
-- v3.2: Firebase를 이용한 버전관리 및 Team 관리 UX 개선
-- v3.3: Realm을 이용한 Team 관리, 별명 추가/수정 기능
+### Ver. 2
+- 21.4.0: 한글 현지화 업데이트
+- 21.3.0: MacOS 지원
 - v21.2.0: GITGET VERSION2 배포. 입앱 기능 축소 및 iOS14 target WidgetKit 적용. 앱은 RxSwift, 위젯은 SwiftUI+Combine 활용
+### Ver. 1
+- v3.3: Realm을 이용한 Team 관리, 별명 추가/수정 기능
+- v3.2: Firebase를 이용한 버전관리 및 Team 관리 UX 개선
+- v3.1.0: Team 추가 기능
+- v3.0.0: 위젯 색상 테마 기능
+- v2.0.0: 대대적 UI 및 데이터 통신 수정. `UITabBarController`, `UINavigationController` 추가
+- v1.1.0: 위젯을 한번 탭하면 새로고침, 두번 탭하면 앱이 열리는 기능 추가. 위젯이 직접 통신
+- v1.0.1: 1차 App Store release (2017.11.28)
 
 ## Contributors (Special Thanks) 
 > GITGET(깃젯)이 더욱 나을 수 있도록 기여를 해주신/해주고 계신 분들입니다. 직접적으로 PR을 보내주신 분, Swift Rookie인 저에게 많은 가르침을 주신 분, 무시할 수 없는 개선 아이디어를 보내주신 분들이 계십니다. 정말 감사드립니다 :)
