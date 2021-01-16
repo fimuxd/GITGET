@@ -123,7 +123,7 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>88xZPY</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20C69</string>
+	<string>20D5042d</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
 	<string>12C33</string>
 	<key>INIntentDefinitionToolsVersion</key>
@@ -134,7 +134,7 @@
 			<key>INIntentCategory</key>
 			<string>information</string>
 			<key>INIntentDescription</key>
-			<string>GitHub contribution</string>
+			<string>GitHub contributions</string>
 			<key>INIntentDescriptionID</key>
 			<string>tVvJ9c</string>
 			<key>INIntentEligibleForWidgets</key>
