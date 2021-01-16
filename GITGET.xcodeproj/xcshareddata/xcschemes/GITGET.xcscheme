@@ -28,26 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7DA9862F2598608900BAEAEA"
-               BuildableName = "GITGETTests.xctest"
-               BlueprintName = "GITGETTests"
-               ReferencedContainer = "container:GITGET.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7DA9863A2598608900BAEAEA"
-               BuildableName = "GITGETUITests.xctest"
-               BlueprintName = "GITGETUITests"
-               ReferencedContainer = "container:GITGET.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
