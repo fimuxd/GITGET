@@ -1,0 +1,26 @@
+/* 
+  Localizable.strings
+  GITGET
+
+  Created by Bo-Young PARK on 1/16/21.
+  
+*/
+
+//SettingViewController.swift
+"GitGet" = "깃젯";
+"START" = "시작하기";
+"Rate GitGet" = "별점주기";
+"Support" = "문의하기";
+
+//Step.swift
+//iOS
+"From the Home Screen, touch and hold a widget or an empty area until the apps jiggle. Then tap the Add Button in the upper-left corner." = "홈 화면에서 위젯 또는 빈 영역을 앱이 흔들릴 때까지 길게 터치합니다. 그리고 왼쪽 상단 모서리에서 추가 버튼을 탭합니다.";
+"Select or find GitGet, and tap Add Widget." = "깃젯을 선택하고 '위젯 추가'를 탭합니다.";
+"Tap GitGet, then fill GitHub username. In this moment, GitGet should be in active(jiggle). If not, hold a GitGet then tap 'edit widget'" = "깃젯을 선택하고 GitHub username을 입력합니다. 이 때 깃젯은 활성화(좌우로 흔들리는) 상태여야 합니다. 활성화 상태가 아니라면 깃젯을 길게 누른 후 '위젯 편집'을 선택해주세요.";
+"Tap Done. You can also add your collegue’s username. Don’t forget various themes are prepared." = "'완료'를 탭합니다. 동료들의 username도 추가하고 다양한 테마도 즐겨보세요.";
+
+//MacOS
+"Click the date and time in the menu bar, or swipe left with two fingers from the right edge of the trackpad." = "메뉴 막대에서 날짜 및 시간을 클릭하거나 트랙패드의 오른쪽 가장자리에서 두 손가락을 사용하여 왼쪽으로 쓸어넘기십시오.";
+"Click Edit Widgets at the bottom. Then in the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right." = "알림 센터 하단에서 위젯 (전체) 편집을 클릭하십시오. 그리고 위젯 미리보기에서 포인터를 미리보기의 위젯 위로 이동한 다음 추가 버튼을 클릭하십시오. 위젯이 오른쪽에 있는 활성화된 위젯에 추가됩니다.";
+"In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done." = "활성화된 위젯에서 포인터를 위젯 위로 이동한 다음(위젯 편집이 위젯 이름 아래에 나타남) 위젯의 아무 곳이나 클릭하십시오. 위젯이 뒤집혀서 사용자화할 수 있는 설정을 표시합니다. 여기서 GitHub username을 입력하고 테마를 선택할 수 있습니다. 준비가 되면 완료를 클릭하십시오.";
+"You can also add your collegue’s username. Don’t forget various themes are prepared." = "동료들의 username도 추가하고 다양한 테마도 즐겨보세요.";
