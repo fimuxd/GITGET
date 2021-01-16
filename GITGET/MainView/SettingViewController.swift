@@ -89,14 +89,14 @@ class SettingViewController: UIViewController {
         view.backgroundColor = .white
         
         titleLabel.do {
-            $0.text = "GitGet"
+            $0.text = "GitGet".localized
             $0.textColor = .black
             $0.font = .monospacedSystemFont(ofSize: 34, weight: .black)
             $0.numberOfLines = 1
         }
         
         howToUserButton.do {
-            $0.setTitle("START", for: .normal)
+            $0.setTitle("START".localized, for: .normal)
             $0.setTitleColor(.white, for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 20, weight: .bold)
             $0.backgroundColor = UIColor(named: "button")
@@ -112,13 +112,13 @@ class SettingViewController: UIViewController {
         }
         
         ratingButton.do {
-            $0.setTitle("Rate GitGet", for: .normal)
+            $0.setTitle("Rate GitGet".localized, for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 18, weight: .bold)
             $0.setTitleColor(.darkGray, for: .normal)
         }
         
         sendMailButton.do {
-            $0.setTitle("Support", for: .normal)
+            $0.setTitle("Support".localized, for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 18, weight: .bold)
             $0.setTitleColor(.darkGray, for: .normal)
         }

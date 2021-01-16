@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  GITGET
+
+  Created by Bo-Young PARK on 1/16/21.
+  
+*/
+
+//SettingViewController.swift
+"GitGet" = "GitGet";
+"START" = "START";
+"Rate GitGet" = "Rate GitGet";
+"Support" = "Support";
+
+//Step.swift
+"From the Home Screen, touch and hold a widget or an empty area until the apps jiggle. Then tap the Add Button in the upper-left corner." = "From the Home Screen, touch and hold a widget or an empty area until the apps jiggle. Then tap the Add Button in the upper-left corner.";
+"Select or find GitGet, and tap Add Widget." = "Select or find GitGet, and tap Add Widget.";
+"Tap GitGet, then fill GitHub username. In this moment, GitGet should be in active(jiggle). If not, hold a GitGet then tap edit GitGet" = "Tap GitGet, then fill GitHub username. In this moment, GitGet should be in active(jiggle). If not, hold a GitGet then tap edit GitGet";
+"Tap Done. You can also add your collegue’s username. Don’t forget various themes are prepared." = "Tap Done. You can also add your collegue’s username. Don’t forget various themes are prepared.";
+
+"Click the date and time in the menu bar, or swipe left with two fingers from the right edge of the trackpad" = "Click the date and time in the menu bar, or swipe left with two fingers from the right edge of the trackpad";
+"Click Edit Widgets at the bottom." = "Click Edit Widgets at the bottom.";
+"In the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right." = "In the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right.";
+"In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done." = "In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done.";

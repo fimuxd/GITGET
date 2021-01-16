@@ -30,10 +30,10 @@ enum iOSStep: TutorialStep {
     
     var description: String {
         switch self {
-        case .one: return "From the Home Screen, touch and hold a widget or an empty area until the apps jiggle. Then tap the Add Button in the upper-left corner."
-        case .two: return "Select or find GitGet, and tap Add Widget."
-        case .three: return "Tap GitGet, then fill GitHub username."
-        case .four: return "Tap Done. You can also add your collegue’s username. Don’t forget various themes are prepared."
+        case .one: return "From the Home Screen, touch and hold a widget or an empty area until the apps jiggle. Then tap the Add Button in the upper-left corner.".localized
+        case .two: return "Select or find GitGet, and tap Add Widget.".localized
+        case .three: return "Tap GitGet, then fill GitHub username. In this moment, GitGet should be in active(jiggle). If not, hold a GitGet then tap edit GitGet".localized
+        case .four: return "Tap Done. You can also add your collegue’s username. Don’t forget various themes are prepared.".localized
         }
     }
     
@@ -64,10 +64,10 @@ enum MacOSStep: TutorialStep {
     
     var description: String {
         switch self {
-        case .one: return "Click the date and time in the menu bar, or swipe left with two fingers from the right edge of the trackpad"
-        case .two: return "Click Edit Widgets at the bottom."
-        case .three: return "In the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right."
-        case .four: return "In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done."
+        case .one: return "Click the date and time in the menu bar, or swipe left with two fingers from the right edge of the trackpad".localized
+        case .two: return "Click Edit Widgets at the bottom.".localized
+        case .three: return "In the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right.".localized
+        case .four: return "In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done.".localized
         }
     }
     
