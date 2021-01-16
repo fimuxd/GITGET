@@ -95,9 +95,7 @@ class TutorialViewController: UIViewController {
         }
 
         stepFourView.snp.makeConstraints {
-//            $0.top.equalTo(stepThreeView.snp.bottom).offset(37)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
-    
 }

@@ -5,6 +5,9 @@
 //  Created by Bo-Young PARK on 1/4/21.
 //
 
+import Foundation
+import UIKit
+
 struct TutorialViewModel: TutorialViewBindable {
     let stepOneViewModel: TutorialStepViewBindable
     let stepTwoViewModel: TutorialStepViewBindable
@@ -12,9 +15,16 @@ struct TutorialViewModel: TutorialViewBindable {
     let stepFourViewModel: TutorialStepViewBindable
     
     init() {
-        stepOneViewModel = TutorialStepViewModel(step: .one)
-        stepTwoViewModel = TutorialStepViewModel(step: .two)
-        stepThreeViewModel = TutorialStepViewModel(step: .three)
-        stepFourViewModel = TutorialStepViewModel(step: .four)
+        #if targetEnvironment(macCatalyst)
+        stepOneViewModel = MacOSTutorialStepViewModel(step: .one)
+        stepTwoViewModel = MacOSTutorialStepViewModel(step: .two)
+        stepThreeViewModel = MacOSTutorialStepViewModel(step: .three)
+        stepFourViewModel = MacOSTutorialStepViewModel(step: .four)
+        #else
+        stepOneViewModel = iOSTutorialStepViewModel(step: .one)
+        stepTwoViewModel = iOSTutorialStepViewModel(step: .two)
+        stepThreeViewModel = iOSTutorialStepViewModel(step: .three)
+        stepFourViewModel = iOSTutorialStepViewModel(step: .four)
+        #endif
     }
 }
