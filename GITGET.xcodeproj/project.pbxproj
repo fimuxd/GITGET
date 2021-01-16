@@ -15,10 +15,8 @@
 		7D3D3CB8259997A900CCD1E9 /* ThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3CAE2599973500CCD1E9 /* ThemeExtension.swift */; };
 		7D3D3CC5259997B100CCD1E9 /* GitHubContributionsWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3C7F2599953600CCD1E9 /* GitHubContributionsWidgetViewModel.swift */; };
 		7D4467A525B2939900A90E6A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467A825B2939900A90E6A /* Localizable.strings */; };
-		7D4467A625B2939900A90E6A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467A825B2939900A90E6A /* Localizable.strings */; };
 		7D4467C225B2940800A90E6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467C125B2940800A90E6A /* String.swift */; };
 		7D4467C325B2940800A90E6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467C125B2940800A90E6A /* String.swift */; };
-		7D4467C425B2940800A90E6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467C125B2940800A90E6A /* String.swift */; };
 		7D4467DB25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */; };
 		7D4467DC25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */; };
 		7D4467F025B2B0E600A90E6A /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467EF25B2B0E600A90E6A /* Localizable.stringsdict */; };
@@ -115,7 +113,6 @@
 		7D3D3C7F2599953600CCD1E9 /* GitHubContributionsWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidgetViewModel.swift; sourceTree = "<group>"; };
 		7D3D3CAE2599973500CCD1E9 /* ThemeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeExtension.swift; sourceTree = "<group>"; };
 		7D4467A725B2939900A90E6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		7D4467B025B293A000A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7D4467B125B293A100A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4467B925B293A100A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7D4467C125B2940800A90E6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
@@ -563,31 +560,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7DED5B7025B0865300C9574E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7DED5B8425B0865400C9574E /* LaunchScreen.storyboard in Resources */,
-				7D4467A625B2939900A90E6A /* Localizable.strings in Resources */,
-				7DED5B8125B0865400C9574E /* Assets.xcassets in Resources */,
-				7DED5BB125B0868700C9574E /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7DED5B8825B0865400C9574E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7DED5B9325B0865400C9574E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -745,25 +717,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7DED5B6E25B0865300C9574E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7DED5BAF25B0868700C9574E /* iOSTutorialStepViewModel.swift in Sources */,
-				7D4467C425B2940800A90E6A /* String.swift in Sources */,
-				7DED5BB325B0868700C9574E /* SettingViewController.swift in Sources */,
-				7DED5BB025B0868700C9574E /* TutorialViewController.swift in Sources */,
-				7DED5BAC25B0868700C9574E /* TutorialViewModel.swift in Sources */,
-				7DED5BAE25B0868700C9574E /* TutorialStepView.swift in Sources */,
-				7DED5BB225B0868700C9574E /* SettingViewModel.swift in Sources */,
-				7DED5B7525B0865300C9574E /* AppDelegate.swift in Sources */,
-				7DED5BB425B0868700C9574E /* MacOSTutorialStepViewModel.swift in Sources */,
-				7DED5B7725B0865300C9574E /* SceneDelegate.swift in Sources */,
-				7DED5BB525B0868700C9574E /* Step.swift in Sources */,
-				7DED5BAD25B0868700C9574E /* Constants.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -803,15 +756,6 @@
 			children = (
 				7DA986292598608900BAEAEA /* Base */,
 				7D4467B925B293A100A90E6A /* ko */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		7DED5B8225B0865400C9574E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7DED5B8325B0865400C9574E /* Base */,
-				7D4467B025B293A000A90E6A /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -946,7 +890,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -954,7 +898,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.3.0;
+				MARKETING_VERSION = 21.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -972,7 +916,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -980,7 +924,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.3.0;
+				MARKETING_VERSION = 21.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1043,7 +987,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1053,7 +997,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.3.0;
+				MARKETING_VERSION = 21.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1071,7 +1015,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1081,7 +1025,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.3.0;
+				MARKETING_VERSION = 21.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
