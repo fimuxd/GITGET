@@ -1,4 +1,4 @@
-# GITGET <img src = "https://github.com/fimuxd/GITGET/blob/dev/GITGET/Resource/Assets.xcassets/AppIcon.appiconset/KakaoTalk_Photo_2020-12-29-20-17-13-1024.png?raw=true" width = 50 align = right>
+# GITGET <img src = "https://github.com/fimuxd/GITGET/blob/develop/GITGET/Resource/Assets.xcassets/AppIcon.appiconset/mac_app_icon_1024.png?raw=true" width = 50 align = right>
 
 > **첫 번째 개인 Project**
 
@@ -13,7 +13,7 @@
 
 ## About GITGET
 
-<img src = "https://github.com/fimuxd/GITGET/blob/master/Screenshots/devices.png?raw=true">
+<img src = "https://github.com/fimuxd/GITGET/blob/master/screenshots/devices.png?raw=true">
 
 > - `GitHub` + `Widget`
 > - No three meals a day, three commits a day!
