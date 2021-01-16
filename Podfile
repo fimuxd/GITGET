@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# platform :ios, '14.0'
 
 target 'GITGET' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -15,8 +15,11 @@ target 'GITGET' do
   pod 'SwiftDate'
 
   target 'CONTRIBUTIONSExtension' do
-     inherit! :search_paths
-    # Pods for testing
+    # Comment the next line if you don't want to use dynamic frameworks
+    use_frameworks!
+
+    # Pods for CONTRIBUTIONSExtension
+
   end
 
   target 'GITGETTests' do
@@ -27,5 +30,22 @@ target 'GITGET' do
   target 'GITGETUITests' do
     # Pods for testing
   end
+
+target 'MacGITGET' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for MacGITGET
+
+  target 'MacGITGETTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'MacGITGETUITests' do
+    # Pods for testing
+  end
+
+end
 
 end
