@@ -22,7 +22,7 @@ struct WidgetContentView: View {
                 }
                 Spacer()
                 todayContributionCount != nil
-                    ? Text("\(todayContributionCount ?? 0) contributions today")
+                    ? Text("CONTRIBUTIONS".localizedStringWithFormat(todayContributionCount ?? 0))
                     : Text("")
             }
             .font(.system(size: 10, weight: .medium))
