@@ -20,6 +20,7 @@
 		7D4467DB25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */; };
 		7D4467DC25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */; };
 		7D4467F025B2B0E600A90E6A /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467EF25B2B0E600A90E6A /* Localizable.stringsdict */; };
+		7D7BCAC625B446E2008DC09F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BCAC525B446E2008DC09F /* AboutViewController.swift */; };
 		7D7FD4FE259B317A0072775E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD4FD259B317A0072775E /* ColorExtension.swift */; };
 		7D7FD4FF259B317A0072775E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD4FD259B317A0072775E /* ColorExtension.swift */; };
 		7D7FD505259B45FD0072775E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD504259B45FC0072775E /* User.swift */; };
@@ -36,7 +37,6 @@
 		7DA986272598608900BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986262598608900BAEAEA /* Assets.xcassets */; };
 		7DA986352598608900BAEAEA /* GITGETTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986342598608900BAEAEA /* GITGETTests.swift */; };
 		7DA986762598622100BAEAEA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986752598622100BAEAEA /* SettingViewController.swift */; };
-		7DA9867B2598622800BAEAEA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9867A2598622800BAEAEA /* SettingViewModel.swift */; };
 		7DA98685259862E500BAEAEA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98684259862E500BAEAEA /* WidgetKit.framework */; };
 		7DA98687259862E500BAEAEA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98686259862E500BAEAEA /* SwiftUI.framework */; };
 		7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9868C259862E600BAEAEA /* Assets.xcassets */; };
@@ -47,6 +47,7 @@
 		7DA986F42599718D00BAEAEA /* GitHubNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */; };
 		7DA9872925997A2F00BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
 		7DA9872E25997A3000BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
+		7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */; };
 		7DE7A9DE2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9DD2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift */; };
 		7DE7A9EE2599B31C00F5F4BB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */; };
 		7DE7A9F82599B36300F5F4BB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */; };
@@ -119,6 +120,7 @@
 		7D4467DD25B2991500A90E6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/GitHubWidget.intentdefinition; sourceTree = "<group>"; };
 		7D4467E725B2991B00A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GitHubWidget.strings; sourceTree = "<group>"; };
 		7D4467EF25B2B0E600A90E6A /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		7D7BCAC525B446E2008DC09F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		7D7FD4FD259B317A0072775E /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		7D7FD504259B45FC0072775E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7D7FD50B259B4DD90072775E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -136,7 +138,6 @@
 		7DA986342598608900BAEAEA /* GITGETTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GITGETTests.swift; sourceTree = "<group>"; };
 		7DA986362598608900BAEAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DA986752598622100BAEAEA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		7DA9867A2598622800BAEAEA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		7DA98683259862E500BAEAEA /* CONTRIBUTIONSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CONTRIBUTIONSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA98684259862E500BAEAEA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		7DA98686259862E500BAEAEA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -146,6 +147,7 @@
 		7DA986E02598936D00BAEAEA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubNetwork.swift; sourceTree = "<group>"; };
 		7DA987242599780C00BAEAEA /* Contribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contribution.swift; sourceTree = "<group>"; };
+		7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		7DE7A9DD2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidgetView.swift; sourceTree = "<group>"; };
 		7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		7DE7AA092599CCB200F5F4BB /* GitHubContributionsWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidgetEntryView.swift; sourceTree = "<group>"; };
@@ -352,7 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				7DA986752598622100BAEAEA /* SettingViewController.swift */,
-				7DA9867A2598622800BAEAEA /* SettingViewModel.swift */,
+				7D7BCAC525B446E2008DC09F /* AboutViewController.swift */,
+				7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */,
 				7DA986E02598936D00BAEAEA /* Constants.swift */,
 			);
 			path = MainView;
@@ -657,12 +660,13 @@
 				7DA986F32599718D00BAEAEA /* GitHubNetwork.swift in Sources */,
 				7D7FD50C259B4DD90072775E /* DateExtension.swift in Sources */,
 				7D4467C225B2940800A90E6A /* String.swift in Sources */,
+				7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */,
 				7D4467DB25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */,
 				7DE7AA272599E00C00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */,
 				7DE7AA222599DFF100F5F4BB /* CalendarChart.swift in Sources */,
-				7DA9867B2598622800BAEAEA /* SettingViewModel.swift in Sources */,
 				7DA9861B2598608700BAEAEA /* AppDelegate.swift in Sources */,
 				7D7FD52C259B63200072775E /* NoticeTextStyle.swift in Sources */,
+				7D7BCAC625B446E2008DC09F /* AboutViewController.swift in Sources */,
 				7DA986CE2598859000BAEAEA /* TutorialViewController.swift in Sources */,
 				7D9F948825A33BB60074C91B /* TutorialViewModel.swift in Sources */,
 				7DED5B6925B078B900C9574E /* Step.swift in Sources */,

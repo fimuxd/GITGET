@@ -1,16 +1,14 @@
 //
-//  SettingViewModel.swift
+//  AboutViewModel.swift
 //  GITGET
 //
-//  Created by Bo-Young PARK on 12/27/20.
+//  Created by Bo-Young PARK on 1/19/21.
 //
 
 import RxSwift
 import RxCocoa
-import RxDataSources
 
 enum SettingMenu {
-    case howToUse
     case rating
     case sendMail
     case gitHub
@@ -18,13 +16,12 @@ enum SettingMenu {
     case instagram
 }
 
-struct SettingViewModel: SettingViewBindable {
-    let disposeBag = DisposeBag()
-    
+struct AboutViewModel: AboutViewBindable {
     let buttonAction: Signal<SettingMenu>
     let buttonTapped = PublishRelay<SettingMenu>()
+    
     init() {
-        buttonAction = buttonTapped
+        self.buttonAction = buttonTapped
             .asSignal(onErrorSignalWith: .empty())
     }
 }
