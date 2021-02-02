@@ -17,7 +17,7 @@ struct GitHubContributionsWidgetEntryView: View {
                 .modifier(NoticeTextStyle())
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding()
-                .background(Color.freestyle4)
+                .background(Color.halloween3)
         } else {
             switch widgetFamily {
             case .systemMedium:
