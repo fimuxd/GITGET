@@ -1,18 +1,27 @@
 //
-//  SettingViewController.swift
+//  iOSSettingViewController.swift
 //  GITGET
 //
 //  Created by Bo-Young PARK on 12/27/20.
 //
 
-import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
 import Then
 import PanModal
 
-class SettingViewController: UIViewController {
+protocol SettingViewBindable {}
+protocol iOSSettingViewBindable: SettingViewBindable {
+    var howToUserButtonTapped: PublishRelay<Void> { get }
+    var presentTutorialView: Driver<TutorialViewBindable> { get }
+}
+
+protocol SettingViewController {
+    func bind(_ viewModel: iOSSettingViewBindable)
+    func bind(_ viewModel: MacOSSettingViewBindable)
+}
+class iOSSettingViewController: UIViewController, SettingViewController {
     var disposeBag = DisposeBag()
     
     let titleLabel = UILabel()
@@ -31,7 +40,6 @@ class SettingViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
         let viewController = AboutViewController()
         let viewModel = AboutViewModel()
         viewController.bind(viewModel)
@@ -42,7 +50,25 @@ class SettingViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func attribute() {
+    func bind(_ viewModel: iOSSettingViewBindable) {
+        self.disposeBag = DisposeBag()
+        
+        viewModel.presentTutorialView
+            .drive(onNext: { [weak self] viewModel in
+                let tutorialViewController = TutorialViewController()
+                tutorialViewController.bind(viewModel)
+                self?.present(tutorialViewController, animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        howToUserButton.rx.tap
+            .bind(to: viewModel.howToUserButtonTapped)
+            .disposed(by: disposeBag)
+    }
+    
+    func bind(_ viewModel: MacOSSettingViewBindable) {}
+    
+    private func attribute() {
         view.backgroundColor = UIColor(named: "background")
         navigationController?.navigationBar.isHidden = true
         
@@ -63,7 +89,7 @@ class SettingViewController: UIViewController {
         }
     }
     
-    func layout() {
+    private func layout() {
         [
             titleLabel,
             illustImagView,

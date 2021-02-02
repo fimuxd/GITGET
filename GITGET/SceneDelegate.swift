@@ -10,15 +10,25 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    let iOSViewModel = iOSSettingViewModel()
+    let macOSViewModel = MacOSSettingViewModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
-        let settingViewController = SettingViewController()
+        
+        let iOS = UIDevice.current.userInterfaceIdiom == .phone
+        let iOSViewController = iOSSettingViewController()
+        let macViewController = MacOSSettingViewController()
+        
+        if iOS {
+            iOSViewController.bind(iOSViewModel)
+        } else {
+            macViewController.bind(macOSViewModel)
+        }
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: settingViewController)
+        window?.rootViewController = UINavigationController(rootViewController: iOS ? iOSViewController : macViewController)
         window?.makeKeyAndVisible()
     }
 

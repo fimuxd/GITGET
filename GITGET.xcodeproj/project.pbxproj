@@ -36,7 +36,7 @@
 		7DA9861D2598608700BAEAEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9861C2598608700BAEAEA /* SceneDelegate.swift */; };
 		7DA986272598608900BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986262598608900BAEAEA /* Assets.xcassets */; };
 		7DA986352598608900BAEAEA /* GITGETTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986342598608900BAEAEA /* GITGETTests.swift */; };
-		7DA986762598622100BAEAEA /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986752598622100BAEAEA /* SettingViewController.swift */; };
+		7DA986762598622100BAEAEA /* iOSSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986752598622100BAEAEA /* iOSSettingViewController.swift */; };
 		7DA98685259862E500BAEAEA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98684259862E500BAEAEA /* WidgetKit.framework */; };
 		7DA98687259862E500BAEAEA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98686259862E500BAEAEA /* SwiftUI.framework */; };
 		7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9868C259862E600BAEAEA /* Assets.xcassets */; };
@@ -48,6 +48,9 @@
 		7DA9872925997A2F00BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
 		7DA9872E25997A3000BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
 		7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */; };
+		7DD5DB6325C8E04B00F0AABD /* iOSSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */; };
+		7DD5DB6825C8EBCE00F0AABD /* MacOSSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */; };
+		7DD5DB7625C8F0F700F0AABD /* MacOSSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */; };
 		7DE7A9DE2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9DD2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift */; };
 		7DE7A9EE2599B31C00F5F4BB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */; };
 		7DE7A9F82599B36300F5F4BB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */; };
@@ -137,7 +140,7 @@
 		7DA986302598608900BAEAEA /* GITGETTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GITGETTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA986342598608900BAEAEA /* GITGETTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GITGETTests.swift; sourceTree = "<group>"; };
 		7DA986362598608900BAEAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7DA986752598622100BAEAEA /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		7DA986752598622100BAEAEA /* iOSSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSettingViewController.swift; sourceTree = "<group>"; };
 		7DA98683259862E500BAEAEA /* CONTRIBUTIONSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CONTRIBUTIONSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA98684259862E500BAEAEA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		7DA98686259862E500BAEAEA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -148,6 +151,9 @@
 		7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubNetwork.swift; sourceTree = "<group>"; };
 		7DA987242599780C00BAEAEA /* Contribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contribution.swift; sourceTree = "<group>"; };
 		7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
+		7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSettingViewModel.swift; sourceTree = "<group>"; };
+		7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSettingViewController.swift; sourceTree = "<group>"; };
+		7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSettingViewModel.swift; sourceTree = "<group>"; };
 		7DE7A9DD2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidgetView.swift; sourceTree = "<group>"; };
 		7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		7DE7AA092599CCB200F5F4BB /* GitHubContributionsWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidgetEntryView.swift; sourceTree = "<group>"; };
@@ -353,9 +359,8 @@
 		7DA986C82598856E00BAEAEA /* MainView */ = {
 			isa = PBXGroup;
 			children = (
-				7DA986752598622100BAEAEA /* SettingViewController.swift */,
-				7D7BCAC525B446E2008DC09F /* AboutViewController.swift */,
-				7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */,
+				7DD5DB7A25C8F36000F0AABD /* SettingViewController */,
+				7DD5DB8625C8F37800F0AABD /* AboutViewController */,
 				7DA986E02598936D00BAEAEA /* Constants.swift */,
 			);
 			path = MainView;
@@ -372,6 +377,42 @@
 				7DED5B6825B078B900C9574E /* Step.swift */,
 			);
 			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		7DD5DB7A25C8F36000F0AABD /* SettingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7DD5DB7E25C8F36800F0AABD /* iOS */,
+				7DD5DB8225C8F36E00F0AABD /* MacOS */,
+			);
+			path = SettingViewController;
+			sourceTree = "<group>";
+		};
+		7DD5DB7E25C8F36800F0AABD /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7DA986752598622100BAEAEA /* iOSSettingViewController.swift */,
+				7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		7DD5DB8225C8F36E00F0AABD /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */,
+				7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
+		7DD5DB8625C8F37800F0AABD /* AboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7D7BCAC525B446E2008DC09F /* AboutViewController.swift */,
+				7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */,
+			);
+			path = AboutViewController;
 			sourceTree = "<group>";
 		};
 		7DE7A9E32599AF3D00F5F4BB /* Bundle */ = {
@@ -658,6 +699,7 @@
 			files = (
 				7D9F947825A3393C0074C91B /* iOSTutorialStepViewModel.swift in Sources */,
 				7DA986F32599718D00BAEAEA /* GitHubNetwork.swift in Sources */,
+				7DD5DB7625C8F0F700F0AABD /* MacOSSettingViewModel.swift in Sources */,
 				7D7FD50C259B4DD90072775E /* DateExtension.swift in Sources */,
 				7D4467C225B2940800A90E6A /* String.swift in Sources */,
 				7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */,
@@ -666,8 +708,10 @@
 				7DE7AA222599DFF100F5F4BB /* CalendarChart.swift in Sources */,
 				7DA9861B2598608700BAEAEA /* AppDelegate.swift in Sources */,
 				7D7FD52C259B63200072775E /* NoticeTextStyle.swift in Sources */,
+				7DD5DB6825C8EBCE00F0AABD /* MacOSSettingViewController.swift in Sources */,
 				7D7BCAC625B446E2008DC09F /* AboutViewController.swift in Sources */,
 				7DA986CE2598859000BAEAEA /* TutorialViewController.swift in Sources */,
+				7DD5DB6325C8E04B00F0AABD /* iOSSettingViewModel.swift in Sources */,
 				7D9F948825A33BB60074C91B /* TutorialViewModel.swift in Sources */,
 				7DED5B6925B078B900C9574E /* Step.swift in Sources */,
 				7D7FD505259B45FD0072775E /* User.swift in Sources */,
@@ -676,7 +720,7 @@
 				7DA9861D2598608700BAEAEA /* SceneDelegate.swift in Sources */,
 				7DE7AA342599E3CE00F5F4BB /* WidgetContentView.swift in Sources */,
 				7DA9872925997A2F00BAEAEA /* Contribution.swift in Sources */,
-				7DA986762598622100BAEAEA /* SettingViewController.swift in Sources */,
+				7DA986762598622100BAEAEA /* iOSSettingViewController.swift in Sources */,
 				7D9F947225A2BADF0074C91B /* TutorialStepView.swift in Sources */,
 				7DE7AA2D2599E06300F5F4BB /* CalendarChartCell.swift in Sources */,
 				7DE7AA642599F34A00F5F4BB /* GitHubContributionsWidgetViewModel.swift in Sources */,
@@ -894,7 +938,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -902,7 +946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.4.0;
+				MARKETING_VERSION = 21.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -920,7 +964,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -928,7 +972,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.4.0;
+				MARKETING_VERSION = 21.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -991,7 +1035,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1001,7 +1045,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.4.0;
+				MARKETING_VERSION = 21.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1019,7 +1063,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1029,7 +1073,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.4.0;
+				MARKETING_VERSION = 21.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
