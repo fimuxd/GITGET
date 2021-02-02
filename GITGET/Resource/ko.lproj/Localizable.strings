@@ -9,6 +9,7 @@
 //SettingViewController.swift
 "GitGet" = "깃젯";
 "START" = "시작하기";
+"About" = "더 알아보기";
 "Rate GitGet" = "별점주기";
 "Support" = "문의하기";
 

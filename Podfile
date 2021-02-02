@@ -8,11 +8,11 @@ target 'GITGET' do
   # Pods for GITGET
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'RxDataSources'
   pod 'Then'
   pod 'SnapKit'
   pod 'SwiftSoup'
   pod 'SwiftDate'
+  pod 'PanModal'
 
   target 'CONTRIBUTIONSExtension' do
     # Comment the next line if you don't want to use dynamic frameworks

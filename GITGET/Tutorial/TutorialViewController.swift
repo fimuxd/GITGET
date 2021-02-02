@@ -13,6 +13,8 @@ protocol TutorialViewBindable {
     var stepTwoViewModel: TutorialStepViewBindable { get }
     var stepThreeViewModel: TutorialStepViewBindable { get }
     var stepFourViewModel: TutorialStepViewBindable { get }
+    var doneButtonTapped: PublishRelay<Void> { get }
+    var dismiss: Signal<Void> { get }
 }
 
 class TutorialViewController: UIViewController {
@@ -42,12 +44,18 @@ class TutorialViewController: UIViewController {
         stepFourView.bind(viewModel.stepFourViewModel)
         
         doneButton.rx.tap
-            .bind { self.dismiss(animated: true, completion: nil) }
+            .bind(to: viewModel.doneButtonTapped)
+            .disposed(by: disposeBag)
+        
+        viewModel.dismiss
+            .emit(onNext: {[weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            })
             .disposed(by: disposeBag)
     }
     
     func attribute() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "modal_background")
         
         scrollView.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -61,8 +69,8 @@ class TutorialViewController: UIViewController {
     }
     
     func layout() {
-        
-        [scrollView, doneButton].forEach { view.addSubview($0) }
+        [scrollView, doneButton]
+            .forEach { view.addSubview($0) }
         scrollView.addSubview(stackView)
         [stepOneView, stepTwoView, stepThreeView, stepFourView]
             .forEach { stackView.addArrangedSubview($0) }

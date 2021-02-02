@@ -50,18 +50,18 @@ class TutorialStepView: UIView {
     }
     
     func attribute() {
-        backgroundColor = .white
+        backgroundColor = UIColor(named: "modal_background")
         
         titleLabel.do {
             $0.font = .monospacedSystemFont(ofSize: 16, weight: .bold)
-            $0.textColor = .black
+            $0.textColor = UIColor(named: "title")
             $0.numberOfLines = 1
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
         descriptionLabel.do {
             $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
-            $0.textColor = .black
+            $0.textColor = UIColor(named: "title")
             $0.numberOfLines = 0
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.sizeToFit()
