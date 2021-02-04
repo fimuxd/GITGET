@@ -113,16 +113,16 @@ extension GitHubNetwork {
     }
     
     func parseContributions(from element: Element, colors: [String]) throws -> Contribution? {
-        let fill = try element.attr("fill")
+        let dataLevel = try element.attr("data-level")
         let dataCount = try element.attr("data-count")
         let dataDate = try element.attr("data-date")
         
-        guard let colorID = colors.firstIndex(where: { $0.contains(fill) }),
+        guard let level = Int(dataLevel),
               let count = Int(dataCount),
               let date = Date(dataDate) else {
             return nil
         }
         
-        return Contribution(date: date, count: count, level: Contribution.Level(rawValue: colorID) ?? .zero)
+        return Contribution(date: date, count: count, level: Contribution.Level(rawValue: level) ?? .zero)
     }
 }
