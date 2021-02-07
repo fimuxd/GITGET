@@ -13,7 +13,7 @@ import RxCocoa
 import SnapKit
 import Then
 
-protocol MacOSSettingViewBindable: SettingViewBindable {
+protocol MacOSSettingViewBindable {
     var howToUserButtonTapped: PublishRelay<Void> { get }
     var presentTutorialView: Driver<TutorialViewBindable> { get }
     var buttonAction: Signal<SettingMenu> { get }

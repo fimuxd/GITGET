@@ -49,8 +49,7 @@ struct GitHubNetwork {
             do {
                 let html = try String(contentsOf: url, encoding: .utf8)
                 let document = try SwiftSoup.parse(html)
-                let defaultColor = try parseDefaultColorSet(from: document)
-                let contributions = try document.select("rect").compactMap { try parseContributions(from: $0, colors: defaultColor) }
+                let contributions = try document.select("rect").compactMap(parseContributions)
                 return promise(.success(contributions))
             } catch {
                 return promise(.failure(.htmlParsingError))
@@ -108,11 +107,7 @@ extension GitHubNetwork {
 
 //HTML Parsing
 extension GitHubNetwork {
-    func parseDefaultColorSet(from document: Document) throws -> [String] {
-        try document.getElementsByClass("legend").first()?.children().map { try $0.attr("style") } ?? []
-    }
-    
-    func parseContributions(from element: Element, colors: [String]) throws -> Contribution? {
+    func parseContributions(from element: Element) throws -> Contribution? {
         let dataLevel = try element.attr("data-level")
         let dataCount = try element.attr("data-count")
         let dataDate = try element.attr("data-date")
