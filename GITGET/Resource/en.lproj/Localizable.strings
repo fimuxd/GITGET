@@ -23,3 +23,6 @@
 "Click Edit Widgets at the bottom. Then in the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right." = "Click Edit Widgets at the bottom. Then in the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right.";
 "In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done." = "In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done.";
 "You can also add your collegue’s username. Don’t forget various themes are prepared." = "You can also add your collegue’s username. Don’t forget various themes are prepared.";
+
+//Support Email
+"Thanks for your feedback! \n Kindly write your advise here. :)" = "Thanks for your feedback!\nKindly write your advise here. :)";
