@@ -25,3 +25,9 @@
 "Click Edit Widgets at the bottom. Then in the widget preview, move the pointer over the widget in the preview, then click the Add button. The widget’s added to the active widgets on the right." = "알림 센터 하단에서 위젯 (전체) 편집을 클릭하십시오. 그리고 위젯 미리보기에서 포인터를 미리보기의 위젯 위로 이동한 다음 추가 버튼을 클릭하십시오. 위젯이 오른쪽에 있는 활성화된 위젯에 추가됩니다.";
 "In the active widgets, move the pointer over the widget (Edit Widget appears below its name), then click anywhere in the widget. The widget flips to reveal settings you can update username and theme for GitHub contributions. When you’re ready, click Done." = "활성화된 위젯에서 포인터를 위젯 위로 이동한 다음(위젯 편집이 위젯 이름 아래에 나타남) 위젯의 아무 곳이나 클릭하십시오. 위젯이 뒤집혀서 사용자화할 수 있는 설정을 표시합니다. 여기서 GitHub username을 입력하고 테마를 선택할 수 있습니다. 준비가 되면 완료를 클릭하십시오.";
 "You can also add your collegue’s username. Don’t forget various themes are prepared." = "동료들의 username도 추가하고 다양한 테마도 즐겨보세요.";
+
+//Support Email
+"Thanks for your feedback!\nKindly write your advise here. :)" = "피드백 주셔서 감사합니다!\n문의사항이나 불편사항을 여기에 적어주세요. :)";
+
+//Widget
+"Keep GitHub Contributions Green 🟩" = "우리 GitHub 푸르게 푸르게🟩";

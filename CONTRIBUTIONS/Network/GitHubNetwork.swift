@@ -39,22 +39,23 @@ struct GitHubNetwork {
         self.session = session
     }
     
-    func getContributions(of username: String) -> Future<[Contribution], GitHubNetworkError> {
-        Future { promise in
-            guard let url = composeURLComponentsToGetContributions(of: username).url else {
-                let error = GitHubNetworkError.invalidURL
-                return promise(.failure(error))
-            }
-            
-            do {
-                let html = try String(contentsOf: url, encoding: .utf8)
-                let document = try SwiftSoup.parse(html)
-                let defaultColor = try parseDefaultColorSet(from: document)
-                let contributions = try document.select("rect").compactMap { try parseContributions(from: $0, colors: defaultColor) }
-                return promise(.success(contributions))
-            } catch {
-                return promise(.failure(.htmlParsingError))
-            }
+    func getContributions(of username: String) -> AnyPublisher<[Contribution], GitHubNetworkError> {
+        guard let url = composeURLComponentsToGetContributions(of: username).url else {
+            let error = GitHubNetworkError.invalidURL
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+        
+        do {
+            let html = try String(contentsOf: url, encoding: .utf8)
+            let document = try SwiftSoup.parse(html)
+            let contributions = try document.select("rect").compactMap(parseContributions)
+            return Just(contributions)
+                .mapError {
+                    GitHubNetworkError.error("###Error: \($0)")
+                }
+                .eraseToAnyPublisher()
+        } catch {
+            return Fail(error: .htmlParsingError).eraseToAnyPublisher()
         }
     }
     
@@ -108,11 +109,7 @@ extension GitHubNetwork {
 
 //HTML Parsing
 extension GitHubNetwork {
-    func parseDefaultColorSet(from document: Document) throws -> [String] {
-        try document.getElementsByClass("legend").first()?.children().map { try $0.attr("style") } ?? []
-    }
-    
-    func parseContributions(from element: Element, colors: [String]) throws -> Contribution? {
+    func parseContributions(from element: Element) throws -> Contribution? {
         let dataLevel = try element.attr("data-level")
         let dataCount = try element.attr("data-count")
         let dataDate = try element.attr("data-date")

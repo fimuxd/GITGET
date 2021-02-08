@@ -11,8 +11,7 @@ import SnapKit
 import Then
 import PanModal
 
-protocol SettingViewBindable {}
-protocol iOSSettingViewBindable: SettingViewBindable {
+protocol iOSSettingViewBindable {
     var howToUserButtonTapped: PublishRelay<Void> { get }
     var presentTutorialView: Driver<TutorialViewBindable> { get }
 }
@@ -21,6 +20,7 @@ protocol SettingViewController {
     func bind(_ viewModel: iOSSettingViewBindable)
     func bind(_ viewModel: MacOSSettingViewBindable)
 }
+
 class iOSSettingViewController: UIViewController, SettingViewController {
     var disposeBag = DisposeBag()
     

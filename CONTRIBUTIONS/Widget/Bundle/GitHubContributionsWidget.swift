@@ -19,6 +19,6 @@ struct GitHubContributionsWidget: Widget {
         }
         .configurationDisplayName("GITGET")
         .description("GITHUB CONTRIBUTIONS")
-        .supportedFamilies([.systemMedium])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

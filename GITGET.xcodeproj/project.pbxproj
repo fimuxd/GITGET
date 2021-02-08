@@ -48,6 +48,7 @@
 		7DA9872925997A2F00BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
 		7DA9872E25997A3000BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
 		7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */; };
+		7DC011A325D0C62E007B6D9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467A825B2939900A90E6A /* Localizable.strings */; };
 		7DD5DB6325C8E04B00F0AABD /* iOSSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */; };
 		7DD5DB6825C8EBCE00F0AABD /* MacOSSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */; };
 		7DD5DB7625C8F0F700F0AABD /* MacOSSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */; };
@@ -103,11 +104,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		13D1AB6079EDC1CE5DF7CD30 /* Pods-MacGITGET-MacGITGETUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacGITGET-MacGITGETUITests.release.xcconfig"; path = "Target Support Files/Pods-MacGITGET-MacGITGETUITests/Pods-MacGITGET-MacGITGETUITests.release.xcconfig"; sourceTree = "<group>"; };
-		284ABB4B7E9406BFA18F3025 /* Pods-CONTRIBUTIONSExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CONTRIBUTIONSExtension.release.xcconfig"; path = "Target Support Files/Pods-CONTRIBUTIONSExtension/Pods-CONTRIBUTIONSExtension.release.xcconfig"; sourceTree = "<group>"; };
 		2D9AF3AA9E1473CED7C85297 /* Pods-GITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.debug.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.debug.xcconfig"; sourceTree = "<group>"; };
-		4868E1797CC43BB7F087E617 /* Pods-GITGET-MacGITGET-MacGITGETUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-MacGITGET-MacGITGETUITests.release.xcconfig"; path = "Target Support Files/Pods-GITGET-MacGITGET-MacGITGETUITests/Pods-GITGET-MacGITGET-MacGITGETUITests.release.xcconfig"; sourceTree = "<group>"; };
-		5D3943A92DE507EEAA19301B /* Pods-GITGET-GITGETUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-GITGETUITests.release.xcconfig"; path = "Target Support Files/Pods-GITGET-GITGETUITests/Pods-GITGET-GITGETUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6C046E19187106F599DD6B81 /* Pods_MacGITGETTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacGITGETTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E769968BBF0C63F55B682D5 /* Pods_GITGET_MacGITGET_MacGITGETUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_MacGITGET_MacGITGETUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78371733A4D3DE7EB054F6B7 /* Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig"; path = "Target Support Files/Pods-GITGET-CONTRIBUTIONSExtension/Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,22 +163,12 @@
 		7DED5B6825B078B900C9574E /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		80A575FF2F61563A6D6308BC /* Pods_GITGET_GITGETUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_GITGETUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8231111349D8EE4FBE54AA83 /* Pods-GITGETTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.debug.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.debug.xcconfig"; sourceTree = "<group>"; };
-		86FD33894264FB5409C65253 /* Pods-GITGET-MacGITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-MacGITGET.debug.xcconfig"; path = "Target Support Files/Pods-GITGET-MacGITGET/Pods-GITGET-MacGITGET.debug.xcconfig"; sourceTree = "<group>"; };
-		8D843296043877C7154225C1 /* Pods-MacGITGET-MacGITGETUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacGITGET-MacGITGETUITests.debug.xcconfig"; path = "Target Support Files/Pods-MacGITGET-MacGITGETUITests/Pods-MacGITGET-MacGITGETUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AAC954EA170CA7C6E15A223 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
-		9B43CBAB9B7B7C84FB005F9D /* Pods-MacGITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacGITGET.release.xcconfig"; path = "Target Support Files/Pods-MacGITGET/Pods-MacGITGET.release.xcconfig"; sourceTree = "<group>"; };
-		A0B930EAEEA39D8DC84AB16B /* Pods-GITGET-MacGITGET-MacGITGETUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-MacGITGET-MacGITGETUITests.debug.xcconfig"; path = "Target Support Files/Pods-GITGET-MacGITGET-MacGITGETUITests/Pods-GITGET-MacGITGET-MacGITGETUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		A17CB62BA0B28932609F7F73 /* Pods-MacGITGETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacGITGETTests.release.xcconfig"; path = "Target Support Files/Pods-MacGITGETTests/Pods-MacGITGETTests.release.xcconfig"; sourceTree = "<group>"; };
-		AB033ED10979AFB3BD737D81 /* Pods-CONTRIBUTIONSExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CONTRIBUTIONSExtension.debug.xcconfig"; path = "Target Support Files/Pods-CONTRIBUTIONSExtension/Pods-CONTRIBUTIONSExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		AB623ABB9C1EB3BAB6331DD2 /* Pods-GITGETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.release.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.release.xcconfig"; sourceTree = "<group>"; };
-		B3CBCEAF94B4653928500AEB /* Pods-MacGITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacGITGET.debug.xcconfig"; path = "Target Support Files/Pods-MacGITGET/Pods-MacGITGET.debug.xcconfig"; sourceTree = "<group>"; };
-		BA5DC9892C68E6BE884ED57A /* Pods-GITGET-GITGETUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-GITGETUITests.debug.xcconfig"; path = "Target Support Files/Pods-GITGET-GITGETUITests/Pods-GITGET-GITGETUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CA3B1B190DD4E7AED863BADE /* Pods_GITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18C6F7DB999D62EA9AD5614 /* Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig"; path = "Target Support Files/Pods-GITGET-CONTRIBUTIONSExtension/Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		D7BD4FBEEFA593A119241E22 /* Pods-MacGITGETTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MacGITGETTests.debug.xcconfig"; path = "Target Support Files/Pods-MacGITGETTests/Pods-MacGITGETTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E4E8E6DD75383F7F120F8857 /* Pods_GITGET_MacGITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_MacGITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E989F637AD86421CC776E996 /* Pods_GITGET_CONTRIBUTIONSExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_CONTRIBUTIONSExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDC3712F28DD35ED412BC247 /* Pods-GITGET-MacGITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-MacGITGET.release.xcconfig"; path = "Target Support Files/Pods-GITGET-MacGITGET/Pods-GITGET-MacGITGET.release.xcconfig"; sourceTree = "<group>"; };
 		FADCB12D96CB367A58D02F04 /* Pods_GITGETTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGETTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -220,24 +207,10 @@
 			children = (
 				2D9AF3AA9E1473CED7C85297 /* Pods-GITGET.debug.xcconfig */,
 				9AAC954EA170CA7C6E15A223 /* Pods-GITGET.release.xcconfig */,
-				BA5DC9892C68E6BE884ED57A /* Pods-GITGET-GITGETUITests.debug.xcconfig */,
-				5D3943A92DE507EEAA19301B /* Pods-GITGET-GITGETUITests.release.xcconfig */,
 				8231111349D8EE4FBE54AA83 /* Pods-GITGETTests.debug.xcconfig */,
 				AB623ABB9C1EB3BAB6331DD2 /* Pods-GITGETTests.release.xcconfig */,
-				AB033ED10979AFB3BD737D81 /* Pods-CONTRIBUTIONSExtension.debug.xcconfig */,
-				284ABB4B7E9406BFA18F3025 /* Pods-CONTRIBUTIONSExtension.release.xcconfig */,
 				D18C6F7DB999D62EA9AD5614 /* Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig */,
 				78371733A4D3DE7EB054F6B7 /* Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig */,
-				B3CBCEAF94B4653928500AEB /* Pods-MacGITGET.debug.xcconfig */,
-				9B43CBAB9B7B7C84FB005F9D /* Pods-MacGITGET.release.xcconfig */,
-				8D843296043877C7154225C1 /* Pods-MacGITGET-MacGITGETUITests.debug.xcconfig */,
-				13D1AB6079EDC1CE5DF7CD30 /* Pods-MacGITGET-MacGITGETUITests.release.xcconfig */,
-				D7BD4FBEEFA593A119241E22 /* Pods-MacGITGETTests.debug.xcconfig */,
-				A17CB62BA0B28932609F7F73 /* Pods-MacGITGETTests.release.xcconfig */,
-				86FD33894264FB5409C65253 /* Pods-GITGET-MacGITGET.debug.xcconfig */,
-				EDC3712F28DD35ED412BC247 /* Pods-GITGET-MacGITGET.release.xcconfig */,
-				A0B930EAEEA39D8DC84AB16B /* Pods-GITGET-MacGITGET-MacGITGETUITests.debug.xcconfig */,
-				4868E1797CC43BB7F087E617 /* Pods-GITGET-MacGITGET-MacGITGETUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -600,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */,
+				7DC011A325D0C62E007B6D9A /* Localizable.strings in Resources */,
 				7D4467F025B2B0E600A90E6A /* Localizable.stringsdict in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -938,7 +912,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -946,7 +920,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.6.1;
+				MARKETING_VERSION = 21.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -964,7 +938,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -972,7 +946,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.6.1;
+				MARKETING_VERSION = 21.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1035,7 +1009,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1045,7 +1019,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.6.1;
+				MARKETING_VERSION = 21.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1063,7 +1037,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1073,7 +1047,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.6.1;
+				MARKETING_VERSION = 21.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

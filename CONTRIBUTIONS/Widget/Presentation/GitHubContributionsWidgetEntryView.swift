@@ -20,7 +20,17 @@ struct GitHubContributionsWidgetEntryView: View {
                 .background(Color.halloween3)
         } else {
             switch widgetFamily {
+            case .systemSmall:
+                GitHubContributionsWidgetView(viewModel: entry)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .background(entry.isInitial ? Color.default4 : Color.background)
             case .systemMedium:
+                GitHubContributionsWidgetView(viewModel: entry)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .background(entry.isInitial ? Color.default4 : Color.background)
+            case .systemLarge:
                 GitHubContributionsWidgetView(viewModel: entry)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding()
