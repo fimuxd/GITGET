@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct GitHubContributionsWidgetView: View {
-    let viewModel: GitHubContributionsWidgetViewModel
+    @Environment(\.widgetFamily) var widgetFamily
     
-    init(viewModel: GitHubContributionsWidgetViewModel) {
-        self.viewModel = viewModel
+    let viewModel: GitHubContributionsWidgetViewModel
+    var columnsCount: Int {
+        switch widgetFamily {
+        case .systemSmall:
+            return 9
+        default:
+            return 20
+        }
     }
     
     var body: some View {
-        WidgetContentView(
-            username: viewModel.username ?? "",
-            todayContributionCount: viewModel.todayContributionCount,
-            cellColorSet: viewModel.cellColorSet
-        )
+        WidgetContentView(viewModel: viewModel)
         .redacted(reason: viewModel.isInitial ? .placeholder : .init())
     }
 }

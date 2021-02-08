@@ -5,19 +5,19 @@
 	<key>CONTRIBUTIONS</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@today_contributions_count@</string>
-		<key>today_contributions_count</key>
+		<string>%#@contributions_count@</string>
+		<key>contributions_count</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
 			<string>NSStringPluralRuleType</string>
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>NO CONTRIBUTION TODAY</string>
+			<string>NO CONTRIBUTION</string>
 			<key>one</key>
-			<string>%u CONTRIBUTION TODAY</string>
+			<string>%u CONTRIBUTION</string>
 			<key>other</key>
-			<string>%u CONTRIBUTIONS TODAY</string>
+			<string>%u CONTRIBUTIONS</string>
 		</dict>
 	</dict>
 </dict>

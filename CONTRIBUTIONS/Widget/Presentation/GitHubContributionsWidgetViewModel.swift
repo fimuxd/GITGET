@@ -10,14 +10,13 @@ import SwiftUI
 import SwiftDate
 
 struct GitHubContributionsWidgetViewModel {
-    private let contributions: [Contribution]
-    private let configuration: ConfigurationIntent
+    let contributions: [Contribution]
+    let configuration: ConfigurationIntent
+    var user: User? = nil
     
     var theme: Theme {
         configuration.theme
     }
-    
-    var profileImage: UIImage = UIImage()
     
     var username: String? {
         configuration.username
@@ -27,13 +26,13 @@ struct GitHubContributionsWidgetViewModel {
         return contributions.filter { $0.date.isToday }.first?.count
     }
     
-    var cellColorSet: [[Color]] {
+    func cellColorSet(columnsCount: Int) -> [[Color]] {
         guard let lastDate = contributions.last?.date else {
             return []
         }
         
         let rows = 7
-        let columns = 20
+        let columns = columnsCount
         
         let cellCount = rows * columns - (rows - Calendar.current.component(.weekday, from: lastDate))
         let levels = contributions.suffix(cellCount).map(\.level).chunked(into: rows)
@@ -48,9 +47,52 @@ struct GitHubContributionsWidgetViewModel {
         username != .none && contributions.isEmpty
     }
     
-    init(contributions: [Contribution], configuration: ConfigurationIntent) {
-        self.contributions = contributions
-        self.configuration = configuration
+    //for large
+    var currentYearContributions: Int {
+        return contributions
+            .filter { $0.date.year == Date().year }
+            .map { $0.count }.reduce(0, +)
+    }
+    
+    var name: String {
+        user?.name ?? "Anonymous"
+    }
+    
+    //FIXME
+//    var profileImageURL: Source {
+//        .network(ImageResource(downloadURL: URL(string: user?.profileImageURL ?? "")!, cacheKey: imageKey))
+//    }
+    
+    var bio: String {
+        user?.bio ?? "Keep GitHub Contributions Green 🟩".localized
+    }
+    
+    var location: String {
+        user?.location ?? "Anywhere"
+    }
+    
+    var company: String {
+        user?.company ?? "🔦🔍👀"
+    }
+    
+    var followers: String {
+        let count = user?.followers ?? 0
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let formattedCount = numberFormatter.string(from: NSNumber(value: count)) ?? ""
+        return formattedCount
+    }
+    
+    var following: String {
+        let count = user?.following ?? 0
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let formattedCount = numberFormatter.string(from: NSNumber(value: count)) ?? ""
+        return formattedCount
+    }
+    
+    var startYear: String {
+        String(user?.createdAt?.year ?? Date().year)
     }
 }
 
