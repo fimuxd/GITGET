@@ -19,6 +19,7 @@ target 'GITGET' do
     use_frameworks!
 
     # Pods for CONTRIBUTIONSExtension
+    pod 'Kingfisher', '~> 6.1.0'
 
   end
 
