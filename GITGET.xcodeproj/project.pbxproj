@@ -69,7 +69,6 @@
 		7DED5B6325B0786D00C9574E /* MacOSTutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */; };
 		7DED5B6925B078B900C9574E /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6825B078B900C9574E /* Step.swift */; };
 		7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986282598608900BAEAEA /* LaunchScreen.storyboard */; };
-		BF9972EF28F24D2A96507C3D /* Pods_GITGETTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FADCB12D96CB367A58D02F04 /* Pods_GITGETTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,8 +104,6 @@
 
 /* Begin PBXFileReference section */
 		2D9AF3AA9E1473CED7C85297 /* Pods-GITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.debug.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.debug.xcconfig"; sourceTree = "<group>"; };
-		6C046E19187106F599DD6B81 /* Pods_MacGITGETTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MacGITGETTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E769968BBF0C63F55B682D5 /* Pods_GITGET_MacGITGET_MacGITGETUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_MacGITGET_MacGITGETUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78371733A4D3DE7EB054F6B7 /* Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig"; path = "Target Support Files/Pods-GITGET-CONTRIBUTIONSExtension/Pods-GITGET-CONTRIBUTIONSExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7D3D3C4C25998FCF00CCD1E9 /* GitHubContributionsWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidgetBundle.swift; sourceTree = "<group>"; };
 		7D3D3C732599912600CCD1E9 /* GitHubContributionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubContributionsWidget.swift; sourceTree = "<group>"; };
@@ -161,15 +158,12 @@
 		7DED5B4025B072D700C9574E /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSTutorialStepViewModel.swift; sourceTree = "<group>"; };
 		7DED5B6825B078B900C9574E /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
-		80A575FF2F61563A6D6308BC /* Pods_GITGET_GITGETUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_GITGETUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8231111349D8EE4FBE54AA83 /* Pods-GITGETTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.debug.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AAC954EA170CA7C6E15A223 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
 		AB623ABB9C1EB3BAB6331DD2 /* Pods-GITGETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.release.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.release.xcconfig"; sourceTree = "<group>"; };
 		CA3B1B190DD4E7AED863BADE /* Pods_GITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D18C6F7DB999D62EA9AD5614 /* Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig"; path = "Target Support Files/Pods-GITGET-CONTRIBUTIONSExtension/Pods-GITGET-CONTRIBUTIONSExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		E4E8E6DD75383F7F120F8857 /* Pods_GITGET_MacGITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_MacGITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E989F637AD86421CC776E996 /* Pods_GITGET_CONTRIBUTIONSExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET_CONTRIBUTIONSExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FADCB12D96CB367A58D02F04 /* Pods_GITGETTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGETTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +179,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF9972EF28F24D2A96507C3D /* Pods_GITGETTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,14 +428,9 @@
 			isa = PBXGroup;
 			children = (
 				CA3B1B190DD4E7AED863BADE /* Pods_GITGET.framework */,
-				80A575FF2F61563A6D6308BC /* Pods_GITGET_GITGETUITests.framework */,
-				FADCB12D96CB367A58D02F04 /* Pods_GITGETTests.framework */,
 				7DA98684259862E500BAEAEA /* WidgetKit.framework */,
 				7DA98686259862E500BAEAEA /* SwiftUI.framework */,
 				E989F637AD86421CC776E996 /* Pods_GITGET_CONTRIBUTIONSExtension.framework */,
-				6C046E19187106F599DD6B81 /* Pods_MacGITGETTests.framework */,
-				E4E8E6DD75383F7F120F8857 /* Pods_GITGET_MacGITGET.framework */,
-				6E769968BBF0C63F55B682D5 /* Pods_GITGET_MacGITGET_MacGITGETUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
