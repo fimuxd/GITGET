@@ -115,7 +115,6 @@ struct WidgetContentView: SwiftUI.View {
                             Spacer()
                             Text("develop since \(viewModel.startYear)")
                                 .font(.system(size: 10, design: .monospaced))
-                                .padding(.top, 10)
                                 .foregroundColor(.blackAndWhite3)
                         }
                     }
