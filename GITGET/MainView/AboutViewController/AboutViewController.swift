@@ -221,8 +221,10 @@ extension AboutViewController: PanModalPresentable {
     }
     
     var didBackgroundTapped: ((UIGestureRecognizer) -> Void)? {
-        return {[weak tutorialViewController] _ in
+        return { [weak tutorialViewController] _ in
             guard let viewController = tutorialViewController else { return }
+            let viewModel = TutorialViewModel()
+            viewController.bind(viewModel)
             self.present(viewController, animated: true)
         }
     }

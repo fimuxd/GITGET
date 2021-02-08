@@ -12,7 +12,7 @@ import Then
 import PanModal
 
 protocol iOSSettingViewBindable {
-    var howToUserButtonTapped: PublishRelay<Void> { get }
+    var howToUseButtonTapped: PublishRelay<Void> { get }
     var presentTutorialView: Driver<TutorialViewBindable> { get }
 }
 
@@ -25,7 +25,7 @@ class iOSSettingViewController: UIViewController, SettingViewController {
     var disposeBag = DisposeBag()
     
     let titleLabel = UILabel()
-    let howToUserButton = UIButton()
+    let howToUseButton = UIButton()
     let illustImagView = UIImageView(image: #imageLiteral(resourceName: "illust0"))
     
     init() {
@@ -61,8 +61,8 @@ class iOSSettingViewController: UIViewController, SettingViewController {
             })
             .disposed(by: disposeBag)
         
-        howToUserButton.rx.tap
-            .bind(to: viewModel.howToUserButtonTapped)
+        howToUseButton.rx.tap
+            .bind(to: viewModel.howToUseButtonTapped)
             .disposed(by: disposeBag)
     }
     
@@ -79,7 +79,7 @@ class iOSSettingViewController: UIViewController, SettingViewController {
             $0.numberOfLines = 1
         }
         
-        howToUserButton.do {
+        howToUseButton.do {
             $0.setTitle("START".localized, for: .normal)
             $0.setTitleColor(UIColor(named: "button_title"), for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 20, weight: .bold)
@@ -93,7 +93,7 @@ class iOSSettingViewController: UIViewController, SettingViewController {
         [
             titleLabel,
             illustImagView,
-            howToUserButton
+            howToUseButton
         ].forEach {
             view.addSubview($0)
         }
@@ -108,7 +108,7 @@ class iOSSettingViewController: UIViewController, SettingViewController {
             $0.centerY.equalToSuperview().offset(-50)
         }
         
-        howToUserButton.snp.makeConstraints {
+        howToUseButton.snp.makeConstraints {
             $0.top.equalTo(illustImagView.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(200)

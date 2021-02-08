@@ -9,13 +9,13 @@ import RxSwift
 import RxCocoa
 
 struct MacOSSettingViewModel: MacOSSettingViewBindable {
-    let howToUserButtonTapped = PublishRelay<Void>()
+    let howToUseButtonTapped = PublishRelay<Void>()
     let presentTutorialView: Driver<TutorialViewBindable>
     let buttonAction: Signal<SettingMenu>
     let buttonTapped = PublishRelay<SettingMenu>()
     
     init() {
-        self.presentTutorialView = howToUserButtonTapped
+        self.presentTutorialView = howToUseButtonTapped
             .map { _ in
                 TutorialViewModel()
             }

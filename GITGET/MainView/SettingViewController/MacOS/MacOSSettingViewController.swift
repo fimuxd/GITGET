@@ -14,7 +14,7 @@ import SnapKit
 import Then
 
 protocol MacOSSettingViewBindable {
-    var howToUserButtonTapped: PublishRelay<Void> { get }
+    var howToUseButtonTapped: PublishRelay<Void> { get }
     var presentTutorialView: Driver<TutorialViewBindable> { get }
     var buttonAction: Signal<SettingMenu> { get }
     var buttonTapped: PublishRelay<SettingMenu> { get }
@@ -24,7 +24,7 @@ class MacOSSettingViewController: UIViewController, SettingViewController {
     var disposeBag = DisposeBag()
     
     let titleLabel = UILabel()
-    let howToUserButton = UIButton()
+    let howToUseButton = UIButton()
     let illustImagView = UIImageView(image: #imageLiteral(resourceName: "illust0"))
     let aboutLabel = UILabel()
     let ratingButton = UIButton()
@@ -58,8 +58,8 @@ class MacOSSettingViewController: UIViewController, SettingViewController {
             })
             .disposed(by: disposeBag)
         
-        howToUserButton.rx.tap
-            .bind(to: viewModel.howToUserButtonTapped)
+        howToUseButton.rx.tap
+            .bind(to: viewModel.howToUseButtonTapped)
             .disposed(by: disposeBag)
         
         viewModel.buttonAction
@@ -105,7 +105,7 @@ class MacOSSettingViewController: UIViewController, SettingViewController {
             $0.numberOfLines = 1
         }
         
-        howToUserButton.do {
+        howToUseButton.do {
             $0.setTitle("START".localized, for: .normal)
             $0.setTitleColor(UIColor(named: "button_title"), for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 20, weight: .bold)
@@ -152,7 +152,7 @@ class MacOSSettingViewController: UIViewController, SettingViewController {
         [
             titleLabel,
             illustImagView,
-            howToUserButton,
+            howToUseButton,
             aboutLabel,
             ratingButton,
             sendMailButton,
@@ -171,7 +171,7 @@ class MacOSSettingViewController: UIViewController, SettingViewController {
             $0.centerY.equalToSuperview().dividedBy(1.5)
         }
         
-        howToUserButton.snp.makeConstraints {
+        howToUseButton.snp.makeConstraints {
             $0.top.equalTo(illustImagView.snp.bottom).offset(24)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(200)
@@ -179,7 +179,7 @@ class MacOSSettingViewController: UIViewController, SettingViewController {
         }
         
         aboutLabel.snp.makeConstraints {
-            $0.top.equalTo(howToUserButton.snp.bottom).offset(80)
+            $0.top.equalTo(howToUseButton.snp.bottom).offset(80)
             $0.centerX.equalToSuperview()
         }
         
