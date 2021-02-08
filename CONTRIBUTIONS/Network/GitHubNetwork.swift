@@ -39,21 +39,23 @@ struct GitHubNetwork {
         self.session = session
     }
     
-    func getContributions(of username: String) -> Future<[Contribution], GitHubNetworkError> {
-        Future { promise in
-            guard let url = composeURLComponentsToGetContributions(of: username).url else {
-                let error = GitHubNetworkError.invalidURL
-                return promise(.failure(error))
-            }
-            
-            do {
-                let html = try String(contentsOf: url, encoding: .utf8)
-                let document = try SwiftSoup.parse(html)
-                let contributions = try document.select("rect").compactMap(parseContributions)
-                return promise(.success(contributions))
-            } catch {
-                return promise(.failure(.htmlParsingError))
-            }
+    func getContributions(of username: String) -> AnyPublisher<[Contribution], GitHubNetworkError> {
+        guard let url = composeURLComponentsToGetContributions(of: username).url else {
+            let error = GitHubNetworkError.invalidURL
+            return Fail(error: error).eraseToAnyPublisher()
+        }
+        
+        do {
+            let html = try String(contentsOf: url, encoding: .utf8)
+            let document = try SwiftSoup.parse(html)
+            let contributions = try document.select("rect").compactMap(parseContributions)
+            return Just(contributions)
+                .mapError {
+                    GitHubNetworkError.error("###Error: \($0)")
+                }
+                .eraseToAnyPublisher()
+        } catch {
+            return Fail(error: .htmlParsingError).eraseToAnyPublisher()
         }
     }
     
