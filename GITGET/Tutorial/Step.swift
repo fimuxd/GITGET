@@ -80,3 +80,37 @@ enum MacOSStep: TutorialStep {
         }
     }
 }
+
+enum iPadOSStep: TutorialStep {
+    case one
+    case two
+    case three
+    case four
+    
+    var title: String {
+        switch self {
+        case .one: return "Step 01"
+        case .two: return "Step 02"
+        case .three: return "Step 03"
+        case .four: return "Step 04"
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .one: return "From the Today View, touch and hold a widget or an empty area until the widgets jiggle. Then tap the Add Button in the upper-left corner.".localized
+        case .two: return "Select or find GitGet, and tap Add Widget.".localized
+        case .three: return "Tap GitGet, then fill GitHub username. In this moment, GitGet should be in active(jiggle). If not, hold a GitGet then tap 'edit widget'".localized
+        case .four: return "Tap Done. You can also add your collegue’s username. Don’t forget various themes are prepared.".localized
+        }
+    }
+    
+    var image: UIImage {
+        switch self {
+        case .one: return #imageLiteral(resourceName: "step_one_ipad")
+        case .two: return #imageLiteral(resourceName: "step_two_ipad")
+        case .three: return #imageLiteral(resourceName: "step_three_ipad")
+        case .four: return #imageLiteral(resourceName: "step_four_ipad")
+        }
+    }
+}
