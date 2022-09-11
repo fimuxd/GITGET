@@ -16,17 +16,25 @@ struct TutorialViewModel: TutorialViewBindable {
     let dismiss: Signal<Void>
     
     init() {
-        #if targetEnvironment(macCatalyst)
-        stepOneViewModel = MacOSTutorialStepViewModel(step: .one)
-        stepTwoViewModel = MacOSTutorialStepViewModel(step: .two)
-        stepThreeViewModel = MacOSTutorialStepViewModel(step: .three)
-        stepFourViewModel = MacOSTutorialStepViewModel(step: .four)
-        #else
-        stepOneViewModel = iOSTutorialStepViewModel(step: .one)
-        stepTwoViewModel = iOSTutorialStepViewModel(step: .two)
-        stepThreeViewModel = iOSTutorialStepViewModel(step: .three)
-        stepFourViewModel = iOSTutorialStepViewModel(step: .four)
-        #endif
+        switch UIDevice.current.userInterfaceIdiom {
+        case .mac:
+            stepOneViewModel = MacOSTutorialStepViewModel(step: .one)
+            stepTwoViewModel = MacOSTutorialStepViewModel(step: .two)
+            stepThreeViewModel = MacOSTutorialStepViewModel(step: .three)
+            stepFourViewModel = MacOSTutorialStepViewModel(step: .four)
+        case .phone:
+            stepOneViewModel = iOSTutorialStepViewModel(step: .one)
+            stepTwoViewModel = iOSTutorialStepViewModel(step: .two)
+            stepThreeViewModel = iOSTutorialStepViewModel(step: .three)
+            stepFourViewModel = iOSTutorialStepViewModel(step: .four)
+        case .pad:
+            stepOneViewModel = iPadOSTutorialStepViewModel(step: .one)
+            stepTwoViewModel = iPadOSTutorialStepViewModel(step: .two)
+            stepThreeViewModel = iPadOSTutorialStepViewModel(step: .three)
+            stepFourViewModel = iPadOSTutorialStepViewModel(step: .four)
+        default:
+            fatalError()
+        }
         
         self.dismiss = doneButtonTapped
             .asSignal(onErrorSignalWith: .empty())
