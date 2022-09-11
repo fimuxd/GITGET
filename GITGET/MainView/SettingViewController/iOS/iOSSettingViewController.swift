@@ -80,7 +80,7 @@ class iOSSettingViewController: UIViewController, SettingViewController {
         }
         
         howToUseButton.do {
-            $0.setTitle("START".localized, for: .normal)
+            $0.setTitle("HOW TO USE".localized, for: .normal)
             $0.setTitleColor(UIColor(named: "button_title"), for: .normal)
             $0.titleLabel?.font = .monospacedSystemFont(ofSize: 20, weight: .bold)
             $0.backgroundColor = UIColor(named: "button")

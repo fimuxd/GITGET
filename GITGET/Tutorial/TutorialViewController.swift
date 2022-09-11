@@ -104,6 +104,7 @@ class TutorialViewController: UIViewController {
 
         stepFourView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
         }
     }
 }
