@@ -44,7 +44,7 @@ struct GitHubContributionsWidgetViewModel {
     }
     
     var invalidUsername: Bool {
-        username != .none && contributions.isEmpty
+        username == .none && contributions.isEmpty
     }
     
     //for large

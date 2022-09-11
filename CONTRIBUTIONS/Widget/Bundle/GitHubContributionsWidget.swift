@@ -11,14 +11,26 @@ import SwiftUI
 
 struct GitHubContributionsWidget: Widget {
     var body: some WidgetConfiguration {
-        IntentConfiguration(
-            kind: "fimuxd.gitget.github-contributions-widget",
-            intent: ConfigurationIntent.self,
-            provider: GitHubContributionsProvider()) { entry in
-            GitHubContributionsWidgetEntryView(entry: entry)
+        if #available(iOSApplicationExtension 16.0, *) {
+            return IntentConfiguration(
+                kind: "fimuxd.gitget.github-contributions-widget",
+                intent: ConfigurationIntent.self,
+                provider: GitHubContributionsProvider()) { entry in
+                    GitHubContributionsWidgetEntryView(entry: entry)
+                }
+                .configurationDisplayName("GITGET")
+                .description("GITHUB CONTRIBUTIONS")
+                .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
+        } else {
+            return IntentConfiguration(
+                kind: "fimuxd.gitget.github-contributions-widget",
+                intent: ConfigurationIntent.self,
+                provider: GitHubContributionsProvider()) { entry in
+                    GitHubContributionsWidgetEntryView(entry: entry)
+                }
+                .configurationDisplayName("GITGET")
+                .description("GITHUB CONTRIBUTIONS")
+                .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
         }
-        .configurationDisplayName("GITGET")
-        .description("GITHUB CONTRIBUTIONS")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

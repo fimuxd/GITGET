@@ -186,13 +186,13 @@ open class Elements: NSCopying {
 	* @return string of all text: unescaped and no HTML.
 	* @see Element#text()
 	*/
-	open func text()throws->String {
+	open func text(trimAndNormaliseWhitespace: Bool = true)throws->String {
 		let sb: StringBuilder = StringBuilder()
 		for element: Element in this {
 			if !sb.isEmpty {
 				sb.append(" ")
 			}
-			sb.append(try element.text())
+            sb.append(try element.text(trimAndNormaliseWhitespace: trimAndNormaliseWhitespace))
 		}
 		return sb.toString()
 	}
@@ -206,6 +206,24 @@ open class Elements: NSCopying {
 		}
 		return false
 	}
+    
+    /**
+     * Get the text content of each of the matched elements. If an element has no text, then it is not included in the
+     * result.
+     * @return A list of each matched element's text content.
+     * @see Element#text()
+     * @see Element#hasText()
+     * @see #text()
+     */
+    public func eachText()throws->Array<String> {
+        var texts: Array<String> = Array()
+        for el: Element in this {
+            if (el.hasText()){
+                texts.append(try el.text())
+            }
+        }
+        return texts;
+    }
 
 	/**
 	* Get the combined inner HTML of all matched elements.
