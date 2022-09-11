@@ -40,6 +40,7 @@
 
 ## Update
 ### Ver. 2
+- 22.38.0: iOS 16 용 잠금화면 위젯 추가 / invalid user 버그 수정
 - 21.4.0: 한글 현지화 업데이트
 - 21.3.0: MacOS 지원
 - v21.2.0: GITGET VERSION2 배포. 입앱 기능 축소 및 iOS14 target WidgetKit 적용. 앱은 RxSwift, 위젯은 SwiftUI+Combine 활용
