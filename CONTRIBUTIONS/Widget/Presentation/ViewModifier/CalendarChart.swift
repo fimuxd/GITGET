@@ -9,8 +9,8 @@ import SwiftUI
 
 struct CalendarChart<Index: View>: View {
     let rows: Int = 7    //일주일 7일
-    let columns: Int    //TODO: 추후 widget family update시 사용
-    let spacing: CGFloat = 3.0
+    let columns: Int
+    let spacing: CGFloat
     let index: (Int, Int) -> Index
     
     var body: some View {
@@ -25,8 +25,9 @@ struct CalendarChart<Index: View>: View {
         }
     }
     
-    init(columns: Int, @ViewBuilder index: @escaping (Int, Int) -> Index) {
+    init(columns: Int, spacing: CGFloat, @ViewBuilder index: @escaping (Int, Int) -> Index) {
         self.columns = columns
+        self.spacing = spacing
         self.index = index
     }
 }

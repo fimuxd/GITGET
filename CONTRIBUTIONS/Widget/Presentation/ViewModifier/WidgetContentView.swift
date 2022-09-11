@@ -9,7 +9,6 @@ import SwiftUI
 import Kingfisher
 
 struct WidgetContentView: SwiftUI.View {
-    @Environment(\.redactionReasons) var redactionReasons
     @Environment(\.widgetFamily) var widgetFamily
     
     let viewModel: GitHubContributionsWidgetViewModel
@@ -54,7 +53,7 @@ struct WidgetContentView: SwiftUI.View {
                 .textCase(.uppercase)
                 .lineLimit(1)
                 
-                CalendarChart(columns: columnsCount) { row, column in
+                CalendarChart(columns: columnsCount, spacing: 3.0) { row, column in
                     if let color = cellColorSet.element(at: row)?.element(at: column) {
                         color.modifier(CalendarChartCell())
                     } else {

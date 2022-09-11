@@ -70,6 +70,8 @@
 		7DED5B6325B0786D00C9574E /* MacOSTutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */; };
 		7DED5B6925B078B900C9574E /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6825B078B900C9574E /* Step.swift */; };
 		7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986282598608900BAEAEA /* LaunchScreen.storyboard */; };
+		7DF5F9F628CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */; };
+		7DF5F9F728CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */; };
 		DE15F5C81DE4792269C926DA /* Pods_GITGETTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A2A8A29B2E2BB70ACAA252A /* Pods_GITGETTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +164,7 @@
 		7DED5B4025B072D700C9574E /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
 		7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSTutorialStepViewModel.swift; sourceTree = "<group>"; };
 		7DED5B6825B078B900C9574E /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
+		7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryWidgetContentView.swift; sourceTree = "<group>"; };
 		8231111349D8EE4FBE54AA83 /* Pods-GITGETTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.debug.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9AAC954EA170CA7C6E15A223 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
 		AB623ABB9C1EB3BAB6331DD2 /* Pods-GITGETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.release.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -423,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				7DE7AA332599E3CE00F5F4BB /* WidgetContentView.swift */,
+				7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */,
 				7DE7AA172599D92B00F5F4BB /* CalendarChart.swift */,
 				7DE7AA2C2599E06300F5F4BB /* CalendarChartCell.swift */,
 				7D7FD52B259B63200072775E /* NoticeTextStyle.swift */,
@@ -671,6 +675,7 @@
 				7DD5DB7625C8F0F700F0AABD /* MacOSSettingViewModel.swift in Sources */,
 				7D7FD50C259B4DD90072775E /* DateExtension.swift in Sources */,
 				7D4467C225B2940800A90E6A /* String.swift in Sources */,
+				7DF5F9F628CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */,
 				7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */,
 				7D4467DB25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */,
 				7DE7AA272599E00C00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */,
@@ -727,6 +732,7 @@
 				7D3D3CC5259997B100CCD1E9 /* GitHubContributionsWidgetViewModel.swift in Sources */,
 				7D3D3C8E2599953D00CCD1E9 /* GitHubContributionsProvider.swift in Sources */,
 				7D7FD4FF259B317A0072775E /* ColorExtension.swift in Sources */,
+				7DF5F9F728CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */,
 				7D7FD50D259B4DD90072775E /* DateExtension.swift in Sources */,
 				7DE7AA352599E3CE00F5F4BB /* WidgetContentView.swift in Sources */,
 				7DA986F42599718D00BAEAEA /* GitHubNetwork.swift in Sources */,
@@ -908,7 +914,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -916,7 +922,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.7.1;
+				MARKETING_VERSION = 22.38.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -934,7 +940,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -942,7 +948,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 21.7.1;
+				MARKETING_VERSION = 22.38.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
@@ -1005,7 +1011,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1015,7 +1021,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.7.1;
+				MARKETING_VERSION = 22.38.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1034,7 +1040,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = V6G44Y3JGM;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
@@ -1044,7 +1050,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 21.7.1;
+				MARKETING_VERSION = 22.38.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
