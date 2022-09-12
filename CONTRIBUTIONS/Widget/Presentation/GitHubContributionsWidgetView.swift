@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct GitHubContributionsWidgetView: View {
-    @Environment(\.widgetFamily) var widgetFamily
-    
     let viewModel: GitHubContributionsWidgetViewModel
     
     var body: some View {
         WidgetContentView(viewModel: viewModel)
-        .redacted(reason: viewModel.isInitial ? .placeholder : .init())
+            .redacted(reason: viewModel.isInitial ? .placeholder : .init())
     }
 }

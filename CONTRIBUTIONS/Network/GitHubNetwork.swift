@@ -69,6 +69,7 @@ struct GitHubNetwork {
             .mapError { error in
                 GitHubNetworkError.error("###Error: \(error)")
             }
+            .print("xxx0")
             .flatMap { data in
                 return Just(data.data)
                     .decode(type: User.self, decoder: JSONDecoder())

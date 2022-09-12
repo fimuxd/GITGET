@@ -6,29 +6,32 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
     let iOSViewModel = iOSSettingViewModel()
     let macOSViewModel = MacOSSettingViewModel()
+    let viewModel = ContributionViewModel()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         
         let iOS = UIDevice.current.userInterfaceIdiom == .phone
-        let iOSViewController = iOSSettingViewController()
-        let macViewController = MacOSSettingViewController()
-        
-        if iOS {
-            iOSViewController.bind(iOSViewModel)
-        } else {
-            macViewController.bind(macOSViewModel)
-        }
-        
+//        let iOSViewController = iOSSettingViewController()
+//        let macViewController = MacOSSettingViewController()
+//
+//        if iOS {
+//            iOSViewController.bind(iOSViewModel)
+//        } else {
+//            macViewController.bind(macOSViewModel)
+//        }
+//
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = UINavigationController(rootViewController: iOS ? iOSViewController : macViewController)
+//        window?.rootViewController = UINavigationController(rootViewController: iOS ? iOSViewController : macViewController)
+        let contentView = SettingView(viewModel: viewModel)
+        window?.rootViewController = UIHostingController(rootView: contentView)
         window?.makeKeyAndVisible()
     }
 
@@ -53,16 +56,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
     }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-
-        // Save changes in the application's managed object context when the application transitions to the background.
-        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
-    }
-
-
 }
 
