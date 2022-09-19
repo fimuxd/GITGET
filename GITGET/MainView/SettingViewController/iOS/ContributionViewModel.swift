@@ -27,6 +27,11 @@ class ContributionViewModel: ObservableObject {
     @Published var following: String = ""
     @Published var startYear: String = String(Date().year)
     
+    init() {
+        let username = UserDefaults.standard.string(forKey: "username") ?? ""
+        getContributions(by: username)
+    }
+    
     func setContributionComponent(_ contributionList: [Contribution]) {
         username = user?.login ?? "Anonymous"
         todayContributionCount = contributionList.filter { $0.date.isToday }.first?.count
@@ -64,9 +69,10 @@ class ContributionViewModel: ObservableObject {
         return levels.map { $0.map { theme.supplyColor(by: $0)} }
     }
     
-    func getContributions() {
-        GitHubNetwork().getContributions(of: enteredUserName)
-            .combineLatest(GitHubNetwork().getUser(of: enteredUserName))
+    func getContributions(by username: String) {
+        UserDefaults.standard.set(username, forKey: "username")
+        GitHubNetwork().getContributions(of: username)
+            .combineLatest(GitHubNetwork().getUser(of: username))
             .receive(on: DispatchQueue.main)
             .sink(
                 receiveCompletion: {[weak self] completion in
