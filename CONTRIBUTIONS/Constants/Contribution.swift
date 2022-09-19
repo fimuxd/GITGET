@@ -24,7 +24,6 @@ struct Contribution {
 }
 
 extension Contribution.Level {
-
     static func random() -> Self {
         Self.allCases.randomElement()!
     }

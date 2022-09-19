@@ -7,6 +7,20 @@
 
 import RxSwift
 import RxCocoa
+import SwiftUI
+
+struct TutorialView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = TutorialViewController
+    
+    func makeUIViewController(context: Context) -> TutorialViewController {
+        let viewModel = TutorialViewModel()
+        let viewController = TutorialViewController()
+        viewController.bind(viewModel)
+        return viewController
+    }
+    
+    func updateUIViewController(_ uiViewController: TutorialViewController, context: Context) {}
+}
 
 protocol TutorialViewBindable {
     var stepOneViewModel: TutorialStepViewBindable { get }

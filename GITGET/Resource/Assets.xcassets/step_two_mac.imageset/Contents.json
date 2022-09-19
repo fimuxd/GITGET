@@ -1,22 +1,12 @@
 {
   "images" : [
     {
-      "idiom" : "ipad",
-      "scale" : "1x"
+      "filename" : "스크린샷 2021-01-14 23.40.08.png",
+      "idiom" : "ipad"
     },
     {
+      "filename" : "스크린샷 2021-01-14 23.40.08 1.png",
       "idiom" : "ipad",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "ipad",
-      "scale" : "1x",
-      "subtype" : "mac-catalyst"
-    },
-    {
-      "filename" : "스크린샷 2021-01-14 23.40.08.png",
-      "idiom" : "ipad",
-      "scale" : "2x",
       "subtype" : "mac-catalyst"
     }
   ],
