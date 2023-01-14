@@ -35,7 +35,6 @@ class ContributionViewModel: ObservableObject {
     func setContributionComponent(_ contributionList: [Contribution]) {
         username = user?.login ?? "Anonymous"
         todayContributionCount = contributionList.filter { $0.date.isToday }.first?.count
-        print("todayContributionCount = \(todayContributionCount)")
         isInitial = contributionList.isEmpty
         currentYearContributions = contributionList
             .filter { $0.date.year == Date().year }
