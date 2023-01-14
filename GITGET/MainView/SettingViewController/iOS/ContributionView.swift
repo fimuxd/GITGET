@@ -33,7 +33,7 @@ struct ContributionView: View {
                     }
                     Spacer()
                     viewModel.todayContributionCount != nil
-                    ? Text("CONTRIBUTIONS".localizedStringWithFormat(viewModel.todayContributionCount ?? 0) + " TODAY")
+                    ? Text("%d CONTRIBUTIONS".localizedStringWithFormat(viewModel.todayContributionCount ?? 0) + " TODAY")
                     : Text("")
                 }
                 .font(.system(size: 10, weight: .medium))
