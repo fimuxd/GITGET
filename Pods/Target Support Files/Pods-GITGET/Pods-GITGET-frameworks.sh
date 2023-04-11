@@ -41,9 +41,9 @@ install_framework()
 
   if [ -L "${source}" ]; then
     echo "Symlinked..."
-    source="$(readlink "${source}")"
+    source="$(readlink -f "${source}")"
   fi
-
+  
   if [ -d "${source}/${BCSYMBOLMAP_DIR}" ]; then
     # Locate and install any .bcsymbolmaps if present, and remove them from the .framework before the framework is copied
     find "${source}/${BCSYMBOLMAP_DIR}" -name "*.bcsymbolmap"|while read f; do
