@@ -112,11 +112,24 @@ extension GitHubNetwork {
 extension GitHubNetwork {
     func parseContributions(from element: Element) throws -> Contribution? {
         let dataLevel = try element.attr("data-level")
-        let dataCount = try element.attr("data-count")
+        
+        var count: Int = 0
+        let parstDataCount = try element.html()
+        
+        if let splitDataCount = parstDataCount.split(separator: " ").first {
+            if let dataCount = Int(splitDataCount) {
+                count = dataCount
+            } else {
+                count = 0
+            }
+        } else {
+            count = 0
+        }
+        
+        
         let dataDate = try element.attr("data-date")
         
         guard let level = Int(dataLevel),
-              let count = Int(dataCount),
               let date = Date(dataDate) else {
             return nil
         }
