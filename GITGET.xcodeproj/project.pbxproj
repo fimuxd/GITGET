@@ -54,6 +54,24 @@
 		7DDF5BB028CF3F1F0081848B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5BAF28CF3F1F0081848B /* SettingView.swift */; };
 		7DDF5BB228CF40450081848B /* ContributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5BB128CF40450081848B /* ContributionViewModel.swift */; };
 		7DDF5BB428CF41270081848B /* ContributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5BB328CF41270081848B /* ContributionView.swift */; };
+		7DE137E02CB36407008165B5 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137DF2CB36407008165B5 /* RxCocoa */; };
+		7DE137E22CB36407008165B5 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137E12CB36407008165B5 /* RxRelay */; };
+		7DE137E42CB36407008165B5 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137E32CB36407008165B5 /* RxSwift */; };
+		7DE137E72CB36415008165B5 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137E62CB36415008165B5 /* Then */; };
+		7DE137EA2CB3641F008165B5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137E92CB3641F008165B5 /* SnapKit */; };
+		7DE137ED2CB36499008165B5 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137EC2CB36499008165B5 /* PanModal */; };
+		7DE137F02CB364AE008165B5 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137EF2CB364AE008165B5 /* SwiftSoup */; };
+		7DE137F32CB364C6008165B5 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137F22CB364C6008165B5 /* SwiftDate */; };
+		7DE137F62CB365AD008165B5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137F52CB365AD008165B5 /* Kingfisher */; };
+		7DE137F82CB36680008165B5 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137F72CB36680008165B5 /* RxCocoa */; };
+		7DE137FA2CB36680008165B5 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137F92CB36680008165B5 /* RxRelay */; };
+		7DE137FC2CB36680008165B5 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137FB2CB36680008165B5 /* RxSwift */; };
+		7DE137FE2CB36680008165B5 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137FD2CB36680008165B5 /* Then */; };
+		7DE138002CB36680008165B5 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE137FF2CB36680008165B5 /* SnapKit */; };
+		7DE138022CB36680008165B5 /* PanModal in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE138012CB36680008165B5 /* PanModal */; };
+		7DE138042CB36680008165B5 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE138032CB36680008165B5 /* SwiftSoup */; };
+		7DE138062CB36680008165B5 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE138052CB36680008165B5 /* SwiftDate */; };
+		7DE138082CB36680008165B5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE138072CB36680008165B5 /* Kingfisher */; };
 		7DE7A9DE2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9DD2599AF2B00F5F4BB /* GitHubContributionsWidgetView.swift */; };
 		7DE7A9EE2599B31C00F5F4BB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */; };
 		7DE7A9F82599B36300F5F4BB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE7A9ED2599B31C00F5F4BB /* ArrayExtension.swift */; };
@@ -175,6 +193,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE137E72CB36415008165B5 /* Then in Frameworks */,
+				7DE137E22CB36407008165B5 /* RxRelay in Frameworks */,
+				7DE137E02CB36407008165B5 /* RxCocoa in Frameworks */,
+				7DE137F62CB365AD008165B5 /* Kingfisher in Frameworks */,
+				7DE137EA2CB3641F008165B5 /* SnapKit in Frameworks */,
+				7DE137E42CB36407008165B5 /* RxSwift in Frameworks */,
+				7DE137F02CB364AE008165B5 /* SwiftSoup in Frameworks */,
+				7DE137ED2CB36499008165B5 /* PanModal in Frameworks */,
+				7DE137F32CB364C6008165B5 /* SwiftDate in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,8 +216,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DE137F82CB36680008165B5 /* RxCocoa in Frameworks */,
+				7DE137FE2CB36680008165B5 /* Then in Frameworks */,
+				7DE138062CB36680008165B5 /* SwiftDate in Frameworks */,
 				7DA98687259862E500BAEAEA /* SwiftUI.framework in Frameworks */,
+				7DE138002CB36680008165B5 /* SnapKit in Frameworks */,
+				7DE138022CB36680008165B5 /* PanModal in Frameworks */,
+				7DE137FC2CB36680008165B5 /* RxSwift in Frameworks */,
+				7DE137FA2CB36680008165B5 /* RxRelay in Frameworks */,
+				7DE138082CB36680008165B5 /* Kingfisher in Frameworks */,
 				7DA98685259862E500BAEAEA /* WidgetKit.framework in Frameworks */,
+				7DE138042CB36680008165B5 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +553,15 @@
 				ko,
 			);
 			mainGroup = 7DA9860E2598608700BAEAEA;
+			packageReferences = (
+				7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				7DE137E52CB36415008165B5 /* XCRemoteSwiftPackageReference "Then" */,
+				7DE137E82CB3641F008165B5 /* XCRemoteSwiftPackageReference "snapkit" */,
+				7DE137EB2CB36499008165B5 /* XCRemoteSwiftPackageReference "PanModal" */,
+				7DE137EE2CB364AE008165B5 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				7DE137F12CB364C6008165B5 /* XCRemoteSwiftPackageReference "SwiftDate" */,
+				7DE137F42CB365AD008165B5 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+			);
 			productRefGroup = 7DA986182598608700BAEAEA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1032,6 +1077,158 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.7.1;
+			};
+		};
+		7DE137E52CB36415008165B5 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		7DE137E82CB3641F008165B5 /* XCRemoteSwiftPackageReference "snapkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/snapkit/snapkit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+		7DE137EB2CB36499008165B5 /* XCRemoteSwiftPackageReference "PanModal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/slackhq/PanModal.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.7;
+			};
+		};
+		7DE137EE2CB364AE008165B5 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.5;
+			};
+		};
+		7DE137F12CB364C6008165B5 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		7DE137F42CB365AD008165B5 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7DE137DF2CB36407008165B5 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		7DE137E12CB36407008165B5 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		7DE137E32CB36407008165B5 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		7DE137E62CB36415008165B5 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137E52CB36415008165B5 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		7DE137E92CB3641F008165B5 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137E82CB3641F008165B5 /* XCRemoteSwiftPackageReference "snapkit" */;
+			productName = SnapKit;
+		};
+		7DE137EC2CB36499008165B5 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137EB2CB36499008165B5 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
+		7DE137EF2CB364AE008165B5 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137EE2CB364AE008165B5 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		7DE137F22CB364C6008165B5 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137F12CB364C6008165B5 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+		7DE137F52CB365AD008165B5 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137F42CB365AD008165B5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		7DE137F72CB36680008165B5 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		7DE137F92CB36680008165B5 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		7DE137FB2CB36680008165B5 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137DE2CB36407008165B5 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		7DE137FD2CB36680008165B5 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137E52CB36415008165B5 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		7DE137FF2CB36680008165B5 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137E82CB3641F008165B5 /* XCRemoteSwiftPackageReference "snapkit" */;
+			productName = SnapKit;
+		};
+		7DE138012CB36680008165B5 /* PanModal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137EB2CB36499008165B5 /* XCRemoteSwiftPackageReference "PanModal" */;
+			productName = PanModal;
+		};
+		7DE138032CB36680008165B5 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137EE2CB364AE008165B5 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		7DE138052CB36680008165B5 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137F12CB364C6008165B5 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
+		};
+		7DE138072CB36680008165B5 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7DE137F42CB365AD008165B5 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7DA9860F2598608700BAEAEA /* Project object */;
 }
