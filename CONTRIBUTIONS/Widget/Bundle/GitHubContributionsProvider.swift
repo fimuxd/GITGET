@@ -12,9 +12,6 @@ class GitHubContributionsProvider: IntentTimelineProvider {
     typealias Entry = GitHubContributionsWidgetViewModel
     typealias Intent = ConfigurationIntent
     
-    private var timelineCancellable: AnyCancellable?
-    private let queue = DispatchQueue(label: "fimuxd.gitget.network")
-    
     func placeholder(in context: Context) -> Entry {
         let currentDate = Date()
         let dateRange = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)?.range(to: currentDate) ?? []
@@ -34,12 +31,31 @@ class GitHubContributionsProvider: IntentTimelineProvider {
         let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
         let username = configuration.username?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         
-        timelineCancellable = GitHubNetwork().getContributions(of: username)
-            .combineLatest(GitHubNetwork().getUser(of: username))
-            .map { Timeline(entries: [Entry(contributions: $0.0, configuration: configuration, user: $0.1)], policy: .after(refreshDate)) }
-            .replaceError(with: Timeline(entries: [Entry(contributions: [], configuration: configuration)], policy: .after(refreshDate)))
-            .subscribe(on: queue)
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: completion)
+        Task {
+            async let userResponse = UserAPI.userInfo(of: username)
+            async let contributionResponse = ContributionAPI.contributions(of: username)
+            let (userResult, contributionsResult) = await (userResponse, contributionResponse)
+            
+            await MainActor.run {
+                switch (userResult, contributionsResult) {
+                case (.success(let user), .success(let contributions)):
+                    let entry = Entry(contributions: contributions, configuration: configuration, user: user)
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                case (.failure, .success(let contributions)):
+                    let entry = Entry(contributions: contributions, configuration: configuration)
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                case (.success(let user), .failure):
+                    let entry = Entry(contributions: [], configuration: configuration, user: user)
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                case (.failure, .failure):
+                    let entry = Entry(contributions: [], configuration: configuration)
+                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
+                    completion(timeline)
+                }
+            }
+        }
     }
 }

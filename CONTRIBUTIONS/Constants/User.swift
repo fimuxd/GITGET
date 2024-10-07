@@ -27,14 +27,14 @@ struct User: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.login = try? values.decode(String.self, forKey: .login)
-        self.name = try? values.decode(String.self, forKey: .name)
-        self.profileImageURL = try? values.decode(String.self, forKey: .profileImageURL)
-        self.bio = try? values.decode(String.self, forKey: .bio)
-        self.location = try? values.decode(String.self, forKey: .location)
-        self.company = try? values.decode(String.self, forKey: .company)
-        self.followers = try? values.decode(Int.self, forKey: .followers)
-        self.following = try? values.decode(Int.self, forKey: .following)
+        self.login = try values.decodeIfPresent(String.self, forKey: .login)
+        self.name = try values.decodeIfPresent(String.self, forKey: .name)
+        self.profileImageURL = try values.decodeIfPresent(String.self, forKey: .profileImageURL)
+        self.bio = try values.decodeIfPresent(String.self, forKey: .bio)
+        self.location = try values.decodeIfPresent(String.self, forKey: .location)
+        self.company = try values.decodeIfPresent(String.self, forKey: .company)
+        self.followers = try values.decodeIfPresent(Int.self, forKey: .followers)
+        self.following = try values.decodeIfPresent(Int.self, forKey: .following)
         self.createdAt = Date.parse(values, key: .createdAt)
     }
 }

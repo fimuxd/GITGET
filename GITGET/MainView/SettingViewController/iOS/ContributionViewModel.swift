@@ -71,25 +71,32 @@ class ContributionViewModel: ObservableObject {
     
     func getContributions(by username: String) {
         UserDefaults.standard.set(username, forKey: "username")
-        GitHubNetwork().getContributions(of: username)
-            .combineLatest(GitHubNetwork().getUser(of: username))
-            .receive(on: DispatchQueue.main)
-            .sink(
-                receiveCompletion: {[weak self] completion in
-                    switch completion {
-                    case .failure:
-                        self?.invalidUsername = true
-                    case .finished:
-                        print("finished")
-                    }
-                },
-                receiveValue: {[weak self] (contributions, user) in
-                    self?.contributions = contributions
-                    self?.user = user
-                    self?.setContributionComponent(contributions)
-                    self?.invalidUsername = false
+        
+        Task {
+            let result = await UserAPI.userInfo(of: username)
+            Task { @MainActor in
+                switch result {
+                case .success(let user):
+                    self.user = user
+                    self.invalidUsername = false
+                case .failure(let error):
+                    self.invalidUsername = true
+                    print("xxx0", error)
                 }
-            )
-            .store(in: &cancellables)
+            }
+        }
+        
+        Task {
+            let result = await ContributionAPI.contributions(of: username)
+            Task { @MainActor in
+                switch result {
+                case .success(let contributions):
+                    self.contributions = contributions
+                    self.setContributionComponent(contributions)
+                case .failure(let error):
+                    print("xxx1", error)
+                }
+            }
+        }
     }
 }
