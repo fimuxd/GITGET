@@ -2,7 +2,6 @@
   <img src="https://raw.githubusercontent.com/scinfu/SwiftSoup/master/swiftsoup.png" alt="SwiftSoup" title="SwiftSoup">
 </p>
 
-
 ![Platform OS X | iOS | tvOS | watchOS | Linux](https://img.shields.io/badge/platform-Linux%20%7C%20OS%20X%20%7C%20iOS%20%7C%20tvOS%20%7C%20watchOS-orange.svg)
 [![SPM compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://github.com/apple/swift-package-manager)
 ![🐧 linux: ready](https://img.shields.io/badge/%F0%9F%90%A7%20linux-ready-red.svg)
@@ -48,7 +47,7 @@ To install it, simply add the dependency to your Package.Swift file:
 ```swift
 ...
 dependencies: [
-    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.4.3"),
+    .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.6.0"),
 ],
 targets: [
     .target( name: "YourTarget", dependencies: ["SwiftSoup"]),
@@ -107,16 +106,16 @@ After parsing a document, and finding some elements, you'll want to get at the d
 
 ```swift
 do {
-    let html: String = "<p>An <a href='http://example.com/'><b>example</b></a> link.</p>";
+    let html: String = "<p>An <a href='http://example.com/'><b>example</b></a> link.</p>"
     let doc: Document = try SwiftSoup.parse(html)
     let link: Element = try doc.select("a").first()!
     
-    let text: String = try doc.body()!.text(); // "An example link"
-    let linkHref: String = try link.attr("href"); // "http://example.com/"
-    let linkText: String = try link.text(); // "example""
+    let text: String = try doc.body()!.text() // "An example link."
+    let linkHref: String = try link.attr("href") // "http://example.com/"
+    let linkText: String = try link.text() // "example"
     
-    let linkOuterH: String = try link.outerHtml(); // "<a href="http://example.com"><b>example</b></a>"
-    let linkInnerH: String = try link.html(); // "<b>example</b>"
+    let linkOuterH: String = try link.outerHtml() // "<a href="http://example.com/"><b>example</b></a>"
+    let linkInnerH: String = try link.html() // "<b>example</b>"
 } catch Exception.Error(let type, let message) {
     print(message)
 } catch {
@@ -211,6 +210,46 @@ do {
 }
 ```
 
+If you supply a whole HTML document, with a `<head>` tag, the `clean(_: String, _: String, _: Whitelist)` method will just return the cleaned body HTML.
+You can clean both `<head>` and `<body>` by providing a `Whitelist` for each tags.
+
+```swift
+do {
+    let unsafe: String = """
+    <html>
+        <head>
+            <title>Hey</title>
+            <script>console.log('hi');</script>
+        </head>
+        <body>
+            <p>Hello, world!</p>
+        </body>
+    </html>
+    """
+
+    var headWhitelist: Whitelist = {
+        do {
+            let customWhitelist = Whitelist.none()
+            try customWhitelist
+                .addTags("meta", "style", "title")
+            return customWhitelist
+        } catch {
+            fatalError("Couldn't init head whitelist")
+        }
+    }()
+
+    let unsafeDocument: Document = try SwiftSoup.parse(unsafe)
+    let safe: String = try SwiftSoup.Cleaner(headWhitelist: headWhitelist, bodyWhitelist: .relaxed())
+                            .clean(unsafeDocument)
+                            .html()
+    // now: <html><head><title>Hey</title></head><body><p>Hello, world!</p></body></html>
+} catch Exception.Error(let type, let message) {
+    print(message)
+} catch {
+    print("error")
+}
+```
+
 ### Discussion
 A cross-site scripting attack against your site can really ruin your day, not to mention your users'. Many sites avoid XSS attacks by not allowing HTML in user submitted content: they enforce plain text only, or use an alternative markup syntax like wiki-text or Markdown. These are seldom optimal solutions for the user, as they lower expressiveness, and force the user to learn a new syntax.
 
@@ -258,7 +297,7 @@ Like the other methods in `Element`, the attr methods return the current `Elemen
 
 ```swift
 do {
-    try doc.select("div.masthead").attr("title", "swiftsoup").addClass("round-box");
+    try doc.select("div.masthead").attr("title", "swiftsoup").addClass("round-box")
 } catch Exception.Error(let type, let message) {
     print(message)
 } catch {
@@ -275,7 +314,7 @@ Use the HTML setter methods in `Element`:
 ```swift
 do {
     let doc: Document = try SwiftSoup.parse("<div>One</div><span>One</span>")
-    let div: Element = try doc.select("div").first()! // <div></div>
+    let div: Element = try doc.select("div").first()! // <div>One</div>
     try div.html("<p>lorem ipsum</p>") // <div><p>lorem ipsum</p></div>
     try div.prepend("<p>First</p>")
     try div.append("<p>Last</p>")
@@ -285,7 +324,7 @@ do {
     let span: Element = try doc.select("span").first()! // <span>One</span>
     try span.wrap("<li><a href='http://example.com/'></a></li>")
     print(doc)
-    // now: <li><a href="http://example.com/"><span>One</span></a></li>
+    // now: <html><head></head><body><div><p>First</p><p>lorem ipsum</p><p>Last</p></div><li><a href="http://example.com/"><span>One</span></a></li></body></html>
 } catch Exception.Error(let type, let message) {
     print(message)
 } catch {
@@ -312,7 +351,7 @@ Use the text setter methods of `Element`:
 
 ```swift
 do {
-    let doc: Document = try SwiftSoup.parse("")
+    let doc: Document = try SwiftSoup.parse("<div></div>")
     let div: Element = try doc.select("div").first()! // <div></div>
     try div.text("five > four") // <div>five &gt; four</div>
     try div.prepend("First ")
@@ -446,7 +485,7 @@ Select returns a list of `Elements` (as `Elements`), which provides a range of m
 * `:lt(n)`: find elements whose sibling index (i.e. its position in the DOM tree relative to its parent) is less than n; e.g. `td:lt(3)`
 * `:gt(n)`: find elements whose sibling index is greater than n; e.g. `div p:gt(2)`
 * `:eq(n)`: find elements whose sibling index is equal to n; e.g. `form input:eq(1)`
-* `:has(seletor)`: find elements that contain elements matching the selector; e.g. `div:has(p)`
+* `:has(selector)`: find elements that contain elements matching the selector; e.g. `div:has(p)`
 * `:not(selector)`: find elements that do not match the selector; e.g. `div:not(.logo)`
 * `:contains(text)`: find elements that contain the given text. The search is case-insensitive; e.g. `p:contains(swiftsoup)`
 * `:containsOwn(text)`: find elements that directly contain the given text
@@ -516,9 +555,9 @@ print(txt)
 ```swift
 let xml = "<?xml version='1' encoding='UTF-8' something='else'?><val>One</val>"
 guard let doc = try? SwiftSoup.parse(xml, "", Parser.xmlParser()) else { return }
-guard let element = try? doc.getElementsByTag("val").first() // Find first element
-element.text("NewValue") // Edit Value
-let valueString = element.text() // "NewValue"
+guard let element = try? doc.getElementsByTag("val").first() else { return } // Find first element
+try element.text("NewValue") // Edit Value
+let valueString = try element.text() // "NewValue"
 ```
 
 ## How to get all `<img src>`

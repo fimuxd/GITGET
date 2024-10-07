@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,7 +40,7 @@
 		7DA98685259862E500BAEAEA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98684259862E500BAEAEA /* WidgetKit.framework */; };
 		7DA98687259862E500BAEAEA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98686259862E500BAEAEA /* SwiftUI.framework */; };
 		7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9868C259862E600BAEAEA /* Assets.xcassets */; };
-		7DA98693259862E600BAEAEA /* CONTRIBUTIONSExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7DA98683259862E500BAEAEA /* CONTRIBUTIONSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7DA98693259862E600BAEAEA /* CONTRIBUTIONSExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 7DA98683259862E500BAEAEA /* CONTRIBUTIONSExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		7DA986CE2598859000BAEAEA /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986CD2598859000BAEAEA /* TutorialViewController.swift */; };
 		7DA986E12598936D00BAEAEA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986E02598936D00BAEAEA /* Constants.swift */; };
 		7DA986F32599718D00BAEAEA /* GitHubNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986F22599718D00BAEAEA /* GitHubNetwork.swift */; };
@@ -74,6 +74,8 @@
 		7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986282598608900BAEAEA /* LaunchScreen.storyboard */; };
 		7DF5F9F628CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */; };
 		7DF5F9F728CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */; };
+		91A883BF2C9D389C003FA828 /* AppleMyungjo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91A883BE2C9D389C003FA828 /* AppleMyungjo.ttf */; };
+		91A883C02C9D389C003FA828 /* AppleMyungjo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 91A883BE2C9D389C003FA828 /* AppleMyungjo.ttf */; };
 		DB2C93629AEAFA8A934C9498 /* Pods_GITGET.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3B48DF6CED599606356AAEE /* Pods_GITGET.framework */; };
 		E91EC8F27334239CD5738F73 /* Pods_GITGETTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0143A5DB066010355EA637FC /* Pods_GITGETTests.framework */; };
 /* End PBXBuildFile section */
@@ -96,15 +98,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		7DA98697259862E600BAEAEA /* Embed App Extensions */ = {
+		7DA98697259862E600BAEAEA /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				7DA98693259862E600BAEAEA /* CONTRIBUTIONSExtension.appex in Embed App Extensions */,
+				7DA98693259862E600BAEAEA /* CONTRIBUTIONSExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -174,6 +176,7 @@
 		7DED5B6825B078B900C9574E /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryWidgetContentView.swift; sourceTree = "<group>"; };
 		8B7DD08ECD4C71DA0793F4C3 /* Pods-GITGETTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGETTests.release.xcconfig"; path = "Target Support Files/Pods-GITGETTests/Pods-GITGETTests.release.xcconfig"; sourceTree = "<group>"; };
+		91A883BE2C9D389C003FA828 /* AppleMyungjo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleMyungjo.ttf; sourceTree = "<group>"; };
 		BEF0E3B4406B210DBE6A2D96 /* Pods-GITGET.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.release.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.release.xcconfig"; sourceTree = "<group>"; };
 		CB8B00E94D7C414EBE2B8089 /* Pods-GITGET.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GITGET.debug.xcconfig"; path = "Target Support Files/Pods-GITGET/Pods-GITGET.debug.xcconfig"; sourceTree = "<group>"; };
 		F3B48DF6CED599606356AAEE /* Pods_GITGET.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GITGET.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +254,7 @@
 		7D3D3C5D25998FF400CCD1E9 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				91A883BE2C9D389C003FA828 /* AppleMyungjo.ttf */,
 				7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */,
 				7DA9868C259862E600BAEAEA /* Assets.xcassets */,
 				7DA9868E259862E600BAEAEA /* Info.plist */,
@@ -466,7 +470,7 @@
 				7DA986132598608700BAEAEA /* Sources */,
 				7DA986142598608700BAEAEA /* Frameworks */,
 				7DA986152598608700BAEAEA /* Resources */,
-				7DA98697259862E600BAEAEA /* Embed App Extensions */,
+				7DA98697259862E600BAEAEA /* Embed Foundation Extensions */,
 				72C24D0ECD7E36E6C6E8799C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -522,8 +526,9 @@
 		7DA9860F2598608700BAEAEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1230;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					7DA986162598608700BAEAEA = {
 						CreatedOnToolsVersion = 12.3;
@@ -566,6 +571,7 @@
 				7DA986272598608900BAEAEA /* Assets.xcassets in Resources */,
 				7D4467A525B2939900A90E6A /* Localizable.strings in Resources */,
 				7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */,
+				91A883C02C9D389C003FA828 /* AppleMyungjo.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +589,7 @@
 				7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */,
 				7DC011A325D0C62E007B6D9A /* Localizable.strings in Resources */,
 				7D4467F025B2B0E600A90E6A /* Localizable.stringsdict in Resources */,
+				91A883BF2C9D389C003FA828 /* AppleMyungjo.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +844,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -899,6 +907,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -921,22 +930,25 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CB8B00E94D7C414EBE2B8089 /* Pods-GITGET.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
-				DEVELOPMENT_TEAM = V6G44Y3JGM;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 23.15.1;
+				MARKETING_VERSION = 24.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -949,22 +961,25 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEF0E3B4406B210DBE6A2D96 /* Pods-GITGET.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GITGET/GITGET.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
-				DEVELOPMENT_TEAM = V6G44Y3JGM;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 23.15.1;
+				MARKETING_VERSION = 24.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				REGISTER_APP_GROUPS = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -977,10 +992,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5A481B4CE9B348E71276A022 /* Pods-GITGETTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V6G44Y3JGM;
+				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = GITGETTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1000,10 +1014,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B7DD08ECD4C71DA0793F4C3 /* Pods-GITGETTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V6G44Y3JGM;
+				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = GITGETTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1026,9 +1039,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
-				DEVELOPMENT_TEAM = V6G44Y3JGM;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1037,9 +1051,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 23.15.1;
+				MARKETING_VERSION = 24.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
@@ -1055,9 +1070,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = CONTRIBUTIONSExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
-				DEVELOPMENT_TEAM = V6G44Y3JGM;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1066,9 +1082,10 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 23.15.1;
+				MARKETING_VERSION = 24.39.0;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.devfimuxd.gitget.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;

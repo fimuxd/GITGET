@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Color {
     public static var background: Color {
-        return Color("widgetBackground")
+        return Color("WidgetBackground")
     }
     
     public static var level0: Color {

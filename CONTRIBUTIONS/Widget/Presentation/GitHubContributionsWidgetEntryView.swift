@@ -13,11 +13,20 @@ struct GitHubContributionsWidgetEntryView: View {
     
     var body: some View {
         if entry.invalidUsername {
-            Text("invalid username😢")
-                .modifier(NoticeTextStyle())
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .padding()
-                .background(Color.halloween3)
+            if #available(iOSApplicationExtension 17.0, *) {
+                Text("invalid username😢")
+                    .modifier(NoticeTextStyle())
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .background(Color.halloween3)
+                    .containerBackground(for: .widget) {}
+            } else {
+                Text("invalid username😢")
+                    .modifier(NoticeTextStyle())
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding()
+                    .background(Color.halloween3)
+            }
         } else if #available(iOSApplicationExtension 16.0, *) {
             switch widgetFamily {
             case .systemSmall:

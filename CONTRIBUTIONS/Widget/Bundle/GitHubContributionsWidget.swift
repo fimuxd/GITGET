@@ -16,21 +16,33 @@ struct GitHubContributionsWidget: Widget {
                 kind: "fimuxd.gitget.github-contributions-widget",
                 intent: ConfigurationIntent.self,
                 provider: GitHubContributionsProvider()) { entry in
+                if #available(iOSApplicationExtension 17.0, *) {
                     GitHubContributionsWidgetEntryView(entry: entry)
+                        .containerBackground(for: .widget) {}
+                } else {
+                    GitHubContributionsWidgetEntryView(entry: entry)
+                }
                 }
                 .configurationDisplayName("GITGET")
                 .description("GITHUB CONTRIBUTIONS")
                 .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
+                .contentMarginsDisabled()
         } else {
             return IntentConfiguration(
                 kind: "fimuxd.gitget.github-contributions-widget",
                 intent: ConfigurationIntent.self,
                 provider: GitHubContributionsProvider()) { entry in
-                    GitHubContributionsWidgetEntryView(entry: entry)
+                    if #available(iOSApplicationExtension 17.0, *) {
+                        GitHubContributionsWidgetEntryView(entry: entry)
+                            .containerBackground(for: .widget) {}
+                    } else {
+                        GitHubContributionsWidgetEntryView(entry: entry)
+                    }
                 }
                 .configurationDisplayName("GITGET")
                 .description("GITHUB CONTRIBUTIONS")
                 .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+                .contentMarginsDisabled()
         }
     }
 }
