@@ -7,7 +7,6 @@
 
 import WidgetKit
 import SwiftUI
-import SwiftDate
 
 struct GitHubContributionsWidgetViewModel {
     let contributions: [Contribution]
@@ -23,7 +22,7 @@ struct GitHubContributionsWidgetViewModel {
     }
     
     var todayContributionCount: Int? {
-        return contributions.filter { $0.date.isToday }.first?.count
+        return contributions.last { $0.date.isGitHubToday }?.count
     }
     
     func cellColorSet(columnsCount: Int) -> [[Color]] {
@@ -44,13 +43,17 @@ struct GitHubContributionsWidgetViewModel {
     }
     
     var invalidUsername: Bool {
-        username == .none && contributions.isEmpty
+        guard let username, !username.trimmed.isEmpty else {
+            return false
+        }
+
+        return user == nil && contributions.isEmpty
     }
     
     //for large
     var currentYearContributions: Int {
         return contributions
-            .filter { $0.date.year == Date().year }
+            .filter { $0.date.gitHubYear == Date().gitHubYear }
             .map { $0.count }.reduce(0, +)
     }
     
@@ -92,7 +95,7 @@ struct GitHubContributionsWidgetViewModel {
     }
     
     var startYear: String {
-        String(user?.createdAt?.year ?? Date().year)
+        String(user?.createdAt?.gitHubYear ?? Date().gitHubYear)
     }
 }
 

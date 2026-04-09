@@ -53,6 +53,11 @@ struct GitHubContributionsProvider: AppIntentTimelineProvider {
         let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
         let username = configuration.username?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
 
+        guard !username.isEmpty else {
+            let entry = Entry(contributions: [], configuration: configuration)
+            return Timeline(entries: [entry], policy: .after(refreshDate))
+        }
+
         async let userResponse = UserAPI.userInfo(of: username)
         async let contributionResponse = ContributionAPI.contributions(of: username)
         let (userResult, contributionsResult) = await (userResponse, contributionResponse)

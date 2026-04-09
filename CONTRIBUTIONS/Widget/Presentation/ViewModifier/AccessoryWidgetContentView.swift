@@ -21,15 +21,10 @@ struct AccessoryWidgetContentView: View {
                 Text("need GitHub username🧑🏻‍💻")
                     .modifier(NoticeTextStyle())
             } else {
-                CalendarChart(columns: 13, spacing: 1.5) { row, column in
+                CalendarChart(columns: 12, spacing: 1.5) { row, column in
                     if let color = cellColorSet.element(at: row)?.element(at: column) {
-                        if color != .level0 {
-                            Color.default4
-                                .clipShape(RoundedRectangle(cornerRadius: 1.5, style: .continuous))
-                        } else {
-                            Color.level0
-                                .clipShape(RoundedRectangle(cornerRadius: 1.5, style: .continuous))
-                        }
+                        color
+                            .clipShape(RoundedRectangle(cornerRadius: 1.5, style: .continuous))
                     } else {
                         Color.clear
                     }
