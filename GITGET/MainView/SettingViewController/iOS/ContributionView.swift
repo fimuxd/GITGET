@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ContributionView: View {
     @ObservedObject var viewModel: ContributionViewModel
@@ -20,7 +19,7 @@ struct ContributionView: View {
             } else {
                 HStack {
                     Spacer()
-                    Text("CONTRIBUTIONS".localizedStringWithFormat(viewModel.currentYearContributions) + " IN " + String(Date().year))
+                    Text("CONTRIBUTIONS".localizedStringWithFormat(viewModel.currentYearContributions) + " IN " + String(Date().gitHubYear))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(.gray)
                         .textCase(.uppercase)
@@ -109,4 +108,3 @@ struct ContributionView: View {
         }
     }
 }
-

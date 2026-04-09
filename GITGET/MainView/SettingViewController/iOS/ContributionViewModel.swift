@@ -25,7 +25,7 @@ class ContributionViewModel: ObservableObject {
     @Published var company: String = "🔦🔍👀"
     @Published var followers: String = ""
     @Published var following: String = ""
-    @Published var startYear: String = String(Date().year)
+    @Published var startYear: String = String(Date().gitHubYear)
     
     init() {
         let username = UserDefaults.standard.string(forKey: "username") ?? ""
@@ -34,10 +34,10 @@ class ContributionViewModel: ObservableObject {
     
     func setContributionComponent(_ contributionList: [Contribution]) {
         username = user?.login ?? "Anonymous"
-        todayContributionCount = contributionList.filter { $0.date.isToday }.first?.count
+        todayContributionCount = contributionList.last { $0.date.isGitHubToday }?.count
         isInitial = contributionList.isEmpty
         currentYearContributions = contributionList
-            .filter { $0.date.year == Date().year }
+            .filter { $0.date.gitHubYear == Date().gitHubYear }
             .map { $0.count }.reduce(0, +)
         name = user?.name ?? "Anonymous"
         bio = user?.bio ?? "Keep GitHub Contributions Green 🟩".localized
@@ -51,7 +51,7 @@ class ContributionViewModel: ObservableObject {
         let followingCount = user?.following ?? 0
         let formattedFolloingCount = numberFormatter.string(from: NSNumber(value: followingCount)) ?? ""
         following = formattedFolloingCount
-        startYear = String(user?.createdAt?.year ?? Date().year)
+        startYear = String(user?.createdAt?.gitHubYear ?? Date().gitHubYear)
     }
     
     
@@ -70,10 +70,19 @@ class ContributionViewModel: ObservableObject {
     }
     
     func getContributions(by username: String) {
-        UserDefaults.standard.set(username, forKey: "username")
+        let trimmedUsername = username.trimmed
+        UserDefaults.standard.set(trimmedUsername, forKey: "username")
+
+        guard !trimmedUsername.isEmpty else {
+            user = nil
+            contributions = []
+            invalidUsername = false
+            setContributionComponent([])
+            return
+        }
         
         Task {
-            let result = await UserAPI.userInfo(of: username)
+            let result = await UserAPI.userInfo(of: trimmedUsername)
             Task { @MainActor in
                 switch result {
                 case .success(let user):
@@ -87,12 +96,12 @@ class ContributionViewModel: ObservableObject {
         }
         
         Task {
-            let result = await ContributionAPI.contributions(of: username)
+            let result = await ContributionAPI.contributions(of: trimmedUsername)
             Task { @MainActor in
                 switch result {
                 case .success(let contributions):
-                    self.contributions = contributions
-                    self.setContributionComponent(contributions)
+                    self.contributions = contributions.sorted { $0.date < $1.date }
+                    self.setContributionComponent(self.contributions)
                 case .failure(let error):
                     print("xxx1", error)
                 }
