@@ -5,95 +5,28 @@
 //  Created by Bo-Young PARK on 1/4/21.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
+import SwiftUI
 
-protocol TutorialStepViewBindable {
-    var step: Signal<TutorialStep> { get }
-}
+struct TutorialStepView: View {
+    let step: TutorialStep
 
-class TutorialStepView: UIView {
-    var disposeBag = DisposeBag()
-    
-    let titleLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let imageView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        attribute()
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func bind(_ viewModel: TutorialStepViewBindable) {
-        self.disposeBag = DisposeBag()
-        
-        viewModel.step
-            .map { $0.title }
-            .emit(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.step
-            .map { $0.description }
-            .emit(to: descriptionLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        viewModel.step
-            .map { $0.image }
-            .emit(to: imageView.rx.image)
-            .disposed(by: disposeBag)
-    }
-    
-    func attribute() {
-        backgroundColor = UIColor(named: "modal_background")
-        
-        titleLabel.do {
-            $0.font = .monospacedSystemFont(ofSize: 16, weight: .bold)
-            $0.textColor = UIColor(named: "title")
-            $0.numberOfLines = 1
-            $0.translatesAutoresizingMaskIntoConstraints = false
+    var body: some View {
+        VStack(alignment: .leading, spacing: 24) {
+            Text(step.title)
+                .font(.system(size: 16, weight: .bold, design: .monospaced))
+                .foregroundColor(Color("title"))
+
+            Text(step.description)
+                .font(.system(size: 14, weight: .regular, design: .monospaced))
+                .foregroundColor(Color("title"))
+
+            Image(step.imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity)
         }
-        
-        descriptionLabel.do {
-            $0.font = .monospacedSystemFont(ofSize: 14, weight: .regular)
-            $0.textColor = UIColor(named: "title")
-            $0.numberOfLines = 0
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.sizeToFit()
-        }
-        
-        imageView.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.contentMode = .scaleAspectFit
-        }
-    }
-    
-    func layout() {
-        [titleLabel, descriptionLabel, imageView].forEach { addSubview($0) }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(42)
-        }
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(9)
-            $0.leading.equalTo(titleLabel)
-            $0.trailing.equalToSuperview().offset(-42)
-        }
-        
-        imageView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(24)
-            $0.centerX.bottom.equalToSuperview()
-            #if targetEnvironment(macCatalyst)
-            $0.width.equalToSuperview().inset(10)
-            #endif
-        }
+        .padding(.horizontal, 42)
+        .padding(.vertical, 4)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
