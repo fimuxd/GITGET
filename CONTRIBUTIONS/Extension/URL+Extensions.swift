@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import UIKit
 
 extension URL {
     static var kinestBaseURL: String = "https://typescript.nestjs.kinest1997.com"
     static var gitHubBaseURL: String = "https://api.github.com"
+    static var gitHubWebBaseURL: String = "https://github.com"
     
     static var kinestGitHubAPI: URL {
         return URL(string: kinestBaseURL + "/github")!
@@ -18,6 +18,10 @@ extension URL {
     
     static var userAPI: URL {
         return URL(string: gitHubBaseURL + "/users")!
+    }
+
+    static var gitHubContributionsAPI: URL {
+        return URL(string: gitHubWebBaseURL + "/users")!
     }
 }
 

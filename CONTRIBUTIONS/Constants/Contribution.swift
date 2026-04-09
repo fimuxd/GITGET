@@ -27,11 +27,7 @@ struct Contribution: Codable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         let dateString = try container.decode(String.self, forKey: .date)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        
-        if let date = dateFormatter.date(from: dateString) {
+        if let date = Self.date(from: dateString) {
             self.date = date
         } else {
             throw DecodingError.dataCorruptedError(forKey: .date, in: container, debugDescription: "Date string does not match format")
@@ -43,16 +39,28 @@ struct Contribution: Codable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        let dateString = dateFormatter.string(from: date)
+        let dateString = Self.string(from: date)
         
         try container.encode(dateString, forKey: .date)
         try container.encode(count, forKey: .count)
         try container.encode(level, forKey: .level)
     }
+
+    static func date(from string: String) -> Date? {
+        gitHubDateFormatter.date(from: string)
+    }
+
+    static func string(from date: Date) -> String {
+        gitHubDateFormatter.string(from: date)
+    }
+
+    private static let gitHubDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter
+    }()
 }
 
 extension Contribution.Level {

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftDate
 
 extension Date {
     func range(to: Date) -> [Date] {
@@ -38,5 +37,24 @@ extension Date {
         }
         
         return nil
+    }
+}
+
+extension Calendar {
+    static let gitHubUTC: Calendar = {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(secondsFromGMT: 0) ?? .current
+        calendar.locale = Locale(identifier: "en_US_POSIX")
+        return calendar
+    }()
+}
+
+extension Date {
+    var isGitHubToday: Bool {
+        Calendar.gitHubUTC.isDate(self, inSameDayAs: Date())
+    }
+
+    var gitHubYear: Int {
+        Calendar.gitHubUTC.component(.year, from: self)
     }
 }
