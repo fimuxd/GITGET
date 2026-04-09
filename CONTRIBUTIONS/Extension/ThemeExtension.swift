@@ -112,7 +112,7 @@ extension Theme {
         case .halloween: return .halloween4
         case .warm: return .warm4
         case .fall: return .fall4
-        case .freestyle: return .freestyle3
+        case .freestyle: return .freestyle4
         case .christmas: return .christmas4
         default: return .white
         }
@@ -181,7 +181,7 @@ extension GitHubWidgetTheme {
         case .halloween: return .halloween4
         case .warm: return .warm4
         case .fall: return .fall4
-        case .freestyle: return .freestyle3
+        case .freestyle: return .freestyle4
         case .christmas: return .christmas4
         }
     }
