@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 @available(iOS 16.0, *)
 struct AccessoryWidgetContentView: View {
-    @Environment(\.widgetFamily) var widgetFamily
-    
     let viewModel: GitHubContributionsWidgetViewModel
+
     var body: some View {
-        VStack {
+        ZStack {
+            AccessoryWidgetBackground()
+
             let cellColorSet = viewModel.cellColorSet(columnsCount: 12)
             if cellColorSet.isEmpty {
                 Text("need GitHub username🧑🏻‍💻")
@@ -22,9 +24,11 @@ struct AccessoryWidgetContentView: View {
                 CalendarChart(columns: 13, spacing: 1.5) { row, column in
                     if let color = cellColorSet.element(at: row)?.element(at: column) {
                         if color != .level0 {
-                            Color.default4.cornerRadius(1.5)
+                            Color.default4
+                                .clipShape(RoundedRectangle(cornerRadius: 1.5, style: .continuous))
                         } else {
-                            Color.level0.cornerRadius(1.5)
+                            Color.level0
+                                .clipShape(RoundedRectangle(cornerRadius: 1.5, style: .continuous))
                         }
                     } else {
                         Color.clear

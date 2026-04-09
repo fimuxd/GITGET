@@ -15,10 +15,7 @@
 		7D4467A525B2939900A90E6A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467A825B2939900A90E6A /* Localizable.strings */; };
 		7D4467C225B2940800A90E6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467C125B2940800A90E6A /* String.swift */; };
 		7D4467C325B2940800A90E6A /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467C125B2940800A90E6A /* String.swift */; };
-		7D4467DB25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */; };
-		7D4467DC25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */; };
 		7D4467F025B2B0E600A90E6A /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467EF25B2B0E600A90E6A /* Localizable.stringsdict */; };
-		7D65060E25D374BC0040AC12 /* iPadOSTutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D65060D25D374BC0040AC12 /* iPadOSTutorialStepViewModel.swift */; };
 		7D7BCAC625B446E2008DC09F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BCAC525B446E2008DC09F /* AboutViewController.swift */; };
 		7D7FD4FE259B317A0072775E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD4FD259B317A0072775E /* ColorExtension.swift */; };
 		7D7FD4FF259B317A0072775E /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD4FD259B317A0072775E /* ColorExtension.swift */; };
@@ -29,13 +26,10 @@
 		7D7FD52C259B63200072775E /* NoticeTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD52B259B63200072775E /* NoticeTextStyle.swift */; };
 		7D7FD52D259B63200072775E /* NoticeTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7FD52B259B63200072775E /* NoticeTextStyle.swift */; };
 		7D9F947225A2BADF0074C91B /* TutorialStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F947125A2BADF0074C91B /* TutorialStepView.swift */; };
-		7D9F947825A3393C0074C91B /* iOSTutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F947725A3393C0074C91B /* iOSTutorialStepViewModel.swift */; };
 		7D9F948825A33BB60074C91B /* TutorialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9F948725A33BB60074C91B /* TutorialViewModel.swift */; };
 		7DA9861B2598608700BAEAEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9861A2598608700BAEAEA /* AppDelegate.swift */; };
-		7DA9861D2598608700BAEAEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA9861C2598608700BAEAEA /* SceneDelegate.swift */; };
 		7DA986272598608900BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986262598608900BAEAEA /* Assets.xcassets */; };
 		7DA986352598608900BAEAEA /* GITGETTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986342598608900BAEAEA /* GITGETTests.swift */; };
-		7DA986762598622100BAEAEA /* iOSSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986752598622100BAEAEA /* iOSSettingViewController.swift */; };
 		7DA98685259862E500BAEAEA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98684259862E500BAEAEA /* WidgetKit.framework */; };
 		7DA98687259862E500BAEAEA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA98686259862E500BAEAEA /* SwiftUI.framework */; };
 		7DA9868D259862E600BAEAEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA9868C259862E600BAEAEA /* Assets.xcassets */; };
@@ -44,11 +38,7 @@
 		7DA986E12598936D00BAEAEA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA986E02598936D00BAEAEA /* Constants.swift */; };
 		7DA9872925997A2F00BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
 		7DA9872E25997A3000BAEAEA /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DA987242599780C00BAEAEA /* Contribution.swift */; };
-		7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */; };
 		7DC011A325D0C62E007B6D9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7D4467A825B2939900A90E6A /* Localizable.strings */; };
-		7DD5DB6325C8E04B00F0AABD /* iOSSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */; };
-		7DD5DB6825C8EBCE00F0AABD /* MacOSSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */; };
-		7DD5DB7625C8F0F700F0AABD /* MacOSSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */; };
 		7DDF5BB028CF3F1F0081848B /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5BAF28CF3F1F0081848B /* SettingView.swift */; };
 		7DDF5BB228CF40450081848B /* ContributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5BB128CF40450081848B /* ContributionViewModel.swift */; };
 		7DDF5BB428CF41270081848B /* ContributionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDF5BB328CF41270081848B /* ContributionView.swift */; };
@@ -94,7 +84,6 @@
 		7DE7AA3A2599E50100F5F4BB /* ThemeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3CAE2599973500CCD1E9 /* ThemeExtension.swift */; };
 		7DE7AA4E2599ED7900F5F4BB /* GitHubContributionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3C792599948F00CCD1E9 /* GitHubContributionsProvider.swift */; };
 		7DE7AA642599F34A00F5F4BB /* GitHubContributionsWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3C7F2599953600CCD1E9 /* GitHubContributionsWidgetViewModel.swift */; };
-		7DED5B6325B0786D00C9574E /* MacOSTutorialStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */; };
 		7DED5B6925B078B900C9574E /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DED5B6825B078B900C9574E /* Step.swift */; };
 		7DED5C3925B099CB00C9574E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA986282598608900BAEAEA /* LaunchScreen.storyboard */; };
 		7DF5F9F628CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */; };
@@ -144,28 +133,22 @@
 		7D4467B125B293A100A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7D4467B925B293A100A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		7D4467C125B2940800A90E6A /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		7D4467DD25B2991500A90E6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/GitHubWidget.intentdefinition; sourceTree = "<group>"; };
-		7D4467E725B2991B00A90E6A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/GitHubWidget.strings; sourceTree = "<group>"; };
 		7D4467EF25B2B0E600A90E6A /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
-		7D65060D25D374BC0040AC12 /* iPadOSTutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iPadOSTutorialStepViewModel.swift; sourceTree = "<group>"; };
 		7D7BCAC525B446E2008DC09F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		7D7FD4FD259B317A0072775E /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		7D7FD504259B45FC0072775E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7D7FD50B259B4DD90072775E /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		7D7FD52B259B63200072775E /* NoticeTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeTextStyle.swift; sourceTree = "<group>"; };
 		7D9F947125A2BADF0074C91B /* TutorialStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialStepView.swift; sourceTree = "<group>"; };
-		7D9F947725A3393C0074C91B /* iOSTutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTutorialStepViewModel.swift; sourceTree = "<group>"; };
 		7D9F948725A33BB60074C91B /* TutorialViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewModel.swift; sourceTree = "<group>"; };
 		7DA986172598608700BAEAEA /* GITGET.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GITGET.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA9861A2598608700BAEAEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7DA9861C2598608700BAEAEA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7DA986262598608900BAEAEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DA986292598608900BAEAEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7DA9862B2598608900BAEAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7DA986302598608900BAEAEA /* GITGETTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GITGETTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA986342598608900BAEAEA /* GITGETTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GITGETTests.swift; sourceTree = "<group>"; };
 		7DA986362598608900BAEAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7DA986752598622100BAEAEA /* iOSSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSettingViewController.swift; sourceTree = "<group>"; };
 		7DA98683259862E500BAEAEA /* CONTRIBUTIONSExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CONTRIBUTIONSExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA98684259862E500BAEAEA /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		7DA98686259862E500BAEAEA /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -174,10 +157,6 @@
 		7DA986CD2598859000BAEAEA /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		7DA986E02598936D00BAEAEA /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7DA987242599780C00BAEAEA /* Contribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contribution.swift; sourceTree = "<group>"; };
-		7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
-		7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSSettingViewModel.swift; sourceTree = "<group>"; };
-		7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSettingViewController.swift; sourceTree = "<group>"; };
-		7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSSettingViewModel.swift; sourceTree = "<group>"; };
 		7DDF5BAF28CF3F1F0081848B /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		7DDF5BB128CF40450081848B /* ContributionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionViewModel.swift; sourceTree = "<group>"; };
 		7DDF5BB328CF41270081848B /* ContributionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionView.swift; sourceTree = "<group>"; };
@@ -193,7 +172,6 @@
 		7DE7AA332599E3CE00F5F4BB /* WidgetContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContentView.swift; sourceTree = "<group>"; };
 		7DED5B3B25B072C400C9574E /* CONTRIBUTIONSExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CONTRIBUTIONSExtension.entitlements; sourceTree = "<group>"; };
 		7DED5B4025B072D700C9574E /* GITGET.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GITGET.entitlements; sourceTree = "<group>"; };
-		7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSTutorialStepViewModel.swift; sourceTree = "<group>"; };
 		7DED5B6825B078B900C9574E /* Step.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
 		7DF5F9F528CDF7A30076B977 /* AccessoryWidgetContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryWidgetContentView.swift; sourceTree = "<group>"; };
 		91A883BE2C9D389C003FA828 /* AppleMyungjo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleMyungjo.ttf; sourceTree = "<group>"; };
@@ -277,7 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				91A883BE2C9D389C003FA828 /* AppleMyungjo.ttf */,
-				7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */,
 				7DA9868C259862E600BAEAEA /* Assets.xcassets */,
 				7DA9868E259862E600BAEAEA /* Info.plist */,
 				7D4467EF25B2B0E600A90E6A /* Localizable.stringsdict */,
@@ -331,7 +308,6 @@
 			children = (
 				7DED5B4025B072D700C9574E /* GITGET.entitlements */,
 				7DA9861A2598608700BAEAEA /* AppDelegate.swift */,
-				7DA9861C2598608700BAEAEA /* SceneDelegate.swift */,
 				7DA986C82598856E00BAEAEA /* MainView */,
 				7DA986D72598859500BAEAEA /* Tutorial */,
 				7D3D3C6625998FFE00CCD1E9 /* Resource */,
@@ -377,9 +353,6 @@
 				7DA986CD2598859000BAEAEA /* TutorialViewController.swift */,
 				7D9F948725A33BB60074C91B /* TutorialViewModel.swift */,
 				7D9F947125A2BADF0074C91B /* TutorialStepView.swift */,
-				7D9F947725A3393C0074C91B /* iOSTutorialStepViewModel.swift */,
-				7DED5B6225B0786D00C9574E /* MacOSTutorialStepViewModel.swift */,
-				7D65060D25D374BC0040AC12 /* iPadOSTutorialStepViewModel.swift */,
 				7DED5B6825B078B900C9574E /* Step.swift */,
 			);
 			path = Tutorial;
@@ -397,11 +370,9 @@
 		7DD5DB7E25C8F36800F0AABD /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				7DA986752598622100BAEAEA /* iOSSettingViewController.swift */,
 				7DDF5BAF28CF3F1F0081848B /* SettingView.swift */,
 				7DDF5BB328CF41270081848B /* ContributionView.swift */,
 				7DDF5BB128CF40450081848B /* ContributionViewModel.swift */,
-				7DD5DB6225C8E04B00F0AABD /* iOSSettingViewModel.swift */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -409,8 +380,6 @@
 		7DD5DB8225C8F36E00F0AABD /* MacOS */ = {
 			isa = PBXGroup;
 			children = (
-				7DD5DB6725C8EBCE00F0AABD /* MacOSSettingViewController.swift */,
-				7DD5DB7525C8F0F700F0AABD /* MacOSSettingViewModel.swift */,
 			);
 			path = MacOS;
 			sourceTree = "<group>";
@@ -419,7 +388,6 @@
 			isa = PBXGroup;
 			children = (
 				7D7BCAC525B446E2008DC09F /* AboutViewController.swift */,
-				7DBDD8B325B6DCF1002D64E2 /* AboutViewModel.swift */,
 			);
 			path = AboutViewController;
 			sourceTree = "<group>";
@@ -652,44 +620,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7D9F947825A3393C0074C91B /* iOSTutorialStepViewModel.swift in Sources */,
-				7DD5DB7625C8F0F700F0AABD /* MacOSSettingViewModel.swift in Sources */,
 				7DE1380E2CB36922008165B5 /* UserAPI.swift in Sources */,
 				7DE138132CB36B8C008165B5 /* URL+Extensions.swift in Sources */,
 				7D7FD50C259B4DD90072775E /* DateExtension.swift in Sources */,
 				7D4467C225B2940800A90E6A /* String.swift in Sources */,
 				7DF5F9F628CDF7A30076B977 /* AccessoryWidgetContentView.swift in Sources */,
-				7DBDD8B425B6DCF1002D64E2 /* AboutViewModel.swift in Sources */,
-				7D4467DB25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */,
 				7DE7AA272599E00C00F5F4BB /* GitHubContributionsWidgetView.swift in Sources */,
 				7DDF5BB028CF3F1F0081848B /* SettingView.swift in Sources */,
-				7D65060E25D374BC0040AC12 /* iPadOSTutorialStepViewModel.swift in Sources */,
 				7DE7AA222599DFF100F5F4BB /* CalendarChart.swift in Sources */,
 				7DA9861B2598608700BAEAEA /* AppDelegate.swift in Sources */,
 				7DE1380A2CB3691F008165B5 /* ContributionAPI.swift in Sources */,
 				7D7FD52C259B63200072775E /* NoticeTextStyle.swift in Sources */,
-				7DD5DB6825C8EBCE00F0AABD /* MacOSSettingViewController.swift in Sources */,
 				7DDF5BB228CF40450081848B /* ContributionViewModel.swift in Sources */,
 				7D7BCAC625B446E2008DC09F /* AboutViewController.swift in Sources */,
 				7DE138172CB36BF1008165B5 /* String+Extensions.swift in Sources */,
 				7DA986CE2598859000BAEAEA /* TutorialViewController.swift in Sources */,
-				7DD5DB6325C8E04B00F0AABD /* iOSSettingViewModel.swift in Sources */,
 				7D9F948825A33BB60074C91B /* TutorialViewModel.swift in Sources */,
 				7DED5B6925B078B900C9574E /* Step.swift in Sources */,
 				7D7FD505259B45FD0072775E /* User.swift in Sources */,
 				7DE7AA4E2599ED7900F5F4BB /* GitHubContributionsProvider.swift in Sources */,
 				7DA986E12598936D00BAEAEA /* Constants.swift in Sources */,
 				7DDF5BB428CF41270081848B /* ContributionView.swift in Sources */,
-				7DA9861D2598608700BAEAEA /* SceneDelegate.swift in Sources */,
 				7DE7AA342599E3CE00F5F4BB /* WidgetContentView.swift in Sources */,
 				7DA9872925997A2F00BAEAEA /* Contribution.swift in Sources */,
-				7DA986762598622100BAEAEA /* iOSSettingViewController.swift in Sources */,
 				7D9F947225A2BADF0074C91B /* TutorialStepView.swift in Sources */,
 				7DE7AA2D2599E06300F5F4BB /* CalendarChartCell.swift in Sources */,
 				7DE7AA642599F34A00F5F4BB /* GitHubContributionsWidgetViewModel.swift in Sources */,
 				7DE7A9F82599B36300F5F4BB /* ArrayExtension.swift in Sources */,
 				7DE7AA3A2599E50100F5F4BB /* ThemeExtension.swift in Sources */,
-				7DED5B6325B0786D00C9574E /* MacOSTutorialStepViewModel.swift in Sources */,
 				7D7FD4FE259B317A0072775E /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -728,7 +686,6 @@
 				7D7FD50D259B4DD90072775E /* DateExtension.swift in Sources */,
 				7DE7AA352599E3CE00F5F4BB /* WidgetContentView.swift in Sources */,
 				7DE7A9EE2599B31C00F5F4BB /* ArrayExtension.swift in Sources */,
-				7D4467DC25B2991500A90E6A /* GitHubWidget.intentdefinition in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -755,15 +712,6 @@
 				7D4467B125B293A100A90E6A /* ko */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		7D4467DE25B2991500A90E6A /* GitHubWidget.intentdefinition */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7D4467DD25B2991500A90E6A /* Base */,
-				7D4467E725B2991B00A90E6A /* ko */,
-			);
-			name = GitHubWidget.intentdefinition;
 			sourceTree = "<group>";
 		};
 		7DA986282598608900BAEAEA /* LaunchScreen.storyboard */ = {
@@ -910,7 +858,7 @@
 				DEVELOPMENT_TEAM = FXHH879257;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -940,7 +888,7 @@
 				DEVELOPMENT_TEAM = FXHH879257;
 				INFOPLIST_FILE = GITGET/Resource/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -965,7 +913,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = GITGETTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -986,7 +934,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3GBKG7DTJY;
 				INFOPLIST_FILE = GITGETTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1012,7 +960,7 @@
 				DEVELOPMENT_TEAM = FXHH879257;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1042,7 +990,7 @@
 				DEVELOPMENT_TEAM = FXHH879257;
 				INFOPLIST_FILE = CONTRIBUTIONS/Resource/Info.plist;
 				INTENTS_CODEGEN_LANGUAGE = Swift;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

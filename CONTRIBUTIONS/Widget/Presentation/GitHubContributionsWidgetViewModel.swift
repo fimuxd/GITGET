@@ -11,10 +11,10 @@ import SwiftDate
 
 struct GitHubContributionsWidgetViewModel {
     let contributions: [Contribution]
-    let configuration: ConfigurationIntent
+    let configuration: GitHubContributionsWidgetIntent
     var user: User? = nil
     
-    var theme: Theme {
+    var theme: GitHubWidgetTheme {
         configuration.theme
     }
     

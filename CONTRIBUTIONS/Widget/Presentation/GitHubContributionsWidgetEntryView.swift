@@ -9,69 +9,48 @@ import SwiftUI
 
 struct GitHubContributionsWidgetEntryView: View {
     @Environment(\.widgetFamily) var widgetFamily
+    @Environment(\.widgetContentMargins) private var widgetContentMargins
     let entry: GitHubContributionsWidgetViewModel
     
     var body: some View {
         if entry.invalidUsername {
-            if #available(iOSApplicationExtension 17.0, *) {
-                Text("invalid username😢")
-                    .modifier(NoticeTextStyle())
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(Color.halloween3)
-                    .containerBackground(for: .widget) {}
-            } else {
-                Text("invalid username😢")
-                    .modifier(NoticeTextStyle())
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(Color.halloween3)
-            }
-        } else if #available(iOSApplicationExtension 16.0, *) {
-            switch widgetFamily {
-            case .systemSmall:
-                GitHubContributionsWidgetView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
-            case .systemMedium:
-                GitHubContributionsWidgetView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
-            case .systemLarge:
-                GitHubContributionsWidgetView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
-            case .accessoryRectangular:
-                AccessoryWidgetContentView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
-            default:
-                EmptyView()
-            }
+            invalidUsernameView
         } else {
             switch widgetFamily {
             case .systemSmall:
                 GitHubContributionsWidgetView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
+                    .widgetContainerBackground(color: entry.isInitial ? .default4 : .background)
+                    .padding(widgetContentMargins)
             case .systemMedium:
                 GitHubContributionsWidgetView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
+                    .widgetContainerBackground(color: entry.isInitial ? .default4 : .background)
+                    .padding(widgetContentMargins)
             case .systemLarge:
                 GitHubContributionsWidgetView(viewModel: entry)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .padding()
-                    .background(entry.isInitial ? Color.default4 : Color.background)
+                    .widgetContainerBackground(color: entry.isInitial ? .default4 : .background)
+                    .padding(widgetContentMargins)
+            case .accessoryRectangular:
+                AccessoryWidgetContentView(viewModel: entry)
+                    .padding(widgetContentMargins)
             default:
                 EmptyView()
             }
+        }
+    }
+
+    private var invalidUsernameView: some View {
+        Text("invalid username😢")
+            .modifier(NoticeTextStyle())
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(widgetContentMargins)
+            .widgetContainerBackground(color: .halloween3)
+    }
+}
+
+private extension View {
+    func widgetContainerBackground(color: Color) -> some View {
+        containerBackground(for: .widget) {
+            color
         }
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct WidgetContentView: SwiftUI.View {
     @Environment(\.widgetFamily) var widgetFamily
@@ -121,5 +120,6 @@ struct WidgetContentView: SwiftUI.View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }

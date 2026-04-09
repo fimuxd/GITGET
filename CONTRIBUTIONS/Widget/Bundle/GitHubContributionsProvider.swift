@@ -5,12 +5,34 @@
 //  Created by Bo-Young PARK on 12/28/20.
 //
 
+import Foundation
+import AppIntents
 import WidgetKit
-import Combine
 
-class GitHubContributionsProvider: IntentTimelineProvider {
+struct GitHubContributionsWidgetIntent: WidgetConfigurationIntent {
+    static var title: LocalizedStringResource = "CONTRIBUTIONS"
+    static var description = IntentDescription("GitHub contributions")
+
+    @Parameter(title: "username")
+    var username: String?
+
+    @Parameter(title: "theme", default: .default)
+    var theme: GitHubWidgetTheme
+
+    init() {
+        username = nil
+        theme = .default
+    }
+
+    init(username: String? = nil, theme: GitHubWidgetTheme = .default) {
+        self.username = username
+        self.theme = theme
+    }
+}
+
+struct GitHubContributionsProvider: AppIntentTimelineProvider {
     typealias Entry = GitHubContributionsWidgetViewModel
-    typealias Intent = ConfigurationIntent
+    typealias Intent = GitHubContributionsWidgetIntent
     
     func placeholder(in context: Context) -> Entry {
         let currentDate = Date()
@@ -19,43 +41,34 @@ class GitHubContributionsProvider: IntentTimelineProvider {
         return Entry(contributions: contributions, configuration: Intent())
     }
 
-    func getSnapshot(for configuration: Intent, in context: Context, completion: @escaping (Entry) -> Void) {
+    func snapshot(for configuration: Intent, in context: Context) async -> Entry {
         let currentDate = Date()
         let dateRange = Calendar.current.date(byAdding: .year, value: -1, to: currentDate)?.range(to: currentDate) ?? []
         let contributions = dateRange.map { Contribution(date: $0, count: .random(in: 0...20), level: .random()) }
-        completion(Entry(contributions: contributions, configuration: configuration))
+        return Entry(contributions: contributions, configuration: configuration)
     }
 
-    func getTimeline(for configuration: Intent, in context: Context, completion: @escaping (Timeline<Entry>) -> Void) {
+    func timeline(for configuration: Intent, in context: Context) async -> Timeline<Entry> {
         let currentDate = Date()
         let refreshDate = Calendar.current.date(byAdding: .minute, value: 5, to: currentDate)!
-        let username = configuration.username?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-        
-        Task {
-            async let userResponse = UserAPI.userInfo(of: username)
-            async let contributionResponse = ContributionAPI.contributions(of: username)
-            let (userResult, contributionsResult) = await (userResponse, contributionResponse)
-            
-            await MainActor.run {
-                switch (userResult, contributionsResult) {
-                case (.success(let user), .success(let contributions)):
-                    let entry = Entry(contributions: contributions, configuration: configuration, user: user)
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                case (.failure, .success(let contributions)):
-                    let entry = Entry(contributions: contributions, configuration: configuration)
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                case (.success(let user), .failure):
-                    let entry = Entry(contributions: [], configuration: configuration, user: user)
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                case (.failure, .failure):
-                    let entry = Entry(contributions: [], configuration: configuration)
-                    let timeline = Timeline(entries: [entry], policy: .after(refreshDate))
-                    completion(timeline)
-                }
-            }
+        let username = configuration.username?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? ""
+
+        async let userResponse = UserAPI.userInfo(of: username)
+        async let contributionResponse = ContributionAPI.contributions(of: username)
+        let (userResult, contributionsResult) = await (userResponse, contributionResponse)
+
+        let entry: Entry
+        switch (userResult, contributionsResult) {
+        case (.success(let user), .success(let contributions)):
+            entry = Entry(contributions: contributions, configuration: configuration, user: user)
+        case (.failure, .success(let contributions)):
+            entry = Entry(contributions: contributions, configuration: configuration)
+        case (.success(let user), .failure):
+            entry = Entry(contributions: [], configuration: configuration, user: user)
+        case (.failure, .failure):
+            entry = Entry(contributions: [], configuration: configuration)
         }
+
+        return Timeline(entries: [entry], policy: .after(refreshDate))
     }
 }
