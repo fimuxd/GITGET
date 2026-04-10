@@ -33,6 +33,10 @@ struct GitHubContributionsWidgetIntent: WidgetConfigurationIntent {
 struct GitHubContributionsProvider: AppIntentTimelineProvider {
     typealias Entry = GitHubContributionsWidgetViewModel
     typealias Intent = GitHubContributionsWidgetIntent
+
+    static func gitHubAccount(for username: String) -> ContributionAccount {
+        ContributionAccount(provider: .github, username: username)
+    }
     
     func placeholder(in context: Context) -> Entry {
         let currentDate = Date()
@@ -58,7 +62,7 @@ struct GitHubContributionsProvider: AppIntentTimelineProvider {
             return Timeline(entries: [entry], policy: .after(refreshDate))
         }
 
-        let account = ContributionAccount(provider: .github, username: username)
+        let account = Self.gitHubAccount(for: username)
         async let userResponse = UserAPI.userInfo(of: account)
         async let contributionResponse = ContributionAPI.contributions(of: account)
         let (userResult, contributionsResult) = await (userResponse, contributionResponse)
