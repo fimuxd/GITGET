@@ -58,9 +58,22 @@ struct AboutView: View {
                 .foregroundColor(Color("about_label"))
                 .padding(.top, 20)
 
+            VStack(spacing: 8) {
+                Text("GitGet is a team contribution companion for comparing saved members, spotting momentum, and checking yearly activity at a glance.")
+                    .font(.system(size: 13, weight: .regular, design: .monospaced))
+                    .foregroundColor(Color("title"))
+                    .multilineTextAlignment(.center)
+
+                Text("The app view supports team-based comparison and insights. Home and lock screen widgets still stay GitHub-only today.")
+                    .font(.system(size: 12, weight: .regular, design: .monospaced))
+                    .foregroundColor(Color("about_label"))
+                    .multilineTextAlignment(.center)
+            }
+            .padding(.top, 18)
+
             VStack(spacing: 30) {
                 actionButton(title: "Rate GitGet".localized, menu: .rating)
-                actionButton(title: "Support".localized, menu: .sendMail)
+                actionButton(title: "Support & Feedback".localized, menu: .sendMail)
 
                 HStack(spacing: 20) {
                     socialButton(imageName: "logo_github", menu: .gitHub)
@@ -69,7 +82,7 @@ struct AboutView: View {
                 }
                 .padding(.top, 6)
             }
-            .padding(.top, 50)
+            .padding(.top, 34)
 
             Spacer()
         }
