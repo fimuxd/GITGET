@@ -18,33 +18,11 @@ enum SettingMenu {
     case instagram
 }
 
-private enum UITestPresentedDestination: String, Identifiable {
-    case review
-    case mail
-    case github
-    case linkedin
-    case instagram
-
-    var id: String { rawValue }
-
-    var title: String {
-        switch self {
-        case .review: return "Review Prompt"
-        case .mail: return "Mail Composer"
-        case .github: return "GitHub"
-        case .linkedin: return "LinkedIn"
-        case .instagram: return "Instagram"
-        }
-    }
-}
-
 struct AboutView: View {
     @State private var selectedMenu: SettingMenu?
     @State private var isShowingMailComposer = false
     @State private var safariURL: URL?
-    @State private var uiTestDestination: UITestPresentedDestination?
-
-    private let isUITestMode = ProcessInfo.processInfo.environment["GITGET_UI_TEST_MODE"] == "1"
+    @State private var previewSheet: UITestPreviewSheet?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -57,6 +35,7 @@ struct AboutView: View {
                 .font(.system(size: 16, weight: .bold, design: .monospaced))
                 .foregroundColor(Color("about_label"))
                 .padding(.top, 20)
+                .accessibilityIdentifier("about-title")
 
             VStack(spacing: 8) {
                 Text("GitGet is a team contribution companion for comparing saved members, spotting momentum, and checking yearly activity at a glance.")
@@ -89,6 +68,7 @@ struct AboutView: View {
         .padding(.horizontal, 24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("modal_background"))
+        .accessibilityIdentifier("about-sheet")
         .onChange(of: selectedMenu) { _, menu in
             guard let menu else { return }
             handle(menu)
@@ -97,8 +77,23 @@ struct AboutView: View {
         .sheet(isPresented: $isShowingMailComposer) {
             MailComposeView()
         }
-        .sheet(item: $uiTestDestination) { destination in
-            UITestDestinationView(destination: destination)
+        .sheet(item: $previewSheet) { sheet in
+            NavigationStack {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text(sheet.title)
+                        .font(.system(size: 20, weight: .bold, design: .monospaced))
+                    Text(sheet.message)
+                        .font(.system(size: 14, design: .monospaced))
+                    Button("Close") {
+                        previewSheet = nil
+                    }
+                    .accessibilityIdentifier("preview-sheet-close-button")
+                }
+                .padding(24)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .navigationTitle(sheet.title)
+            }
+            .accessibilityIdentifier("preview-sheet-\(sheet.id)")
         }
         .sheet(
             isPresented: Binding(
@@ -118,14 +113,16 @@ struct AboutView: View {
     }
 
     private func actionButton(title: String, menu: SettingMenu) -> some View {
-        Button(title) {
+        Button {
             selectedMenu = menu
+        } label: {
+            Text(title)
+                .accessibilityIdentifier(identifier(for: menu))
         }
         .font(.system(size: 18, weight: .bold, design: .monospaced))
         .foregroundColor(Color("title"))
         .buttonStyle(.plain)
-        .accessibilityIdentifier(accessibilityIdentifier(for: menu))
-        .accessibilityLabel(isUITestMode ? accessibilityIdentifier(for: menu) : title)
+        .accessibilityIdentifier(identifier(for: menu))
     }
 
     private func socialButton(imageName: String, menu: SettingMenu) -> some View {
@@ -138,24 +135,13 @@ struct AboutView: View {
                 .frame(width: 32, height: 32)
         }
         .buttonStyle(.plain)
-        .accessibilityIdentifier(accessibilityIdentifier(for: menu))
-        .accessibilityLabel(accessibilityIdentifier(for: menu))
+        .accessibilityLabel(label(for: menu))
+        .accessibilityIdentifier(identifier(for: menu))
     }
 
     private func handle(_ menu: SettingMenu) {
-        if isUITestMode {
-            switch menu {
-            case .rating:
-                uiTestDestination = .review
-            case .sendMail:
-                uiTestDestination = .mail
-            case .gitHub:
-                uiTestDestination = .github
-            case .linkedin:
-                uiTestDestination = .linkedin
-            case .instagram:
-                uiTestDestination = .instagram
-            }
+        if UITestSupport.isPreviewingExternalFlows {
+            preview(menu)
             return
         }
 
@@ -172,6 +158,51 @@ struct AboutView: View {
             open(SystemConstants.SNS.linkedinDirect, fallback: SystemConstants.SNS.linkedin)
         case .instagram:
             open(SystemConstants.SNS.instagramDirect, fallback: SystemConstants.SNS.instagram)
+        }
+    }
+
+    private func preview(_ menu: SettingMenu) {
+        switch menu {
+        case .rating:
+            previewSheet = .review
+        case .sendMail:
+            previewSheet = .mail
+        case .gitHub:
+            previewSheet = .browser(title: "GitHub", url: SystemConstants.SNS.github)
+        case .linkedin:
+            previewSheet = .browser(title: "LinkedIn", url: SystemConstants.SNS.linkedin)
+        case .instagram:
+            previewSheet = .browser(title: "Instagram", url: SystemConstants.SNS.instagram)
+        }
+    }
+
+    private func identifier(for menu: SettingMenu) -> String {
+        switch menu {
+        case .rating:
+            return "about-rate-button"
+        case .sendMail:
+            return "about-support-button"
+        case .gitHub:
+            return "about-github-button"
+        case .linkedin:
+            return "about-linkedin-button"
+        case .instagram:
+            return "about-instagram-button"
+        }
+    }
+
+    private func label(for menu: SettingMenu) -> String {
+        switch menu {
+        case .rating:
+            return "Rate GitGet"
+        case .sendMail:
+            return "Support"
+        case .gitHub:
+            return "GitHub"
+        case .linkedin:
+            return "LinkedIn"
+        case .instagram:
+            return "Instagram"
         }
     }
 
@@ -201,40 +232,6 @@ struct AboutView: View {
         }
     }
 
-    private func accessibilityIdentifier(for menu: SettingMenu) -> String {
-        switch menu {
-        case .rating:
-            return "about.rateButton"
-        case .sendMail:
-            return "about.supportButton"
-        case .gitHub:
-            return "about.githubButton"
-        case .linkedin:
-            return "about.linkedinButton"
-        case .instagram:
-            return "about.instagramButton"
-        }
-    }
-}
-
-private struct UITestDestinationView: View {
-    @Environment(\.dismiss) private var dismiss
-    let destination: UITestPresentedDestination
-
-    var body: some View {
-        VStack(spacing: 16) {
-            Text(destination.title)
-                .font(.headline)
-            Text("UI Test Stub")
-                .font(.subheadline)
-            Button("Close") {
-                dismiss()
-            }
-            .accessibilityIdentifier("about.stub.closeButton")
-        }
-        .padding()
-        .accessibilityIdentifier("about.stub.\(destination.rawValue)")
-    }
 }
 
 private struct MailComposeView: UIViewControllerRepresentable {

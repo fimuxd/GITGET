@@ -39,12 +39,12 @@ struct TutorialView: View {
                             .font(.title2)
                             .foregroundColor(Color("title"))
                     }
-                    .accessibilityIdentifier("tutorial.closeButton")
+                    .accessibilityIdentifier("tutorial-close-button")
                 }
             }
         }
         .presentationDragIndicator(.visible)
-        .accessibilityIdentifier("tutorial.root")
+        .accessibilityIdentifier("tutorial-sheet")
     }
 
     private var tutorialIntroCard: some View {
