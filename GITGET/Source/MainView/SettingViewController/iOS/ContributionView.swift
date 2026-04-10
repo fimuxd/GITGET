@@ -40,6 +40,7 @@ struct ContributionView: View {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(theme.levelFourColor.opacity(0.18), lineWidth: 1)
         )
+        .accessibilityIdentifier("friends.profileCard.\(profile.id)")
     }
 
     private var header: some View {
@@ -48,12 +49,14 @@ struct ContributionView: View {
                 Text(profile.name)
                     .font(.system(size: 18, weight: .bold, design: .monospaced))
                     .foregroundColor(.blackAndWhite4)
+                    .accessibilityIdentifier("friends.profileName.\(profile.id)")
 
                 HStack(spacing: 8) {
                     providerBadge
                     Text("@\(profile.username)")
                         .font(.system(size: 12, weight: .medium, design: .monospaced))
                         .foregroundColor(.blackAndWhite3)
+                        .accessibilityIdentifier("friends.profileUsername.\(profile.id)")
                 }
             }
 
@@ -114,6 +117,7 @@ struct ContributionView: View {
             Text(profile.bio)
                 .font(.system(size: 12, design: .monospaced))
                 .foregroundColor(.blackAndWhite4)
+                .accessibilityIdentifier("friends.profileBio.\(profile.id)")
 
             labelRow(icon: "location.circle", text: profile.location)
             labelRow(icon: "building", text: profile.company)

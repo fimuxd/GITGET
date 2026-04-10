@@ -25,6 +25,7 @@ struct SettingView: View {
                 }
         }
         .tint(viewModel.selectedTheme.levelFourColor)
+        .accessibilityIdentifier("setting.tabView")
     }
 
     private var friendsTab: some View {
@@ -44,6 +45,7 @@ struct SettingView: View {
                     } label: {
                         Image(systemName: "arrow.clockwise")
                     }
+                    .accessibilityIdentifier("friends.refreshButton")
                 }
             }
         }
@@ -57,6 +59,7 @@ struct SettingView: View {
                 }
             }
             .pickerStyle(.segmented)
+            .accessibilityIdentifier("friends.providerPicker")
 
             HStack(spacing: 12) {
                 TextField("Enter username", text: $viewModel.enteredUserName)
@@ -64,6 +67,7 @@ struct SettingView: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .submitLabel(.done)
+                    .accessibilityIdentifier("friends.usernameField")
                     .onSubmit {
                         viewModel.addAccount()
                     }
@@ -72,6 +76,7 @@ struct SettingView: View {
                     viewModel.addAccount()
                 }
                 .buttonStyle(.borderedProminent)
+                .accessibilityIdentifier("friends.addButton")
             }
 
             TextField(
@@ -84,6 +89,7 @@ struct SettingView: View {
             .autocorrectionDisabled()
             .keyboardType(.URL)
             .textContentType(.URL)
+            .accessibilityIdentifier("friends.serverOriginField")
 
             Text("Optional for GitHub Enterprise Server or self-managed GitLab.")
                 .font(.system(size: 12, design: .monospaced))
@@ -99,6 +105,7 @@ struct SettingView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("No friends yet")
                         .font(.system(size: 18, weight: .bold, design: .monospaced))
+                        .accessibilityIdentifier("friends.emptyStateTitle")
                     Text("Start with your own account, then add teammates or friends to compare activity at a glance.")
                         .font(.system(size: 13, design: .monospaced))
                         .foregroundColor(.secondary)
@@ -142,10 +149,12 @@ struct SettingView: View {
                     Button("How To Use") {
                         showHowToUse = true
                     }
+                    .accessibilityIdentifier("settings.howToUseButton")
 
                     Button("About") {
                         showAbout = true
                     }
+                    .accessibilityIdentifier("settings.aboutButton")
                 }
 
                 Section("Roadmap") {

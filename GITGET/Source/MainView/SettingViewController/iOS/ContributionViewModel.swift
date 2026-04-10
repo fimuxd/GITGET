@@ -47,6 +47,8 @@ struct ContributionProfile: Identifiable {
 
 @MainActor
 final class ContributionViewModel: ObservableObject {
+    private let processInfo = ProcessInfo.processInfo
+
     @Published var enteredUserName: String = ""
     @Published var enteredServerOrigin: String = ""
     @Published var selectedProvider: ContributionProvider = .github
@@ -61,6 +63,10 @@ final class ContributionViewModel: ObservableObject {
     private static let themeKey = "selectedTheme"
 
     init() {
+        if applyUITestStateIfNeeded() {
+            return
+        }
+
         if let rawValue = UserDefaults.standard.object(forKey: Self.themeKey) as? Int,
            let theme = Theme(rawValue: rawValue) {
             selectedTheme = theme
@@ -242,5 +248,74 @@ final class ContributionViewModel: ObservableObject {
             profiles.insert(profile, at: 0)
             persistAccounts()
         }
+    }
+
+    private func applyUITestStateIfNeeded() -> Bool {
+        guard processInfo.environment["GITGET_UI_TEST_MODE"] == "1" else {
+            return false
+        }
+
+        if let rawValue = Theme.default.rawValue as Int? {
+            UserDefaults.standard.set(rawValue, forKey: Self.themeKey)
+        }
+
+        switch processInfo.environment["GITGET_UI_TEST_STATE"] {
+        case "populated":
+            applyPopulatedUITestState()
+        default:
+            applyInitialUITestState()
+        }
+
+        return true
+    }
+
+    private func applyInitialUITestState() {
+        enteredUserName = ""
+        enteredServerOrigin = ""
+        selectedProvider = .github
+        selectedTheme = .default
+        profiles = []
+    }
+
+    private func applyPopulatedUITestState() {
+        applyInitialUITestState()
+        profiles = [Self.makeMockProfile()]
+    }
+
+    private static func makeMockProfile() -> ContributionProfile {
+        let account = ContributionAccount(provider: .github, username: "octocat")
+
+        let user = User(
+            login: "octocat",
+            name: "The Octocat",
+            profileImageURL: "https://github.com/images/error/octocat_happy.gif",
+            bio: "GitHub contribution test fixture",
+            location: "San Francisco",
+            company: "GitHub",
+            followers: 3939,
+            following: 9,
+            createdAt: Contribution.date(from: "2020-01-01")
+        )
+
+        let calendar = Calendar.gitHubUTC
+        let today = calendar.startOfDay(for: Date())
+        let contributions = (0..<140).compactMap { offset -> Contribution? in
+            guard let date = calendar.date(byAdding: .day, value: offset - 139, to: today) else {
+                return nil
+            }
+
+            let levelRawValue = offset % Contribution.Level.allCases.count
+            let level = Contribution.Level(rawValue: levelRawValue) ?? .zero
+            let count = level == .zero ? 0 : levelRawValue * 3
+            return Contribution(date: date, count: count, level: level)
+        }
+
+        return ContributionProfile(
+            account: account,
+            user: user,
+            contributions: contributions,
+            isLoading: false,
+            errorMessage: nil
+        )
     }
 }
