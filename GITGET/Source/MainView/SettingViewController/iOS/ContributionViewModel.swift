@@ -37,6 +37,13 @@ struct ContributionProfile: Identifiable {
     var hasContent: Bool {
         !contributions.isEmpty
     }
+    var uiIdentifier: String {
+        let usernameToken = account.username
+            .lowercased()
+            .replacingOccurrences(of: "[^a-z0-9]+", with: "-", options: .regularExpression)
+            .trimmingCharacters(in: CharacterSet(charactersIn: "-"))
+        return "\(account.provider.rawValue)-\(usernameToken)"
+    }
 
     private static func formattedCount(_ count: Int) -> String {
         let numberFormatter = NumberFormatter()
@@ -63,6 +70,11 @@ final class ContributionViewModel: ObservableObject {
     private static let themeKey = "selectedTheme"
 
     init() {
+        if UITestSupport.isEnabled {
+            profiles = UITestSupport.seededProfiles()
+            return
+        }
+
         if applyUITestStateIfNeeded() {
             return
         }
@@ -138,6 +150,11 @@ final class ContributionViewModel: ObservableObject {
 
     func refreshProfile(for account: ContributionAccount) {
         setLoading(true, for: account.id)
+
+        guard !UITestSupport.isEnabled else {
+            apply(UITestSupport.makeProfile(for: account))
+            return
+        }
 
         Task {
             async let userResult = UserAPI.userInfo(of: account)
