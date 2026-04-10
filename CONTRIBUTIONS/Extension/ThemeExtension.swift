@@ -8,7 +8,7 @@
 import AppIntents
 import SwiftUI
 
-enum Theme: Int {
+enum Theme: Int, CaseIterable {
     case unknown = 0
     case `default` = 1
     case classic = 2
@@ -19,6 +19,27 @@ enum Theme: Int {
     case fall = 7
     case freestyle = 8
     case christmas = 9
+}
+
+extension Theme {
+    static var selectableCases: [Theme] {
+        allCases.filter { $0 != .unknown }
+    }
+
+    var displayName: String {
+        switch self {
+        case .default: return "Original"
+        case .classic: return "Classic"
+        case .blackAndWhite: return "Go"
+        case .jejuOcean: return "Ocean"
+        case .halloween: return "Halloween"
+        case .warm: return "Warm"
+        case .fall: return "Ginkgo"
+        case .freestyle: return "Freestyle"
+        case .christmas: return "Christmas"
+        case .unknown: return "Unknown"
+        }
+    }
 }
 
 enum GitHubWidgetTheme: String, AppEnum {
