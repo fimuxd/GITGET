@@ -28,5 +28,6 @@ struct TutorialStepView: View {
         .padding(.horizontal, 42)
         .padding(.vertical, 4)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .accessibilityIdentifier("tutorial.step.\(step.id)")
     }
 }

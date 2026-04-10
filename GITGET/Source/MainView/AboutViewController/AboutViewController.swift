@@ -18,10 +18,33 @@ enum SettingMenu {
     case instagram
 }
 
+private enum UITestPresentedDestination: String, Identifiable {
+    case review
+    case mail
+    case github
+    case linkedin
+    case instagram
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .review: return "Review Prompt"
+        case .mail: return "Mail Composer"
+        case .github: return "GitHub"
+        case .linkedin: return "LinkedIn"
+        case .instagram: return "Instagram"
+        }
+    }
+}
+
 struct AboutView: View {
     @State private var selectedMenu: SettingMenu?
     @State private var isShowingMailComposer = false
     @State private var safariURL: URL?
+    @State private var uiTestDestination: UITestPresentedDestination?
+
+    private let isUITestMode = ProcessInfo.processInfo.environment["GITGET_UI_TEST_MODE"] == "1"
 
     var body: some View {
         VStack(spacing: 0) {
@@ -61,6 +84,9 @@ struct AboutView: View {
         .sheet(isPresented: $isShowingMailComposer) {
             MailComposeView()
         }
+        .sheet(item: $uiTestDestination) { destination in
+            UITestDestinationView(destination: destination)
+        }
         .sheet(
             isPresented: Binding(
                 get: { safariURL != nil },
@@ -75,6 +101,7 @@ struct AboutView: View {
                 SafariView(url: safariURL)
             }
         }
+        .accessibilityIdentifier("about.root")
     }
 
     private func actionButton(title: String, menu: SettingMenu) -> some View {
@@ -84,6 +111,8 @@ struct AboutView: View {
         .font(.system(size: 18, weight: .bold, design: .monospaced))
         .foregroundColor(Color("title"))
         .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityIdentifier(for: menu))
+        .accessibilityLabel(isUITestMode ? accessibilityIdentifier(for: menu) : title)
     }
 
     private func socialButton(imageName: String, menu: SettingMenu) -> some View {
@@ -96,9 +125,27 @@ struct AboutView: View {
                 .frame(width: 32, height: 32)
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityIdentifier(for: menu))
+        .accessibilityLabel(accessibilityIdentifier(for: menu))
     }
 
     private func handle(_ menu: SettingMenu) {
+        if isUITestMode {
+            switch menu {
+            case .rating:
+                uiTestDestination = .review
+            case .sendMail:
+                uiTestDestination = .mail
+            case .gitHub:
+                uiTestDestination = .github
+            case .linkedin:
+                uiTestDestination = .linkedin
+            case .instagram:
+                uiTestDestination = .instagram
+            }
+            return
+        }
+
         switch menu {
         case .rating:
             requestReview()
@@ -139,6 +186,41 @@ struct AboutView: View {
                 safariURL = fallbackURL
             }
         }
+    }
+
+    private func accessibilityIdentifier(for menu: SettingMenu) -> String {
+        switch menu {
+        case .rating:
+            return "about.rateButton"
+        case .sendMail:
+            return "about.supportButton"
+        case .gitHub:
+            return "about.githubButton"
+        case .linkedin:
+            return "about.linkedinButton"
+        case .instagram:
+            return "about.instagramButton"
+        }
+    }
+}
+
+private struct UITestDestinationView: View {
+    @Environment(\.dismiss) private var dismiss
+    let destination: UITestPresentedDestination
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text(destination.title)
+                .font(.headline)
+            Text("UI Test Stub")
+                .font(.subheadline)
+            Button("Close") {
+                dismiss()
+            }
+            .accessibilityIdentifier("about.stub.closeButton")
+        }
+        .padding()
+        .accessibilityIdentifier("about.stub.\(destination.rawValue)")
     }
 }
 

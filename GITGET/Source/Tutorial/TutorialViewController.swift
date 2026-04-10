@@ -26,6 +26,7 @@ struct TutorialView: View {
                 .padding(.top, 22)
                 .padding(.bottom, 10)
             }
+            .accessibilityIdentifier("tutorial.scrollView")
             .background(Color("modal_background"))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -36,9 +37,11 @@ struct TutorialView: View {
                             .font(.title2)
                             .foregroundColor(Color("title"))
                     }
+                    .accessibilityIdentifier("tutorial.closeButton")
                 }
             }
         }
         .presentationDragIndicator(.visible)
+        .accessibilityIdentifier("tutorial.root")
     }
 }
