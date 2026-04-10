@@ -85,7 +85,7 @@ struct SettingView: View {
             .keyboardType(.URL)
             .textContentType(.URL)
 
-            Text("Optional for GitHub Enterprise Server or self-managed GitLab. Example: https://tw-gitlab.t-wal.com")
+            Text("Optional for GitHub Enterprise Server or self-managed GitLab.")
                 .font(.system(size: 12, design: .monospaced))
                 .foregroundColor(.secondary)
         } header: {

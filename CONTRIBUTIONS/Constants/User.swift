@@ -25,7 +25,7 @@ enum ContributionProvider: String, CaseIterable, Codable, Identifiable {
         case .github:
             return "https://github.example.com"
         case .gitlab:
-            return "https://tw-gitlab.t-wal.com"
+            return "https://gitlab.example.com"
         }
     }
 
