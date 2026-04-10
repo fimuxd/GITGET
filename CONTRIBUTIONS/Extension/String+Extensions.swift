@@ -8,6 +8,14 @@
 import Foundation
 
 extension String {
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+
+    func localizedStringWithFormat(_ argument: CVarArg) -> String {
+        return .localizedStringWithFormat(self.localized, argument)
+    }
+
     func toURL() -> URL? {
         return URL(string: self.trimmed)
     }

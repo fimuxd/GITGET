@@ -5,20 +5,30 @@
 //  Created by Bo-Young Park on 2024-10-07.
 //
 
-import SwiftUI
+import Foundation
 import Alamofire
 
-/**
- GitHub 에서 제공하는 user 정보 API
- */
 enum UserAPI {
-    static func userInfo(of username: String) async -> Result<User, Error> {
-        let urlRequest = try! Router.userInfo(username).asURLRequest()
-        
+    static func userInfo(of account: ContributionAccount) async -> Result<User, Error> {
+        switch account.provider {
+        case .github:
+            return await gitHubUserInfo(of: account)
+        case .gitlab:
+            return await gitLabUserInfo(of: account)
+        }
+    }
+
+    static func userInfo(of username: String, provider: ContributionProvider, serverOrigin: String? = nil) async -> Result<User, Error> {
+        await userInfo(of: ContributionAccount(provider: provider, username: username, serverOrigin: serverOrigin))
+    }
+
+    private static func gitHubUserInfo(of account: ContributionAccount) async -> Result<User, Error> {
+        let urlRequest = try! Router.gitHubUserInfo(account).asURLRequest()
+
         let response = await AF.request(urlRequest)
             .serializingData()
             .response
-        
+
         switch response.result {
         case .failure(let error):
             return .failure(error)
@@ -31,31 +41,50 @@ enum UserAPI {
             }
         }
     }
+
+    private static func gitLabUserInfo(of account: ContributionAccount) async -> Result<User, Error> {
+        let urlRequest = try! Router.gitLabUsers(account).asURLRequest()
+
+        let response = await AF.request(urlRequest)
+            .serializingData()
+            .response
+
+        switch response.result {
+        case .failure(let error):
+            return .failure(error)
+        case .success(let result):
+            do {
+                let users = try JSONDecoder().decode([User].self, from: result)
+                guard let user = users.first else {
+                    return .failure(AFError.responseValidationFailed(reason: .dataFileNil))
+                }
+                return .success(user)
+            } catch {
+                return .failure(error)
+            }
+        }
+    }
 }
 
 extension UserAPI {
     enum Router: URLRequestConvertible {
-        case userInfo(_ username: String)
-        
-        var baseURL: URL { .userAPI }
-        
-        var method: HTTPMethod {
-            switch self {
-            case .userInfo:
-                return .get
-            }
-        }
-        
+        case gitHubUserInfo(_ account: ContributionAccount)
+        case gitLabUsers(_ account: ContributionAccount)
+
+        var method: HTTPMethod { .get }
+
         var headers: HTTPHeaders {
-            return ["Content-Type": "application/json"]
+            ["Content-Type": "application/json"]
         }
-        
+
         func asURLRequest() throws -> URLRequest {
-            var url = baseURL
-            
             switch self {
-            case .userInfo(let username):
-                url = url.appending(username)!
+            case .gitHubUserInfo(let account):
+                let url = URL.userAPI(account: account).appending(account.username)!
+                return try URLRequest(url: url, method: method, headers: headers)
+
+            case .gitLabUsers(let account):
+                let url = URL.userAPI(account: account).appendingQuery(name: "username", value: account.username)
                 return try URLRequest(url: url, method: method, headers: headers)
             }
         }

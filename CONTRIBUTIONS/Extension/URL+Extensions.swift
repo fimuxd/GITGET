@@ -11,6 +11,8 @@ extension URL {
     static var kinestBaseURL: String = "https://typescript.nestjs.kinest1997.com"
     static var gitHubBaseURL: String = "https://api.github.com"
     static var gitHubWebBaseURL: String = "https://github.com"
+    static var gitLabBaseURL: String = "https://gitlab.com/api/v4"
+    static var gitLabWebBaseURL: String = "https://gitlab.com"
     
     static var kinestGitHubAPI: URL {
         return URL(string: kinestBaseURL + "/github")!
@@ -22,6 +24,32 @@ extension URL {
 
     static var gitHubContributionsAPI: URL {
         return URL(string: gitHubWebBaseURL + "/users")!
+    }
+
+    static var gitLabUsersAPI: URL {
+        return URL(string: gitLabBaseURL + "/users")!
+    }
+
+    static var gitLabContributionsAPI: URL {
+        return URL(string: gitLabWebBaseURL + "/users")!
+    }
+
+    static func userAPI(account: ContributionAccount) -> URL {
+        account.provider.apiBaseURL(serverOrigin: account.serverOrigin).appending("users")
+            ?? account.provider.apiBaseURL(serverOrigin: account.serverOrigin)
+    }
+
+    static func userAPI(provider: ContributionProvider, serverOrigin: String?) -> URL {
+        provider.apiBaseURL(serverOrigin: serverOrigin).appending("users") ?? provider.apiBaseURL(serverOrigin: serverOrigin)
+    }
+
+    static func contributionsAPI(account: ContributionAccount) -> URL {
+        account.provider.webBaseURL(serverOrigin: account.serverOrigin).appending("users")
+            ?? account.provider.webBaseURL(serverOrigin: account.serverOrigin)
+    }
+
+    static func contributionsAPI(provider: ContributionProvider, serverOrigin: String?) -> URL {
+        provider.webBaseURL(serverOrigin: serverOrigin).appending("users") ?? provider.webBaseURL(serverOrigin: serverOrigin)
     }
 }
 

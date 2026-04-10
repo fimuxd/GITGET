@@ -58,8 +58,9 @@ struct GitHubContributionsProvider: AppIntentTimelineProvider {
             return Timeline(entries: [entry], policy: .after(refreshDate))
         }
 
-        async let userResponse = UserAPI.userInfo(of: username)
-        async let contributionResponse = ContributionAPI.contributions(of: username)
+        let account = ContributionAccount(provider: .github, username: username)
+        async let userResponse = UserAPI.userInfo(of: account)
+        async let contributionResponse = ContributionAPI.contributions(of: account)
         let (userResult, contributionsResult) = await (userResponse, contributionResponse)
 
         let entry: Entry
