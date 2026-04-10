@@ -44,7 +44,7 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A1B2C3D12598608900ABCDEF"
+               BlueprintIdentifier = "B10000122598608900BAEAEA"
                BuildableName = "GITGETUITests.xctest"
                BlueprintName = "GITGETUITests"
                ReferencedContainer = "container:GITGET.xcodeproj">
