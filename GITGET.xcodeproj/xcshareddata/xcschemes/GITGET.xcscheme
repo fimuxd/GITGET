@@ -30,7 +30,7 @@
       <Testables>
          <TestableReference
             skipped = "NO"
-            parallelizable = "YES">
+            parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7DA9862F2598608900BAEAEA"
@@ -39,7 +39,27 @@
                ReferencedContainer = "container:GITGET.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B10000122598608900BAEAEA"
+               BuildableName = "GITGETUITests.xctest"
+               BlueprintName = "GITGETUITests"
+               ReferencedContainer = "container:GITGET.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "7DA986162598608700BAEAEA"
+            BuildableName = "GITGET.app"
+            BlueprintName = "GITGET"
+            ReferencedContainer = "container:GITGET.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
