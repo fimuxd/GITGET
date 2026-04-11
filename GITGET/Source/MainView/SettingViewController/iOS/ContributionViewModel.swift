@@ -903,7 +903,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Haru",
                 bio: "Migrated GitLab fixture",
                 location: "Seoul",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 21,
                 following: 12,
                 dayOffsetsToCounts: [0: 1, -1: 1, -5: 2, -15: 4]
@@ -945,7 +945,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Haru",
                 bio: "All Friends fixture",
                 location: "Seoul",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 21,
                 following: 12,
                 dayOffsetsToCounts: [0: 1, -3: 4, -20: 2]
@@ -979,7 +979,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Anna",
                 bio: "Ranks first in the deterministic fixture",
                 location: "Seoul",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 100,
                 following: 12,
                 dayOffsetsToCounts: [0: 7, -1: 6, -2: 5, -3: 4, -4: 3, -5: 2, -6: 1, -20: 8]
@@ -989,7 +989,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Bora",
                 bio: "Ranks second in the deterministic fixture",
                 location: "Busan",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 80,
                 following: 10,
                 dayOffsetsToCounts: [0: 5, -1: 4, -2: 4, -3: 3, -4: 2, -5: 1, -6: 1, -10: 4]
@@ -999,7 +999,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Chris",
                 bio: "Ranks third in the deterministic fixture",
                 location: "Tokyo",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 55,
                 following: 8,
                 dayOffsetsToCounts: [0: 2, -1: 2, -2: 1, -8: 1, -15: 2]
@@ -1034,7 +1034,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Alex",
                 bio: "Complete fixture member",
                 location: "Seoul",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 45,
                 following: 7,
                 dayOffsetsToCounts: [0: 3, -1: 2, -2: 2, -6: 1, -14: 2]
@@ -1044,7 +1044,7 @@ final class ContributionViewModel: ObservableObject {
                 name: "Bella",
                 bio: "Profile only fixture member",
                 location: "Incheon",
-                company: "TravelWallet",
+                company: "GITGET",
                 followers: 33,
                 following: 4,
                 dayOffsetsToCounts: [:],

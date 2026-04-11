@@ -165,11 +165,11 @@ class GITGETTests: XCTestCase {
         let account = ContributionAccount(
             provider: .gitlab,
             username: "  haru  ",
-            serverOrigin: "tw-gitlab.t-wal.com/gitlab?from=app#section"
+            serverOrigin: "gitlab.example.com/gitlab?from=app#section"
         )
 
         XCTAssertEqual(account.username, "haru")
-        XCTAssertEqual(account.serverOrigin, "https://tw-gitlab.t-wal.com")
+        XCTAssertEqual(account.serverOrigin, "https://gitlab.example.com")
     }
 
     func testGitHubEnterpriseServerOriginUsesWebOriginAndAPIV3() {
@@ -208,8 +208,8 @@ class GITGETTests: XCTestCase {
             "https://github.example.com"
         )
         XCTAssertEqual(
-            ContributionProvider.gitlab.apiBaseURL(serverOrigin: "tw-gitlab.t-wal.com/team").absoluteString,
-            "https://tw-gitlab.t-wal.com/api/v4"
+            ContributionProvider.gitlab.apiBaseURL(serverOrigin: "gitlab.example.com/team").absoluteString,
+            "https://gitlab.example.com/api/v4"
         )
     }
 
@@ -222,7 +222,7 @@ class GITGETTests: XCTestCase {
         let gitLabAccount = ContributionAccount(
             provider: .gitlab,
             username: "haru",
-            serverOrigin: "https://tw-gitlab.t-wal.com/gitlab"
+            serverOrigin: "https://gitlab.example.com/gitlab"
         )
 
         XCTAssertEqual(
@@ -235,11 +235,11 @@ class GITGETTests: XCTestCase {
         )
         XCTAssertEqual(
             URL.userAPI(account: gitLabAccount).absoluteString,
-            "https://tw-gitlab.t-wal.com/api/v4/users"
+            "https://gitlab.example.com/api/v4/users"
         )
         XCTAssertEqual(
             URL.contributionsAPI(account: gitLabAccount).absoluteString,
-            "https://tw-gitlab.t-wal.com/users"
+            "https://gitlab.example.com/users"
         )
     }
 
