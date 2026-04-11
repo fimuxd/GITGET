@@ -1,19 +1,19 @@
-# GITGET <img src = "https://github.com/fimuxd/GITGET/blob/develop/GITGET/Resource/Assets.xcassets/AppIcon.appiconset/mac_app_icon_1024.png?raw=true" width = 50 align = right>
+# GITGET <img src = "https://example.com/assets/app-icon.png" width = 50 align = right>
 
 > **첫 번째 개인 Project**
 
-[<img src = "https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg">](https://itunes.apple.com/us/app/gitget/id1317170245?mt=8) [<img src = "https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-mac-app-store.svg">](https://apps.apple.com/us/app/gitget/id1317170245)
+[<img src = "https://devimages-cdn.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg">](https://example.com/app-store) [<img src = "https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-mac-app-store.svg">](https://example.com/mac-app-store)
 
 ## Contents
-* [About GITGET](https://github.com/fimuxd/GITGET#about-gitget)
-* [Concept](https://github.com/fimuxd/GITGET#concept)
-* [Update](https://github.com/fimuxd/GITGET#update)
-* [Contributors(Special Thanks)](https://github.com/fimuxd/GITGET#contributors-special-thanks)
-* [Contact ME](https://github.com/fimuxd/GITGET#contact-me)
+* [About GITGET](https://example.com/docs/about-gitget)
+* [Concept](https://example.com/docs/concept)
+* [Update](https://example.com/docs/update)
+* [Contributors(Special Thanks)](https://example.com/docs/contributors)
+* [Contact ME](https://example.com/docs/contact)
 
 ## About GITGET
 
-<img src = "https://github.com/fimuxd/GITGET/blob/master/screenshots/devices.png?raw=true">
+<img src = "https://example.com/assets/devices.png">
 
 > - `GitHub` + `Widget`
 > - No three meals a day, three commits a day!
@@ -63,9 +63,9 @@
 - [woollim](https://github.com/woollim)
 
 ## Contact Me
-- 📱 +82 10.3316.1609
-- 📧 me@boyoung.dev
-- <img src = "https://assets.brandfolder.com/osogig-6gybeo-1fxfn9/original/Slack%20App%20Icon.png" width = 20> [gitget.slack.com](https://gitget.slack.com/messages)
+- 📱 +1 555-0100
+- 📧 support@example.com
+- <img src = "https://assets.brandfolder.com/osogig-6gybeo-1fxfn9/original/Slack%20App%20Icon.png" width = 20> [workspace.example.com](https://workspace.example.com/messages)
 
 ***
 ***Love is all or don't?***
