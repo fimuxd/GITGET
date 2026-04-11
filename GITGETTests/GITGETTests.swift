@@ -765,6 +765,24 @@ final class WidgetContractTests: XCTestCase {
         XCTAssertNil(intent.username)
         XCTAssertEqual(intent.theme, .default)
     }
+
+    func testContributionRouterBuildsTimedRequestForGitHubWidgetFetch() throws {
+        let account = ContributionAccount(provider: .github, username: "octocat")
+
+        let request = try ContributionAPI.Router.gitHubContributions(account).asURLRequest()
+
+        XCTAssertEqual(request.url?.absoluteString, "https://github.com/users/octocat/contributions")
+        XCTAssertEqual(request.timeoutInterval, 8)
+    }
+
+    func testUserRouterBuildsTimedRequestForGitHubWidgetFetch() throws {
+        let account = ContributionAccount(provider: .github, username: "octocat")
+
+        let request = try UserAPI.Router.gitHubUserInfo(account).asURLRequest()
+
+        XCTAssertEqual(request.url?.absoluteString, "https://api.github.com/users/octocat")
+        XCTAssertEqual(request.timeoutInterval, 8)
+    }
 }
 
 final class TeamInsightComputationTests: XCTestCase {

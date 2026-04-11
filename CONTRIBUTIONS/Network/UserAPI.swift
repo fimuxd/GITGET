@@ -9,6 +9,8 @@ import Foundation
 import Alamofire
 
 enum UserAPI {
+    private static let requestTimeout: TimeInterval = 8
+
     static func userInfo(of account: ContributionAccount) async -> Result<User, Error> {
         switch account.provider {
         case .github:
@@ -23,7 +25,9 @@ enum UserAPI {
     }
 
     private static func gitHubUserInfo(of account: ContributionAccount) async -> Result<User, Error> {
-        let urlRequest = try! Router.gitHubUserInfo(account).asURLRequest()
+        guard let urlRequest = try? Router.gitHubUserInfo(account).asURLRequest() else {
+            return .failure(AFError.parameterEncodingFailed(reason: .missingURL))
+        }
 
         let response = await AF.request(urlRequest)
             .serializingData()
@@ -43,7 +47,9 @@ enum UserAPI {
     }
 
     private static func gitLabUserInfo(of account: ContributionAccount) async -> Result<User, Error> {
-        let urlRequest = try! Router.gitLabUsers(account).asURLRequest()
+        guard let urlRequest = try? Router.gitLabUsers(account).asURLRequest() else {
+            return .failure(AFError.parameterEncodingFailed(reason: .missingURL))
+        }
 
         let response = await AF.request(urlRequest)
             .serializingData()
@@ -80,12 +86,16 @@ extension UserAPI {
         func asURLRequest() throws -> URLRequest {
             switch self {
             case .gitHubUserInfo(let account):
-                let url = URL.userAPI(account: account).appending(account.username)!
-                return try URLRequest(url: url, method: method, headers: headers)
+                let url = URL.userAPI(account: account).appending(account.username) ?? URL.userAPI(account: account)
+                var request = try URLRequest(url: url, method: method, headers: headers)
+                request.timeoutInterval = requestTimeout
+                return request
 
             case .gitLabUsers(let account):
                 let url = URL.userAPI(account: account).appendingQuery(name: "username", value: account.username)
-                return try URLRequest(url: url, method: method, headers: headers)
+                var request = try URLRequest(url: url, method: method, headers: headers)
+                request.timeoutInterval = requestTimeout
+                return request
             }
         }
     }

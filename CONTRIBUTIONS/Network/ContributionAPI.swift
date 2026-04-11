@@ -10,6 +10,8 @@ import Alamofire
 import SwiftSoup
 
 enum ContributionAPI {
+    private static let requestTimeout: TimeInterval = 8
+
     static func contributions(of account: ContributionAccount) async -> Result<[Contribution], Error> {
         let normalizedAccount = ContributionAccount(
             provider: account.provider,
@@ -37,7 +39,9 @@ enum ContributionAPI {
     }
 
     private static func gitHubContributions(of account: ContributionAccount) async -> Result<[Contribution], Error> {
-        let urlRequest = try! Router.gitHubContributions(account).asURLRequest()
+        guard let urlRequest = try? Router.gitHubContributions(account).asURLRequest() else {
+            return .failure(AFError.parameterEncodingFailed(reason: .missingURL))
+        }
 
         let response = await AF.request(urlRequest)
             .serializingString()
@@ -56,7 +60,9 @@ enum ContributionAPI {
     }
 
     private static func gitLabContributions(of account: ContributionAccount) async -> Result<[Contribution], Error> {
-        let urlRequest = try! Router.gitLabContributions(account).asURLRequest()
+        guard let urlRequest = try? Router.gitLabContributions(account).asURLRequest() else {
+            return .failure(AFError.parameterEncodingFailed(reason: .missingURL))
+        }
 
         let response = await AF.request(urlRequest)
             .serializingData()
@@ -77,7 +83,7 @@ enum ContributionAPI {
 
     private static func parseGitHubContributions(from html: String) throws -> [Contribution] {
         let document = try SwiftSoup.parseBodyFragment(html)
-        let dayElements = try document.select(".ContributionCalendar-day")
+        let dayElements = try document.select(".ContributionCalendar-day, [data-date][data-level]")
         let tooltipElements = try document.select("tool-tip[for]")
 
         let countsByElementID = try tooltipElements.array().reduce(into: [String: Int]()) { partialResult, element in
@@ -189,13 +195,17 @@ extension ContributionAPI {
                 var url = URL.contributionsAPI(account: account)
                 url = url.appending(account.username) ?? url
                 url = url.appending("/contributions") ?? url
-                return try URLRequest(url: url, method: method, headers: headers)
+                var request = try URLRequest(url: url, method: method, headers: headers)
+                request.timeoutInterval = requestTimeout
+                return request
 
             case .gitLabContributions(let account):
                 var url = URL.contributionsAPI(account: account)
                 url = url.appending(account.username) ?? url
                 url = url.appending("/calendar.json") ?? url
-                return try URLRequest(url: url, method: method, headers: headers)
+                var request = try URLRequest(url: url, method: method, headers: headers)
+                request.timeoutInterval = requestTimeout
+                return request
             }
         }
     }
