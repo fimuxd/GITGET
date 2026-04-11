@@ -108,7 +108,7 @@ struct GitHubContributionsWidgetViewModel {
     }
     
     var startYear: String {
-        String(user?.createdAt?.gitHubYear ?? Date().gitHubYear)
+        user?.createdAt?.gitHubYearString ?? Date().gitHubYearString
     }
 }
 

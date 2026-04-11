@@ -26,7 +26,7 @@ struct ContributionProfile: Identifiable {
     var company: String { user?.company ?? "Independent" }
     var followers: String { Self.formattedCount(user?.followers ?? 0) }
     var following: String { Self.formattedCount(user?.following ?? 0) }
-    var startYear: String { String(user?.createdAt?.gitHubYear ?? Date().gitHubYear) }
+    var startYear: String { user?.createdAt?.gitHubYearString ?? Date().gitHubYearString }
     var currentYearContributions: Int {
         contributions
             .filter { $0.date.gitHubYear == Date().gitHubYear }

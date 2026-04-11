@@ -60,4 +60,8 @@ extension Date {
     var gitHubYear: Int {
         Calendar.gitHubUTC.component(.year, from: self)
     }
+
+    var gitHubYearString: String {
+        String(gitHubYear)
+    }
 }
