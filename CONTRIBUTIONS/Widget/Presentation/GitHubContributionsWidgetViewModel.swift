@@ -18,7 +18,8 @@ struct GitHubContributionsWidgetViewModel {
     }
     
     var username: String? {
-        configuration.username
+        let trimmedUsername = configuration.username?.trimmed
+        return trimmedUsername?.isEmpty == false ? trimmedUsername : nil
     }
     
     var todayContributionCount: Int? {
@@ -57,8 +58,20 @@ struct GitHubContributionsWidgetViewModel {
             .map { $0.count }.reduce(0, +)
     }
     
-    var name: String {
-        user?.name ?? "Anonymous"
+    var displayUsername: String {
+        if let login = user?.login?.trimmed, !login.isEmpty {
+            return login
+        }
+
+        if let username {
+            return username
+        }
+
+        if let name = user?.name?.trimmed, !name.isEmpty {
+            return name
+        }
+
+        return "Anonymous"
     }
     
     //FIXME

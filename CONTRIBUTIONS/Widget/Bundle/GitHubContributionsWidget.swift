@@ -9,7 +9,7 @@ import WidgetKit
 import SwiftUI
 
 struct GitHubContributionsWidget: Widget {
-    private let kind = "fimuxd.gitget.github-contributions-widget"
+    private let kind = "fimuxd.gitget.github-contributions-widget.appintent"
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(

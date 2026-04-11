@@ -766,6 +766,13 @@ final class WidgetContractTests: XCTestCase {
         XCTAssertEqual(intent.theme, .default)
     }
 
+    func testWidgetDisplayUsernameFallsBackToConfiguredUsername() {
+        let intent = GitHubContributionsWidgetIntent(username: "octocat")
+        let viewModel = GitHubContributionsWidgetViewModel(contributions: [], configuration: intent)
+
+        XCTAssertEqual(viewModel.displayUsername, "octocat")
+    }
+
     func testContributionRouterBuildsTimedRequestForGitHubWidgetFetch() throws {
         let account = ContributionAccount(provider: .github, username: "octocat")
 

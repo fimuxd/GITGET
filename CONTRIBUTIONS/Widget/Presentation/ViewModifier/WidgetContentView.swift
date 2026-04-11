@@ -40,7 +40,7 @@ struct WidgetContentView: SwiftUI.View {
                 
                 HStack {
                     HStack(alignment: .center, spacing: 6) {
-                        Text(viewModel.name)
+                        Text(viewModel.displayUsername)
                     }
                     Spacer()
                     viewModel.todayContributionCount != nil && widgetFamily != .systemSmall
@@ -65,7 +65,7 @@ struct WidgetContentView: SwiftUI.View {
                     Color.level0.frame(height: 1)
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text(viewModel.username ?? "Anonymous")
+                        Text(viewModel.displayUsername)
                             .font(.system(size: 16, weight: .bold, design: .monospaced))
                             .foregroundColor(.blackAndWhite4)
                         
