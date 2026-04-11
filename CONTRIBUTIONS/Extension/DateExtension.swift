@@ -12,7 +12,10 @@ extension Date {
         var tempDate = self
         var array = [tempDate]
         while tempDate < to {
-            tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
+            guard let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate) else {
+                break
+            }
+            tempDate = nextDate
             array.append(tempDate)
         }
         return array

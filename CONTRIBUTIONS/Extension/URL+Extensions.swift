@@ -83,8 +83,8 @@ extension URL {
         let queryItem = URLQueryItem(name: name, value: value)
         queryItems.append(queryItem)
         urlComponents.queryItems = queryItems
-        
-        return urlComponents.url!
+
+        return urlComponents.url ?? absoluteURL
     }
     
     /// URL의 host 이후 부분에 연속적으로 중복된 "/" 문자를 하나만 남기도록 변경합니다.
@@ -95,8 +95,8 @@ extension URL {
         while path.contains("//") {
             path = path.replacingOccurrences(of: "//", with: "/")
         }
-        
+
         urlComponents.path = path
-        return urlComponents.url!
+        return urlComponents.url ?? self
     }
 }
