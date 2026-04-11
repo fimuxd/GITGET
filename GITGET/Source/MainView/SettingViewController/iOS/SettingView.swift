@@ -25,8 +25,15 @@ struct SettingView: View {
         }
     }
 
+    private enum RootTab: Hashable {
+        case friends
+        case manage
+        case settings
+    }
+
     @State private var showHowToUse = false
     @State private var showAbout = false
+    @State private var selectedTab: RootTab = .friends
     @State private var createdTeamName = ""
     @State private var renameTeamName = ""
     @State private var pendingDeletedTeam: ContributionTeam?
@@ -38,13 +45,21 @@ struct SettingView: View {
     }
 
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             friendsTab
+                .tag(RootTab.friends)
                 .tabItem {
                     Label("Friends", systemImage: "person.3")
                 }
 
+            manageTab
+                .tag(RootTab.manage)
+                .tabItem {
+                    Label("Manage", systemImage: "slider.horizontal.3")
+                }
+
             settingsTab
+                .tag(RootTab.settings)
                 .tabItem {
                     Label("Settings", systemImage: "paintpalette")
                 }
@@ -106,7 +121,6 @@ struct SettingView: View {
         NavigationStack {
             List {
                 teamNavigationSection
-                addFriendSection
 
                 if hasTeams {
                     friendListSection
@@ -133,6 +147,29 @@ struct SettingView: View {
                         Image(systemName: "arrow.clockwise")
                     }
                     .accessibilityIdentifier("friends.refreshButton")
+                }
+            }
+        }
+    }
+
+    private var manageTab: some View {
+        NavigationStack {
+            List {
+                manageTeamsSection
+                addFriendSection
+            }
+            .listStyle(.insetGrouped)
+            .scrollContentBackground(.hidden)
+            .background(Color("background").ignoresSafeArea())
+            .navigationTitle("Manage")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        presentTeamManager()
+                    } label: {
+                        Label("Teams", systemImage: "person.3.sequence.fill")
+                    }
+                    .accessibilityIdentifier("manage.manageTeamsButton")
                 }
             }
         }
@@ -166,9 +203,12 @@ struct SettingView: View {
             } else {
                 emptyStateCard(
                     title: "No teams yet",
-                    message: "Add your first account to create All Friends, then use this tab to compare teammates and scan quick team insights.",
+                    message: "Add your first account in Manage to create All Friends, then come back here to compare teammates and scan quick team insights.",
                     titleIdentifier: "friends.noTeamsTitle",
-                    messageIdentifier: "friends.noTeamsMessage"
+                    messageIdentifier: "friends.noTeamsMessage",
+                    actionTitle: "Open Manage",
+                    actionIdentifier: "friends.noTeamsOpenManageButton",
+                    action: openManageTab
                 )
                 .padding(.vertical, 8)
                 .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
@@ -181,6 +221,63 @@ struct SettingView: View {
                 Text("Pick a team to compare members, review insight cards, and choose where new friends are saved. Use Manage to create, rename, reorder, or delete teams.")
                     .font(.system(size: 12, design: .monospaced))
             }
+        }
+    }
+
+    private var manageTeamsSection: some View {
+        Section {
+            VStack(alignment: .leading, spacing: 14) {
+                Text("Current Destination")
+                    .font(.system(size: 11, weight: .medium, design: .monospaced))
+                    .foregroundColor(.blackAndWhite3)
+                    .textCase(.uppercase)
+
+                Text(viewModel.selectedTeam?.name ?? "All Friends")
+                    .font(.system(size: 20, weight: .bold, design: .monospaced))
+                    .foregroundColor(.blackAndWhite4)
+                    .accessibilityIdentifier("manage.selectedTeamName")
+
+                Text(manageTeamsSectionMessage)
+                    .font(.system(size: 12, design: .monospaced))
+                    .foregroundColor(.blackAndWhite3)
+                    .accessibilityIdentifier("manage.selectedTeamMessage")
+
+                HStack(spacing: 8) {
+                    teamMetaPill(title: "Teams", value: "\(viewModel.teams.count)")
+
+                    if !viewModel.customTeams.isEmpty {
+                        teamMetaPill(title: "Custom", value: "\(viewModel.customTeams.count)")
+                    }
+                }
+
+                Button {
+                    presentTeamManager()
+                } label: {
+                    Label("Open Team Manager", systemImage: "slider.horizontal.3")
+                        .font(.system(size: 12, weight: .bold, design: .monospaced))
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(viewModel.selectedTheme.levelFourColor)
+                .accessibilityIdentifier("manage.openTeamManagerButton")
+            }
+            .padding(18)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(Color("background"))
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(viewModel.selectedTheme.levelFourColor.opacity(0.18), lineWidth: 1)
+            )
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("manage.teamsCard")
+        } header: {
+            Text("Teams")
+        } footer: {
+            Text("Switch the active team from Friends, then use this space to add accounts or open the team manager for create, rename, reorder, and delete actions.")
+                .font(.system(size: 12, design: .monospaced))
         }
     }
 
@@ -250,7 +347,10 @@ struct SettingView: View {
                         title: teamEmptyStateTitle,
                         message: teamEmptyStateMessage,
                         titleIdentifier: "friends.teamEmptyTitle",
-                        messageIdentifier: "friends.teamEmptyMessage"
+                        messageIdentifier: "friends.teamEmptyMessage",
+                        actionTitle: "Open Manage",
+                        actionIdentifier: "friends.teamEmptyOpenManageButton",
+                        action: openManageTab
                     )
                     .padding(.vertical, 8)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
@@ -367,10 +467,18 @@ struct SettingView: View {
 
     private var teamEmptyStateMessage: String {
         guard let selectedTeam = viewModel.selectedTeam else {
-            return "Add teammates below to start seeing comparison and insight cards here."
+            return "Open Manage to add teammates, then comparison and insight cards will appear here."
         }
 
-        return "This team exists, but it does not have any saved accounts yet. Add teammates below and \(selectedTeam.name) will start showing comparison and insight cards."
+        return "This team exists, but it does not have any saved accounts yet. Add teammates from Manage and \(selectedTeam.name) will start showing comparison and insight cards."
+    }
+
+    private var manageTeamsSectionMessage: String {
+        if let selectedTeam = viewModel.selectedTeam {
+            return "New accounts added here are saved into \(selectedTeam.name). Change the active team from Friends whenever you want a different destination."
+        }
+
+        return "Your first saved account creates All Friends. After that, you can keep adding teammates here and organize them in Team Manager."
     }
 
     private func selectedTeamCard(summary: ContributionTeamSummary) -> some View {
@@ -525,7 +633,7 @@ struct SettingView: View {
 
     private func selectedTeamSummaryMessage(for summary: ContributionTeamSummary) -> String {
         if summary.members.isEmpty {
-            return "This team is ready for its first saved member. Add someone below to unlock comparisons and insight cards here."
+            return "This team is ready for its first saved member. Open Manage to add someone and unlock comparisons and insight cards here."
         }
 
         if !summary.rankedMembers(for: viewModel.selectedComparisonMetric).isEmpty {
@@ -569,7 +677,10 @@ struct SettingView: View {
         title: String,
         message: String,
         titleIdentifier: String,
-        messageIdentifier: String
+        messageIdentifier: String,
+        actionTitle: String? = nil,
+        actionIdentifier: String? = nil,
+        action: (() -> Void)? = nil
     ) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Image(systemName: "person.3.sequence.fill")
@@ -585,6 +696,15 @@ struct SettingView: View {
                 .font(.system(size: 13, design: .monospaced))
                 .foregroundColor(.blackAndWhite3)
                 .accessibilityIdentifier(messageIdentifier)
+
+            if let actionTitle,
+               let actionIdentifier,
+               let action {
+                Button(actionTitle, action: action)
+                    .buttonStyle(.borderedProminent)
+                    .tint(viewModel.selectedTheme.levelFourColor)
+                    .accessibilityIdentifier(actionIdentifier)
+            }
         }
         .padding(18)
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -603,6 +723,10 @@ struct SettingView: View {
         DispatchQueue.main.async {
             teamSheetRoute = .teamManager
         }
+    }
+
+    private func openManageTab() {
+        selectedTab = .manage
     }
 
     private func memberCard(_ member: ContributionTeamMemberState) -> some View {
@@ -722,46 +846,72 @@ struct SettingView: View {
                         .background(Capsule().fill(viewModel.selectedTheme.levelFourColor.opacity(0.12)))
                         .accessibilityIdentifier("friends.teamManager.protected.\(team.id)")
                 } else {
-                    Button {
-                        renameTeamName = team.name
-                        teamSheetRoute = .renameTeam(team.id)
-                    } label: {
-                        Label("Rename", systemImage: "pencil")
-                    }
-                    .buttonStyle(.bordered)
-                    .accessibilityIdentifier("friends.teamManager.rename.\(team.id)")
+                    LazyVGrid(
+                        columns: [GridItem(.flexible(), spacing: 8), GridItem(.flexible(), spacing: 8)],
+                        alignment: .leading,
+                        spacing: 8
+                    ) {
+                        teamManagementActionButton(
+                            title: "Rename",
+                            systemImage: "pencil",
+                            identifier: "friends.teamManager.rename.\(team.id)"
+                        ) {
+                            renameTeamName = team.name
+                            teamSheetRoute = .renameTeam(team.id)
+                        }
 
-                    Button(role: .destructive) {
-                        pendingDeletedTeam = team
-                    } label: {
-                        Label("Delete", systemImage: "trash")
-                    }
-                    .buttonStyle(.bordered)
-                    .accessibilityIdentifier("friends.teamManager.delete.\(team.id)")
+                        teamManagementActionButton(
+                            title: "Delete",
+                            systemImage: "trash",
+                            role: .destructive,
+                            identifier: "friends.teamManager.delete.\(team.id)"
+                        ) {
+                            pendingDeletedTeam = team
+                        }
 
-                    Button {
-                        viewModel.moveTeamUp(teamID: team.id)
-                    } label: {
-                        Label("Up", systemImage: "arrow.up")
-                    }
-                    .buttonStyle(.bordered)
-                    .disabled(!viewModel.canMoveTeamUp(team.id))
-                    .accessibilityIdentifier("friends.teamManager.moveUp.\(team.id)")
+                        teamManagementActionButton(
+                            title: "Move Up",
+                            systemImage: "arrow.up",
+                            isDisabled: !viewModel.canMoveTeamUp(team.id),
+                            identifier: "friends.teamManager.moveUp.\(team.id)"
+                        ) {
+                            viewModel.moveTeamUp(teamID: team.id)
+                        }
 
-                    Button {
-                        viewModel.moveTeamDown(teamID: team.id)
-                    } label: {
-                        Label("Down", systemImage: "arrow.down")
+                        teamManagementActionButton(
+                            title: "Move Down",
+                            systemImage: "arrow.down",
+                            isDisabled: !viewModel.canMoveTeamDown(team.id),
+                            identifier: "friends.teamManager.moveDown.\(team.id)"
+                        ) {
+                            viewModel.moveTeamDown(teamID: team.id)
+                        }
                     }
-                    .buttonStyle(.bordered)
-                    .disabled(!viewModel.canMoveTeamDown(team.id))
-                    .accessibilityIdentifier("friends.teamManager.moveDown.\(team.id)")
                 }
             }
         }
         .padding(.vertical, 4)
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("friends.teamManager.row.\(team.id)")
+    }
+
+    private func teamManagementActionButton(
+        title: String,
+        systemImage: String,
+        role: ButtonRole? = nil,
+        isDisabled: Bool = false,
+        identifier: String,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(role: role, action: action) {
+            Label(title, systemImage: systemImage)
+                .font(.system(size: 12, weight: .bold, design: .monospaced))
+                .frame(maxWidth: .infinity, minHeight: 18)
+        }
+        .buttonStyle(.bordered)
+        .controlSize(.small)
+        .disabled(isDisabled)
+        .accessibilityIdentifier(identifier)
     }
 
     private func renameTeamSheet(for team: ContributionTeam) -> some View {

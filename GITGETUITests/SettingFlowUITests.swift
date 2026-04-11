@@ -4,9 +4,13 @@ final class SettingFlowUITests: GITGETUITestCase {
     func testFriendsTabShowsEmptyState() {
         let app = launchApp()
 
-        XCTAssertTrue(app.textFields["friends.usernameField"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["friends.addButton"].exists)
         XCTAssertTrue(app.staticTexts["friends.noTeamsTitle"].waitForExistence(timeout: 5))
+
+        app.tabBars.buttons["Manage"].tap()
+
+        XCTAssertTrue(app.otherElements["manage.teamsCard"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.textFields["friends.usernameField"].exists)
+        XCTAssertTrue(app.buttons["friends.addButton"].exists)
     }
 
     func testFriendsTabTeamNavigation() {
