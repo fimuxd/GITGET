@@ -1,5 +1,5 @@
 //
-//  AboutViewController.swift
+//  AboutView.swift
 //  GITGET
 //
 //  Created by Bo-Young PARK on 1/17/21.
