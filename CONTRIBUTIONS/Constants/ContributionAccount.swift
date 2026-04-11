@@ -2,7 +2,7 @@
 //  ContributionAccount.swift
 //  GITGET
 //
-//  Created by OpenAI on 2026-04-10.
+//  Created by Bo-Young PARK on 2026-04-10.
 //
 
 import Foundation
