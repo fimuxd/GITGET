@@ -91,7 +91,7 @@ struct ContributionView: View {
     private var graph: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text("Contributions in \(Date().gitHubYear)")
+                Text(verbatim: "Contributions in \(Date().gitHubYearString)")
                     .font(.system(size: 11, weight: .medium, design: .monospaced))
                     .foregroundColor(.gray)
                     .textCase(.uppercase)
@@ -145,7 +145,7 @@ struct ContributionView: View {
 
             HStack {
                 Spacer()
-                Text("develop since \(profile.startYear)")
+                Text(verbatim: "develop since \(profile.startYear)")
                     .font(.system(size: 10, design: .monospaced))
                     .foregroundColor(.blackAndWhite3)
             }

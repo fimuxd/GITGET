@@ -30,7 +30,7 @@ struct WidgetContentView: SwiftUI.View {
                 if widgetFamily == .systemLarge {
                     HStack {
                         Spacer()
-                        Text("CONTRIBUTIONS".localizedStringWithFormat(viewModel.currentYearContributions) + " IN " + String(Date().gitHubYear))
+                        Text("CONTRIBUTIONS".localizedStringWithFormat(viewModel.currentYearContributions) + " IN " + Date().gitHubYearString)
                             .font(.system(size: 10, weight: .medium))
                             .foregroundColor(.gray)
                             .textCase(.uppercase)
@@ -111,7 +111,7 @@ struct WidgetContentView: SwiftUI.View {
                         
                         HStack {
                             Spacer()
-                            Text("develop since \(viewModel.startYear)")
+                            Text(verbatim: "develop since \(viewModel.startYear)")
                                 .font(.system(size: 10, design: .monospaced))
                                 .foregroundColor(.blackAndWhite3)
                         }
