@@ -10,7 +10,7 @@ import StoreKit
 import MessageUI
 import SafariServices
 
-enum SettingMenu {
+enum AboutAction {
     case rating
     case sendMail
     case gitHub
@@ -39,7 +39,7 @@ private enum UITestPresentedDestination: String, Identifiable {
 }
 
 struct AboutView: View {
-    @State private var selectedMenu: SettingMenu?
+    @State private var selectedMenu: AboutAction?
     @State private var isShowingMailComposer = false
     @State private var safariURL: URL?
     @State private var uiTestDestination: UITestPresentedDestination?
@@ -117,7 +117,7 @@ struct AboutView: View {
         .accessibilityIdentifier("about.root")
     }
 
-    private func actionButton(title: String, menu: SettingMenu) -> some View {
+    private func actionButton(title: String, menu: AboutAction) -> some View {
         Button(title) {
             selectedMenu = menu
         }
@@ -128,7 +128,7 @@ struct AboutView: View {
         .accessibilityLabel(isUITestMode ? accessibilityIdentifier(for: menu) : title)
     }
 
-    private func socialButton(imageName: String, menu: SettingMenu) -> some View {
+    private func socialButton(imageName: String, menu: AboutAction) -> some View {
         Button {
             selectedMenu = menu
         } label: {
@@ -142,7 +142,7 @@ struct AboutView: View {
         .accessibilityLabel(accessibilityIdentifier(for: menu))
     }
 
-    private func handle(_ menu: SettingMenu) {
+    private func handle(_ menu: AboutAction) {
         if isUITestMode {
             switch menu {
             case .rating:
@@ -167,11 +167,11 @@ struct AboutView: View {
                 isShowingMailComposer = true
             }
         case .gitHub:
-            open(SystemConstants.SNS.github, fallback: SystemConstants.SNS.github)
+            open(AboutConstants.SNS.github, fallback: AboutConstants.SNS.github)
         case .linkedin:
-            open(SystemConstants.SNS.linkedinDirect, fallback: SystemConstants.SNS.linkedin)
+            open(AboutConstants.SNS.linkedinDirect, fallback: AboutConstants.SNS.linkedin)
         case .instagram:
-            open(SystemConstants.SNS.instagramDirect, fallback: SystemConstants.SNS.instagram)
+            open(AboutConstants.SNS.instagramDirect, fallback: AboutConstants.SNS.instagram)
         }
     }
 
@@ -201,7 +201,7 @@ struct AboutView: View {
         }
     }
 
-    private func accessibilityIdentifier(for menu: SettingMenu) -> String {
+    private func accessibilityIdentifier(for menu: AboutAction) -> String {
         switch menu {
         case .rating:
             return "about.rateButton"
@@ -246,10 +246,10 @@ private struct MailComposeView: UIViewControllerRepresentable {
         let userAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
 
         controller.mailComposeDelegate = context.coordinator
-        controller.setToRecipients([SystemConstants.Email.emailAddress])
-        controller.setSubject(SystemConstants.Email.subject)
+        controller.setToRecipients([AboutConstants.Email.emailAddress])
+        controller.setSubject(AboutConstants.Email.subject)
         controller.setMessageBody(
-            String(format: SystemConstants.Email.body, userSystemVersion, userAppVersion),
+            String(format: AboutConstants.Email.body, userSystemVersion, userAppVersion),
             isHTML: false
         )
         return controller

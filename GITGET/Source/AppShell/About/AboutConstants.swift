@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  AboutConstants.swift
 //  GITGET
 //
 //  Created by Bo-Young PARK on 12/27/20.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SystemConstants {
+struct AboutConstants {
     struct Email {
         static let emailAddress = "support@example.com"
         static let subject = "[Example App] Feedback"
