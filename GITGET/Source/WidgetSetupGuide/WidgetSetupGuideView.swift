@@ -1,5 +1,5 @@
 //
-//  TutorialView.swift
+//  WidgetSetupGuideView.swift
 //  GITGET
 //
 //  Created by Bo-Young PARK on 12/27/20.
@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct TutorialView: View {
+struct WidgetSetupGuideView: View {
     @Environment(\.dismiss) private var dismiss
-    private let viewModel: TutorialViewModel
+    private let viewModel: WidgetSetupGuideStepProvider
 
-    init(viewModel: TutorialViewModel = TutorialViewModel()) {
+    init(viewModel: WidgetSetupGuideStepProvider = WidgetSetupGuideStepProvider()) {
         self.viewModel = viewModel
     }
 
@@ -19,16 +19,16 @@ struct TutorialView: View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 37) {
-                    tutorialIntroCard
+                    widgetSetupGuideIntroCard
 
                     ForEach(viewModel.steps) { step in
-                        TutorialStepView(step: step)
+                        WidgetSetupGuideStepView(step: step)
                     }
                 }
                 .padding(.top, 22)
                 .padding(.bottom, 10)
             }
-            .accessibilityIdentifier("tutorial.scrollView")
+            .accessibilityIdentifier("widgetSetupGuide.scrollView")
             .background(Color("modal_background"))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -39,15 +39,15 @@ struct TutorialView: View {
                             .font(.title2)
                             .foregroundColor(Color("title"))
                     }
-                    .accessibilityIdentifier("tutorial.closeButton")
+                    .accessibilityIdentifier("widgetSetupGuide.closeButton")
                 }
             }
         }
         .presentationDragIndicator(.visible)
-        .accessibilityIdentifier("tutorial.root")
+        .accessibilityIdentifier("widgetSetupGuide.root")
     }
 
-    private var tutorialIntroCard: some View {
+    private var widgetSetupGuideIntroCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Compare teams in the app")
                 .font(.system(size: 18, weight: .bold, design: .monospaced))
@@ -64,6 +64,6 @@ struct TutorialView: View {
         .padding(.horizontal, 42)
         .padding(.vertical, 4)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityIdentifier("tutorial.introCard")
+        .accessibilityIdentifier("widgetSetupGuide.introCard")
     }
 }

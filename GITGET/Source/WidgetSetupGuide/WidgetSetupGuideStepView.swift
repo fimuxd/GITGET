@@ -1,5 +1,5 @@
 //
-//  TutorialStepView.swift
+//  WidgetSetupGuideStepView.swift
 //  GITGET
 //
 //  Created by Bo-Young PARK on 1/4/21.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct TutorialStepView: View {
-    let step: TutorialStep
+struct WidgetSetupGuideStepView: View {
+    let step: WidgetSetupGuideStep
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -28,6 +28,6 @@ struct TutorialStepView: View {
         .padding(.horizontal, 42)
         .padding(.vertical, 4)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .accessibilityIdentifier("tutorial.step.\(step.id)")
+        .accessibilityIdentifier("widgetSetupGuide.step.\(step.id)")
     }
 }
