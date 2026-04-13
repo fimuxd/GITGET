@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct WidgetSetupGuideStepView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     let step: WidgetSetupGuideStep
+
+    private var horizontalPadding: CGFloat {
+        horizontalSizeClass == .regular ? 0 : 42
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -25,7 +31,7 @@ struct WidgetSetupGuideStepView: View {
                 .scaledToFit()
                 .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, 42)
+        .padding(.horizontal, horizontalPadding)
         .padding(.vertical, 4)
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityIdentifier("widgetSetupGuide.step.\(step.id)")

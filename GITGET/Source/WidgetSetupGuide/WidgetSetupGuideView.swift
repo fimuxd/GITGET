@@ -9,7 +9,17 @@ import SwiftUI
 
 struct WidgetSetupGuideView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     private let viewModel: WidgetSetupGuideStepProvider
+
+    private var contentWidth: CGFloat {
+        horizontalSizeClass == .regular ? 760 : .greatestFiniteMagnitude
+    }
+
+    private var horizontalPadding: CGFloat {
+        horizontalSizeClass == .regular ? 0 : 42
+    }
 
     init(viewModel: WidgetSetupGuideStepProvider = WidgetSetupGuideStepProvider()) {
         self.viewModel = viewModel
@@ -20,11 +30,14 @@ struct WidgetSetupGuideView: View {
             ScrollView {
                 LazyVStack(spacing: 37) {
                     widgetSetupGuideIntroCard
+                        .frame(maxWidth: contentWidth, alignment: .leading)
 
                     ForEach(viewModel.steps) { step in
                         WidgetSetupGuideStepView(step: step)
+                            .frame(maxWidth: contentWidth, alignment: .leading)
                     }
                 }
+                .frame(maxWidth: .infinity)
                 .padding(.top, 22)
                 .padding(.bottom, 10)
             }
@@ -61,7 +74,7 @@ struct WidgetSetupGuideView: View {
                 .font(.system(size: 13, weight: .regular, design: .monospaced))
                 .foregroundColor(Color("title"))
         }
-        .padding(.horizontal, 42)
+        .padding(.horizontal, horizontalPadding)
         .padding(.vertical, 4)
         .frame(maxWidth: .infinity, alignment: .leading)
         .accessibilityIdentifier("widgetSetupGuide.introCard")

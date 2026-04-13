@@ -5,7 +5,11 @@
 //  Created by Bo-Young PARK on 1/14/21.
 //
 
+import Foundation
+
+#if canImport(UIKit)
 import UIKit
+#endif
 
 struct WidgetSetupGuideStep: Identifiable {
     let id: Int
@@ -20,6 +24,9 @@ enum WidgetSetupGuidePlatform {
     case macOS
 
     static var current: WidgetSetupGuidePlatform {
+#if os(macOS)
+        return .macOS
+#elseif canImport(UIKit)
         switch UIDevice.current.userInterfaceIdiom {
         case .mac:
             return .macOS
@@ -28,6 +35,9 @@ enum WidgetSetupGuidePlatform {
         default:
             return .iOS
         }
+#else
+        return .iOS
+#endif
     }
 
     var steps: [WidgetSetupGuideStep] {

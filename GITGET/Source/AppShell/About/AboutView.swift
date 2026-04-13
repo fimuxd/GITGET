@@ -7,8 +7,15 @@
 
 import SwiftUI
 import StoreKit
+#if canImport(MessageUI)
 import MessageUI
+#endif
+#if canImport(SafariServices)
 import SafariServices
+#endif
+#if canImport(UIKit)
+import UIKit
+#endif
 
 enum AboutAction {
     case rating
@@ -39,6 +46,9 @@ private enum UITestPresentedDestination: String, Identifiable {
 }
 
 struct AboutView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.openURL) private var openURL
+
     @State private var selectedMenu: AboutAction?
     @State private var isShowingMailComposer = false
     @State private var safariURL: URL?
@@ -46,47 +56,59 @@ struct AboutView: View {
 
     private let isUITestMode = ProcessInfo.processInfo.environment["GITGET_UI_TEST_MODE"] == "1"
 
+    private var isWideLayout: Bool {
+        horizontalSizeClass == .regular
+    }
+
+    private var contentWidth: CGFloat {
+        isWideLayout ? 520 : .greatestFiniteMagnitude
+    }
+
     var body: some View {
-        VStack(spacing: 0) {
-            RoundedRectangle(cornerRadius: 5)
-                .fill(Color("indicator"))
-                .frame(width: 50, height: 10)
+        ScrollView {
+            VStack(spacing: 0) {
+                if !isWideLayout {
+                    RoundedRectangle(cornerRadius: 5)
+                        .fill(Color("indicator"))
+                        .frame(width: 50, height: 10)
+                        .padding(.top, 18)
+                }
+
+                Text("About".localized)
+                    .font(.system(size: 16, weight: .bold, design: .monospaced))
+                    .foregroundColor(Color("about_label"))
+                    .padding(.top, 20)
+
+                VStack(spacing: 8) {
+                    Text("GitGet is a team contribution companion for comparing saved members, spotting momentum, and checking yearly activity at a glance.")
+                        .font(.system(size: 13, weight: .regular, design: .monospaced))
+                        .foregroundColor(Color("title"))
+                        .multilineTextAlignment(.center)
+
+                    Text("The app view supports team-based comparison and insights. Home and lock screen widgets still stay GitHub-only today.")
+                        .font(.system(size: 12, weight: .regular, design: .monospaced))
+                        .foregroundColor(Color("about_label"))
+                        .multilineTextAlignment(.center)
+                }
                 .padding(.top, 18)
 
-            Text("About".localized)
-                .font(.system(size: 16, weight: .bold, design: .monospaced))
-                .foregroundColor(Color("about_label"))
-                .padding(.top, 20)
+                VStack(spacing: 30) {
+                    actionButton(title: "Rate GitGet".localized, menu: .rating)
+                    actionButton(title: "Support & Feedback".localized, menu: .sendMail)
 
-            VStack(spacing: 8) {
-                Text("GitGet is a team contribution companion for comparing saved members, spotting momentum, and checking yearly activity at a glance.")
-                    .font(.system(size: 13, weight: .regular, design: .monospaced))
-                    .foregroundColor(Color("title"))
-                    .multilineTextAlignment(.center)
-
-                Text("The app view supports team-based comparison and insights. Home and lock screen widgets still stay GitHub-only today.")
-                    .font(.system(size: 12, weight: .regular, design: .monospaced))
-                    .foregroundColor(Color("about_label"))
-                    .multilineTextAlignment(.center)
-            }
-            .padding(.top, 18)
-
-            VStack(spacing: 30) {
-                actionButton(title: "Rate GitGet".localized, menu: .rating)
-                actionButton(title: "Support & Feedback".localized, menu: .sendMail)
-
-                HStack(spacing: 20) {
-                    socialButton(imageName: "logo_github", menu: .gitHub)
-                    socialButton(imageName: "logo_linkedin", menu: .linkedin)
-                    socialButton(imageName: "logo_instagram", menu: .instagram)
+                    HStack(spacing: 20) {
+                        socialButton(imageName: "logo_github", menu: .gitHub)
+                        socialButton(imageName: "logo_linkedin", menu: .linkedin)
+                        socialButton(imageName: "logo_instagram", menu: .instagram)
+                    }
+                    .padding(.top, 6)
                 }
-                .padding(.top, 6)
+                .padding(.top, 34)
             }
-            .padding(.top, 34)
-
-            Spacer()
+            .padding(.horizontal, 24)
+            .frame(maxWidth: contentWidth)
+            .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal, 24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("modal_background"))
         .onChange(of: selectedMenu) { _, menu in
@@ -95,7 +117,7 @@ struct AboutView: View {
             selectedMenu = nil
         }
         .sheet(isPresented: $isShowingMailComposer) {
-            MailComposeView()
+            AboutMailComposeContainerView()
         }
         .sheet(item: $uiTestDestination) { destination in
             UITestDestinationView(destination: destination)
@@ -111,7 +133,7 @@ struct AboutView: View {
             )
         ) {
             if let safariURL {
-                SafariView(url: safariURL)
+                AboutSafariContainerView(url: safariURL)
             }
         }
         .accessibilityIdentifier("about.root")
@@ -163,9 +185,15 @@ struct AboutView: View {
         case .rating:
             requestReview()
         case .sendMail:
+#if canImport(MessageUI)
             if MFMailComposeViewController.canSendMail() {
                 isShowingMailComposer = true
             }
+#else
+            if let mailURL = URL(string: "mailto:\(AboutConstants.Email.emailAddress)") {
+                openURL(mailURL)
+            }
+#endif
         case .gitHub:
             open(AboutConstants.SNS.github, fallback: AboutConstants.SNS.github)
         case .linkedin:
@@ -176,6 +204,7 @@ struct AboutView: View {
     }
 
     private func requestReview() {
+#if canImport(UIKit)
         guard
             let scene = UIApplication.shared.connectedScenes
                 .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
@@ -184,6 +213,7 @@ struct AboutView: View {
         }
 
         AppStore.requestReview(in: scene)
+#endif
     }
 
     private func open(_ directURLString: String, fallback fallbackURLString: String) {
@@ -194,11 +224,15 @@ struct AboutView: View {
             return
         }
 
+#if canImport(UIKit)
         UIApplication.shared.open(directURL, options: [:]) { success in
             if !success {
                 safariURL = fallbackURL
             }
         }
+#else
+        openURL(fallbackURL)
+#endif
     }
 
     private func accessibilityIdentifier(for menu: AboutAction) -> String {
@@ -237,6 +271,7 @@ private struct UITestDestinationView: View {
     }
 }
 
+#if canImport(MessageUI) && canImport(UIKit)
 private struct MailComposeView: UIViewControllerRepresentable {
     @Environment(\.dismiss) private var dismiss
 
@@ -277,7 +312,9 @@ private struct MailComposeView: UIViewControllerRepresentable {
         }
     }
 }
+#endif
 
+#if canImport(SafariServices) && canImport(UIKit)
 private struct SafariView: UIViewControllerRepresentable {
     let url: URL
 
@@ -288,4 +325,31 @@ private struct SafariView: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
+}
+#endif
+
+private struct AboutMailComposeContainerView: View {
+    var body: some View {
+#if canImport(MessageUI) && canImport(UIKit)
+        MailComposeView()
+#else
+        Text("Mail composer is unavailable on this platform.")
+            .padding()
+#endif
+    }
+}
+
+private struct AboutSafariContainerView: View {
+    let url: URL
+
+    var body: some View {
+#if canImport(SafariServices) && canImport(UIKit)
+        SafariView(url: url)
+#else
+        Link(destination: url) {
+            Text(url.absoluteString)
+                .padding()
+        }
+#endif
+    }
 }
