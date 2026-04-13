@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  MainTabView.swift
 //  GITGET
 //
 //  Created by Bo-Young Park on 2022/09/12.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingView: View {
+struct MainTabView: View {
     private enum TeamSheetRoute: Identifiable {
         case teamManager
         case renameTeam(String)
@@ -38,7 +38,7 @@ struct SettingView: View {
     @State private var renameTeamName = ""
     @State private var pendingDeletedTeam: ContributionTeam?
     @State private var teamSheetRoute: TeamSheetRoute?
-    @ObservedObject var viewModel: ContributionViewModel
+    @ObservedObject var viewModel: ContributionWorkspaceViewModel
 
     private var hasTeams: Bool {
         !viewModel.teams.isEmpty
@@ -67,7 +67,7 @@ struct SettingView: View {
         .tint(viewModel.selectedTheme.levelFourColor)
         .accessibilityIdentifier("setting.tabView")
         .sheet(isPresented: $showHowToUse) {
-            TutorialView()
+            WidgetSetupGuideView()
         }
         .sheet(isPresented: $showAbout) {
             AboutView()
@@ -229,17 +229,17 @@ struct SettingView: View {
             VStack(alignment: .leading, spacing: 14) {
                 Text("Current Destination")
                     .font(.system(size: 11, weight: .medium, design: .monospaced))
-                    .foregroundColor(.blackAndWhite3)
+                    .foregroundColor(Color.secondaryText)
                     .textCase(.uppercase)
 
                 Text(viewModel.selectedTeam?.name ?? "All Friends")
                     .font(.system(size: 20, weight: .bold, design: .monospaced))
-                    .foregroundColor(.blackAndWhite4)
+                    .foregroundColor(Color.primaryText)
                     .accessibilityIdentifier("manage.selectedTeamName")
 
                 Text(manageTeamsSectionMessage)
                     .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(.blackAndWhite3)
+                    .foregroundColor(Color.secondaryText)
                     .accessibilityIdentifier("manage.selectedTeamMessage")
 
                 HStack(spacing: 8) {
@@ -412,12 +412,12 @@ struct SettingView: View {
         VStack(alignment: .leading, spacing: 6) {
             Text(addFriendContextTitle)
                 .font(.system(size: 14, weight: .bold, design: .monospaced))
-                .foregroundColor(.blackAndWhite4)
+                .foregroundColor(Color.primaryText)
                 .accessibilityIdentifier("friends.addContextTitle")
 
             Text(addFriendContextMessage)
                 .font(.system(size: 12, design: .monospaced))
-                .foregroundColor(.blackAndWhite3)
+                .foregroundColor(Color.secondaryText)
                 .accessibilityIdentifier("friends.addContextMessage")
         }
         .padding(14)
@@ -485,19 +485,19 @@ struct SettingView: View {
         VStack(alignment: .leading, spacing: 14) {
             Text("Selected Team")
                 .font(.system(size: 11, weight: .medium, design: .monospaced))
-                .foregroundColor(.blackAndWhite3)
+                .foregroundColor(Color.secondaryText)
                 .textCase(.uppercase)
 
             HStack(alignment: .top, spacing: 12) {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(summary.team.name)
                         .font(.system(size: 20, weight: .bold, design: .monospaced))
-                        .foregroundColor(.blackAndWhite4)
+                        .foregroundColor(Color.primaryText)
                         .accessibilityIdentifier("friends.selectedTeamName")
 
                     Text(selectedTeamSummaryMessage(for: summary))
                         .font(.system(size: 12, design: .monospaced))
-                        .foregroundColor(.blackAndWhite3)
+                        .foregroundColor(Color.secondaryText)
                         .accessibilityIdentifier("friends.selectedTeamMessage")
                 }
 
@@ -588,12 +588,12 @@ struct SettingView: View {
                 VStack(alignment: .leading, spacing: 6) {
                     Text(summary.team.name)
                         .font(.system(size: 15, weight: .bold, design: .monospaced))
-                        .foregroundColor(.blackAndWhite4)
+                        .foregroundColor(Color.primaryText)
                         .accessibilityIdentifier(teamButtonNameIdentifier)
 
                     Text(teamButtonSubtitle(for: summary))
                         .font(.system(size: 11, design: .monospaced))
-                        .foregroundColor(.blackAndWhite3)
+                        .foregroundColor(Color.secondaryText)
                 }
 
                 Spacer()
@@ -659,11 +659,11 @@ struct SettingView: View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
                 .font(.system(size: 10, weight: .medium, design: .monospaced))
-                .foregroundColor(.blackAndWhite3)
+                .foregroundColor(Color.secondaryText)
                 .textCase(.uppercase)
             Text(value)
                 .font(.system(size: 13, weight: .bold, design: .monospaced))
-                .foregroundColor(.blackAndWhite4)
+                .foregroundColor(Color.primaryText)
         }
         .padding(.horizontal, 10)
         .padding(.vertical, 8)
@@ -689,12 +689,12 @@ struct SettingView: View {
 
             Text(title)
                 .font(.system(size: 18, weight: .bold, design: .monospaced))
-                .foregroundColor(.blackAndWhite4)
+                .foregroundColor(Color.primaryText)
                 .accessibilityIdentifier(titleIdentifier)
 
             Text(message)
                 .font(.system(size: 13, design: .monospaced))
-                .foregroundColor(.blackAndWhite3)
+                .foregroundColor(Color.secondaryText)
                 .accessibilityIdentifier(messageIdentifier)
 
             if let actionTitle,
@@ -740,7 +740,7 @@ struct SettingView: View {
             .buttonStyle(.bordered)
             .accessibilityIdentifier("friends.memberTeamsButton.\(member.id)")
 
-            ContributionView(
+                    ContributionProfileCardView(
                 profile: member.profile,
                 theme: viewModel.selectedTheme,
                 cellColors: viewModel.cellColorSet(for: member.profile, columnsCount: 20)
@@ -814,12 +814,12 @@ struct SettingView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(team.name)
                         .font(.system(size: 15, weight: .bold, design: .monospaced))
-                        .foregroundColor(.blackAndWhite4)
+                        .foregroundColor(Color.primaryText)
                         .accessibilityIdentifier("friends.teamManager.name.\(team.id)")
 
                     Text(teamPositionLabel)
                         .font(.system(size: 11, design: .monospaced))
-                        .foregroundColor(.blackAndWhite3)
+                        .foregroundColor(Color.secondaryText)
                         .accessibilityIdentifier("friends.teamManager.position.\(team.id)")
                 }
 
@@ -946,7 +946,7 @@ struct SettingView: View {
         }
     }
 
-    private func memberManagementSheet(for profile: ContributionProfile) -> some View {
+    private func memberManagementSheet(for profile: ContributionAccountProfileState) -> some View {
         NavigationStack {
             List {
                 Section("Friend") {
