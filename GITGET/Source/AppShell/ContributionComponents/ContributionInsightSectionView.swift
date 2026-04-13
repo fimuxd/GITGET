@@ -1,13 +1,15 @@
 import SwiftUI
 
 struct ContributionInsightSectionView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     let summary: ContributionTeamSummary
     let theme: Theme
 
-    private let columns = [
-        GridItem(.flexible(), spacing: 10, alignment: .top),
-        GridItem(.flexible(), spacing: 10, alignment: .top)
-    ]
+    private var columns: [GridItem] {
+        let columnCount = horizontalSizeClass == .regular ? 4 : 2
+        return Array(repeating: GridItem(.flexible(), spacing: 10, alignment: .top), count: columnCount)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {

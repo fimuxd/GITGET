@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     private enum TeamSheetRoute: Identifiable {
         case teamManager
         case renameTeam(String)
@@ -44,6 +46,22 @@ struct MainTabView: View {
         !viewModel.teams.isEmpty
     }
 
+    private var isWideLayout: Bool {
+        horizontalSizeClass == .regular
+    }
+
+    private var preferredContentWidth: CGFloat {
+        isWideLayout ? 920 : 680
+    }
+
+    private var aboutPresentationDetents: Set<PresentationDetent> {
+        isWideLayout ? [.medium, .large] : [.height(430)]
+    }
+
+    private var profileChartColumnCount: Int {
+        isWideLayout ? 28 : 20
+    }
+
     var body: some View {
         TabView(selection: $selectedTab) {
             friendsTab
@@ -71,7 +89,7 @@ struct MainTabView: View {
         }
         .sheet(isPresented: $showAbout) {
             AboutView()
-                .presentationDetents([.height(430)])
+                .presentationDetents(aboutPresentationDetents)
         }
         .sheet(item: $teamSheetRoute) { route in
             switch route {
@@ -126,12 +144,16 @@ struct MainTabView: View {
                     friendListSection
                 }
             }
+#if os(macOS)
+            .listStyle(.inset)
+#else
             .listStyle(.insetGrouped)
+#endif
             .scrollContentBackground(.hidden)
             .background(Color("background").ignoresSafeArea())
             .navigationTitle("GitGet")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                leadingToolbarItem {
                     Button {
                         presentTeamManager()
                     } label: {
@@ -140,7 +162,7 @@ struct MainTabView: View {
                     .accessibilityIdentifier("friends.manageTeamsButton")
                 }
 
-                ToolbarItem(placement: .topBarTrailing) {
+                trailingToolbarItem {
                     Button {
                         viewModel.refreshAll()
                     } label: {
@@ -158,12 +180,16 @@ struct MainTabView: View {
                 manageTeamsSection
                 addFriendSection
             }
+#if os(macOS)
+            .listStyle(.inset)
+#else
             .listStyle(.insetGrouped)
+#endif
             .scrollContentBackground(.hidden)
             .background(Color("background").ignoresSafeArea())
             .navigationTitle("Manage")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                trailingToolbarItem {
                     Button {
                         presentTeamManager()
                     } label: {
@@ -190,26 +216,32 @@ struct MainTabView: View {
     private var teamNavigationSection: some View {
         Section {
             if hasTeams, let selectedTeamSummary = viewModel.selectedTeamSummary {
-                selectedTeamCard(summary: selectedTeamSummary)
+                centeredRow {
+                    selectedTeamCard(summary: selectedTeamSummary)
+                }
                 .padding(.vertical, 8)
                 .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 .listRowBackground(Color.clear)
 
                 ForEach(viewModel.orderedTeamSummaries) { summary in
-                    teamButton(summary: summary)
+                    centeredRow {
+                        teamButton(summary: summary)
+                    }
                         .listRowInsets(EdgeInsets(top: 6, leading: 0, bottom: 6, trailing: 0))
                         .listRowBackground(Color.clear)
                 }
             } else {
-                emptyStateCard(
-                    title: "No teams yet",
-                    message: "Add your first account in Manage to create All Friends, then come back here to compare teammates and scan quick team insights.",
-                    titleIdentifier: "friends.noTeamsTitle",
-                    messageIdentifier: "friends.noTeamsMessage",
-                    actionTitle: "Open Manage",
-                    actionIdentifier: "friends.noTeamsOpenManageButton",
-                    action: openManageTab
-                )
+                centeredRow {
+                    emptyStateCard(
+                        title: "No teams yet",
+                        message: "Add your first account in Manage to create All Friends, then come back here to compare teammates and scan quick team insights.",
+                        titleIdentifier: "friends.noTeamsTitle",
+                        messageIdentifier: "friends.noTeamsMessage",
+                        actionTitle: "Open Manage",
+                        actionIdentifier: "friends.noTeamsOpenManageButton",
+                        action: openManageTab
+                    )
+                }
                 .padding(.vertical, 8)
                 .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 .listRowBackground(Color.clear)
@@ -226,53 +258,55 @@ struct MainTabView: View {
 
     private var manageTeamsSection: some View {
         Section {
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Current Destination")
-                    .font(.system(size: 11, weight: .medium, design: .monospaced))
-                    .foregroundColor(Color.secondaryText)
-                    .textCase(.uppercase)
+            centeredRow {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text("Current Destination")
+                        .font(.system(size: 11, weight: .medium, design: .monospaced))
+                        .foregroundColor(Color.secondaryText)
+                        .textCase(.uppercase)
 
-                Text(viewModel.selectedTeam?.name ?? "All Friends")
-                    .font(.system(size: 20, weight: .bold, design: .monospaced))
-                    .foregroundColor(Color.primaryText)
-                    .accessibilityIdentifier("manage.selectedTeamName")
+                    Text(viewModel.selectedTeam?.name ?? "All Friends")
+                        .font(.system(size: 20, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color.primaryText)
+                        .accessibilityIdentifier("manage.selectedTeamName")
 
-                Text(manageTeamsSectionMessage)
-                    .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(Color.secondaryText)
-                    .accessibilityIdentifier("manage.selectedTeamMessage")
+                    Text(manageTeamsSectionMessage)
+                        .font(.system(size: 12, design: .monospaced))
+                        .foregroundColor(Color.secondaryText)
+                        .accessibilityIdentifier("manage.selectedTeamMessage")
 
-                HStack(spacing: 8) {
-                    teamMetaPill(title: "Teams", value: "\(viewModel.teams.count)")
+                    HStack(spacing: 8) {
+                        teamMetaPill(title: "Teams", value: "\(viewModel.teams.count)")
 
-                    if !viewModel.customTeams.isEmpty {
-                        teamMetaPill(title: "Custom", value: "\(viewModel.customTeams.count)")
+                        if !viewModel.customTeams.isEmpty {
+                            teamMetaPill(title: "Custom", value: "\(viewModel.customTeams.count)")
+                        }
                     }
-                }
 
-                Button {
-                    presentTeamManager()
-                } label: {
-                    Label("Open Team Manager", systemImage: "slider.horizontal.3")
-                        .font(.system(size: 12, weight: .bold, design: .monospaced))
-                        .frame(maxWidth: .infinity)
+                    Button {
+                        presentTeamManager()
+                    } label: {
+                        Label("Open Team Manager", systemImage: "slider.horizontal.3")
+                            .font(.system(size: 12, weight: .bold, design: .monospaced))
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(viewModel.selectedTheme.levelFourColor)
+                    .accessibilityIdentifier("manage.openTeamManagerButton")
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(viewModel.selectedTheme.levelFourColor)
-                .accessibilityIdentifier("manage.openTeamManagerButton")
+                .padding(18)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color("background"))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(viewModel.selectedTheme.levelFourColor.opacity(0.18), lineWidth: 1)
+                )
+                .accessibilityElement(children: .contain)
+                .accessibilityIdentifier("manage.teamsCard")
             }
-            .padding(18)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color("background"))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(viewModel.selectedTheme.levelFourColor.opacity(0.18), lineWidth: 1)
-            )
-            .accessibilityElement(children: .contain)
-            .accessibilityIdentifier("manage.teamsCard")
         } header: {
             Text("Teams")
         } footer: {
@@ -334,52 +368,62 @@ struct MainTabView: View {
     private var friendListSection: some View {
         Section {
             if let summary = viewModel.selectedTeamSummary {
-                ContributionInsightSectionView(
-                    summary: summary,
-                    theme: viewModel.selectedTheme
-                )
+                centeredRow {
+                    ContributionInsightSectionView(
+                        summary: summary,
+                        theme: viewModel.selectedTheme
+                    )
+                }
                 .padding(.vertical, 8)
                 .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                 .listRowBackground(Color.clear)
 
                 if viewModel.selectedTeamMembers.isEmpty {
-                    emptyStateCard(
-                        title: teamEmptyStateTitle,
-                        message: teamEmptyStateMessage,
-                        titleIdentifier: "friends.teamEmptyTitle",
-                        messageIdentifier: "friends.teamEmptyMessage",
-                        actionTitle: "Open Manage",
-                        actionIdentifier: "friends.teamEmptyOpenManageButton",
-                        action: openManageTab
-                    )
+                    centeredRow {
+                        emptyStateCard(
+                            title: teamEmptyStateTitle,
+                            message: teamEmptyStateMessage,
+                            titleIdentifier: "friends.teamEmptyTitle",
+                            messageIdentifier: "friends.teamEmptyMessage",
+                            actionTitle: "Open Manage",
+                            actionIdentifier: "friends.teamEmptyOpenManageButton",
+                            action: openManageTab
+                        )
+                    }
                     .padding(.vertical, 8)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                     .listRowBackground(Color.clear)
                 } else {
-                    ContributionComparisonSectionView(
-                        summary: summary,
-                        selectedMetric: viewModel.selectedComparisonMetric,
-                        theme: viewModel.selectedTheme,
-                        onSelectMetric: { metric in
-                            viewModel.selectComparisonMetric(metric)
-                        }
-                    )
+                    centeredRow {
+                        ContributionComparisonSectionView(
+                            summary: summary,
+                            selectedMetric: viewModel.selectedComparisonMetric,
+                            theme: viewModel.selectedTheme,
+                            onSelectMetric: { metric in
+                                viewModel.selectComparisonMetric(metric)
+                            }
+                        )
+                    }
                     .padding(.vertical, 8)
                     .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                     .listRowBackground(Color.clear)
 
                     if !summary.unavailableMembers.isEmpty {
-                        ContributionUnavailableSectionView(
-                            members: summary.unavailableMembers,
-                            theme: viewModel.selectedTheme
-                        )
+                        centeredRow {
+                            ContributionUnavailableSectionView(
+                                members: summary.unavailableMembers,
+                                theme: viewModel.selectedTheme
+                            )
+                        }
                         .padding(.vertical, 8)
                         .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                         .listRowBackground(Color.clear)
                     }
 
                     ForEach(viewModel.selectedTeamMembers) { member in
-                        memberCard(member)
+                        centeredRow {
+                            memberCard(member)
+                        }
                         .listRowInsets(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                         .listRowBackground(Color.clear)
                         .swipeActions {
@@ -740,12 +784,22 @@ struct MainTabView: View {
             .buttonStyle(.bordered)
             .accessibilityIdentifier("friends.memberTeamsButton.\(member.id)")
 
-                    ContributionProfileCardView(
+            ContributionProfileCardView(
                 profile: member.profile,
                 theme: viewModel.selectedTheme,
-                cellColors: viewModel.cellColorSet(for: member.profile, columnsCount: 20)
+                cellColors: viewModel.cellColorSet(for: member.profile, columnsCount: profileChartColumnCount)
             )
         }
+    }
+
+    private func centeredRow<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        HStack(spacing: 0) {
+            Spacer(minLength: 0)
+            content()
+                .frame(maxWidth: preferredContentWidth, alignment: .leading)
+            Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity)
     }
 
     private var selectedTeamRemovalLabel: String {
@@ -795,7 +849,7 @@ struct MainTabView: View {
             }
             .navigationTitle("Manage Teams")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                trailingToolbarItem {
                     Button("Done") {
                         teamSheetRoute = nil
                     }
@@ -936,7 +990,7 @@ struct MainTabView: View {
             }
             .navigationTitle("Rename Team")
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
+                leadingToolbarItem {
                     Button("Cancel") {
                         teamSheetRoute = nil
                     }
@@ -993,7 +1047,7 @@ struct MainTabView: View {
             }
             .navigationTitle("Member Teams")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                trailingToolbarItem {
                     Button("Done") {
                         teamSheetRoute = nil
                     }
@@ -1036,5 +1090,31 @@ struct MainTabView: View {
             }
             .navigationTitle("Settings")
         }
+    }
+
+    @ToolbarContentBuilder
+    private func leadingToolbarItem<Content: View>(@ViewBuilder _ content: () -> Content) -> some ToolbarContent {
+#if os(macOS)
+        ToolbarItem {
+            content()
+        }
+#else
+        ToolbarItem(placement: .topBarLeading) {
+            content()
+        }
+#endif
+    }
+
+    @ToolbarContentBuilder
+    private func trailingToolbarItem<Content: View>(@ViewBuilder _ content: () -> Content) -> some ToolbarContent {
+#if os(macOS)
+        ToolbarItem {
+            content()
+        }
+#else
+        ToolbarItem(placement: .topBarTrailing) {
+            content()
+        }
+#endif
     }
 }

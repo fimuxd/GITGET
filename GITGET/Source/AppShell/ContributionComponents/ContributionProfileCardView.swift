@@ -1,9 +1,19 @@
 import SwiftUI
 
 struct ContributionProfileCardView: View {
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
     let profile: ContributionAccountProfileState
     let theme: Theme
     let cellColors: [[Color]]
+
+    private var isWideLayout: Bool {
+        horizontalSizeClass == .regular
+    }
+
+    private var chartHeight: CGFloat {
+        isWideLayout ? 132 : 110
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
@@ -101,7 +111,7 @@ struct ContributionProfileCardView: View {
                     Color.clear
                 }
             }
-            .frame(height: 110)
+            .frame(height: chartHeight)
         }
     }
 
