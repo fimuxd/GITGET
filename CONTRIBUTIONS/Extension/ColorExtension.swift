@@ -12,6 +12,14 @@ extension Color {
         Color("WidgetBackground")
     }
 
+    static var primaryText: Color {
+        .primary
+    }
+
+    static var secondaryText: Color {
+        .secondary
+    }
+
     static var level0: Color {
         Color("lv0")
     }
@@ -76,5 +84,15 @@ extension Color {
 
     private static func palette(_ red: Int, _ green: Int, _ blue: Int, alpha: Double = 1.0) -> Color {
         palette(Double(red) / 255.0, Double(green) / 255.0, Double(blue) / 255.0, alpha: alpha)
+    }
+}
+
+extension Optional where Wrapped == Color {
+    static var primaryText: Color {
+        Color.primaryText
+    }
+
+    static var secondaryText: Color {
+        Color.secondaryText
     }
 }

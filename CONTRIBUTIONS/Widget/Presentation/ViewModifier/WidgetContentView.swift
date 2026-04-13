@@ -32,7 +32,7 @@ struct WidgetContentView: SwiftUI.View {
                         Spacer()
                         Text("CONTRIBUTIONS".localizedStringWithFormat(viewModel.currentYearContributions) + " IN " + Date().gitHubYearString)
                             .font(.system(size: 10, weight: .medium))
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color.secondaryText)
                             .textCase(.uppercase)
                             .lineLimit(1)
                     }
@@ -48,7 +48,7 @@ struct WidgetContentView: SwiftUI.View {
                         : Text("")
                 }
                 .font(.system(size: 10, weight: .medium))
-                .foregroundColor(.gray)
+                .foregroundColor(Color.secondaryText)
                 .textCase(.uppercase)
                 .lineLimit(1)
                 
@@ -67,53 +67,53 @@ struct WidgetContentView: SwiftUI.View {
                     VStack(alignment: .leading, spacing: 10) {
                         Text(viewModel.displayUsername)
                             .font(.system(size: 16, weight: .bold, design: .monospaced))
-                            .foregroundColor(.blackAndWhite4)
+                            .foregroundColor(Color.primaryText)
                         
                         Text(viewModel.bio)
                             .font(.system(size: 12, design: .monospaced))
-                            .foregroundColor(.blackAndWhite4)
+                            .foregroundColor(Color.primaryText)
                         
                         HStack {
                             Image(systemName: "location.circle")
                                 .frame(width: 12, height: 12)
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                             Text(" " + viewModel.location)
                                 .font(.system(size: 12, design: .monospaced))
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                         }
                         
                         HStack {
                             Image(systemName: "building")
                                 .frame(width: 12, height: 12)
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                             Text(" " + viewModel.company)
                                 .font(.system(size: 12, design: .monospaced))
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                         }
                         
                         HStack {
                             Image(systemName: "person.2")
                                 .frame(width: 12, height: 12)
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                             Text(" " + viewModel.followers)
                                 .font(.system(size: 12, weight: .bold, design: .monospaced))
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                             Text("followers |")
                                 .font(.system(size: 10, design: .monospaced))
-                                .foregroundColor(.blackAndWhite3)
+                                .foregroundColor(Color.secondaryText)
                             Text(viewModel.following)
                                 .font(.system(size: 12, weight: .bold, design: .monospaced))
-                                .foregroundColor(.blackAndWhite4)
+                                .foregroundColor(Color.primaryText)
                             Text("following")
                                 .font(.system(size: 10, design: .monospaced))
-                                .foregroundColor(.blackAndWhite3)
+                                .foregroundColor(Color.secondaryText)
                         }
                         
                         HStack {
                             Spacer()
                             Text(verbatim: "develop since \(viewModel.startYear)")
                                 .font(.system(size: 10, design: .monospaced))
-                                .foregroundColor(.blackAndWhite3)
+                                .foregroundColor(Color.secondaryText)
                         }
                     }
                     .padding([.leading, .trailing], 10)

@@ -11,7 +11,7 @@ struct NoticeTextStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.system(size: 16, weight: .regular, design: .monospaced))
-            .foregroundColor(Color.level0)
+            .foregroundColor(Color.primaryText)
             .unredacted()
     }
 }
