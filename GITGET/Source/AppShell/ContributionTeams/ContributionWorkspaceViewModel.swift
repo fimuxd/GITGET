@@ -1,5 +1,5 @@
-//
-//  ContributionViewModel.swift
+ //
+//  ContributionWorkspaceViewModel.swift
 //  GITGET
 //
 //  Created by Bo-Young Park on 2022/09/12.
@@ -7,322 +7,8 @@
 
 import SwiftUI
 
-struct ContributionProfile: Identifiable {
-    let account: ContributionAccount
-    var user: User?
-    var contributions: [Contribution]
-    var isLoading: Bool
-    var errorMessage: String?
-    var hasResolvedUser: Bool
-    var hasResolvedContributions: Bool
-
-    var id: String { account.id }
-
-    var providerTitle: String { account.provider.title }
-    var username: String { user?.login ?? account.username }
-    var name: String { user?.name ?? account.username }
-    var bio: String { user?.bio ?? "Keep Contributions Green".localized }
-    var location: String { user?.location ?? "Anywhere" }
-    var company: String { user?.company ?? "Independent" }
-    var followers: String { Self.formattedCount(user?.followers ?? 0) }
-    var following: String { Self.formattedCount(user?.following ?? 0) }
-    var startYear: String { user?.createdAt?.gitHubYearString ?? Date().gitHubYearString }
-    var currentYearContributions: Int {
-        contributions
-            .filter { $0.date.gitHubYear == Date().gitHubYear }
-            .map(\.count)
-            .reduce(0, +)
-    }
-    var todayContributionCount: Int? {
-        contributions.last { $0.date.isGitHubToday }?.count
-    }
-    var hasContent: Bool {
-        !contributions.isEmpty
-    }
-
-    var availability: ContributionMemberAvailability {
-        if isLoading {
-            return .loading
-        }
-
-        switch (hasResolvedUser, hasResolvedContributions) {
-        case (true, true):
-            return .complete
-        case (true, false):
-            return .profileOnly
-        case (false, true):
-            return .contributionsOnly
-        case (false, false):
-            return .unavailable
-        }
-    }
-
-    var comparisonMetrics: ContributionComparisonMetrics {
-        ContributionComparisonMetrics(contributions: contributions)
-    }
-
-    func activeStreakCount(referenceDate: Date = Date(), maxDays: Int = 7) -> Int {
-        let calendar = Calendar.gitHubUTC
-        let today = calendar.startOfDay(for: referenceDate)
-        let countsByDay = Dictionary(uniqueKeysWithValues: contributions.map {
-            (calendar.startOfDay(for: $0.date), $0.count)
-        })
-
-        var streak = 0
-        for dayOffset in 0..<maxDays {
-            guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) else {
-                break
-            }
-
-            if (countsByDay[date] ?? 0) > 0 {
-                streak += 1
-            } else {
-                break
-            }
-        }
-
-        return streak
-    }
-
-    func sevenDayMomentum(referenceDate: Date = Date()) -> Int? {
-        let calendar = Calendar.gitHubUTC
-        let today = calendar.startOfDay(for: referenceDate)
-        let countsByDay = Dictionary(uniqueKeysWithValues: contributions.map {
-            (calendar.startOfDay(for: $0.date), $0.count)
-        })
-
-        func contributionSum(dayOffsets: ClosedRange<Int>) -> Int {
-            dayOffsets.reduce(0) { partialResult, dayOffset in
-                guard let date = calendar.date(byAdding: .day, value: -dayOffset, to: today) else {
-                    return partialResult
-                }
-
-                return partialResult + (countsByDay[date] ?? 0)
-            }
-        }
-
-        let currentWindowTotal = contributionSum(dayOffsets: 0...6)
-        let previousWindowTotal = contributionSum(dayOffsets: 7...13)
-        guard currentWindowTotal > 0 || previousWindowTotal > 0 else {
-            return nil
-        }
-
-        return currentWindowTotal - previousWindowTotal
-    }
-
-    private static func formattedCount(_ count: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        return numberFormatter.string(from: NSNumber(value: count)) ?? "0"
-    }
-}
-
-enum ContributionMemberAvailability: String {
-    case loading
-    case complete
-    case profileOnly
-    case contributionsOnly
-    case unavailable
-}
-
-enum ContributionComparisonMetric: String, CaseIterable, Identifiable {
-    case today
-    case last7ActiveDays
-    case currentYear
-
-    var id: String { rawValue }
-
-    var title: String {
-        switch self {
-        case .today:
-            return "Today"
-        case .last7ActiveDays:
-            return "Last 7 Active Days"
-        case .currentYear:
-            return "Current Year"
-        }
-    }
-
-    var shortTitle: String {
-        switch self {
-        case .today:
-            return "Today"
-        case .last7ActiveDays:
-            return "7 Active Days"
-        case .currentYear:
-            return "Year"
-        }
-    }
-
-    func value(from metrics: ContributionComparisonMetrics) -> Int {
-        switch self {
-        case .today:
-            return metrics.todayContributionCount
-        case .last7ActiveDays:
-            return metrics.last7ActiveDayContributionCount
-        case .currentYear:
-            return metrics.currentYearContributionCount
-        }
-    }
-}
-
-struct ContributionComparisonMetrics: Equatable {
-    let todayContributionCount: Int
-    let last7DayContributionCount: Int
-    let currentYearContributionCount: Int
-
-    var last7ActiveDayContributionCount: Int {
-        last7DayContributionCount
-    }
-
-    static let zero = ContributionComparisonMetrics(
-        todayContributionCount: 0,
-        last7DayContributionCount: 0,
-        currentYearContributionCount: 0
-    )
-
-    init(
-        todayContributionCount: Int,
-        last7DayContributionCount: Int,
-        currentYearContributionCount: Int
-    ) {
-        self.todayContributionCount = todayContributionCount
-        self.last7DayContributionCount = last7DayContributionCount
-        self.currentYearContributionCount = currentYearContributionCount
-    }
-
-    init(contributions: [Contribution], referenceDate: Date = Date()) {
-        let calendar = Calendar.gitHubUTC
-        let today = calendar.startOfDay(for: referenceDate)
-
-        todayContributionCount = contributions.last(where: { calendar.isDate($0.date, inSameDayAs: today) })?.count ?? 0
-        last7DayContributionCount = contributions
-            .filter { contribution in contribution.count > 0 && calendar.startOfDay(for: contribution.date) <= today }
-            .sorted { $0.date > $1.date }
-            .prefix(7)
-            .map(\.count)
-            .reduce(0, +)
-        currentYearContributionCount = contributions
-            .filter { calendar.component(.year, from: $0.date) == calendar.component(.year, from: today) }
-            .map(\.count)
-            .reduce(0, +)
-    }
-
-    static func + (lhs: ContributionComparisonMetrics, rhs: ContributionComparisonMetrics) -> ContributionComparisonMetrics {
-        ContributionComparisonMetrics(
-            todayContributionCount: lhs.todayContributionCount + rhs.todayContributionCount,
-            last7DayContributionCount: lhs.last7DayContributionCount + rhs.last7DayContributionCount,
-            currentYearContributionCount: lhs.currentYearContributionCount + rhs.currentYearContributionCount
-        )
-    }
-}
-
-struct ContributionComparisonInput: Identifiable {
-    let account: ContributionAccount
-    let displayName: String
-    let username: String
-    let providerTitle: String
-    let metrics: ContributionComparisonMetrics
-    let availability: ContributionMemberAvailability
-    let errorMessage: String?
-
-    var id: String { account.id }
-
-    var hasAvailableContributionGraph: Bool {
-        availability == .complete || availability == .contributionsOnly
-    }
-
-    var providerNeutralRankingKey: String {
-        "\(account.provider.rawValue.lowercased()):\(username.lowercased())"
-    }
-
-    var unavailableReasonLabel: String {
-        switch availability {
-        case .profileOnly:
-            return "Contribution graph unavailable"
-        case .unavailable:
-            return "Profile and contribution graph unavailable"
-        case .loading:
-            return "Refreshing contribution graph"
-        case .complete, .contributionsOnly:
-            return "Contribution graph available"
-        }
-    }
-}
-
-struct ContributionMetricRanking: Identifiable {
-    let metric: ContributionComparisonMetric
-    let members: [ContributionComparisonInput]
-
-    var id: String { metric.id }
-}
-
-enum ContributionTeamInsightKind: String, CaseIterable, Identifiable {
-    case hottestToday
-    case streakLeader
-    case biggest7DayMover
-    case mostActiveThisYear
-
-    var id: String { rawValue }
-
-    var title: String {
-        switch self {
-        case .hottestToday:
-            return "Hottest Today"
-        case .streakLeader:
-            return "7-Day Streak Leader"
-        case .biggest7DayMover:
-            return "Biggest 7-Day Mover"
-        case .mostActiveThisYear:
-            return "Most Active This Year"
-        }
-    }
-}
-
-struct ContributionTeamInsight: Identifiable, Equatable {
-    let kind: ContributionTeamInsightKind
-    let headline: String
-    let detail: String
-    let isFallback: Bool
-
-    var id: String { kind.id }
-    var title: String { kind.title }
-}
-
-struct ContributionTeamMemberState: Identifiable {
-    let teamID: String
-    let profile: ContributionProfile
-    let comparisonInput: ContributionComparisonInput
-
-    var id: String { profile.id }
-}
-
-struct ContributionTeamSummary: Identifiable {
-    let team: ContributionTeam
-    let members: [ContributionTeamMemberState]
-    let rankings: [ContributionMetricRanking]
-    let insights: [ContributionTeamInsight]
-    let unavailableMembers: [ContributionComparisonInput]
-    let aggregateMetrics: ContributionComparisonMetrics
-    let partialFailureCount: Int
-
-    var id: String { team.id }
-
-    func rankedMembers(for metric: ContributionComparisonMetric) -> [ContributionComparisonInput] {
-        rankings.first(where: { $0.metric == metric })?.members ?? []
-    }
-
-    var rankedMembers: [ContributionComparisonInput] {
-        rankings.first?.members ?? []
-    }
-
-    func insight(for kind: ContributionTeamInsightKind) -> ContributionTeamInsight? {
-        insights.first { $0.kind == kind }
-    }
-}
-
 @MainActor
-final class ContributionViewModel: ObservableObject {
+final class ContributionWorkspaceViewModel: ObservableObject {
     private let userDefaults: UserDefaults
     private let processInfo: ProcessInfo
     private let shouldRefreshOnLoad: Bool
@@ -337,7 +23,7 @@ final class ContributionViewModel: ObservableObject {
             userDefaults.set(selectedTheme.rawValue, forKey: Self.themeKey)
         }
     }
-    @Published private(set) var profiles: [ContributionProfile] = []
+    @Published private(set) var profiles: [ContributionAccountProfileState] = []
     @Published private(set) var teams: [ContributionTeam] = []
     @Published private(set) var selectedTeamID: String?
     @Published private(set) var selectedComparisonMetric: ContributionComparisonMetric = .today
@@ -347,7 +33,7 @@ final class ContributionViewModel: ObservableObject {
     private static let themeKey = "selectedTheme"
 
     private var currentTeamStore: ContributionTeamStore?
-    private var profilesByAccountID: [String: ContributionProfile] = [:]
+    private var profilesByAccountID: [String: ContributionAccountProfileState] = [:]
 
     private var environment: [String: String] {
         uiTestEnvironment ?? processInfo.environment
@@ -382,11 +68,11 @@ final class ContributionViewModel: ObservableObject {
         selectedTeamSummary?.members ?? []
     }
 
-    var selectedTeamComparisonInputs: [ContributionComparisonInput] {
+    var selectedTeamComparisonInputs: [ContributionComparisonEntry] {
         selectedTeamSummary?.rankedMembers(for: selectedComparisonMetric) ?? []
     }
 
-    var selectedTeamUnavailableComparisonInputs: [ContributionComparisonInput] {
+    var selectedTeamUnavailableComparisonInputs: [ContributionComparisonEntry] {
         selectedTeamSummary?.unavailableMembers ?? []
     }
 
@@ -444,7 +130,7 @@ final class ContributionViewModel: ObservableObject {
         removeAccountsFromTeamStore(withIDs: removedAccountIDs)
     }
 
-    func removeProfile(_ profile: ContributionProfile) {
+    func removeProfile(_ profile: ContributionAccountProfileState) {
         removeAccountsFromTeamStore(withIDs: [profile.id])
     }
 
@@ -546,7 +232,7 @@ final class ContributionViewModel: ObservableObject {
         persistTeamStore()
     }
 
-    func removeProfileFromSelectedTeam(_ profile: ContributionProfile) {
+    func removeProfileFromSelectedTeam(_ profile: ContributionAccountProfileState) {
         guard let selectedTeamID,
               selectedTeamID != ContributionTeam.allFriendsID else {
             removeProfile(profile)
@@ -563,7 +249,7 @@ final class ContributionViewModel: ObservableObject {
     func comparisonInputs(
         for teamID: String,
         metric: ContributionComparisonMetric? = nil
-    ) -> [ContributionComparisonInput] {
+    ) -> [ContributionComparisonEntry] {
         let resolvedMetric = metric ?? selectedComparisonMetric
         return orderedTeamSummaries.first(where: { $0.id == teamID })?.rankedMembers(for: resolvedMetric) ?? []
     }
@@ -572,11 +258,11 @@ final class ContributionViewModel: ObservableObject {
         teams.first { $0.id == teamID }
     }
 
-    func profile(for accountID: String) -> ContributionProfile? {
+    func profile(for accountID: String) -> ContributionAccountProfileState? {
         profilesByAccountID[accountID]
     }
 
-    func cellColorSet(for profile: ContributionProfile, columnsCount: Int) -> [[Color]] {
+    func cellColorSet(for profile: ContributionAccountProfileState, columnsCount: Int) -> [[Color]] {
         guard let lastDate = profile.contributions.last?.date else {
             return []
         }
@@ -672,7 +358,7 @@ final class ContributionViewModel: ObservableObject {
         selectedTeamID = store.selectedTeamID
 
         let existingProfiles = preserveProfiles ? profilesByAccountID : profilesByAccountID
-        var updatedProfilesByID: [String: ContributionProfile] = [:]
+        var updatedProfilesByID: [String: ContributionAccountProfileState] = [:]
         for account in store.accounts {
             updatedProfilesByID[account.id] = existingProfiles[account.id] ?? Self.placeholderProfile(for: account)
         }
@@ -713,10 +399,10 @@ final class ContributionViewModel: ObservableObject {
         for account: ContributionAccount,
         userResult: Result<User, Error>,
         contributionsResult: Result<[Contribution], Error>
-    ) -> ContributionProfile {
+    ) -> ContributionAccountProfileState {
         switch (userResult, contributionsResult) {
         case (.success(let user), .success(let contributions)):
-            return ContributionProfile(
+            return ContributionAccountProfileState(
                 account: account,
                 user: user,
                 contributions: contributions.sorted { $0.date < $1.date },
@@ -727,7 +413,7 @@ final class ContributionViewModel: ObservableObject {
             )
 
         case (.success(let user), .failure):
-            return ContributionProfile(
+            return ContributionAccountProfileState(
                 account: account,
                 user: user,
                 contributions: [],
@@ -738,7 +424,7 @@ final class ContributionViewModel: ObservableObject {
             )
 
         case (.failure, .success(let contributions)):
-            return ContributionProfile(
+            return ContributionAccountProfileState(
                 account: account,
                 user: User(
                     login: account.username,
@@ -759,7 +445,7 @@ final class ContributionViewModel: ObservableObject {
             )
 
         case (.failure, .failure):
-            return ContributionProfile(
+            return ContributionAccountProfileState(
                 account: account,
                 user: nil,
                 contributions: [],
@@ -771,7 +457,7 @@ final class ContributionViewModel: ObservableObject {
         }
     }
 
-    func apply(_ profile: ContributionProfile) {
+    func apply(_ profile: ContributionAccountProfileState) {
         guard currentTeamStore?.accounts.contains(where: { $0.id == profile.id }) == true else {
             return
         }
@@ -817,8 +503,8 @@ final class ContributionViewModel: ObservableObject {
         )
     }
 
-    private func makeComparisonInput(for profile: ContributionProfile) -> ContributionComparisonInput {
-        ContributionComparisonInput(
+    private func makeComparisonInput(for profile: ContributionAccountProfileState) -> ContributionComparisonEntry {
+        ContributionComparisonEntry(
             account: profile.account,
             displayName: profile.name,
             username: profile.username,
@@ -1083,7 +769,7 @@ final class ContributionViewModel: ObservableObject {
         applyFixtureState(store: store, profiles: profiles)
     }
 
-    private func applyFixtureState(store: ContributionTeamStore, profiles: [ContributionProfile]) {
+    private func applyFixtureState(store: ContributionTeamStore, profiles: [ContributionAccountProfileState]) {
         applyInitialUITestState()
         let normalizedStore = store.normalized()
         let preservedSelectionID = preservedSelectedTeamID(for: normalizedStore) ?? normalizedStore.selectedTeamID
@@ -1115,8 +801,8 @@ final class ContributionViewModel: ObservableObject {
         return store.teams.contains(where: { $0.id == persistedStore.selectedTeamID }) ? persistedStore.selectedTeamID : nil
     }
 
-    private static func placeholderProfile(for account: ContributionAccount) -> ContributionProfile {
-        ContributionProfile(
+    private static func placeholderProfile(for account: ContributionAccount) -> ContributionAccountProfileState {
+        ContributionAccountProfileState(
             account: account,
             user: nil,
             contributions: [],
@@ -1128,9 +814,9 @@ final class ContributionViewModel: ObservableObject {
     }
 
     static func rankedComparisonInputs(
-        from inputs: [ContributionComparisonInput],
+        from inputs: [ContributionComparisonEntry],
         metric: ContributionComparisonMetric
-    ) -> [ContributionComparisonInput] {
+    ) -> [ContributionComparisonEntry] {
         inputs
             .filter(\.hasAvailableContributionGraph)
             .sorted { lhs, rhs in
@@ -1138,7 +824,7 @@ final class ContributionViewModel: ObservableObject {
             }
     }
 
-    static func unavailableComparisonInputs(from inputs: [ContributionComparisonInput]) -> [ContributionComparisonInput] {
+    static func unavailableComparisonInputs(from inputs: [ContributionComparisonEntry]) -> [ContributionComparisonEntry] {
         inputs
             .filter { !$0.hasAvailableContributionGraph }
             .sorted(by: compareUnavailableComparisonInputs)
@@ -1268,8 +954,8 @@ final class ContributionViewModel: ObservableObject {
     }
 
     private static func compareComparisonInputs(
-        _ lhs: ContributionComparisonInput,
-        _ rhs: ContributionComparisonInput,
+        _ lhs: ContributionComparisonEntry,
+        _ rhs: ContributionComparisonEntry,
         metric: ContributionComparisonMetric
     ) -> Bool {
         let lhsMetricValue = metric.value(from: lhs.metrics)
@@ -1289,7 +975,7 @@ final class ContributionViewModel: ObservableObject {
         return lhs.id.lowercased() < rhs.id.lowercased()
     }
 
-    private static func compareUnavailableComparisonInputs(_ lhs: ContributionComparisonInput, _ rhs: ContributionComparisonInput) -> Bool {
+    private static func compareUnavailableComparisonInputs(_ lhs: ContributionComparisonEntry, _ rhs: ContributionComparisonEntry) -> Bool {
         let lhsPriority = unavailablePriority(lhs.availability)
         let rhsPriority = unavailablePriority(rhs.availability)
         if lhsPriority != rhsPriority {
@@ -1316,7 +1002,7 @@ final class ContributionViewModel: ObservableObject {
         }
     }
 
-    private static func makeMockProfile() -> ContributionProfile {
+    private static func makeMockProfile() -> ContributionAccountProfileState {
         makeFixtureProfile(
             account: ContributionAccount(provider: .github, username: "octocat"),
             name: "The Octocat",
@@ -1346,7 +1032,7 @@ final class ContributionViewModel: ObservableObject {
         errorMessage: String? = nil,
         hasResolvedUser: Bool = true,
         hasResolvedContributions: Bool = true
-    ) -> ContributionProfile {
+    ) -> ContributionAccountProfileState {
         let user = hasResolvedUser
             ? User(
                 login: account.username,
@@ -1373,7 +1059,7 @@ final class ContributionViewModel: ObservableObject {
                 )
                : nil)
 
-        return ContributionProfile(
+        return ContributionAccountProfileState(
             account: account,
             user: user,
             contributions: makeFixtureContributions(dayOffsetsToCounts),
