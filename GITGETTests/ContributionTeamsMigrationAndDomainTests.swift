@@ -1,6 +1,6 @@
 //
-//  GITGETTests.swift
-//  GITGETTests
+//  ContributionTeamsMigrationAndDomainTests.swift
+//  ContributionTeamsMigrationAndDomainTests
 //
 //  Created by Bo-Young PARK on 12/27/20.
 //
@@ -8,7 +8,7 @@
 import XCTest
 @testable import GITGET
 
-class GITGETTests: XCTestCase {
+class ContributionTeamsMigrationAndDomainTests: XCTestCase {
 
     @MainActor
     func testSavedContributionAccountsMigratesIntoAllFriendsTeamStore() throws {
@@ -19,9 +19,9 @@ class GITGETTests: XCTestCase {
             ContributionAccount(provider: .gitlab, username: "haru", serverOrigin: "gitlab.example.com/team"),
             ContributionAccount(provider: .gitlab, username: "haru", serverOrigin: "https://gitlab.example.com")
         ]
-        userDefaults.set(try JSONEncoder().encode(legacyAccounts), forKey: ContributionViewModel.accountsKey)
+userDefaults.set(try JSONEncoder().encode(legacyAccounts), forKey: ContributionWorkspaceViewModel.accountsKey)
 
-        let viewModel = ContributionViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
+let viewModel = ContributionWorkspaceViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
         let persistedStore = try XCTUnwrap(loadTeamStore(from: userDefaults))
 
         XCTAssertEqual(viewModel.profiles.map(\.id), [
@@ -39,7 +39,7 @@ class GITGETTests: XCTestCase {
         let userDefaults = makeTestUserDefaults(function: #function)
         userDefaults.set("  octocat  ", forKey: "username")
 
-        let viewModel = ContributionViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
+let viewModel = ContributionWorkspaceViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
         let persistedStore = try XCTUnwrap(loadTeamStore(from: userDefaults))
 
         XCTAssertEqual(viewModel.profiles.map(\.account), [ContributionAccount(provider: .github, username: "octocat")])
@@ -55,9 +55,9 @@ class GITGETTests: XCTestCase {
             ContributionAccount(provider: .gitlab, username: "octocat"),
             ContributionAccount(provider: .github, username: "octocat", serverOrigin: "github.example.com")
         ]
-        userDefaults.set(try JSONEncoder().encode(legacyAccounts), forKey: ContributionViewModel.accountsKey)
+userDefaults.set(try JSONEncoder().encode(legacyAccounts), forKey: ContributionWorkspaceViewModel.accountsKey)
 
-        let viewModel = ContributionViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
+let viewModel = ContributionWorkspaceViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
         let persistedStore = try XCTUnwrap(loadTeamStore(from: userDefaults))
 
         XCTAssertEqual(viewModel.profiles.map(\.id), [
@@ -72,11 +72,11 @@ class GITGETTests: XCTestCase {
     func testFreshInstallDoesNotWriteTeamStore() {
         let userDefaults = makeTestUserDefaults(function: #function)
 
-        let viewModel = ContributionViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
+let viewModel = ContributionWorkspaceViewModel(userDefaults: userDefaults, shouldRefreshOnLoad: false)
 
         XCTAssertTrue(viewModel.profiles.isEmpty)
-        XCTAssertNil(userDefaults.data(forKey: ContributionViewModel.teamStoreKey))
-        XCTAssertNil(userDefaults.data(forKey: ContributionViewModel.accountsKey))
+XCTAssertNil(userDefaults.data(forKey: ContributionWorkspaceViewModel.teamStoreKey))
+XCTAssertNil(userDefaults.data(forKey: ContributionWorkspaceViewModel.accountsKey))
         XCTAssertNil(userDefaults.string(forKey: "username"))
     }
 
@@ -309,7 +309,7 @@ class GITGETTests: XCTestCase {
     }
 
     private func makeTestUserDefaults(function: StaticString) -> UserDefaults {
-        let suiteName = "GITGETTests.\(function)"
+        let suiteName = "ContributionTeamsMigrationAndDomainTests.\(function)"
         let userDefaults = UserDefaults(suiteName: suiteName)!
         userDefaults.removePersistentDomain(forName: suiteName)
         return userDefaults
@@ -322,7 +322,7 @@ class GITGETTests: XCTestCase {
 
     @MainActor
     private func loadTeamStore(from userDefaults: UserDefaults) -> ContributionTeamStore? {
-        guard let data = userDefaults.data(forKey: ContributionViewModel.teamStoreKey) else {
+guard let data = userDefaults.data(forKey: ContributionWorkspaceViewModel.teamStoreKey) else {
             return nil
         }
 
@@ -331,11 +331,11 @@ class GITGETTests: XCTestCase {
 
 }
 
-final class ContributionViewModelTeamStateTests: XCTestCase {
+final class ContributionWorkspaceViewModelTeamStateTests: XCTestCase {
     @MainActor
     func testAddingAccountUsesSelectedTeamAndAllFriendsMembership() throws {
         let userDefaults = makeTestUserDefaults(function: #function)
-        let viewModel = ContributionViewModel(
+let viewModel = ContributionWorkspaceViewModel(
             userDefaults: userDefaults,
             shouldRefreshOnLoad: false,
             uiTestEnvironment: [
@@ -364,7 +364,7 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
     @MainActor
     func testRemovingSelectedTeamMembershipKeepsAccountInAllFriends() throws {
         let userDefaults = makeTestUserDefaults(function: #function)
-        let viewModel = ContributionViewModel(
+let viewModel = ContributionWorkspaceViewModel(
             userDefaults: userDefaults,
             shouldRefreshOnLoad: false,
             uiTestEnvironment: [
@@ -414,10 +414,10 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
             ],
             accounts: accounts
         ).normalized()
-        userDefaults.set(try JSONEncoder().encode(persistedStore), forKey: ContributionViewModel.teamStoreKey)
+userDefaults.set(try JSONEncoder().encode(persistedStore), forKey: ContributionWorkspaceViewModel.teamStoreKey)
 
         var refreshedAccountIDs: [String] = []
-        let viewModel = ContributionViewModel(
+let viewModel = ContributionWorkspaceViewModel(
             userDefaults: userDefaults,
             shouldRefreshOnLoad: true,
             refreshProfileHandler: { account in
@@ -436,7 +436,7 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
     @MainActor
     func testLateRefreshCompletionDoesNotReinsertRemovedAccount() throws {
         let userDefaults = makeTestUserDefaults(function: #function)
-        let viewModel = ContributionViewModel(
+let viewModel = ContributionWorkspaceViewModel(
             userDefaults: userDefaults,
             shouldRefreshOnLoad: false,
             uiTestEnvironment: [
@@ -586,19 +586,19 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
         ]
 
         XCTAssertEqual(
-            ContributionViewModel.rankedComparisonInputs(from: inputs, metric: .today).map(\.id),
+ContributionWorkspaceViewModel.rankedComparisonInputs(from: inputs, metric: .today).map(\.id),
             ["github:public:zulu", "gitlab:public:adam", "github:public:bravo"]
         )
         XCTAssertEqual(
-            ContributionViewModel.rankedComparisonInputs(from: inputs, metric: .last7ActiveDays).map(\.id),
+ContributionWorkspaceViewModel.rankedComparisonInputs(from: inputs, metric: .last7ActiveDays).map(\.id),
             ["github:public:zulu", "gitlab:public:adam", "github:public:bravo"]
         )
         XCTAssertEqual(
-            ContributionViewModel.rankedComparisonInputs(from: inputs, metric: .currentYear).map(\.id),
+ContributionWorkspaceViewModel.rankedComparisonInputs(from: inputs, metric: .currentYear).map(\.id),
             ["github:public:bravo", "gitlab:public:adam", "github:public:zulu"]
         )
         XCTAssertEqual(
-            ContributionViewModel.unavailableComparisonInputs(from: inputs).map(\.id),
+ContributionWorkspaceViewModel.unavailableComparisonInputs(from: inputs).map(\.id),
             ["gitlab:public:missing"]
         )
     }
@@ -651,15 +651,15 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
         ]
 
         XCTAssertEqual(
-            ContributionViewModel.rankedComparisonInputs(from: inputs, metric: .today).map(\.id),
+ContributionWorkspaceViewModel.rankedComparisonInputs(from: inputs, metric: .today).map(\.id),
             ["github:public:anna", "gitlab:public:zoe"]
         )
         XCTAssertEqual(
-            ContributionViewModel.unavailableComparisonInputs(from: inputs).map(\.id),
+ContributionWorkspaceViewModel.unavailableComparisonInputs(from: inputs).map(\.id),
             ["gitlab:public:bella", "github:public:chris", "github:public:drew"]
         )
         XCTAssertEqual(
-            ContributionViewModel.unavailableComparisonInputs(from: inputs).map(\.unavailableReasonLabel),
+ContributionWorkspaceViewModel.unavailableComparisonInputs(from: inputs).map(\.unavailableReasonLabel),
             [
                 "Contribution graph unavailable",
                 "Profile and contribution graph unavailable",
@@ -693,9 +693,9 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
     }
 
     @MainActor
-    private func makeFixtureViewModel(state: String, function: StaticString) -> ContributionViewModel {
+private func makeFixtureViewModel(state: String, function: StaticString) -> ContributionWorkspaceViewModel {
         let userDefaults = makeTestUserDefaults(function: function)
-        return ContributionViewModel(
+    return ContributionWorkspaceViewModel(
             userDefaults: userDefaults,
             shouldRefreshOnLoad: false,
             uiTestEnvironment: [
@@ -706,7 +706,7 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
     }
 
     private func makeTestUserDefaults(function: StaticString) -> UserDefaults {
-        let suiteName = "ContributionViewModelTeamStateTests.\(function)"
+        let suiteName = "ContributionWorkspaceViewModelTeamStateTests.\(function)"
         let userDefaults = UserDefaults(suiteName: suiteName)!
         userDefaults.removePersistentDomain(forName: suiteName)
         return userDefaults
@@ -720,12 +720,12 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
         year: Int,
         availability: ContributionMemberAvailability,
         errorMessage: String? = nil
-    ) -> ContributionComparisonInput {
+) -> ContributionComparisonEntry {
         let components = id.split(separator: ":", maxSplits: 2, omittingEmptySubsequences: false)
         let provider = components.first == "gitlab" ? ContributionProvider.gitlab : ContributionProvider.github
         let username = components.last.map(String.init) ?? displayName.lowercased()
 
-        return ContributionComparisonInput(
+    return ContributionComparisonEntry(
             account: ContributionAccount(provider: provider, username: username),
             displayName: displayName,
             username: username,
@@ -742,7 +742,7 @@ final class ContributionViewModelTeamStateTests: XCTestCase {
 
     @MainActor
     private func loadTeamStore(from userDefaults: UserDefaults) -> ContributionTeamStore? {
-        guard let data = userDefaults.data(forKey: ContributionViewModel.teamStoreKey) else {
+guard let data = userDefaults.data(forKey: ContributionWorkspaceViewModel.teamStoreKey) else {
             return nil
         }
 
@@ -923,9 +923,9 @@ final class TeamInsightComputationTests: XCTestCase {
     }
 
     @MainActor
-    private func makeFixtureViewModel(state: String, function: StaticString) -> ContributionViewModel {
+private func makeFixtureViewModel(state: String, function: StaticString) -> ContributionWorkspaceViewModel {
         let userDefaults = makeTestUserDefaults(function: function)
-        return ContributionViewModel(
+    return ContributionWorkspaceViewModel(
             userDefaults: userDefaults,
             shouldRefreshOnLoad: false,
             uiTestEnvironment: [
@@ -946,12 +946,12 @@ final class TeamInsightComputationTests: XCTestCase {
         id: String,
         displayName: String,
         contributions: [Contribution]
-    ) -> ContributionProfile {
+) -> ContributionAccountProfileState {
         let components = id.split(separator: ":", maxSplits: 2, omittingEmptySubsequences: false)
         let provider = components.first == "gitlab" ? ContributionProvider.gitlab : ContributionProvider.github
         let username = components.last.map(String.init) ?? displayName.lowercased()
 
-        return ContributionProfile(
+    return ContributionAccountProfileState(
             account: ContributionAccount(provider: provider, username: username),
             user: User(
                 login: username,
