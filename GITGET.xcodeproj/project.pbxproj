@@ -15,7 +15,7 @@
 		7DE138112CB36A58008165B5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE138102CB36A58008165B5 /* Alamofire */; };
 		7DE1381C2CB37250008165B5 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7DE1381B2CB37250008165B5 /* Alamofire */; };
 		B10000072598608900BAEAEA /* GITGETUITestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000022598608900BAEAEA /* GITGETUITestCase.swift */; };
-		B10000082598608900BAEAEA /* SettingFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000032598608900BAEAEA /* SettingFlowUITests.swift */; };
+		B10000082598608900BAEAEA /* MainTabFlowUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000032598608900BAEAEA /* MainTabFlowUITests.swift */; };
 		B10000092598608900BAEAEA /* WidgetSmokeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10000042598608900BAEAEA /* WidgetSmokeUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +66,7 @@
 		7DED5B3B25B072C400C9574E /* CONTRIBUTIONSExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CONTRIBUTIONSExtension.entitlements; sourceTree = "<group>"; };
 		B10000012598608900BAEAEA /* GITGETUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GITGETUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B10000022598608900BAEAEA /* GITGETUITestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GITGETUITestCase.swift; sourceTree = "<group>"; };
-		B10000032598608900BAEAEA /* SettingFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFlowUITests.swift; sourceTree = "<group>"; };
+		B10000032598608900BAEAEA /* MainTabFlowUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabFlowUITests.swift; sourceTree = "<group>"; };
 		B10000042598608900BAEAEA /* WidgetSmokeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSmokeUITests.swift; sourceTree = "<group>"; };
 		B10000052598608900BAEAEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -181,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				B10000022598608900BAEAEA /* GITGETUITestCase.swift */,
-				B10000032598608900BAEAEA /* SettingFlowUITests.swift */,
+				B10000032598608900BAEAEA /* MainTabFlowUITests.swift */,
 				B10000042598608900BAEAEA /* WidgetSmokeUITests.swift */,
 				B10000052598608900BAEAEA /* Info.plist */,
 			);
@@ -392,7 +392,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B10000072598608900BAEAEA /* GITGETUITestCase.swift in Sources */,
-				B10000082598608900BAEAEA /* SettingFlowUITests.swift in Sources */,
+				B10000082598608900BAEAEA /* MainTabFlowUITests.swift in Sources */,
 				B10000092598608900BAEAEA /* WidgetSmokeUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

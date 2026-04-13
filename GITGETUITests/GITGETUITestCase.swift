@@ -1,6 +1,11 @@
 import XCTest
 
 class GITGETUITestCase: XCTestCase {
+    enum InterfaceStyle {
+        case system
+        case dark
+    }
+
     var app = XCUIApplication()
 
     override func setUpWithError() throws {
@@ -9,13 +14,22 @@ class GITGETUITestCase: XCTestCase {
     }
 
     @discardableResult
-    func launchApp(state: String = "initial", preserveSelection: Bool = false, preserveTeamStore: Bool = false) -> XCUIApplication {
+    func launchApp(
+        state: String = "initial",
+        preserveSelection: Bool = false,
+        preserveTeamStore: Bool = false,
+        interfaceStyle: InterfaceStyle = .system
+    ) -> XCUIApplication {
         if app.state != .notRunning {
             app.terminate()
         }
 
         app = XCUIApplication()
         app.launchArguments = ["-ApplePersistenceIgnoreState", "YES"]
+
+        if interfaceStyle == .dark {
+            app.launchArguments += ["-uiuserinterfacestyle", "dark"]
+        }
 
         app.launchEnvironment["GITGET_UI_TEST_MODE"] = "1"
         app.launchEnvironment["GITGET_UI_TEST_STATE"] = state

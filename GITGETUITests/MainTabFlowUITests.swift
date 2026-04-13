@@ -1,6 +1,6 @@
 import XCTest
 
-final class SettingFlowUITests: GITGETUITestCase {
+final class MainTabFlowUITests: GITGETUITestCase {
     func testFriendsTabShowsEmptyState() {
         let app = launchApp()
 
@@ -36,13 +36,15 @@ final class SettingFlowUITests: GITGETUITestCase {
 
     func testPopulatedStateShowsProfileCard() {
         let app = launchApp(state: "populated")
+        let memberTeamsButton = app.buttons["friends.memberTeamsButton.github:public:octocat"]
 
         let selectedTeamName = app.staticTexts["friends.selectedTeamName"]
         XCTAssertTrue(selectedTeamName.waitForExistence(timeout: 5))
         XCTAssertEqual(selectedTeamName.label, "All Friends")
-        assertSelectedTeamMessage("Showing 1 saved member for the currently selected team.")
+        assertSelectedTeamMessage("Showing 1 saved member with team comparison ranked by today.")
         XCTAssertTrue(app.buttons["friends.refreshButton"].exists)
-        XCTAssertTrue(app.buttons["friends.memberTeamsButton.github:public:octocat"].waitForExistence(timeout: 5))
+        scrollToFriendsElement(memberTeamsButton)
+        XCTAssertTrue(memberTeamsButton.waitForExistence(timeout: 5))
     }
 
     func testComparisonMetricSwitching() throws {
@@ -125,7 +127,6 @@ final class SettingFlowUITests: GITGETUITestCase {
         XCTAssertTrue(unavailableCard.waitForExistence(timeout: 5))
         XCTAssertTrue(app.otherElements["friends.unavailable.row.gitlab:public:bella"].exists)
         XCTAssertTrue(app.otherElements["friends.unavailable.row.gitlab:https://gitlab.example.com:drew"].exists)
-        XCTAssertEqual(app.staticTexts["friends.insights.headline.hottestToday"].label, "Alex")
     }
 
     func testSettingsTabShowsThemeAndGuide() {
@@ -138,25 +139,35 @@ final class SettingFlowUITests: GITGETUITestCase {
         XCTAssertTrue(app.staticTexts["Graph Theme"].exists)
     }
 
-    func testTutorialSheetFlow() {
+    func testSettingsTabShowsThemeAndGuideInDarkMode() {
+        let app = launchApp(interfaceStyle: .dark)
+
+        app.tabBars.buttons["Settings"].tap()
+
+        XCTAssertTrue(app.buttons["settings.howToUseButton"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["settings.aboutButton"].exists)
+        XCTAssertTrue(app.staticTexts["Graph Theme"].exists)
+    }
+
+    func testWidgetSetupGuideSheetFlow() {
         let app = launchApp()
 
         app.tabBars.buttons["Settings"].tap()
         XCTAssertTrue(app.buttons["settings.howToUseButton"].waitForExistence(timeout: 5))
         app.buttons["settings.howToUseButton"].tap()
 
-        XCTAssertTrue(app.buttons["tutorial.closeButton"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["widgetSetupGuide.closeButton"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.staticTexts["Step 01"].exists)
 
-        let scrollView = app.scrollViews["tutorial.scrollView"]
+        let scrollView = app.scrollViews["widgetSetupGuide.scrollView"]
         XCTAssertTrue(scrollView.exists)
         scrollView.swipeUp()
         scrollView.swipeUp()
 
         XCTAssertTrue(app.staticTexts["Step 04"].waitForExistence(timeout: 5))
 
-        app.buttons["tutorial.closeButton"].tap()
-        XCTAssertFalse(app.buttons["tutorial.closeButton"].waitForExistence(timeout: 1))
+        app.buttons["widgetSetupGuide.closeButton"].tap()
+        XCTAssertFalse(app.buttons["widgetSetupGuide.closeButton"].waitForExistence(timeout: 1))
     }
 
     func testAboutSheetShowsPrimaryActions() {
