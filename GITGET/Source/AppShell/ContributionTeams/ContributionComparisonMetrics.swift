@@ -26,7 +26,10 @@ struct ContributionComparisonMetrics: Equatable {
     }
 
     init(contributions: [Contribution], referenceDate: Date = Date()) {
-        let calendar = Calendar.gitHubUTC
+        self.init(contributions: contributions, referenceDate: referenceDate, calendar: .gitHubUTC)
+    }
+
+    init(contributions: [Contribution], referenceDate: Date = Date(), calendar: Calendar) {
         let today = calendar.startOfDay(for: referenceDate)
 
         todayContributionCount = contributions.last(where: { calendar.isDate($0.date, inSameDayAs: today) })?.count ?? 0

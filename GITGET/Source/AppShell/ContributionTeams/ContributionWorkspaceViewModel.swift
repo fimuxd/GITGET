@@ -111,9 +111,12 @@ final class ContributionWorkspaceViewModel: ObservableObject {
             serverOrigin: enteredServerOrigin
         )
 
+        if account.provider == .gitlab, selectedTheme == .default {
+            selectedTheme = .gitlab
+        }
+
         if profilesByAccountID[account.id] != nil {
             enteredUserName = ""
-            enteredServerOrigin = ""
             refreshProfile(for: account)
             return
         }
@@ -121,7 +124,6 @@ final class ContributionWorkspaceViewModel: ObservableObject {
         profilesByAccountID[account.id] = Self.placeholderProfile(for: account)
         addAccountToTeamStore(account)
         enteredUserName = ""
-        enteredServerOrigin = ""
         refreshProfile(for: account)
     }
 
@@ -382,6 +384,10 @@ final class ContributionWorkspaceViewModel: ObservableObject {
         guard var profile = profilesByAccountID[id] else { return }
         profile.isLoading = isLoading
         profile.errorMessage = nil
+        if isLoading {
+            profile.contributions = []
+            profile.hasResolvedContributions = false
+        }
         profilesByAccountID[id] = profile
         syncSelectedProfiles()
     }
@@ -412,13 +418,13 @@ final class ContributionWorkspaceViewModel: ObservableObject {
                 hasResolvedContributions: true
             )
 
-        case (.success(let user), .failure):
+        case (.success(let user), .failure(let contributionsError)):
             return ContributionAccountProfileState(
                 account: account,
                 user: user,
                 contributions: [],
                 isLoading: false,
-                errorMessage: "Could not load contribution graph.",
+                errorMessage: Self.makeProfileErrorMessage(contributionsError),
                 hasResolvedUser: true,
                 hasResolvedContributions: false
             )
@@ -444,17 +450,26 @@ final class ContributionWorkspaceViewModel: ObservableObject {
                 hasResolvedContributions: true
             )
 
-        case (.failure, .failure):
+        case (.failure(let userError), .failure(let contributionsError)):
             return ContributionAccountProfileState(
                 account: account,
                 user: nil,
                 contributions: [],
                 isLoading: false,
-                errorMessage: "Account not found or currently unavailable.",
+                errorMessage: Self.makeProfileErrorMessage(contributionsError, fallback: Self.makeProfileErrorMessage(userError)),
                 hasResolvedUser: false,
                 hasResolvedContributions: false
             )
         }
+    }
+
+    private static func makeProfileErrorMessage(_ error: Error, fallback: String? = nil) -> String {
+        let resolvedDescription = error.localizedDescription.trimmingCharacters(in: .whitespacesAndNewlines)
+        if resolvedDescription.isEmpty || resolvedDescription == "The operation couldn’t be completed." {
+            return fallback ?? "Account not found or currently unavailable."
+        }
+
+        return resolvedDescription
     }
 
     func apply(_ profile: ContributionAccountProfileState) {

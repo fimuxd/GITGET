@@ -15,6 +15,18 @@ struct ContributionProfileCardView: View {
         isWideLayout ? 132 : 110
     }
 
+    private let chartSpacing: CGFloat = 3
+    private let chartRows: CGFloat = 7
+
+    private var chartCellSize: CGFloat {
+        let totalSpacing = chartSpacing * (chartRows - 1)
+        return max(8, (chartHeight - totalSpacing) / chartRows)
+    }
+
+    private var chartColumns: Int {
+        cellColors.count
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             header
@@ -94,7 +106,7 @@ struct ContributionProfileCardView: View {
     private var graph: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Text(verbatim: "Contributions in \(Date().gitHubYearString)")
+                Text(verbatim: "Contributions in \(profile.contributionYearLabel)")
                     .font(.system(size: 11, weight: .medium, design: .monospaced))
                     .foregroundColor(Color.secondaryText)
                     .textCase(.uppercase)
@@ -104,14 +116,18 @@ struct ContributionProfileCardView: View {
                     .foregroundColor(theme.levelFourColor)
             }
 
-            CalendarChart(columns: 20, spacing: 3.0) { row, column in
+            CalendarChart(columns: chartColumns, spacing: chartSpacing) { row, column in
                 if let color = cellColors.element(at: row)?.element(at: column) {
-                    color.modifier(CalendarChartCell())
+                    color
+                        .frame(width: chartCellSize, height: chartCellSize)
+                        .modifier(CalendarChartCell())
                 } else {
                     Color.clear
+                        .frame(width: chartCellSize, height: chartCellSize)
                 }
             }
             .frame(height: chartHeight)
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }
 

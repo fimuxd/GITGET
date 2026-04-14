@@ -11,6 +11,22 @@ struct ContributionAccountProfileState: Identifiable {
 
     var id: String { account.id }
 
+    private var metricsCalendar: Calendar {
+        account.provider == .gitlab ? .autoupdatingCurrent : .gitHubUTC
+    }
+
+    private var contributionYear: Int {
+        switch account.provider {
+        case .github:
+            return metricsCalendar.component(.year, from: Date())
+        case .gitlab:
+            if let createdAt = user?.createdAt {
+                return metricsCalendar.component(.year, from: createdAt)
+            }
+            return metricsCalendar.component(.year, from: Date())
+        }
+    }
+
     var providerTitle: String { account.provider.title }
     var username: String { user?.login ?? account.username }
     var name: String { user?.name ?? account.username }
@@ -19,15 +35,24 @@ struct ContributionAccountProfileState: Identifiable {
     var company: String { user?.company ?? "Independent" }
     var followers: String { Self.formattedCount(user?.followers ?? 0) }
     var following: String { Self.formattedCount(user?.following ?? 0) }
-    var startYear: String { user?.createdAt?.gitHubYearString ?? Date().gitHubYearString }
+    var startYear: String {
+        if let createdAt = user?.createdAt {
+            return String(Calendar.gitHubUTC.component(.year, from: createdAt))
+        }
+
+        return String(Calendar.gitHubUTC.component(.year, from: Date()))
+    }
+    var contributionYearLabel: String { String(contributionYear) }
     var currentYearContributions: Int {
-        contributions
-            .filter { $0.date.gitHubYear == Date().gitHubYear }
+        let calendar = metricsCalendar
+        return contributions
+            .filter { calendar.component(.year, from: $0.date) == contributionYear }
             .map(\.count)
             .reduce(0, +)
     }
     var todayContributionCount: Int? {
-        contributions.last { $0.date.isGitHubToday }?.count
+        let calendar = metricsCalendar
+        return contributions.last { calendar.isDate($0.date, inSameDayAs: Date()) }?.count
     }
     var hasContent: Bool {
         !contributions.isEmpty
@@ -51,11 +76,11 @@ struct ContributionAccountProfileState: Identifiable {
     }
 
     var comparisonMetrics: ContributionComparisonMetrics {
-        ContributionComparisonMetrics(contributions: contributions)
+        ContributionComparisonMetrics(contributions: contributions, calendar: metricsCalendar)
     }
 
     func activeStreakCount(referenceDate: Date = Date(), maxDays: Int = 7) -> Int {
-        let calendar = Calendar.gitHubUTC
+        let calendar = metricsCalendar
         let today = calendar.startOfDay(for: referenceDate)
         let countsByDay = Dictionary(uniqueKeysWithValues: contributions.map {
             (calendar.startOfDay(for: $0.date), $0.count)
@@ -78,7 +103,7 @@ struct ContributionAccountProfileState: Identifiable {
     }
 
     func sevenDayMomentum(referenceDate: Date = Date()) -> Int? {
-        let calendar = Calendar.gitHubUTC
+        let calendar = metricsCalendar
         let today = calendar.startOfDay(for: referenceDate)
         let countsByDay = Dictionary(uniqueKeysWithValues: contributions.map {
             (calendar.startOfDay(for: $0.date), $0.count)
