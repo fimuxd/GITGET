@@ -172,3 +172,4 @@ GitGetTodayExtension/Supporting Files/OAuthClientDatas.plist
 # Internal agent/work artifacts
 .sisyphus/
 .opencode-artifacts/
+dist/
