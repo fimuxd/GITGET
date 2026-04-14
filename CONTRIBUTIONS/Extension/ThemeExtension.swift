@@ -19,16 +19,18 @@ enum Theme: Int, CaseIterable {
     case fall = 7
     case freestyle = 8
     case christmas = 9
+    case gitlab = 10
 }
 
 extension Theme {
     static var selectableCases: [Theme] {
-        allCases.filter { $0 != .unknown }
+        [.default, .gitlab, .classic, .blackAndWhite, .jejuOcean, .halloween, .warm, .fall, .freestyle, .christmas]
     }
 
     var displayName: String {
         switch self {
-        case .default: return "Original"
+        case .default: return "GitHub"
+        case .gitlab: return "GitLab"
         case .classic: return "Classic"
         case .blackAndWhite: return "Go"
         case .jejuOcean: return "Ocean"
@@ -56,7 +58,7 @@ enum GitHubWidgetTheme: String, AppEnum {
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Theme")
 
     static var caseDisplayRepresentations: [GitHubWidgetTheme: DisplayRepresentation] = [
-        .default: "Original",
+        .default: "GitHub",
         .classic: "Classic",
         .blackAndWhite: "Go",
         .jejuOcean: "Ocean",
@@ -82,6 +84,7 @@ extension Theme {
     var levelOneColor: Color {
         switch self {
         case .default: return .default1
+        case .gitlab: return .gitlab1
         case .classic: return .classic1
         case .blackAndWhite: return .blackAndWhite1
         case .jejuOcean: return .jejuOcean1
@@ -97,6 +100,7 @@ extension Theme {
     var levelTwoColor: Color {
         switch self {
         case .default: return .default2
+        case .gitlab: return .gitlab2
         case .classic: return .classic2
         case .blackAndWhite: return .blackAndWhite2
         case .jejuOcean: return .jejuOcean2
@@ -112,6 +116,7 @@ extension Theme {
     var levelThreeColor: Color {
         switch self {
         case .default: return .default3
+        case .gitlab: return .gitlab3
         case .classic: return .classic3
         case .blackAndWhite: return .blackAndWhite3
         case .jejuOcean: return .jejuOcean3
@@ -127,6 +132,7 @@ extension Theme {
     var levelFourColor: Color {
         switch self {
         case .default: return .default4
+        case .gitlab: return .gitlab4
         case .classic: return .classic4
         case .blackAndWhite: return .blackAndWhite4
         case .jejuOcean: return .jejuOcean4

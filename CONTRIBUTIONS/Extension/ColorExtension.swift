@@ -12,6 +12,14 @@ extension Color {
         Color("WidgetBackground")
     }
 
+    static var widgetPrimaryText: Color {
+        Color("WidgetPrimaryText")
+    }
+
+    static var widgetSecondaryText: Color {
+        Color("WidgetSecondaryText")
+    }
+
     static var primaryText: Color {
         .primary
     }
@@ -29,6 +37,11 @@ extension Color {
     static var default2: Color { .palette(0.251, 0.769, 0.388) }
     static var default3: Color { .palette(0.188, 0.631, 0.306) }
     static var default4: Color { .palette(0.129, 0.431, 0.224) }
+
+    static var gitlab1: Color { .palette(252, 200, 171) }
+    static var gitlab2: Color { .palette(252, 109, 38) }
+    static var gitlab3: Color { .palette(226, 67, 41) }
+    static var gitlab4: Color { .palette(145, 33, 24) }
 
     // MARK: - Classic Theme
     static var classic1: Color { .palette(0.775, 0.876, 0.545) }
@@ -88,6 +101,14 @@ extension Color {
 }
 
 extension Optional where Wrapped == Color {
+    static var widgetPrimaryText: Color {
+        Color.widgetPrimaryText
+    }
+
+    static var widgetSecondaryText: Color {
+        Color.widgetSecondaryText
+    }
+
     static var primaryText: Color {
         Color.primaryText
     }

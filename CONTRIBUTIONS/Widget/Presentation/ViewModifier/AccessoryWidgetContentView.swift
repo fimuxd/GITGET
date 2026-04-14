@@ -18,7 +18,7 @@ struct AccessoryWidgetContentView: View {
 
             let cellColorSet = viewModel.cellColorSet(columnsCount: 12)
             if cellColorSet.isEmpty {
-                Text("need GitHub username🧑🏻‍💻")
+                Text("need \(viewModel.providerDisplayName) username🧑🏻‍💻")
                     .modifier(NoticeTextStyle())
             } else {
                 CalendarChart(columns: 12, spacing: 1.5) { row, column in

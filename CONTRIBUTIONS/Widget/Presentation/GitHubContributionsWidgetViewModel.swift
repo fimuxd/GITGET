@@ -16,6 +16,17 @@ struct GitHubContributionsWidgetViewModel {
     var theme: GitHubWidgetTheme {
         configuration.theme
     }
+
+    var provider: WidgetContributionProvider {
+        configuration.provider
+    }
+
+    var providerDisplayName: String {
+        switch provider {
+        case .github: return "GitHub"
+        case .gitlab: return "GitLab"
+        }
+    }
     
     var username: String? {
         let trimmedUsername = configuration.username?.trimmed
@@ -53,8 +64,9 @@ struct GitHubContributionsWidgetViewModel {
     
     //for large
     var currentYearContributions: Int {
+        let currentYear = Calendar.current.component(.year, from: Date())
         return contributions
-            .filter { $0.date.gitHubYear == Date().gitHubYear }
+            .filter { Calendar.current.component(.year, from: $0.date) == currentYear }
             .map { $0.count }.reduce(0, +)
     }
     
@@ -80,7 +92,7 @@ struct GitHubContributionsWidgetViewModel {
 //    }
     
     var bio: String {
-        user?.bio ?? "Keep GitHub Contributions Green 🟩".localized
+        user?.bio ?? "Keep \(providerDisplayName) Contributions Green 🟩".localized
     }
     
     var location: String {

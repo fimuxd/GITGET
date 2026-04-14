@@ -20,7 +20,7 @@ struct GitHubContributionsWidget: Widget {
             GitHubContributionsWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("GITGET")
-        .description("GITHUB CONTRIBUTIONS")
+        .description("GITHUB OR GITLAB CONTRIBUTIONS")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
         .contentMarginsDisabled()
         .containerBackgroundRemovable()

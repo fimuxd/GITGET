@@ -9,9 +9,31 @@ import Foundation
 import AppIntents
 import WidgetKit
 
+enum WidgetContributionProvider: String, AppEnum {
+    case github
+    case gitlab
+
+    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Provider")
+
+    static var caseDisplayRepresentations: [WidgetContributionProvider: DisplayRepresentation] = [
+        .github: "GitHub",
+        .gitlab: "GitLab"
+    ]
+
+    var contributionProvider: ContributionProvider {
+        switch self {
+        case .github: return .github
+        case .gitlab: return .gitlab
+        }
+    }
+}
+
 struct GitHubContributionsWidgetIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "CONTRIBUTIONS"
-    static var description = IntentDescription("GitHub contributions")
+    static var description = IntentDescription("GitHub or GitLab contributions")
+
+    @Parameter(title: "Provider", default: .github)
+    var provider: WidgetContributionProvider
 
     @Parameter(title: "Username")
     var username: String?
@@ -20,11 +42,13 @@ struct GitHubContributionsWidgetIntent: WidgetConfigurationIntent {
     var theme: GitHubWidgetTheme
 
     init() {
+        provider = .github
         username = nil
         theme = .default
     }
 
-    init(username: String? = nil, theme: GitHubWidgetTheme = .default) {
+    init(provider: WidgetContributionProvider = .github, username: String? = nil, theme: GitHubWidgetTheme = .default) {
+        self.provider = provider
         self.username = username
         self.theme = theme
     }
@@ -36,8 +60,8 @@ struct GitHubContributionsProvider: AppIntentTimelineProvider {
 
     private let refreshIntervalMinutes = 5
 
-    static func gitHubAccount(for username: String) -> ContributionAccount {
-        ContributionAccount(provider: .github, username: username)
+    static func account(for provider: WidgetContributionProvider, username: String) -> ContributionAccount {
+        ContributionAccount(provider: provider.contributionProvider, username: username)
     }
     
     func placeholder(in context: Context) -> Entry {
@@ -64,7 +88,7 @@ struct GitHubContributionsProvider: AppIntentTimelineProvider {
             return Timeline(entries: [entry], policy: .after(refreshDate))
         }
 
-        let account = Self.gitHubAccount(for: username)
+        let account = Self.account(for: configuration.provider, username: username)
         async let contributionResponse = ContributionAPI.contributions(of: account)
         let userResult: Result<User, Error>?
 
