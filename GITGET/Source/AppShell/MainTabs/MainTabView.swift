@@ -41,6 +41,7 @@ struct MainTabView: View {
     @State private var pendingDeletedTeam: ContributionTeam?
     @State private var teamSheetRoute: TeamSheetRoute?
     @ObservedObject var viewModel: ContributionWorkspaceViewModel
+    @ObservedObject var gitLabAuth: GitLabAuthentication
 
     private var hasTeams: Bool {
         !viewModel.teams.isEmpty
@@ -59,7 +60,11 @@ struct MainTabView: View {
     }
 
     private var profileChartColumnCount: Int {
-        isWideLayout ? 28 : 20
+        #if targetEnvironment(macCatalyst)
+        return 40
+        #else
+        return isWideLayout ? 28 : 20
+        #endif
     }
 
     var body: some View {
@@ -90,6 +95,9 @@ struct MainTabView: View {
         .sheet(isPresented: $showAbout) {
             AboutView()
                 .presentationDetents(aboutPresentationDetents)
+        }
+        .sheet(item: Binding(get: { gitLabAuth.activeWebLogin }, set: { gitLabAuth.activeWebLogin = $0 })) { context in
+            GitLabWebAuthenticationSheet(context: context, auth: gitLabAuth)
         }
         .sheet(item: $teamSheetRoute) { route in
             switch route {
@@ -360,9 +368,78 @@ struct MainTabView: View {
             Text("Optional for GitHub Enterprise Server or self-managed GitLab.")
                 .font(.system(size: 12, design: .monospaced))
                 .foregroundColor(.secondary)
+
+            if viewModel.selectedProvider == .gitlab {
+                gitLabAuthenticationSection
+            }
         } header: {
             Text(addFriendSectionTitle)
         }
+    }
+
+    private var gitLabAuthenticationSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("GitLab OAuth Sign-In")
+                .font(.system(size: 11, weight: .medium, design: .monospaced))
+                .foregroundColor(Color.secondaryText)
+                .textCase(.uppercase)
+
+            TextField(
+                "GitLab OAuth Client ID (not glpat token)",
+                text: Binding(
+                    get: { gitLabAuth.clientID(forServerOrigin: viewModel.enteredServerOrigin) },
+                    set: { gitLabAuth.setClientID($0, forServerOrigin: viewModel.enteredServerOrigin) }
+                )
+            )
+            .textFieldStyle(.roundedBorder)
+            .textInputAutocapitalization(.never)
+            .autocorrectionDisabled()
+            .accessibilityIdentifier("friends.gitlabClientIDField")
+
+            Text("Current sign-in target: \(gitLabAuth.resolvedOrigin(serverOrigin: viewModel.enteredServerOrigin))")
+                .font(.system(size: 12, weight: .bold, design: .monospaced))
+                .foregroundColor(Color.primaryText)
+
+            if viewModel.enteredServerOrigin.trimmed.isEmpty {
+                Text("If you are using a self-managed company GitLab, enter its Server URL first. Leaving it blank will sign in against gitlab.com.")
+                    .font(.system(size: 12, design: .monospaced))
+                    .foregroundColor(Color.secondaryText)
+            }
+
+            Text("Register a GitLab OAuth app on the target GitLab host with redirect URI \(gitLabAuth.redirectURIString). Paste the OAuth Client ID here, then sign in through Okta inside the app. Do not use a Personal Access Token that starts with 'glpat-'.")
+                .font(.system(size: 12, design: .monospaced))
+                .foregroundColor(Color.secondaryText)
+
+            HStack(spacing: 12) {
+                Button(gitLabAuth.isAuthenticated(serverOrigin: viewModel.enteredServerOrigin) ? "Re-authenticate GitLab" : "Sign In to GitLab") {
+                    Task {
+                        let didAuthenticate = await gitLabAuth.signIn(serverOrigin: viewModel.enteredServerOrigin)
+                        if didAuthenticate {
+                            viewModel.refreshAll()
+                        }
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(gitLabAuth.clientID(forServerOrigin: viewModel.enteredServerOrigin).trimmed.isEmpty || gitLabAuth.isAuthenticating(serverOrigin: viewModel.enteredServerOrigin))
+                .accessibilityIdentifier("friends.gitlabSignInButton")
+
+                if gitLabAuth.isAuthenticated(serverOrigin: viewModel.enteredServerOrigin) {
+                    Button("Sign Out") {
+                        gitLabAuth.signOut(serverOrigin: viewModel.enteredServerOrigin)
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibilityIdentifier("friends.gitlabSignOutButton")
+                }
+            }
+
+            if let statusMessage = gitLabAuth.statusMessage(forServerOrigin: viewModel.enteredServerOrigin) {
+                Text(statusMessage)
+                    .font(.system(size: 12, design: .monospaced))
+                    .foregroundColor(Color.secondaryText)
+                    .accessibilityIdentifier("friends.gitlabAuthStatus")
+            }
+        }
+        .padding(.top, 4)
     }
 
     private var friendListSection: some View {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Security
 
 enum ContributionProvider: String, CaseIterable, Codable, Identifiable {
     case github
@@ -97,6 +98,12 @@ enum ContributionProvider: String, CaseIterable, Codable, Identifiable {
         return URL(string: origin) ?? defaultWebOrigin
     }
 
+    func resolvedWebOriginString(serverOrigin: String?) -> String {
+        webBaseURL(serverOrigin: serverOrigin)
+            .absoluteString
+            .trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+    }
+
     func apiBaseURL(serverOrigin: String?) -> URL {
         guard let origin = normalizedServerOrigin(serverOrigin) else {
             return defaultAPIBaseURL
@@ -112,6 +119,7 @@ enum ContributionProvider: String, CaseIterable, Codable, Identifiable {
 }
 
 struct User: Decodable {
+    let id: Int?
     let login: String?
     let name: String?
     let profileImageURL: String?
@@ -123,13 +131,14 @@ struct User: Decodable {
     let createdAt: Date?
     
     enum CodingKeys: String, CodingKey {
-        case login, username, name, bio, location, company, organization, followers, following
+        case id, login, username, name, bio, location, company, organization, followers, following
         case profileImageURL = "avatar_url"
         case createdAt = "created_at"
     }
 
     init(
         login: String?,
+        id: Int? = nil,
         name: String?,
         profileImageURL: String?,
         bio: String?,
@@ -139,6 +148,7 @@ struct User: Decodable {
         following: Int?,
         createdAt: Date?
     ) {
+        self.id = id
         self.login = login
         self.name = name
         self.profileImageURL = profileImageURL
@@ -153,6 +163,7 @@ struct User: Decodable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
+        self.id = try values.decodeIfPresent(Int.self, forKey: .id)
         self.login = try values.decodeIfPresent(String.self, forKey: .login)
             ?? values.decodeIfPresent(String.self, forKey: .username)
         self.name = try values.decodeIfPresent(String.self, forKey: .name)
@@ -164,5 +175,191 @@ struct User: Decodable {
         self.followers = try values.decodeIfPresent(Int.self, forKey: .followers)
         self.following = try values.decodeIfPresent(Int.self, forKey: .following)
         self.createdAt = Date.parse(values, key: .createdAt)
+    }
+}
+
+enum GitLabRequestAuthorization {
+    private static let clientIDStoreKey = "gitlabOAuthClientIDs"
+    private static let tokenService = "kr.devfimuxd.gitget.0.gitlab.tokens"
+    private static let fallbackKeyPrefix = "gitlabOAuthFallbackTokens."
+
+    static func authorizedRequest(_ request: URLRequest, for account: ContributionAccount) async -> URLRequest {
+        guard account.provider == .gitlab else {
+            return request
+        }
+
+        let origin = ContributionProvider.gitlab.resolvedWebOriginString(serverOrigin: account.serverOrigin)
+        var authorizedRequest = request
+
+        if let url = request.url,
+           let cookies = HTTPCookieStorage.shared.cookies(for: url),
+           !cookies.isEmpty {
+            HTTPCookie.requestHeaderFields(with: cookies).forEach { header, value in
+                authorizedRequest.setValue(value, forHTTPHeaderField: header)
+            }
+        }
+
+        if let accessToken = await validAccessToken(forOrigin: origin) {
+            authorizedRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+
+        return authorizedRequest
+    }
+
+    private static func validAccessToken(forOrigin origin: String) async -> String? {
+        guard var tokens = readTokens(forOrigin: origin) else {
+            return nil
+        }
+
+        if !tokens.isExpired {
+            return tokens.accessToken
+        }
+
+        guard let refreshToken = tokens.refreshToken,
+              let clientID = (UserDefaults.standard.dictionary(forKey: clientIDStoreKey) as? [String: String])?[origin],
+              !clientID.trimmed.isEmpty else {
+            return nil
+        }
+
+        guard let refreshedTokens = try? await refreshTokens(origin: origin, clientID: clientID, refreshToken: refreshToken) else {
+            return nil
+        }
+
+        writeTokens(refreshedTokens, forOrigin: origin)
+        tokens = refreshedTokens
+        return tokens.accessToken
+    }
+
+    private static func refreshTokens(origin: String, clientID: String, refreshToken: String) async throws -> StoredTokens {
+        guard let tokenURL = URL(string: origin + "/oauth/token") else {
+            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorBadURL)
+        }
+
+        var request = URLRequest(url: tokenURL)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = [
+            "grant_type": "refresh_token",
+            "refresh_token": refreshToken,
+            "client_id": clientID
+        ]
+        .sorted { $0.key < $1.key }
+        .map { key, value in
+            let escapedKey = key.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? key
+            let escapedValue = value.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? value
+            return "\(escapedKey)=\(escapedValue)"
+        }
+        .joined(separator: "&")
+        .data(using: .utf8)
+
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse,
+              (200..<300).contains(httpResponse.statusCode) else {
+            throw NSError(domain: NSURLErrorDomain, code: NSURLErrorBadServerResponse)
+        }
+
+        let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
+        return tokenResponse.tokens
+    }
+
+    private static func readTokens(forOrigin origin: String) -> StoredTokens? {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: tokenService,
+            kSecAttrAccount: origin,
+            kSecReturnData: true,
+            kSecMatchLimit: kSecMatchLimitOne
+        ]
+
+        var result: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+
+        if status == errSecMissingEntitlement || status == errSecNotAvailable {
+            return fallbackTokens(forOrigin: origin)
+        }
+
+        guard status == errSecSuccess,
+              let data = result as? Data else {
+            return fallbackTokens(forOrigin: origin)
+        }
+
+        return try? JSONDecoder().decode(StoredTokens.self, from: data)
+    }
+
+    private static func writeTokens(_ tokens: StoredTokens, forOrigin origin: String) {
+        guard let data = try? JSONEncoder().encode(tokens) else {
+            return
+        }
+
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: tokenService,
+            kSecAttrAccount: origin
+        ]
+
+        let updateStatus = SecItemUpdate(query as CFDictionary, [kSecValueData: data] as CFDictionary)
+        if updateStatus == errSecItemNotFound {
+            var insertQuery = query
+            insertQuery[kSecValueData] = data
+            let insertStatus = SecItemAdd(insertQuery as CFDictionary, nil)
+            if insertStatus == errSecMissingEntitlement || insertStatus == errSecNotAvailable {
+                storeFallbackTokens(data, forOrigin: origin)
+            }
+            return
+        }
+
+        if updateStatus == errSecMissingEntitlement || updateStatus == errSecNotAvailable {
+            storeFallbackTokens(data, forOrigin: origin)
+        }
+    }
+
+    private static func fallbackTokens(forOrigin origin: String) -> StoredTokens? {
+        guard let data = UserDefaults.standard.data(forKey: fallbackKey(forOrigin: origin)) else {
+            return nil
+        }
+
+        return try? JSONDecoder().decode(StoredTokens.self, from: data)
+    }
+
+    private static func storeFallbackTokens(_ data: Data, forOrigin origin: String) {
+        UserDefaults.standard.set(data, forKey: fallbackKey(forOrigin: origin))
+    }
+
+    private static func fallbackKey(forOrigin origin: String) -> String {
+        fallbackKeyPrefix + origin
+    }
+
+    private struct StoredTokens: Codable {
+        let accessToken: String
+        let refreshToken: String?
+        let expiresAt: Date?
+
+        var isExpired: Bool {
+            guard let expiresAt else {
+                return false
+            }
+
+            return expiresAt <= Date().addingTimeInterval(30)
+        }
+    }
+
+    private struct TokenResponse: Decodable {
+        let accessToken: String
+        let refreshToken: String?
+        let expiresIn: Int?
+
+        enum CodingKeys: String, CodingKey {
+            case accessToken = "access_token"
+            case refreshToken = "refresh_token"
+            case expiresIn = "expires_in"
+        }
+
+        var tokens: StoredTokens {
+            StoredTokens(
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+                expiresAt: expiresIn.map { Date().addingTimeInterval(TimeInterval($0)) }
+            )
+        }
     }
 }
