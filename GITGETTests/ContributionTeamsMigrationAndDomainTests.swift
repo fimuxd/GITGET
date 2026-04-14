@@ -267,6 +267,79 @@ XCTAssertNil(userDefaults.data(forKey: ContributionWorkspaceViewModel.accountsKe
         XCTAssertEqual(contributions.map { Contribution.string(from: $0.date) }, ["2026-04-07", "2026-04-08", "2026-04-09"])
     }
 
+    func testGitLabContributionsParsesCalendarJSONSample() throws {
+        let contributions = try ContributionAPI.parseGitLabCalendar([
+            "2026-02-09": 10,
+            "2025-11-19": 7,
+            "2025-10-30": 14,
+            "2026-04-13": 9,
+            "2025-04-15": 17
+        ])
+
+        XCTAssertFalse(contributions.isEmpty)
+        XCTAssertTrue(contributions.contains { $0.count > 0 })
+        XCTAssertTrue(contributions.contains { $0.level != .zero })
+    }
+
+    func testGitLabContributionParserAcceptsISODateKeys() throws {
+        let contributions = try ContributionAPI.parseGitLabCalendar([
+            "2026-04-13T00:00:00Z": 9,
+            "2026-04-14T00:00:00+0000": 5,
+            "2026-04-15": 3
+        ])
+
+        XCTAssertFalse(contributions.isEmpty)
+        XCTAssertEqual(contributions.last(where: { $0.count > 0 })?.count, 5)
+        XCTAssertTrue(contributions.contains { $0.level != .zero })
+    }
+
+    func testGitLabContributionParserThrowsWhenEveryDateKeyIsDropped() {
+        XCTAssertThrowsError(try ContributionAPI.parseGitLabCalendar([
+            "not-a-date": 9,
+            "still-not-a-date": 5
+        ]))
+    }
+
+    func testGitLabEventsAggregateUsingContributionRules() throws {
+        let today = try XCTUnwrap(Contribution.date(from: "2026-04-14"))
+        var kstCalendar = Calendar(identifier: .gregorian)
+        kstCalendar.timeZone = try XCTUnwrap(TimeZone(identifier: "Asia/Seoul"))
+        let events = try decodeGitLabEvents(from: """
+        [
+          {"action_name":"approved","target_type":"MergeRequest","created_at":"2026-04-13T06:24:34.300Z"},
+          {"action_name":"approved","target_type":"MergeRequest","created_at":"2026-04-13T06:23:58.807Z"},
+          {"action_name":"accepted","target_type":"MergeRequest","created_at":"2026-04-13T06:22:24.440Z"},
+          {"action_name":"pushed to","created_at":"2026-04-13T06:22:24.487Z","push_data":{"commit_count":3}},
+          {"action_name":"deleted","created_at":"2026-04-13T06:22:26.884Z","push_data":{"commit_count":0,"action":"removed","ref_type":"branch"}},
+          {"action_name":"commented on","target_type":"DiffNote","created_at":"2026-04-13T01:03:09.537Z","note":{"noteable_type":"MergeRequest"}},
+          {"action_name":"approved","target_type":"MergeRequest","created_at":"2026-04-13T00:43:01.005Z"},
+          {"action_name":"pushed to","created_at":"2026-04-13T01:16:52.000Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-13T00:19:15.001Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-09T23:37:24.902Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-09T23:28:18.428Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-09T23:19:08.961Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-09T23:14:49.940Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-09T23:09:04.602Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-09T08:17:14.808Z","push_data":{"commit_count":1}},
+          {"action_name":"opened","target_type":"MergeRequest","created_at":"2026-04-09T08:01:37.321Z"},
+          {"action_name":"pushed new","created_at":"2026-04-10T07:07:38.118Z","push_data":{"commit_count":4,"action":"created","ref_type":"branch"}},
+          {"action_name":"pushed to","created_at":"2026-04-10T07:33:56.419Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-10T07:38:31.978Z","push_data":{"commit_count":1}},
+          {"action_name":"pushed to","created_at":"2026-04-10T07:51:28.581Z","push_data":{"commit_count":1}}
+        ]
+        """)
+
+        let contributions = ContributionAPI.parseGitLabEvents(events, today: today, calendar: kstCalendar)
+        let april10 = try XCTUnwrap(kstCalendar.date(from: DateComponents(year: 2026, month: 4, day: 10)))
+        let april9 = try XCTUnwrap(kstCalendar.date(from: DateComponents(year: 2026, month: 4, day: 9)))
+
+        XCTAssertEqual(contributions.last?.count, 0)
+        XCTAssertEqual(contributions.dropLast().last?.count, 9)
+        XCTAssertEqual(contributions.first(where: { kstCalendar.isDate($0.date, inSameDayAs: april10) })?.count, 9)
+        XCTAssertEqual(contributions.first(where: { kstCalendar.isDate($0.date, inSameDayAs: april9) })?.count, 2)
+        XCTAssertTrue(contributions.contains { $0.level != .zero })
+    }
+
     func testComparisonMetricsUseMostRecentSevenActiveDaysAndCurrentYearOnly() {
         let contributions = [
             makeMetricsContribution(dayOffset: 0, count: 4),
@@ -318,6 +391,10 @@ XCTAssertNil(userDefaults.data(forKey: ContributionWorkspaceViewModel.accountsKe
     private func makeMetricsContribution(dayOffset: Int, count: Int) -> Contribution {
         let date = Calendar.gitHubUTC.date(byAdding: .day, value: dayOffset, to: Date()) ?? Date()
         return Contribution(date: date, count: count, level: .zero)
+    }
+
+    private func decodeGitLabEvents(from json: String) throws -> [ContributionAPI.GitLabEvent] {
+        try JSONDecoder().decode([ContributionAPI.GitLabEvent].self, from: Data(json.utf8))
     }
 
     @MainActor
@@ -751,8 +828,8 @@ guard let data = userDefaults.data(forKey: ContributionWorkspaceViewModel.teamSt
 }
 
 final class WidgetContractTests: XCTestCase {
-    func testGitHubWidgetProviderAlwaysBuildsGitHubAccount() {
-        let account = GitHubContributionsProvider.gitHubAccount(for: "  octocat  ")
+    func testWidgetProviderBuildsSelectedAccount() {
+        let account = GitHubContributionsProvider.account(for: .github, username: "  octocat  ")
 
         XCTAssertEqual(account.provider, .github)
         XCTAssertEqual(account.username, "octocat")
@@ -762,12 +839,13 @@ final class WidgetContractTests: XCTestCase {
     func testGitHubWidgetIntentKeepsOnlyExpectedConfigurationFields() {
         let intent = GitHubContributionsWidgetIntent()
 
+        XCTAssertEqual(intent.provider, .github)
         XCTAssertNil(intent.username)
         XCTAssertEqual(intent.theme, .default)
     }
 
     func testWidgetDisplayUsernameFallsBackToConfiguredUsername() {
-        let intent = GitHubContributionsWidgetIntent(username: "octocat")
+        let intent = GitHubContributionsWidgetIntent(provider: .github, username: "octocat")
         let viewModel = GitHubContributionsWidgetViewModel(contributions: [], configuration: intent)
 
         XCTAssertEqual(viewModel.displayUsername, "octocat")
