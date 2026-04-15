@@ -9,7 +9,7 @@ import Foundation
 
 struct AboutConstants {
     struct Email {
-        static let emailAddress = "support@example.com"
+        static let emailAddress = "me@boyoung.dev"
         static let subject = "[Example App] Feedback"
         static let body = "Thanks for your feedback!\nKindly write your advise here. :)".localized
             + """
@@ -22,10 +22,10 @@ struct AboutConstants {
     }
     
     struct SNS {
-        static let github = "https://example.com/profile"
-        static let linkedin = "https://example.com/network"
-        static let linkedinDirect = "https://example.com/network"
-        static let instagram = "https://example.com/gallery"
-        static let instagramDirect = "https://example.com/gallery"
+        static let github = "https://github.com/fimuxd"
+        static let linkedin = "https://www.linkedin.com/in/parkboyoung/"
+        static let linkedinDirect = "linkedin://profile/parkboyoung"
+        static let instagram = "https://www.instagram.com/fimuxd/"
+        static let instagramDirect = "instagram://user?username=fimuxd"
     }
 }

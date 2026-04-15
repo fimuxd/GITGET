@@ -124,7 +124,3 @@ struct ContributionComparisonRowView: View {
         .accessibilityIdentifier("friends.comparison.row.\(input.id)")
     }
 }
-
-#Preview {
-    ContributionComparisonRowView(rank: 0, input: .init(account: .init(provider: .github, username: "fimuxd"), displayName: "박보영", username: "fimuxd", providerTitle: "GitHub", metrics: .zero, availability: .complete, errorMessage: nil), metric: .currentYear, theme: .gitlab)
-}
